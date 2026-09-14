@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Publish profile para la extension SQL Database Projects. Cargar via
+     "Select Profile" en el dialog de Publish. Contiene SOLO opciones de deploy
+     invariantes del proyecto:
+       - TargetDatabaseName / DeployScriptFileName
+       - CreateNewDatabase, IncludeCompositeObjects, BlockOnPossibleDataLoss
+
+     NO contiene:
+       - TargetConnectionString: la extension VS Code usa connections
+         registradas (se elige en el dialog), ignora la del profile.
+       - SqlCmdVariables Value: vienen del <DefaultValue> hardcoded en el
+         sqlproj. Mantenerlas aqui solo duplicaria valores. -->
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TargetDatabaseName>flxCatalog_IC</TargetDatabaseName>
+    <DeployScriptFileName>flxCatalog_IC.sql</DeployScriptFileName>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <CreateNewDatabase>True</CreateNewDatabase>
+    <BlockOnPossibleDataLoss>True</BlockOnPossibleDataLoss>
+    <ProfileVersionNumber>1</ProfileVersionNumber>
+  </PropertyGroup>
+</Project>

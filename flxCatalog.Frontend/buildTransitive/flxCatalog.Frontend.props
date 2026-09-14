@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Si el producto tiene .d.ts propios en cualquier subcarpeta de wwwroot, se propagan
+       automáticamente a consumidores Level N via buildTransitive. El glob es **\*.d.ts
+       (recursivo desde la raíz de staticwebassets) para no asumir una carpeta concreta:
+       cada producto cuelga su árbol de donde quiera (js/, ProductName/js/, etc.) y aún
+       así sus declaraciones se exponen. Si no hay .d.ts propios el glob no encuentra
+       nada y este bloque es un no-op. -->
+  <ItemGroup>
+    <TypeScriptCompile Include="$(MSBuildThisFileDirectory)..\staticwebassets\**\*.d.ts">
+      <Visible>false</Visible>
+    </TypeScriptCompile>
+  </ItemGroup>
+
+  <!-- StaticWebAssets registration para consumidores del nivel siguiente.
+       Imprescindible para que WebRootFileProvider del hijo vea estos assets
+       en el CompositeFileProvider (sin este bloque, los assets viajan en el
+       nupkg pero no se registran y solo aparecen los del root level y los
+       físicos propios del consumidor, saltándose niveles intermedios).
+       SourceId distinto en cada nivel evita colisiones en el dedup de NuGet. -->
+  <ItemGroup>
+    <StaticWebAsset Include="$(MSBuildThisFileDirectory)..\staticwebassets\**\*.*">
+      <SourceType>Package</SourceType>
+      <SourceId>flxCatalog.Frontend</SourceId>
+      <ContentRoot>$([MSBuild]::EnsureTrailingSlash('$(MSBuildThisFileDirectory)..\staticwebassets'))</ContentRoot>
+      <BasePath>/</BasePath>
+      <RelativePath>%(RecursiveDir)%(Filename)%(Extension)</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </StaticWebAsset>
+  </ItemGroup>
+
+</Project>

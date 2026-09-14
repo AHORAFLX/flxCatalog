@@ -1,0 +1,51 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Backend",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-backend",
+      "program": "${workspaceFolder}/flxCatalog.Backend/bin/flxCatalog.Backend.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/flxCatalog.Backend",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+https?://[^:]+:(\\d+)",
+        "uriFormat": "http://localhost:%s/"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "justMyCode": true
+    },
+    {
+      "name": "Launch Frontend",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-frontend",
+      "program": "${workspaceFolder}/flxCatalog.Frontend/bin/flxCatalog.Frontend.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/flxCatalog.Frontend",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+https?://[^:]+:(\\d+)",
+        "uriFormat": "http://localhost:%s/"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "justMyCode": true
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Launch Full Stack",
+      "configurations": ["Launch Backend", "Launch Frontend"],
+      "preLaunchTask": "build-all",
+      "stopAll": true
+    }
+  ]
+}

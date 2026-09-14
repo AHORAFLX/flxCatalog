@@ -1,0 +1,16 @@
+/*
+ * CSS propio de flxCatalog.
+ *
+ * BORRALO SIN MIEDO. Este fichero existe solo por simetria con el .ts hermano, como
+ * punto de partida para las hojas de estilo del producto. Nada depende de el: si no lo
+ * necesitas, o si prefieres tus propios .css con otros nombres, quitalo y no se rompe
+ * absolutamente nada.
+ *
+ * OJO, el .ts hermano es justo lo contrario. wwwroot/flxCatalog/js/flxCatalog.ts
+ * NO se puede borrar mientras sea el unico .ts de esa carpeta: el tsconfig.json incluye
+ * "wwwroot/**\/*.ts" y tsc trata como error (TS18003) un include que no casa con ningun
+ * fichero, asi que sin el el Frontend del producto no compila. Lee su cabecera antes de
+ * tocarlo.
+ *
+ * Se sirve estaticamente desde wwwroot/flxCatalog/css/.
+ */

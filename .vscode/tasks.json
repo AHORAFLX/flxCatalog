@@ -1,0 +1,99 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build-database",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/flxCatalog.Conf.Database/flxCatalog.Conf.Database.sqlproj",
+        "/p:NetCoreBuild=true",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build-data-database",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/flxCatalog.Data.Database/flxCatalog.Data.Database.sqlproj",
+        "/p:NetCoreBuild=true",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build-backend",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/flxCatalog.Backend/flxCatalog.Backend.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build-frontend",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/flxCatalog.Frontend/flxCatalog.Frontend.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+      },
+    {
+      "label": "docker-build-images",
+      "type": "shell",
+      // 'pwsh' (PowerShell 7) no viene con Windows y no se puede dar por instalado en
+      // la maquina de un dev. En Windows se usa 'powershell' (5.1, siempre presente):
+      // el script es compatible con las dos. Fuera de Windows solo existe pwsh.
+      "command": "pwsh",
+      "windows": {
+        "command": "powershell"
+      },
+      "args": [
+        "-NoProfile",
+        "-File",
+        "${workspaceFolder}/tools/build-docker-images.ps1"
+      ],
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "detail": "Publica los proyectos y genera las tres imagenes Docker del producto."
+    },
+    {
+      "label": "docker-up",
+      "type": "shell",
+      "command": "docker",
+      "args": ["compose", "up", "-d"],
+      "dependsOn": ["docker-build-images"],
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "detail": "Genera las imagenes si hace falta y levanta el compose. Lee las variables de .env."
+    },
+    {
+      "label": "build-all",
+      "dependsOn": [
+        "build-database",
+        "build-data-database",
+        "build-backend",
+        "build-frontend"
+      ],
+      "dependsOrder": "parallel",
+      "problemMatcher": "$msCompile",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

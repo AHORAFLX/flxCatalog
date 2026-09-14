@@ -1,0 +1,25 @@
+<Project>
+
+  <!--
+    Auto-registro del dacpac propio de este nivel como ArtifactReference en
+    cualquier nivel hijo (LN+1, LN+2, ...). Mismo patron que el .targets de
+    Flexygo.Conf.Database (L0) y flxSAT.Conf.Database (L1).
+
+    Necesario porque Microsoft.Build.Sql 2.0 solo procesa PackageReferences
+    declaradas DIRECTAMENTE — sin este registro, niveles N+2 y posteriores no
+    obtendrian este dacpac fisicamente y la compilacion fallaria al resolver
+    refs del model.xml.
+
+    NOTA: el Target FlxDatabase_MergeScripts NO se redefine — viene propagado
+    del package L0 (Flexygo.Conf.Database).
+  -->
+  <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.sqlproj'
+                    AND '$(MSBuildProjectName)' != 'flxCatalog.Conf.Database'
+                    AND Exists('$(MSBuildThisFileDirectory)..\tools\flxCatalog.Conf.Database.dacpac')">
+    <ArtifactReference Include="$(MSBuildThisFileDirectory)..\tools\flxCatalog.Conf.Database.dacpac">
+      <HintPath>$(MSBuildThisFileDirectory)..\tools\flxCatalog.Conf.Database.dacpac</HintPath>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+    </ArtifactReference>
+  </ItemGroup>
+
+</Project>

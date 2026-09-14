@@ -1,0 +1,25 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "ES6",
+        "lib": [
+            "ES6",
+            "dom"
+        ],
+        "declaration": true,
+        "noEmitOnError": true,
+        "noImplicitAny": false,
+        "removeComments": false,
+        "sourceMap": true,
+        "inlineSources": true,
+        "skipLibCheck": true
+    },
+    "include": [
+        "wwwroot/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "bin",
+        "obj"
+    ]
+}

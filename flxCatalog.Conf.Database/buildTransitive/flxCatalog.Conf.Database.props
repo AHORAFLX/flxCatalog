@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Vacío intencionalmente.
+       Modelo nuevo: el instalador consume tools/install/ del nupkg directamente
+       (dacpac + scripts SSDT), no necesita propagar install.map.json. -->
+
+</Project>

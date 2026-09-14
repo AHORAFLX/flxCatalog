@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Vacío intencionalmente.
+       Modelo nuevo: el instalador consume tools/install/ (output de dotnet publish),
+       no necesita propagar install.map.json a consumidores.
+       Si en el futuro este nivel necesita propagar algún Content específico a hijos,
+       añadirlo aquí como Content Include con CopyToPublishDirectory. -->
+
+</Project>

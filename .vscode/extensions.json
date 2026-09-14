@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "flexygo.flexygo-core-vscode-extension",
+        "ms-mssql.sql-database-projects-vscode",
+        "ms-dotnettools.csdevkit",
+        "ms-azuretools.vscode-containers"    ]
+}

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+	<metadata>
+		<id>flxCatalog.Conf.Database</id>
+		<version>1.0.0.0</version>
+		<title>flxCatalog Database</title>
+		<authors>Ahora Freeware</authors>
+		<owners>Ahora Freeware</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Create your own Professional Solutions. Flexygo allows you to immediatly build incredible Solutions for companies, professionals and individuals. For easy installation visit https://nuget.flexygo.com/</description>
+		<copyright>Copyright Â© 2017 Ahora Freeware</copyright>
+		<projectUrl>http://flexygo.com</projectUrl>
+		<iconUrl>https://docs.flexygo.com/isotipo.png</iconUrl>
+		<tags>Rad Framework Rapid CMS Builder</tags>
+		<releaseNotes/>
+		<dependencies>
+			<dependency id="Microsoft.SqlServer.Dacpacs.Master" version="160.2.1" />
+			<dependency id="Flexygo.Conf.Database" version="10.0.0-beta.56" />
+		</dependencies>
+	</metadata>
+	<files>
+		<!-- MSBuild auto-import: buildTransitive/.targets auto-registra el dacpac
+		     propio como ArtifactReference para niveles N+2 (LN+1, LN+2, ...) que
+		     no declaran PackageReference directa a este package. Asi se propaga
+		     la cadena de dacpacs a cualquier profundidad. -->
+		<file src="buildTransitive\flxCatalog.Conf.Database.targets" target="buildTransitive" />
+
+		<!-- tools/install/: dacpac (aplica el instalador en cadena).
+		     El merge script (mergeSSDTScripts.ps1) vive UNICAMENTE en
+		     Flexygo.Conf.Database (L0) y se propaga transitivamente.
+		     Aqui solo se empaqueta el dacpac propio (mas los heredados via
+		     Microsoft.Build.Sql). -->
+		<file src="bin\Release\*.dacpac" target="tools\" />
+		<file src="bin\Release\*.dacpac" target="tools\install" />
+
+		<!-- ICONO y Readme -->
+		<file src="nuget\isotipo.png" target="images\" />
+		<file src="nuget\readme.md" target="docs\" />
+	</files>
+</package>
+

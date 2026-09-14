@@ -1,0 +1,74 @@
+services:
+
+  flxcatalog-frontend:
+    image: flxcatalog-frontend:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      dockerfile: flxcatalog.Frontend/Dockerfile
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      BackendEndpoint: "http://flxcatalog-backend:8080/api/backend/"
+    ports:
+      - "${FRONTEND_PORT:-7628}:8080"
+    volumes:
+      - flxcatalog-front-conf:/app/conf
+      - flxcatalog-front-custom:/app/custom
+    networks:
+      - flxcatalog-front-network
+    depends_on:
+      - flxcatalog-backend
+
+  flxcatalog-backend:
+    image: flxcatalog-backend:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      dockerfile: flxcatalog.Backend/Dockerfile
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      MSSQL_SA_PASSWORD: "${SQL_PASSWORD:--CHANGE_me1234}"
+      FrontendEndpoint: "http://flxcatalog-frontend:8080"
+      ConnectionStrings__ConfConnectionString: "Server=flxcatalog-db;Integrated Security=false;Initial Catalog=flxCatalog_IC;User ID=sa;Password=${SQL_PASSWORD:--CHANGE_me1234};Encrypt=False;TrustServerCertificate=True"
+      ConnectionStrings__DataConnectionString: "Server=flxcatalog-db;Integrated Security=false;Initial Catalog=flxCatalog_I;User ID=sa;Password=${SQL_PASSWORD:--CHANGE_me1234};Encrypt=False;TrustServerCertificate=True"
+    volumes:
+      - flxcatalog-back-conf:/app/conf
+      - flxcatalog-back-custom:/app/custom
+    networks:
+      - flxcatalog-front-network
+      - flxcatalog-back-network
+    depends_on:
+      flxcatalog-db:
+        condition: service_healthy
+
+  flxcatalog-db:
+    image: flxcatalog-db:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      dockerfile: flxcatalog.Conf.Database/Dockerfile
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "${SQL_PASSWORD:--CHANGE_me1234}"
+      MSSQL_PID: "Evaluation"
+    networks:
+      - flxcatalog-back-network
+    volumes:
+      - flxcatalog-db-data:/var/opt/mssql/data/
+      - flxcatalog-db-log:/var/opt/mssql/log/
+      - flxcatalog-db-secrets:/var/opt/mssql/secrets/
+
+networks:
+  flxcatalog-front-network:
+    driver: bridge
+  flxcatalog-back-network:
+    driver: bridge
+
+volumes:
+  flxcatalog-front-conf:
+  flxcatalog-front-custom:
+  flxcatalog-back-conf:
+  flxcatalog-back-custom:
+  flxcatalog-db-data:
+  flxcatalog-db-log:
+  flxcatalog-db-secrets:

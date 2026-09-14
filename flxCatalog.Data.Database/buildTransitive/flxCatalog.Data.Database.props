@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <!-- Path al merge script. Se propaga transitivamente a cualquier nivel hijo
+         (L1, L2, ... LN) gracias a buildTransitive/. MSBuildThisFileDirectory
+         resuelve al folder real del package restaurado en
+         %userprofile%\.nuget\packages\, asi que los hijos NO necesitan
+         empaquetar el PS ni declarar dependencia directa al proveedor.
+
+         NOTA: como NO existe un Flexygo.Data.Database (L0) que centralice el
+         merge, cada nivel de la plantilla empaqueta su propio PS y define el
+         target. En una cadena, la ultima definicion importada gana (todas son
+         identicas), asi que el comportamiento es el mismo que un L0 unico. -->
+    <FlexygoMergeSSDTScriptsPath>$(MSBuildThisFileDirectory)..\tools\install\mergeSSDTScripts.ps1</FlexygoMergeSSDTScriptsPath>
+  </PropertyGroup>
+
+</Project>

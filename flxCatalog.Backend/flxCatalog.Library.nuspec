@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+	<metadata>
+		<id>flxCatalog.Library</id>
+		<version>1.0.0.0</version>
+		<title>flxCatalog Library</title>
+		<authors>Ahora Freeware</authors>
+		<owners>Ahora Freeware</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Create your own Professional Solutions. Flexygo allows you to immediatly build incredible Solutions for companies, professionals and individuals. For easy installation visit https://nuget.flexygo.com/</description>
+		<copyright>Copyright Â© 2017 Ahora Freeware</copyright>
+		<projectUrl>http://flexygo.com</projectUrl>
+		<iconUrl>https://docs.flexygo.com/isotipo.png</iconUrl>
+		<tags>Rad Framework Rapid CMS Builder</tags>
+		<releaseNotes/>
+		<!-- SOLO dependencia a la Library del padre (pinned a versiÃ³n exacta).
+		     Las terceras llegan transitivamente desde el padre. Si este nivel aÃ±ade
+		     alguna tercera NUEVA propia, declararla aquÃ­. -->
+		<dependencies>
+			<dependency id="Flexygo.Library" version="10.0.0-beta.56" />
+		</dependencies>
+		<contentFiles>
+			<files include="**\*.*" buildAction="None" copyToOutput="true" flatten="false" />
+		</contentFiles>
+	</metadata>
+	<files>
+		<!-- DLLs propias de este nivel (excluyendo flxCatalog.Backend.dll).
+		     Las DLLs del padre llegan via dependencia NuGet, no se duplican aquÃ­. -->
+		<file src="..\publish\flxCatalog\flxCatalog.Backend\**\flxCatalog.*.dll" target="lib\net9.0" exclude="**\flxCatalog.Backend*.dll" />
+		<file src="..\publish\flxCatalog\flxCatalog.Backend\**\flxCatalog.*.pdb" target="lib\net9.0" exclude="**\flxCatalog.Backend*.pdb" />
+		<!-- ICONO y Readme -->
+		<file src="nuget\isotipo.png" target="images\" />
+		<file src="nuget\readme.md" target="docs\" />
+	</files>
+</package>
+

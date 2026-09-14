@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>flxCatalog.Frontend</RootNamespace>
+    <OutputPath>bin\</OutputPath>
+    <PackageOutputPath>bin\</PackageOutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <EnableDefaultContentItems>false</EnableDefaultContentItems>
+    <Version>1.0.0.0</Version>
+    <!-- PostSharp viene transitivo de Flexygo.Frontend pero este proyecto no usa aspectos -->
+    <SkipPostSharp>true</SkipPostSharp>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Folder Include="conf\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="conf\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="conf\**\*.*" Exclude="conf\**\*.local.*">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Remove="wwwroot\**\*.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Microsoft.TypeScript.MSBuild solo busca el tsconfig.json dentro de @(Content). Con
+         EnableDefaultContentItems=false hay que declararlo a mano: sin esto compila en modo
+         "lista de ficheros" con los flags por defecto de MSBuild (target ES5) e ignora el tsconfig. -->
+    <Content Include="tsconfig.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+    <Content Include="wwwroot\**\*.*" CopyToPublishDirectory="PreserveNewest" />
+    <!-- El contexto del docker build es la carpeta de publish, asi que el Dockerfile tiene
+         que viajar dentro de ella. -->
+    <Content Include="Dockerfile" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include=".dockerignore" CopyToPublishDirectory="PreserveNewest" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.9.2" />
+    <PackageReference Include="Flexygo.Frontend" Version="10.0.0-beta.56">
+      <ExcludeAssets>contentFiles</ExcludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
+

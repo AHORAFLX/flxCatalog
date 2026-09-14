@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "flexygo": {
+      "command": "flexygo-mcp",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "stitch": {
+      "type": "http",
+      "timeout": 600000,
+      "url": "https://stitch.googleapis.com/mcp",
+      "headers": {
+        "X-Goog-Api-Key": "${STITCH_API_KEY}"
+      }
+    }
+  }
+}

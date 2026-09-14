@@ -1,0 +1,147 @@
+# Equivalente GitLab CI de .github/workflows/flxCatalog-nugets.yml
+#
+# construccion (todas las ramas) -> release (main/master/develop) -> package (solo main/master)
+#
+# Requiere que el proyecto tenga habilitado el Package Registry (Settings > General >
+# Visibility, project features, permissions). CI_JOB_TOKEN se genera solo, como
+# GITHUB_TOKEN en Actions: no hace falta crear ningun secreto para publicar en el
+# Package Registry ni para crear la Release del propio proyecto.
+
+nuget:build:
+  stage: build
+  image: mcr.microsoft.com/dotnet/sdk:9.0
+  variables:
+    GIT_DEPTH: "0"
+  before_script:
+    # nodejs hace falta porque flxCatalog.Frontend compila TypeScript via MSBuild
+    # (Microsoft.TypeScript.MSBuild), que ejecuta "node" internamente. En GitHub Actions
+    # no hace falta instalarlo porque ubuntu-latest ya lo trae preinstalado.
+    - apt-get update -qq && apt-get install -y -qq --no-install-recommends git jq nodejs >/dev/null
+  script:
+    # Mismo esquema de versionado que flxCatalog-nugets.yml de GitHub (ver comentario alli):
+    # major/minor sale de flxCatalog-version.json, el resto se calcula con "git rev-list
+    # --count" contando desde el ultimo commit que toco ese fichero.
+    #   main/master -> Major.Minor.0.<1 + commits desde el ultimo cambio de version en main>
+    #   develop     -> Major.Minor.<commits desde el ultimo cambio de version en develop>.1-beta
+    #   cualquier otra -> Major.Minor.<commits que develop llevaba en el punto de fork>.1-alpha.<commits propios de la rama>
+    - |
+      MAJOR=$(jq -r '.major' flxCatalog-version.json)
+      MINOR=$(jq -r '.minor' flxCatalog-version.json)
+
+      version_anchor() {
+        git log -1 --format=%H "$1" -- flxCatalog-version.json
+      }
+
+      git fetch origin main master develop --quiet 2>/dev/null || true
+
+      MAIN_REF="origin/main"
+      if git show-ref --verify --quiet refs/remotes/origin/develop; then
+        DEVELOP_REF="origin/develop"
+      else
+        DEVELOP_REF="$MAIN_REF"
+      fi
+
+      if [ "$CI_COMMIT_REF_NAME" = "main" ] || [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+        M=$(( $(git rev-list --count "$(version_anchor HEAD)..HEAD") + 1 ))
+        VERSION="$MAJOR.$MINOR.0.$M"
+        PACKAGE_VERSION="$VERSION"
+      elif [ "$CI_COMMIT_REF_NAME" = "develop" ]; then
+        N=$(git rev-list --count "$(version_anchor HEAD)..HEAD")
+        VERSION="$MAJOR.$MINOR.$N.1"
+        PACKAGE_VERSION="$MAJOR.$MINOR.$N.1-beta"
+      else
+        MERGE_BASE=$(git merge-base "$DEVELOP_REF" HEAD)
+        N=$(git rev-list --count "$(version_anchor "$MERGE_BASE")..$MERGE_BASE")
+        K=$(git rev-list --count "$MERGE_BASE..HEAD")
+        VERSION="$MAJOR.$MINOR.$N.1"
+        PACKAGE_VERSION="$MAJOR.$MINOR.$N.1-alpha.$K"
+      fi
+
+      {
+        echo "VERSION=$VERSION"
+        echo "ASSEMBLY_VERSION=$VERSION"
+        echo "PACKAGE_VERSION=$PACKAGE_VERSION"
+        echo "INFORMATIONAL_VERSION=$PACKAGE_VERSION+sha.$(git rev-parse --short HEAD)"
+      } | tee version.env
+    - dotnet restore flxCatalog.sln
+    - |
+      dotnet publish flxCatalog.Frontend/flxCatalog.Frontend.csproj -c Release \
+        -o publish/flxCatalog/flxCatalog.Frontend \
+        /p:Version=$VERSION /p:FileVersion=$ASSEMBLY_VERSION /p:InformationalVersion=$INFORMATIONAL_VERSION
+      dotnet publish flxCatalog.Backend/flxCatalog.Backend.csproj -c Release \
+        -o publish/flxCatalog/flxCatalog.Backend \
+        /p:Version=$VERSION /p:FileVersion=$ASSEMBLY_VERSION /p:InformationalVersion=$INFORMATIONAL_VERSION
+    - |
+      dotnet build flxCatalog.Conf.Database/flxCatalog.Conf.Database.sqlproj -c Release -p:NetCoreBuild=true /p:DacVersion=$ASSEMBLY_VERSION
+      dotnet build flxCatalog.Data.Database/flxCatalog.Data.Database.sqlproj -c Release -p:NetCoreBuild=true /p:DacVersion=$ASSEMBLY_VERSION
+    - |
+      rm -rf publish/nuget
+      dotnet pack tools/pack.csproj -o publish/nuget -p:NuspecProperties="version=$PACKAGE_VERSION" \
+        -p:NuspecFile=$PWD/flxCatalog.Frontend/flxCatalog.Frontend.nuspec \
+        -p:NuspecBasePath=$PWD/flxCatalog.Frontend
+      dotnet pack tools/pack.csproj -o publish/nuget -p:NuspecProperties="version=$PACKAGE_VERSION" \
+        -p:NuspecFile=$PWD/flxCatalog.Backend/flxCatalog.Library.nuspec \
+        -p:NuspecBasePath=$PWD/flxCatalog.Backend
+      dotnet pack tools/pack.csproj -o publish/nuget -p:NuspecProperties="version=$PACKAGE_VERSION" \
+        -p:NuspecFile=$PWD/flxCatalog.Backend/flxCatalog.Backend.nuspec \
+        -p:NuspecBasePath=$PWD/flxCatalog.Backend
+      dotnet pack tools/pack.csproj -o publish/nuget -p:NuspecProperties="version=$PACKAGE_VERSION" \
+        -p:NuspecFile=$PWD/flxCatalog.Conf.Database/flxCatalog.Conf.Database.nuspec \
+        -p:NuspecBasePath=$PWD/flxCatalog.Conf.Database
+      dotnet pack tools/pack.csproj -o publish/nuget -p:NuspecProperties="version=$PACKAGE_VERSION" \
+        -p:NuspecFile=$PWD/flxCatalog.Data.Database/flxCatalog.Data.Database.nuspec \
+        -p:NuspecBasePath=$PWD/flxCatalog.Data.Database
+  artifacts:
+    name: flxCatalog-nugets
+    paths:
+      - publish/nuget/*.nupkg
+    reports:
+      dotenv: version.env
+    expire_in: 90 days
+
+nuget:release:
+  stage: release
+  # develop tambien genera Release; el resto de ramas se quedan solo con el artifact
+  # del job nuget:build.
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  needs:
+    - job: nuget:build
+      artifacts: true
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "main" || $CI_COMMIT_REF_NAME == "master" || $CI_COMMIT_REF_NAME == "develop"'
+  script:
+    # No se usa la palabra clave "release:" porque GitLab llama a glab con --no-update
+    # fijo (lib/gitlab/ci/build/releaser.rb), asi que relanzar el pipeline sobre un commit
+    # que ya tiene su release hace fallar el job con "release ... already exists".
+    # Invocando glab directamente la release se crea o se actualiza, que es lo mismo que
+    # hace softprops/action-gh-release en el workflow de GitHub.
+    # El login replica el que hace el runner: sin --api-protocol, glab fuerza HTTPS.
+    - |
+      echo "Creando/actualizando release v$VERSION para $CI_COMMIT_REF_NAME"
+      export GITLAB_HOST="$CI_SERVER_URL"
+      glab auth login --job-token "$CI_JOB_TOKEN" --hostname "$CI_SERVER_FQDN" --api-protocol "$CI_SERVER_PROTOCOL"
+      glab release create "v$VERSION" -R "$CI_PROJECT_PATH" \
+        --name "v$VERSION" \
+        --notes "Release v$VERSION generada desde la rama $CI_COMMIT_REF_NAME. Paquetes NuGet en el Package Registry del proyecto para main/master." \
+        --ref "$CI_COMMIT_SHA" \
+        --no-close-milestone
+
+nuget:package:
+  stage: package
+  # Solo main/master publican en el Package Registry; develop y el resto de ramas no.
+  image: mcr.microsoft.com/dotnet/sdk:9.0
+  needs:
+    - job: nuget:build
+      artifacts: true
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "main" || $CI_COMMIT_REF_NAME == "master"'
+  script:
+    - |
+      # NuGet rechaza las fuentes HTTP salvo que se permitan de forma explicita. En una
+      # instancia servida por HTTPS la variable queda vacia y el comando es el de siempre.
+      INSECURE=""
+      case "$CI_API_V4_URL" in http://*) INSECURE="--allow-insecure-connections" ;; esac
+
+      dotnet nuget add source "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/nuget/index.json" \
+        --name gitlab --username gitlab-ci-token --password "$CI_JOB_TOKEN" --store-password-in-clear-text $INSECURE
+      dotnet nuget push "publish/nuget/*.nupkg" --source gitlab --api-key "$CI_JOB_TOKEN" --skip-duplicate

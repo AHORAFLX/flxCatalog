@@ -1,0 +1,65 @@
+<Project>
+
+  <!--
+    Targets compartidos para la familia de paquetes Data.Database. A diferencia
+    de Conf.Database (donde este archivo vive UNICAMENTE en Flexygo.Conf.Database
+    L0), NO existe un Flexygo.Data.Database (L0) que centralice el merge. Por eso
+    cada nivel generado desde la plantilla empaqueta su propio merge script y
+    define el target aqui; se propaga via buildTransitive/ a cualquier sqlproj
+    que dependa directa o indirectamente de este package.
+
+    Cada nivel hijo declara en su .sqlproj:
+
+        <FlexygoParentDatabasePackage>NombreDelPadreDirecto.Data.Database</FlexygoParentDatabasePackage>
+
+    Usado como filtro snowball en el merge (cada nivel mergea solo el dacpac
+    del padre directo, que ya contiene la cadena previa mergeada). Un nivel raiz
+    (sin padre data) no la declara -> cadena vacia -> solo se mergean los refs
+    nativos (master) + propio.
+  -->
+
+  <!--
+    Auto-registro del dacpac propio de este nivel como ArtifactReference en
+    cualquier nivel hijo (LN+1, LN+2, ...), SIN que el hijo declare
+    PackageReference directa a este package.
+
+    Necesario porque Microsoft.Build.Sql 2.0 (ResolveDacpacPackageReferences)
+    solo procesa PackageReferences DIRECTAS, no transitivas. Sin este registro,
+    el dacpac NO llega a bin/Release del hijo y por tanto NO se incluye en el
+    nupkg al hacer pack (la nuspec hace src="bin\Release\*.dacpac"), y el deploy
+    fallaria al resolver refs del model.xml.
+
+    MSBuildThisFileDirectory apunta al buildTransitive/ del package restaurado,
+    asi que ..\tools\ resuelve al dacpac dentro del propio package.
+  -->
+  <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.sqlproj'
+                    AND '$(MSBuildProjectName)' != 'flxCatalog.Data.Database'
+                    AND Exists('$(MSBuildThisFileDirectory)..\tools\flxCatalog.Data.Database.dacpac')">
+    <ArtifactReference Include="$(MSBuildThisFileDirectory)..\tools\flxCatalog.Data.Database.dacpac">
+      <HintPath>$(MSBuildThisFileDirectory)..\tools\flxCatalog.Data.Database.dacpac</HintPath>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+    </ArtifactReference>
+  </ItemGroup>
+
+  <Target Name="FlxDatabase_MergeScripts"
+          AfterTargets="Build"
+          Condition="'$(MSBuildProjectExtension)' == '.sqlproj'">
+
+    <PropertyGroup>
+      <DacpacFilePath>$(MSBuildProjectDirectory)\$(OutputPath)$(MSBuildProjectName).dacpac</DacpacFilePath>
+
+      <!-- Normalizar rutas: quitar barra invertida final -->
+      <CleanSolutionDir>$([System.String]::Copy('$(SolutionDir)').TrimEnd('\'))</CleanSolutionDir>
+      <CleanOutputPath>$([System.String]::Copy('$(OutputPath)').TrimEnd('\'))</CleanOutputPath>
+
+      <_PsExe Condition="'$(_PsExe)'=='' and '$(OS)'=='Windows_NT'">powershell.exe</_PsExe>
+      <_PsExe Condition="'$(_PsExe)'=='' and '$(OS)'!='Windows_NT'">pwsh</_PsExe>
+    </PropertyGroup>
+
+    <Message Text="🧪 [FlxMerge] Proyecto: $(MSBuildProjectName) | Padre: $(FlexygoParentDatabasePackage) | PS: $(FlexygoMergeSSDTScriptsPath)" Importance="High" />
+
+    <Exec Command="$(_PsExe) -ExecutionPolicy Bypass -Command &quot;&amp; { &amp;'$(FlexygoMergeSSDTScriptsPath)' '$(CleanSolutionDir)' '$(MSBuildProjectName)' '$(CleanOutputPath)' '$(DacpacFilePath)' '$(FlexygoParentDatabasePackage)' }&quot;" />
+
+  </Target>
+
+</Project>

@@ -1,0 +1,1 @@
+﻿CREATE TYPE [dbo].[SampleUserDefinedType] FROM NVARCHAR(100) NOT NULL;

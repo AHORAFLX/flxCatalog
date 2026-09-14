@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Proyecto puente para empaquetar los .nuspec del producto con 'dotnet pack'.
+    No compila nada ni produce salida propia: existe solo porque el target Pack
+    de MSBuild necesita un proyecto. Se invoca desde los dos YAML del pipeline
+    (.github/workflows/flxCatalog.yml y .gitlab-ci.yml) y desde
+    tools/dev-pipeline.ps1, pasando NuspecFile, NuspecBasePath y NuspecProperties.
+
+    No se anade al .sln a proposito: no es parte del producto.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <NoBuild>true</NoBuild>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <!-- NU5128: sin dependencias declaradas por proyecto. NU5100: assemblies fuera de lib/. -->
+    <NoWarn>$(NoWarn);NU5128;NU5100</NoWarn>
+  </PropertyGroup>
+
+</Project>
+

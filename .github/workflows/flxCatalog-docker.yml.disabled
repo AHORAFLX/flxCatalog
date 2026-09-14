@@ -1,0 +1,206 @@
+name: flxCatalog-docker
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ['**']
+    tags: ['v*']
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 30
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: liberar espacio en disco
+        # ubuntu-latest trae ~14GB libres, con mucho ocupado por herramientas
+        # preinstaladas que este pipeline no usa (Android SDK, GHC...). Construir tres
+        # imagenes (la de BBDD es SQL Server + restaurar el esquema completo) mas
+        # exportarlas con docker save se queda sin sitio sin este paso. Mismo fix que
+        # ya hizo falta en el CI de nugets/tests (ver historial de flxCatalog-ci.yml).
+        run: |
+          sudo rm -rf /usr/local/lib/android /opt/ghc /usr/local/.ghcup /usr/local/share/boost "$AGENT_TOOLSDIRECTORY"
+          docker system prune -af --volumes
+          df -h /
+
+      - uses: actions/checkout@v4
+        with:
+          # GitVersion necesita el historial completo para calcular la version.
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: version
+        # Mismo esquema que flxCatalog-nugets.yml (ver comentario alli): major/minor sale de
+        # flxCatalog-version.json, el resto se calcula con "git rev-list --count" contando
+        # desde el ultimo commit que toco ese fichero.
+        #   main/master -> Major.Minor.0.<commits desde el ultimo cambio de version en main>
+        #   develop     -> Major.Minor.<commits desde el ultimo cambio de version en develop>.1-beta
+        #   cualquier otra -> Major.Minor.<commits que develop llevaba en el punto de fork>.1-alpha.<commits propios de la rama>
+        run: |
+          MAJOR=$(jq -r '.major' flxCatalog-version.json)
+          MINOR=$(jq -r '.minor' flxCatalog-version.json)
+
+          version_anchor() {
+            git log -1 --format=%H "$1" -- flxCatalog-version.json
+          }
+
+          MAIN_REF="origin/main"
+          if git show-ref --verify --quiet refs/remotes/origin/develop; then
+            DEVELOP_REF="origin/develop"
+          else
+            DEVELOP_REF="$MAIN_REF"
+          fi
+
+          if [ "$GITHUB_REF_NAME" = "main" ] || [ "$GITHUB_REF_NAME" = "master" ]; then
+            M=$(( $(git rev-list --count "$(version_anchor HEAD)..HEAD") + 1 ))
+            VERSION="$MAJOR.$MINOR.0.$M"
+            PACKAGE_VERSION="$VERSION"
+          elif [ "$GITHUB_REF_NAME" = "develop" ]; then
+            N=$(git rev-list --count "$(version_anchor HEAD)..HEAD")
+            VERSION="$MAJOR.$MINOR.$N.1"
+            PACKAGE_VERSION="$MAJOR.$MINOR.$N.1-beta"
+          else
+            MERGE_BASE=$(git merge-base "$DEVELOP_REF" HEAD)
+            N=$(git rev-list --count "$(version_anchor "$MERGE_BASE")..$MERGE_BASE")
+            K=$(git rev-list --count "$MERGE_BASE..HEAD")
+            VERSION="$MAJOR.$MINOR.$N.1"
+            PACKAGE_VERSION="$MAJOR.$MINOR.$N.1-alpha.$K"
+          fi
+
+          {
+            echo "VERSION=$VERSION"
+            echo "PACKAGE_VERSION=$PACKAGE_VERSION"
+            # GHCR exige owner/repo en minusculas.
+            echo "REGISTRY_OWNER=$(echo "$GITHUB_REPOSITORY_OWNER" | tr '[:upper:]' '[:lower:]')"
+          } | tee -a "$GITHUB_ENV"
+
+      - name: login en GHCR (solo main)
+        if: github.ref_name == 'main' || github.ref_name == 'master'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Cada imagen se construye, exporta, sube como artifact y se borra del disco del
+      # runner antes de pasar a la siguiente: las tres a la vez (mas sus .tar.gz) no caben
+      # en el espacio libre de ubuntu-latest, sobre todo con la de BBDD (SQL Server).
+
+      - name: build frontend
+        env:
+          IMAGE_TAG: ${{ env.PACKAGE_VERSION }}
+        run: docker compose build flxCatalog-frontend
+
+      - name: etiquetar frontend latest en main
+        if: github.ref_name == 'main'
+        run: docker tag "flxCatalog-frontend:$PACKAGE_VERSION" flxCatalog-frontend:latest
+
+      - name: exportar frontend
+        run: |
+          mkdir -p publish/docker
+          extra=()
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            extra=(flxCatalog-frontend:latest)
+          fi
+          docker save "flxCatalog-frontend:$PACKAGE_VERSION" "${extra[@]}" | gzip > publish/docker/flxCatalog-frontend-$PACKAGE_VERSION.tar.gz
+
+      - name: artefacto frontend
+        uses: actions/upload-artifact@v4
+        with:
+          name: flxCatalog-frontend-${{ env.PACKAGE_VERSION }}
+          path: publish/docker/flxCatalog-frontend-*.tar.gz
+          if-no-files-found: error
+
+      - name: publicar frontend en GHCR (solo main)
+        if: github.ref_name == 'main' || github.ref_name == 'master'
+        run: |
+          docker tag "flxCatalog-frontend:$PACKAGE_VERSION" "ghcr.io/$REGISTRY_OWNER/flxCatalog-frontend:$PACKAGE_VERSION"
+          docker tag "flxCatalog-frontend:$PACKAGE_VERSION" "ghcr.io/$REGISTRY_OWNER/flxCatalog-frontend:latest"
+          docker push "ghcr.io/$REGISTRY_OWNER/flxCatalog-frontend:$PACKAGE_VERSION"
+          docker push "ghcr.io/$REGISTRY_OWNER/flxCatalog-frontend:latest"
+
+      - name: liberar frontend
+        run: |
+          docker image rm -f "flxCatalog-frontend:$PACKAGE_VERSION" flxCatalog-frontend:latest 2>/dev/null || true
+          docker builder prune -f
+          rm -f publish/docker/flxCatalog-frontend-*.tar.gz
+
+      - name: build backend
+        env:
+          IMAGE_TAG: ${{ env.PACKAGE_VERSION }}
+        run: docker compose build flxCatalog-backend
+
+      - name: etiquetar backend latest en main
+        if: github.ref_name == 'main'
+        run: docker tag "flxCatalog-backend:$PACKAGE_VERSION" flxCatalog-backend:latest
+
+      - name: exportar backend
+        run: |
+          mkdir -p publish/docker
+          extra=()
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            extra=(flxCatalog-backend:latest)
+          fi
+          docker save "flxCatalog-backend:$PACKAGE_VERSION" "${extra[@]}" | gzip > publish/docker/flxCatalog-backend-$PACKAGE_VERSION.tar.gz
+
+      - name: artefacto backend
+        uses: actions/upload-artifact@v4
+        with:
+          name: flxCatalog-backend-${{ env.PACKAGE_VERSION }}
+          path: publish/docker/flxCatalog-backend-*.tar.gz
+          if-no-files-found: error
+
+      - name: publicar backend en GHCR (solo main)
+        if: github.ref_name == 'main' || github.ref_name == 'master'
+        run: |
+          docker tag "flxCatalog-backend:$PACKAGE_VERSION" "ghcr.io/$REGISTRY_OWNER/flxCatalog-backend:$PACKAGE_VERSION"
+          docker tag "flxCatalog-backend:$PACKAGE_VERSION" "ghcr.io/$REGISTRY_OWNER/flxCatalog-backend:latest"
+          docker push "ghcr.io/$REGISTRY_OWNER/flxCatalog-backend:$PACKAGE_VERSION"
+          docker push "ghcr.io/$REGISTRY_OWNER/flxCatalog-backend:latest"
+
+      - name: liberar backend
+        run: |
+          docker image rm -f "flxCatalog-backend:$PACKAGE_VERSION" flxCatalog-backend:latest 2>/dev/null || true
+          docker builder prune -f
+          rm -f publish/docker/flxCatalog-backend-*.tar.gz
+
+      - name: build db
+        env:
+          IMAGE_TAG: ${{ env.PACKAGE_VERSION }}
+        run: docker compose build flxCatalog-db
+
+      - name: etiquetar db latest en main
+        if: github.ref_name == 'main'
+        run: docker tag "flxCatalog-db:$PACKAGE_VERSION" flxCatalog-db:latest
+
+      - name: exportar db
+        run: |
+          mkdir -p publish/docker
+          extra=()
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            extra=(flxCatalog-db:latest)
+          fi
+          docker save "flxCatalog-db:$PACKAGE_VERSION" "${extra[@]}" | gzip > publish/docker/flxCatalog-db-$PACKAGE_VERSION.tar.gz
+
+      - name: artefacto db
+        uses: actions/upload-artifact@v4
+        with:
+          name: flxCatalog-db-${{ env.PACKAGE_VERSION }}
+          path: publish/docker/flxCatalog-db-*.tar.gz
+          if-no-files-found: error
+
+      - name: publicar db en GHCR (solo main)
+        if: github.ref_name == 'main' || github.ref_name == 'master'
+        run: |
+          docker tag "flxCatalog-db:$PACKAGE_VERSION" "ghcr.io/$REGISTRY_OWNER/flxCatalog-db:$PACKAGE_VERSION"
+          docker tag "flxCatalog-db:$PACKAGE_VERSION" "ghcr.io/$REGISTRY_OWNER/flxCatalog-db:latest"
+          docker push "ghcr.io/$REGISTRY_OWNER/flxCatalog-db:$PACKAGE_VERSION"
+          docker push "ghcr.io/$REGISTRY_OWNER/flxCatalog-db:latest"

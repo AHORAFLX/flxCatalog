@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build">
+  <Sdk Name="Microsoft.Build.Sql" Version="2.0.0" />
+  <PropertyGroup>
+    <Name>flxCatalog.Data.Database</Name>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <ModelCollation>1033, CI</ModelCollation>
+    <ProjectGuid>{00000000-0000-0000-0000-000000000000}</ProjectGuid>
+    <Recovery>SIMPLE</Recovery>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="dbo\Database Triggers\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="dbo\User Defined Types\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="scripts\post\" />
+    <Folder Include="scripts\pre\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="local.publish.xml" />
+    <None Include="flxCatalog.Data.Database.nuspec" />
+    <None Include="scripts\staticdata\*.sql" />
+    <None Include="buildTransitive\flxCatalog.Data.Database.props" />
+    <None Include="buildTransitive\flxCatalog.Data.Database.targets" />
+    <!-- El merge script se empaqueta via .nuspec (target tools\install\).
+         Aqui solo para visibilidad en el Solution Explorer. -->
+    <None Include="tools\install\mergeSSDTScripts.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="scripts\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="scripts\Script.PreDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SqlServer.Dacpacs.Master" Version="160.2.1" />
+  </ItemGroup>
+  <!-- NO se importan los buildTransitive propios: el merge target lo aporta el
+       package del padre (auto-import de NuGet) a partir de L2. Un nivel raiz de
+       data (L1, nace de Flexygo que no tiene Data.Database) no tiene padre y por
+       tanto no se auto-mergea: seria un no-op (sin padre que absorber) y sus
+       pre/post nativos los extrae igual el hijo. Mismo enfoque que el template
+       Conf (L1+), que tampoco se auto-importa. -->
+</Project>
+

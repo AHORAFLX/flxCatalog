@@ -1,0 +1,10 @@
+# Punto de entrada obligatorio de GitLab CI. Los pipelines reales viven en
+# .gitlab/workflows/*.yml (equivalentes a los workflows de .github/workflows/).
+stages:
+  - build
+  - release
+  - package
+
+include:
+  - local: '.gitlab/workflows/flxCatalog-nugets.yml'
+  - local: '.gitlab/workflows/flxCatalog-docker.yml'

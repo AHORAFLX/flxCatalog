@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+	<metadata>
+		<id>flxCatalog.Data.Database</id>
+		<version>1.0.0.0</version>
+		<title>flxCatalog Database</title>
+		<authors>Ahora Freeware</authors>
+		<owners>Ahora Freeware</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Create your own Professional Solutions. Flexygo allows you to immediatly build incredible Solutions for companies, professionals and individuals. For easy installation visit https://nuget.flexygo.com/</description>
+		<copyright>Copyright Â© 2017 Ahora Freeware</copyright>
+		<projectUrl>http://flexygo.com</projectUrl>
+		<iconUrl>https://docs.flexygo.com/isotipo.png</iconUrl>
+		<tags>Rad Framework Rapid CMS Builder</tags>
+		<releaseNotes/>
+	</metadata>
+	<files>
+		<!-- MSBuild auto-import: buildTransitive/ (.props + .targets) se importa
+		     en cualquier nivel hijo (directo o indirecto). El .targets auto-registra
+		     el dacpac propio como ArtifactReference para niveles N+2 y define el
+		     target FlxDatabase_MergeScripts; el .props expone la ruta al PS de
+		     merge. Asi se propaga la cadena de dacpacs + el merge a cualquier
+		     profundidad. -->
+		<file src="buildTransitive\**" target="buildTransitive" />
+
+		<!-- tools/: dacpac propio para que el HintPath del ArtifactReference
+		     (..\tools\...dacpac) resuelva en el hijo.
+		     tools/install/: dacpac(s) que el instalador aplica + el merge script
+		     (mergeSSDTScripts.ps1), referenciado por FlexygoMergeSSDTScriptsPath
+		     desde buildTransitive/.props. -->
+		<file src="bin\Release\*.dacpac" target="tools\" />
+		<file src="bin\Release\*.dacpac" target="tools\install" />
+		<file src="tools\install\mergeSSDTScripts.ps1" target="tools\install\mergeSSDTScripts.ps1" />
+
+		<!-- ICONO y Readme -->
+		<file src="nuget\isotipo.png" target="images\" />
+		<file src="nuget\readme.md" target="docs\" />
+	</files>
+</package>
+
+

@@ -1,0 +1,179 @@
+# Equivalente GitLab CI de .github/workflows/flxCatalog-docker.yml
+#
+# No genera Release (eso solo lo hace flxCatalog-nugets.yml, para no crear dos Releases
+# sobre el mismo tag). Publica en el Container Registry del proyecto solo en main/master.
+#
+# Cada imagen se construye en su propio job con su propio servicio Docker-in-Docker
+# aislado, asi que -a diferencia del workflow de GitHub- no hace falta liberar espacio
+# en disco entre imagenes: nunca conviven dos imagenes en el mismo runner/daemon.
+#
+# El build usa "docker build" directo sobre los Dockerfile en vez de "docker compose
+# build" para no depender de tener el plugin de Compose instalado en la imagen del job.
+#
+# Requiere que el proyecto tenga habilitado el Container Registry (Settings > General >
+# Visibility, project features, permissions). CI_JOB_TOKEN se genera solo, como
+# GITHUB_TOKEN en Actions: no hace falta crear ningun secreto para el login.
+
+docker:version:
+  stage: build
+  image:
+    name: alpine/git:latest
+    # alpine/git fija ENTRYPOINT a "git", asi que sin esto el runner ejecuta el script
+    # como "git sh -c ..." -> "git: 'sh' is not a git command".
+    entrypoint: [""]
+  variables:
+    GIT_DEPTH: "0"
+  before_script:
+    - apk add --no-cache jq
+  script:
+    # Mismo esquema que nuget:build (ver comentario en flxCatalog-nugets.yml).
+    - |
+      MAJOR=$(jq -r '.major' flxCatalog-version.json)
+      MINOR=$(jq -r '.minor' flxCatalog-version.json)
+
+      version_anchor() {
+        git log -1 --format=%H "$1" -- flxCatalog-version.json
+      }
+
+      git fetch origin main master develop --quiet 2>/dev/null || true
+
+      MAIN_REF="origin/main"
+      if git show-ref --verify --quiet refs/remotes/origin/develop; then
+        DEVELOP_REF="origin/develop"
+      else
+        DEVELOP_REF="$MAIN_REF"
+      fi
+
+      if [ "$CI_COMMIT_REF_NAME" = "main" ] || [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+        M=$(( $(git rev-list --count "$(version_anchor HEAD)..HEAD") + 1 ))
+        VERSION="$MAJOR.$MINOR.0.$M"
+        PACKAGE_VERSION="$VERSION"
+      elif [ "$CI_COMMIT_REF_NAME" = "develop" ]; then
+        N=$(git rev-list --count "$(version_anchor HEAD)..HEAD")
+        VERSION="$MAJOR.$MINOR.$N.1"
+        PACKAGE_VERSION="$MAJOR.$MINOR.$N.1-beta"
+      else
+        MERGE_BASE=$(git merge-base "$DEVELOP_REF" HEAD)
+        N=$(git rev-list --count "$(version_anchor "$MERGE_BASE")..$MERGE_BASE")
+        K=$(git rev-list --count "$MERGE_BASE..HEAD")
+        VERSION="$MAJOR.$MINOR.$N.1"
+        PACKAGE_VERSION="$MAJOR.$MINOR.$N.1-alpha.$K"
+      fi
+
+      {
+        echo "VERSION=$VERSION"
+        echo "PACKAGE_VERSION=$PACKAGE_VERSION"
+      } | tee version.env
+  artifacts:
+    reports:
+      dotenv: version.env
+
+.docker_build:
+  stage: build
+  image: docker:26-cli
+  services:
+    - docker:26-dind
+  variables:
+    DOCKER_HOST: tcp://docker:2376
+    DOCKER_TLS_CERTDIR: "/certs"
+    DOCKER_TLS_VERIFY: "1"
+    DOCKER_CERT_PATH: "/certs/client"
+  needs:
+    - job: docker:version
+      artifacts: true
+
+docker:frontend:
+  extends: .docker_build
+  script:
+    - |
+      TAGS="-t flxCatalog-frontend:$PACKAGE_VERSION"
+      if [ "$CI_COMMIT_REF_NAME" = "main" ] || [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+        TAGS="$TAGS -t flxCatalog-frontend:latest"
+      fi
+      docker build $TAGS -f flxCatalog.Frontend/Dockerfile .
+    - mkdir -p publish/docker
+    - |
+      EXTRA_TAG=""
+      if [ "$CI_COMMIT_REF_NAME" = "main" ] || [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+        EXTRA_TAG="flxCatalog-frontend:latest"
+      fi
+      docker save "flxCatalog-frontend:$PACKAGE_VERSION" $EXTRA_TAG | gzip > publish/docker/flxCatalog-frontend-$PACKAGE_VERSION.tar.gz
+    - |
+      if [ -z "$CI_REGISTRY" ]; then
+        echo "Container Registry no habilitado en esta instancia: se omite el push de la imagen."
+      elif [ "$CI_COMMIT_REF_NAME" = "main" ] || [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+        docker login -u gitlab-ci-token -p "$CI_JOB_TOKEN" "$CI_REGISTRY"
+        docker tag "flxCatalog-frontend:$PACKAGE_VERSION" "$CI_REGISTRY_IMAGE/frontend:$PACKAGE_VERSION"
+        docker tag "flxCatalog-frontend:$PACKAGE_VERSION" "$CI_REGISTRY_IMAGE/frontend:latest"
+        docker push "$CI_REGISTRY_IMAGE/frontend:$PACKAGE_VERSION"
+        docker push "$CI_REGISTRY_IMAGE/frontend:latest"
+      fi
+  artifacts:
+    name: flxCatalog-frontend-$PACKAGE_VERSION
+    paths:
+      - publish/docker/flxCatalog-frontend-*.tar.gz
+    expire_in: 90 days
+
+docker:backend:
+  extends: .docker_build
+  script:
+    - |
+      TAGS="-t flxCatalog-backend:$PACKAGE_VERSION"
+      if [ "$CI_COMMIT_REF_NAME" = "main" ] || [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+        TAGS="$TAGS -t flxCatalog-backend:latest"
+      fi
+      docker build $TAGS -f flxCatalog.Backend/Dockerfile .
+    - mkdir -p publish/docker
+    - |
+      EXTRA_TAG=""
+      if [ "$CI_COMMIT_REF_NAME" = "main" ] || [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+        EXTRA_TAG="flxCatalog-backend:latest"
+      fi
+      docker save "flxCatalog-backend:$PACKAGE_VERSION" $EXTRA_TAG | gzip > publish/docker/flxCatalog-backend-$PACKAGE_VERSION.tar.gz
+    - |
+      if [ -z "$CI_REGISTRY" ]; then
+        echo "Container Registry no habilitado en esta instancia: se omite el push de la imagen."
+      elif [ "$CI_COMMIT_REF_NAME" = "main" ] || [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+        docker login -u gitlab-ci-token -p "$CI_JOB_TOKEN" "$CI_REGISTRY"
+        docker tag "flxCatalog-backend:$PACKAGE_VERSION" "$CI_REGISTRY_IMAGE/backend:$PACKAGE_VERSION"
+        docker tag "flxCatalog-backend:$PACKAGE_VERSION" "$CI_REGISTRY_IMAGE/backend:latest"
+        docker push "$CI_REGISTRY_IMAGE/backend:$PACKAGE_VERSION"
+        docker push "$CI_REGISTRY_IMAGE/backend:latest"
+      fi
+  artifacts:
+    name: flxCatalog-backend-$PACKAGE_VERSION
+    paths:
+      - publish/docker/flxCatalog-backend-*.tar.gz
+    expire_in: 90 days
+
+docker:db:
+  extends: .docker_build
+  script:
+    - |
+      TAGS="-t flxCatalog-db:$PACKAGE_VERSION"
+      if [ "$CI_COMMIT_REF_NAME" = "main" ] || [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+        TAGS="$TAGS -t flxCatalog-db:latest"
+      fi
+      docker build $TAGS -f flxCatalog.Conf.Database/Dockerfile .
+    - mkdir -p publish/docker
+    - |
+      EXTRA_TAG=""
+      if [ "$CI_COMMIT_REF_NAME" = "main" ] || [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+        EXTRA_TAG="flxCatalog-db:latest"
+      fi
+      docker save "flxCatalog-db:$PACKAGE_VERSION" $EXTRA_TAG | gzip > publish/docker/flxCatalog-db-$PACKAGE_VERSION.tar.gz
+    - |
+      if [ -z "$CI_REGISTRY" ]; then
+        echo "Container Registry no habilitado en esta instancia: se omite el push de la imagen."
+      elif [ "$CI_COMMIT_REF_NAME" = "main" ] || [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+        docker login -u gitlab-ci-token -p "$CI_JOB_TOKEN" "$CI_REGISTRY"
+        docker tag "flxCatalog-db:$PACKAGE_VERSION" "$CI_REGISTRY_IMAGE/db:$PACKAGE_VERSION"
+        docker tag "flxCatalog-db:$PACKAGE_VERSION" "$CI_REGISTRY_IMAGE/db:latest"
+        docker push "$CI_REGISTRY_IMAGE/db:$PACKAGE_VERSION"
+        docker push "$CI_REGISTRY_IMAGE/db:latest"
+      fi
+  artifacts:
+    name: flxCatalog-db-$PACKAGE_VERSION
+    paths:
+      - publish/docker/flxCatalog-db-*.tar.gz
+    expire_in: 90 days

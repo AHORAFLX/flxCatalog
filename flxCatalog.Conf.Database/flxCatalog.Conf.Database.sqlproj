@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build">
+  <Sdk Name="Microsoft.Build.Sql" Version="2.0.0" />
+  <PropertyGroup>
+    <Name>flxCatalog.Conf.Database</Name>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DacApplicationName>flxCatalog</DacApplicationName>
+    <!-- Padre directo en la cadena snowball: el merge script (propagado
+         via buildTransitive/ desde el package L0) usa esto como filtro para
+         seleccionar solo el dacpac del padre directo (que ya contiene la
+         cadena previa mergeada). El generador del template sustituye el
+         token Flexygo.Conf.Database por el nombre real del padre. -->
+    <FlexygoParentDatabasePackage>Flexygo.Conf.Database</FlexygoParentDatabasePackage>
+    <Recovery>SIMPLE</Recovery>
+    <ProjectGuid>{00000000-0000-0000-0000-000000000000}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="flxCatalog.Conf.Database.nuspec" />
+    <None Include="local.publish.xml" />
+    <None Include="scripts\config.sql" />
+    <None Include="scripts\staticdata\*.sql" />
+    <!-- Los copia tools\build-docker-images.ps1 al contexto de build de la imagen de BD -->
+    <None Include="Dockerfile" />
+    <None Include="entrypoint_db.sh" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="scripts\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="scripts\Script.PreDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SqlServer.Dacpacs.Master" Version="160.2.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <SqlCmdVariable Include="ProjectName">
+      <DefaultValue>flxCatalog</DefaultValue>
+      <Value>$(SqlCmdVar__1)</Value>
+    </SqlCmdVariable>
+    <SqlCmdVariable Include="CurrentDacVersion">
+      <DefaultValue>1.0.0.0</DefaultValue>
+      <Value>$(SqlCmdVar__2)</Value>
+    </SqlCmdVariable>
+    <SqlCmdVariable Include="OriginDatabaseName">
+      <DefaultValue>NULL</DefaultValue>
+      <Value>$(SqlCmdVar__3)</Value>
+    </SqlCmdVariable>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="scripts\post\" />
+    <Folder Include="scripts\pre\" />
+    <Folder Include="scripts\staticdata\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Flexygo.Conf.Database" Version="10.0.0-beta.56" />
+  </ItemGroup>
+</Project>
