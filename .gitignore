@@ -293,3 +293,4 @@ flxCatalog.Frontend/wwwroot/**/*.d.ts
 
 # Variables locales del compose. El fichero versionado es .env.example.
 .env
+.playwright-mcp/*.*

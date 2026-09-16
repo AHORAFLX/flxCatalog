@@ -3,3 +3,4 @@ AS
 BEGIN
     SELECT * FROM [dbo].[SampleTable];
 END;
+GO

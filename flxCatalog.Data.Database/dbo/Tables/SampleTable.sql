@@ -1,5 +1,9 @@
-﻿CREATE TABLE [dbo].[SampleTable]
+﻿CREATE TABLE [dbo].[SampleTable](
+	[Id] [int] NOT NULL,
+	[Name] [nvarchar](100) NOT NULL,
+PRIMARY KEY CLUSTERED 
 (
-    [Id] INT NOT NULL PRIMARY KEY,
-    [Name] NVARCHAR(100) NOT NULL
-);
+	[Id] ASC
+)
+)
+GO

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>flxCatalog - Clientes</title>
+<!-- Inter Google Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-fixed": "#1a1b22",
+            "on-secondary-fixed-variant": "#46464e",
+            "on-error-container": "#93000a",
+            "primary-container": "#1c1b1d",
+            "surface-container-highest": "#e2e2e3",
+            "inverse-surface": "#2f3132",
+            "surface-container-low": "#f3f3f4",
+            "on-surface-variant": "#47464a",
+            "on-surface": "#1a1c1d",
+            "on-primary-fixed": "#1c1b1d",
+            "surface-container-lowest": "#ffffff",
+            "success": "#10B981",
+            "border": "#E4E4E7",
+            "primary-fixed": "#e5e1e4",
+            "outline": "#78767b",
+            "error-container": "#ffdad6",
+            "primary-fixed-dim": "#c8c6c8",
+            "tertiary-container": "#1f1a1a",
+            "on-background": "#1a1c1d",
+            "inverse-on-surface": "#f0f1f2",
+            "outline-variant": "#c8c5ca",
+            "background": "#FAFAFA",
+            "on-error": "#ffffff",
+            "secondary-container": "#e3e1ec",
+            "surface-variant": "#e2e2e3",
+            "tertiary": "#000000",
+            "primary": "#000000",
+            "on-primary": "#ffffff",
+            "surface": "#FFFFFF",
+            "on-primary-container": "#858386",
+            "danger": "#EF4444",
+            "tertiary-fixed": "#ebe0df",
+            "inverse-primary": "#c8c6c8",
+            "surface-container-high": "#e8e8e9",
+            "secondary": "#5d5e66",
+            "error": "#ba1a1a",
+            "on-tertiary-container": "#8a8282",
+            "surface-tint": "#5f5e60",
+            "on-secondary-container": "#63646c",
+            "on-tertiary-fixed-variant": "#4c4545",
+            "secondary-fixed": "#e3e1ec",
+            "on-secondary": "#ffffff",
+            "surface-dim": "#dadadb",
+            "on-primary-fixed-variant": "#474649",
+            "surface-container": "#eeeeef",
+            "on-tertiary-fixed": "#1f1a1a",
+            "warning": "#F59E0B",
+            "on-tertiary": "#ffffff",
+            "tertiary-fixed-dim": "#cec4c4",
+            "secondary-fixed-dim": "#c6c5cf",
+            "surface-bright": "#f9f9fa"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-md": "12px",
+            "space-xl": "24px",
+            "gutter": "20px",
+            "space-sm": "8px",
+            "space-xs": "4px",
+            "space-lg": "16px",
+            "margin": "32px"
+          },
+          "fontFamily": {
+            "box-title": [
+              "Inter"
+            ],
+            "page-title": [
+              "Inter"
+            ],
+            "label-sm": [
+              "Inter"
+            ],
+            "caption": [
+              "Inter"
+            ],
+            "body-md": [
+              "Inter"
+            ]
+          },
+          "fontSize": {
+            "box-title": [
+              "20px",
+              {
+                "lineHeight": "28px",
+                "fontWeight": "600"
+              }
+            ],
+            "page-title": [
+              "30px",
+              {
+                "lineHeight": "36px",
+                "fontWeight": "700"
+              }
+            ],
+            "label-sm": [
+              "12px",
+              {
+                "lineHeight": "16px",
+                "fontWeight": "400"
+              }
+            ],
+            "caption": [
+              "11px",
+              {
+                "lineHeight": "14px",
+                "fontWeight": "400"
+              }
+            ],
+            "body-md": [
+              "14px",
+              {
+                "lineHeight": "20px",
+                "fontWeight": "400"
+              }
+            ]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="h-full antialiased font-body-md text-body-md text-on-surface bg-background flex">
+<!-- Left Navigation Rail (SideNav Anchor Component) -->
+<aside class="fixed top-0 bottom-0 left-0 w-64 flex flex-col justify-between bg-primary z-30 border-r border-border">
+<div class="flex flex-col p-space-lg">
+<!-- Brand Block -->
+<div class="flex items-center gap-space-sm mb-8 px-space-xs">
+<div class="w-8 h-8 rounded-lg bg-surface flex items-center justify-center text-primary font-bold"><span class="text-xs font-bold leading-none text-primary">flx</span></div>
+<div class="flex flex-col">
+<span class="text-box-title font-box-title font-bold text-on-primary tracking-tight leading-none">flxCatalog</span>
+<span class="text-caption font-caption text-on-primary-container mt-1">Catálogo B2B/B2C demo</span>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex flex-col space-y-1">
+<!-- 1. Panel de control -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span>Panel de control</span>
+</a>
+<!-- 2. Productos -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+<span>Productos</span>
+</a>
+<!-- 3. Familias -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">category</span>
+<span>Familias</span>
+</a>
+<!-- 4. Marcas -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">branding_watermark</span>
+<span>Marcas</span>
+</a>
+<!-- 5. Clientes (ACTIVE ITEM per Hierarchy & Destination) -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg bg-on-primary/10 text-on-primary font-body-md text-body-md font-medium transition-colors duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span>Clientes</span>
+</a>
+<!-- 6. Pedidos -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+<span>Pedidos</span>
+</a>
+</nav>
+</div>
+<!-- User Footer Section -->
+<div class="p-space-lg border-t border-white/10 flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm px-space-xs py-space-xs">
+<div class="w-8 h-8 rounded-full bg-surface-container-low text-primary flex items-center justify-center font-semibold text-xs border border-border">
+          AM
+        </div>
+<div class="flex flex-col leading-tight min-w-0 flex-1">
+<span class="text-body-md font-body-md font-semibold text-on-primary truncate">Ana Martín</span>
+<span class="text-caption font-caption text-on-primary-container truncate">Administrador</span>
+</div>
+</div>
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span>Cerrar sesión</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas Container -->
+<div class="ml-64 flex-1 flex flex-col min-w-0 min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<header class="h-14 w-full bg-surface flex items-center justify-between px-margin border-b border-border sticky top-0 z-20">
+<!-- Search on the left -->
+<div class="flex items-center w-80">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-[18px] text-secondary">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 text-body-md font-body-md bg-surface-container-low border border-border rounded-lg placeholder:text-secondary focus:outline-none focus:border-primary transition-colors" placeholder="Buscar en el catálogo..." type="text"/>
+</div>
+</div>
+<!-- Trailing Icon Actions and Avatar Profile -->
+<div class="flex items-center gap-space-md">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg text-secondary hover:bg-surface-container-low hover:text-primary transition-colors duration-150" type="button">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg text-secondary hover:bg-surface-container-low hover:text-primary transition-colors duration-150" type="button">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</button>
+<div class="h-5 w-px bg-border mx-1"></div>
+<div class="flex items-center gap-space-sm pl-1">
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center text-xs font-semibold">
+            AM
+          </div>
+<span class="text-body-md font-body-md font-medium text-primary">Ana Martín</span>
+</div>
+</div>
+</header>
+<!-- Page Content Container -->
+<main class="flex-1 px-margin py-8">
+<!-- Page Title & Primary Action -->
+<div class="flex items-center justify-between mb-8">
+<div>
+<h1 class="text-page-title font-page-title text-on-surface tracking-tight">Clientes</h1>
+<p class="text-body-md font-body-md text-secondary mt-1">Cartera de clientes</p>
+</div>
+<div>
+<!-- Exactly one primary button on screen -->
+<button class="inline-flex items-center gap-space-xs bg-primary text-on-primary font-body-md text-body-md font-medium px-4 py-2 rounded-lg hover:bg-zinc-800 transition-colors duration-150 ease-in-out" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>+ Nuevo cliente</span>
+</button>
+</div>
+</div>
+<!-- Main Content Card / List Box -->
+<div class="bg-surface rounded-xl border border-border overflow-hidden">
+<!-- Filters Row & Actions -->
+<div class="p-space-lg border-b border-border flex flex-col gap-4">
+<div class="flex flex-wrap items-center justify-between gap-3">
+<!-- Filter Controls Group -->
+<div class="flex flex-wrap items-center gap-2.5 flex-1 min-w-[320px]">
+<!-- Search Input -->
+<div class="relative min-w-[240px]">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-[18px] text-secondary">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 text-body-md font-body-md bg-surface border border-border rounded-lg placeholder:text-secondary focus:outline-none focus:border-primary transition-colors" placeholder="Buscar por nombre, código, CIF..." type="text"/>
+</div>
+<!-- Tarifa Dropdown -->
+<div class="relative">
+<select class="appearance-none bg-surface border border-border rounded-lg pl-3 pr-8 py-1.5 text-body-md font-body-md text-on-surface focus:outline-none focus:border-primary transition-colors cursor-pointer">
+<option selected="">Todas las tarifas</option>
+<option>Mayorista</option>
+<option>Distribuidor</option>
+<option>Profesional</option>
+<option>VIP</option>
+<option>Público</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-[18px] text-secondary">expand_more</span>
+</div>
+<!-- Estado Dropdown -->
+<div class="relative">
+<select class="appearance-none bg-surface border border-border rounded-lg pl-3 pr-8 py-1.5 text-body-md font-body-md text-on-surface focus:outline-none focus:border-primary transition-colors cursor-pointer">
+<option selected="">Todos los estados</option>
+<option>Activo</option>
+<option>Bloqueado</option>
+<option>Inactivo</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-[18px] text-secondary">expand_more</span>
+</div>
+<!-- Comercial Dropdown -->
+<div class="relative">
+<select class="appearance-none bg-surface border border-border rounded-lg pl-3 pr-8 py-1.5 text-body-md font-body-md text-on-surface focus:outline-none focus:border-primary transition-colors cursor-pointer">
+<option selected="">Todos los comerciales</option>
+<option>Ana Martín</option>
+<option>Pedro Ruiz</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-[18px] text-secondary">expand_more</span>
+</div>
+<!-- Real Date-range Control -->
+<div class="flex items-center gap-1.5 bg-surface border border-border rounded-lg px-3 py-1.5 text-body-md font-body-md text-on-surface cursor-pointer hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px] text-secondary">calendar_today</span>
+<span class="tabular-nums">Fecha de alta: 01/01/2024 - 31/05/2024</span>
+</div>
+</div>
+<!-- Secondary Actions: Clear filters & Export -->
+<div class="flex items-center gap-2">
+<button class="text-body-md font-body-md text-secondary hover:text-primary px-3 py-1.5 rounded-lg hover:bg-surface-container-low transition-colors" type="button">
+                Limpiar filtros
+              </button>
+<button class="inline-flex items-center gap-1.5 border border-border bg-surface text-on-surface font-body-md text-body-md px-3 py-1.5 rounded-lg hover:bg-surface-container-low transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">download</span>
+<span>Exportar</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Table Structure -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-border bg-surface-container-low/50">
+<th class="py-3 px-space-lg text-label-sm font-label-sm font-medium text-secondary" scope="col">Código</th>
+<th class="py-3 px-space-lg text-label-sm font-label-sm font-medium text-secondary" scope="col">Razón social</th>
+<th class="py-3 px-space-lg text-label-sm font-label-sm font-medium text-secondary" scope="col">CIF</th>
+<th class="py-3 px-space-lg text-label-sm font-label-sm font-medium text-secondary" scope="col">Tarifa</th>
+<th class="py-3 px-space-lg text-label-sm font-label-sm font-medium text-secondary" scope="col">Comercial</th>
+<th class="py-3 px-space-lg text-label-sm font-label-sm font-medium text-secondary" scope="col">Estado</th>
+<th class="py-3 px-space-lg text-label-sm font-label-sm font-medium text-secondary text-right" scope="col">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y border-border divide-border text-body-md font-body-md">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3 px-space-lg whitespace-nowrap font-medium text-primary">CLI-0021</td>
+<td class="py-3 px-space-lg font-medium text-on-surface">Comercial Ibérica S.L.</td>
+<td class="py-3 px-space-lg tabular-nums text-secondary">B12345678</td>
+<td class="py-3 px-space-lg">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-label-sm font-label-sm bg-surface-container-low text-on-surface border border-border">
+                    Mayorista
+                  </span>
+</td>
+<td class="py-3 px-space-lg text-on-surface">Ana Martín</td>
+<td class="py-3 px-space-lg">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-label-sm font-label-sm border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-success"></span>Activo</span>
+</td>
+<td class="py-3 px-space-lg text-right">
+<button class="w-7 h-7 inline-flex items-center justify-center rounded hover:bg-surface-container-low text-secondary hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3 px-space-lg whitespace-nowrap font-medium text-primary">CLI-0022</td>
+<td class="py-3 px-space-lg font-medium text-on-surface">Distribuciones Norte S.A.</td>
+<td class="py-3 px-space-lg tabular-nums text-secondary">A87654321</td>
+<td class="py-3 px-space-lg">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-label-sm font-label-sm bg-surface-container-low text-on-surface border border-border">
+                    Distribuidor
+                  </span>
+</td>
+<td class="py-3 px-space-lg text-on-surface">Pedro Ruiz</td>
+<td class="py-3 px-space-lg">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-label-sm font-label-sm border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-success"></span>Activo</span>
+</td>
+<td class="py-3 px-space-lg text-right">
+<button class="w-7 h-7 inline-flex items-center justify-center rounded hover:bg-surface-container-low text-secondary hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3 px-space-lg whitespace-nowrap font-medium text-primary">CLI-0023</td>
+<td class="py-3 px-space-lg font-medium text-on-surface">María García</td>
+<td class="py-3 px-space-lg tabular-nums text-secondary">12345678Z</td>
+<td class="py-3 px-space-lg">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-label-sm font-label-sm bg-surface-container-low text-on-surface border border-border">
+                    Público
+                  </span>
+</td>
+<td class="py-3 px-space-lg text-secondary">—</td>
+<td class="py-3 px-space-lg">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-label-sm font-label-sm border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-success"></span>Activo</span>
+</td>
+<td class="py-3 px-space-lg text-right">
+<button class="w-7 h-7 inline-flex items-center justify-center rounded hover:bg-surface-container-low text-secondary hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3 px-space-lg whitespace-nowrap font-medium text-primary">CLI-0024</td>
+<td class="py-3 px-space-lg font-medium text-on-surface">Talleres Ruiz S.L.</td>
+<td class="py-3 px-space-lg tabular-nums text-secondary">B11223344</td>
+<td class="py-3 px-space-lg">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-label-sm font-label-sm bg-surface-container-low text-on-surface border border-border">
+                    Profesional
+                  </span>
+</td>
+<td class="py-3 px-space-lg text-on-surface">Ana Martín</td>
+<td class="py-3 px-space-lg">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-red-50 text-red-700 text-label-sm font-label-sm border border-red-200"><span class="w-1.5 h-1.5 rounded-full bg-danger"></span>Bloqueado</span>
+</td>
+<td class="py-3 px-space-lg text-right">
+<button class="w-7 h-7 inline-flex items-center justify-center rounded hover:bg-surface-container-low text-secondary hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3 px-space-lg whitespace-nowrap font-medium text-primary">CLI-0025</td>
+<td class="py-3 px-space-lg font-medium text-on-surface">Óptica Visión</td>
+<td class="py-3 px-space-lg tabular-nums text-secondary">B99887766</td>
+<td class="py-3 px-space-lg">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-label-sm font-label-sm bg-surface-container-low text-on-surface border border-border">
+                    Distribuidor
+                  </span>
+</td>
+<td class="py-3 px-space-lg text-on-surface">Pedro Ruiz</td>
+<td class="py-3 px-space-lg">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-label-sm font-label-sm border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-success"></span>Activo</span>
+</td>
+<td class="py-3 px-space-lg text-right">
+<button class="w-7 h-7 inline-flex items-center justify-center rounded hover:bg-surface-container-low text-secondary hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3 px-space-lg whitespace-nowrap font-medium text-primary">CLI-0026</td>
+<td class="py-3 px-space-lg font-medium text-on-surface">Moda Sur S.L.</td>
+<td class="py-3 px-space-lg tabular-nums text-secondary">B55443322</td>
+<td class="py-3 px-space-lg">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-label-sm font-label-sm bg-surface-container-low text-on-surface border border-border">
+                    VIP
+                  </span>
+</td>
+<td class="py-3 px-space-lg text-on-surface">Ana Martín</td>
+<td class="py-3 px-space-lg">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-label-sm font-label-sm border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-success"></span>Activo</span>
+</td>
+<td class="py-3 px-space-lg text-right">
+<button class="w-7 h-7 inline-flex items-center justify-center rounded hover:bg-surface-container-low text-secondary hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pager -->
+<div class="p-space-lg border-t border-border flex items-center justify-between">
+<div class="text-body-md font-body-md text-secondary">
+            Mostrando <span class="font-medium text-on-surface tabular-nums">6</span> de <span class="font-medium text-on-surface tabular-nums">148</span> clientes
+          </div>
+<div class="flex items-center gap-1">
+<!-- Anterior (Disabled) -->
+<button class="px-3 py-1.5 rounded-lg border border-border text-body-md font-body-md text-outline-variant bg-surface cursor-not-allowed" disabled="" type="button">
+              Anterior
+            </button>
+<!-- Page 1 (Active) -->
+<button class="w-8 h-8 rounded-lg bg-primary text-on-primary font-body-md text-body-md font-medium flex items-center justify-center" type="button">
+              1
+            </button>
+<!-- Page 2 -->
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container-low text-on-surface font-body-md text-body-md flex items-center justify-center transition-colors" type="button">
+              2
+            </button>
+<!-- Page 3 -->
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container-low text-on-surface font-body-md text-body-md flex items-center justify-center transition-colors" type="button">
+              3
+            </button>
+<!-- Ellipsis -->
+<span class="w-8 h-8 flex items-center justify-center text-secondary font-body-md">...</span>
+<!-- Siguiente -->
+<button class="px-3 py-1.5 rounded-lg border border-border text-body-md font-body-md text-on-surface hover:bg-surface-container-low transition-colors" type="button">
+              Siguiente
+            </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

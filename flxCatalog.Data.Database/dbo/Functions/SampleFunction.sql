@@ -9,3 +9,4 @@ BEGIN
     SELECT @Name = [Name] FROM [dbo].[SampleTable] WHERE [Id] = @Id;
     RETURN @Name;
 END;
+GO

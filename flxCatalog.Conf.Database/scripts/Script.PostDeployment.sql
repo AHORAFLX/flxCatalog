@@ -8,6 +8,30 @@ EXEC sp_MSforeachtable 'ALTER TABLE ? DISABLE TRIGGER all'
 
 PRINT N'config.sql...'
 :r .\config.sql
+:r .\staticdata\documents_objects_config.sql
+:r .\staticdata\help.sql
+:r .\staticdata\menus.sql
+:r .\staticdata\modules.sql
+:r .\staticdata\modules_events.sql
+:r .\staticdata\navigation_nodes.sql
+:r .\staticdata\objects.sql
+:r .\staticdata\objects_images_settings.sql
+:r .\staticdata\objects_objects.sql
+:r .\staticdata\objects_processes.sql
+:r .\staticdata\objects_properties.sql
+:r .\staticdata\objects_search.sql
+:r .\staticdata\objects_search_properties.sql
+:r .\staticdata\objects_templates.sql
+:r .\staticdata\objects_views.sql
+:r .\staticdata\objects_views_properties.sql
+:r .\staticdata\pages.sql
+:r .\staticdata\pages_modules.sql
+:r .\staticdata\plugins.sql
+:r .\staticdata\processes.sql
+:r .\staticdata\processes_params.sql
+:r .\staticdata\security_objects_roles.sql
+:r .\staticdata\toolbars.sql
+:r .\staticdata\toolbars_buttons.sql
 
 -- El orden tiene que ser  primero habilitar triggers y constraint, luego lanzar el proceso de actualizacion 
 EXEC sp_MSforeachtable 'ALTER TABLE ? ENABLE TRIGGER all'

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background text-on-background" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pedidos - flxCatalog</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-lowest": "#ffffff",
+            "primary-container": "#1c1b1d",
+            "primary": "#000000",
+            "inverse-on-surface": "#f0f1f2",
+            "secondary-fixed-dim": "#c6c5cf",
+            "on-tertiary-container": "#8a8282",
+            "on-secondary-fixed-variant": "#46464e",
+            "tertiary-fixed-dim": "#cec4c4",
+            "on-primary-fixed-variant": "#474649",
+            "surface-variant": "#e2e2e3",
+            "on-secondary-fixed": "#1a1b22",
+            "outline-variant": "#c8c5ca",
+            "on-primary-container": "#858386",
+            "error": "#ba1a1a",
+            "secondary-container": "#e3e1ec",
+            "primary-fixed": "#e5e1e4",
+            "on-tertiary-fixed": "#1f1a1a",
+            "on-tertiary": "#ffffff",
+            "surface": "#FFFFFF",
+            "on-error-container": "#93000a",
+            "on-primary-fixed": "#1c1b1d",
+            "secondary": "#5d5e66",
+            "success": "#10B981",
+            "outline": "#78767b",
+            "warning": "#F59E0B",
+            "danger": "#EF4444",
+            "tertiary-fixed": "#ebe0df",
+            "secondary-fixed": "#e3e1ec",
+            "on-background": "#1a1c1d",
+            "surface-tint": "#5f5e60",
+            "error-container": "#ffdad6",
+            "surface-container": "#eeeeef",
+            "primary-fixed-dim": "#c8c6c8",
+            "inverse-surface": "#2f3132",
+            "on-secondary": "#ffffff",
+            "on-error": "#ffffff",
+            "on-tertiary-fixed-variant": "#4c4545",
+            "surface-container-high": "#e8e8e9",
+            "on-primary": "#ffffff",
+            "inverse-primary": "#c8c6c8",
+            "border": "#E4E4E7",
+            "surface-bright": "#f9f9fa",
+            "tertiary": "#000000",
+            "surface-dim": "#dadadb",
+            "surface-container-low": "#f3f3f4",
+            "surface-container-highest": "#e2e2e3",
+            "on-surface-variant": "#47464a",
+            "background": "#FAFAFA",
+            "on-secondary-container": "#63646c",
+            "on-surface": "#1a1c1d",
+            "tertiary-container": "#1f1a1a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xs": "4px",
+            "space-xl": "24px",
+            "space-md": "12px",
+            "space-lg": "16px",
+            "gutter": "20px",
+            "space-sm": "8px",
+            "margin": "32px"
+          },
+          "fontFamily": {
+            "caption": ["Inter"],
+            "box-title": ["Inter"],
+            "page-title": ["Inter"],
+            "body-md": ["Inter"],
+            "label-sm": ["Inter"]
+          },
+          "fontSize": {
+            "caption": ["11px", { "lineHeight": "14px", "fontWeight": "400" }],
+            "box-title": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "page-title": ["30px", { "lineHeight": "36px", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="h-full font-body-md text-body-md text-on-background bg-background antialiased flex overflow-hidden">
+<!-- SideNavBar Component -->
+<aside class="fixed top-0 bottom-0 left-0 w-64 flex flex-col justify-between bg-primary z-30 select-none">
+<div class="flex flex-col h-full justify-between p-space-lg">
+<!-- Brand & Primary Tabs -->
+<div class="flex flex-col gap-space-lg">
+<!-- Brand Header -->
+<div class="px-space-md py-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-lg bg-surface flex items-center justify-center text-primary font-bold text-caption tracking-tight">
+              flx
+            </div>
+<div class="flex flex-col">
+<span class="text-box-title font-box-title font-bold text-on-primary leading-tight">flxCatalog</span>
+<span class="text-caption font-caption text-on-primary-container leading-none mt-0.5">Catálogo B2B/B2C demo</span>
+</div>
+</div>
+</div>
+<!-- Navigation items list -->
+<nav class="flex flex-col gap-1">
+<!-- 1. Panel de control (Inactive) -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Panel de control</span>
+</a>
+<!-- 2. Productos (Inactive) -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Productos</span>
+</a>
+<!-- 3. Familias (Inactive) -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span>Familias</span>
+</a>
+<!-- 4. Marcas (Inactive) -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="branding_watermark">branding_watermark</span>
+<span>Marcas</span>
+</a>
+<!-- 5. Clientes (Inactive) -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span>Clientes</span>
+</a>
+<!-- 6. Pedidos (ACTIVE TAB) -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg bg-on-primary/10 text-on-primary font-body-md text-body-md font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart" data-weight="fill" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+<span>Pedidos</span>
+</a>
+</nav>
+</div>
+<!-- Footer User Info & Logout -->
+<div class="flex flex-col gap-1 pt-space-md border-t border-on-primary/10">
+<div class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary">
+<div class="w-8 h-8 rounded-full bg-on-primary/20 text-on-primary font-medium text-caption flex items-center justify-center">
+            AM
+          </div>
+<div class="flex flex-col min-w-0">
+<span class="text-body-md font-body-md font-medium text-on-primary truncate">Ana Martín</span>
+<span class="text-caption font-caption text-on-primary-container leading-none">Administrador</span>
+</div>
+</div>
+<button class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150 w-full text-left">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Cerrar sesión</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Right App Content Container -->
+<div class="flex-1 flex flex-col pl-64 min-w-0 h-full overflow-hidden">
+<!-- TopNavBar Component -->
+<header class="docked full-width top-0 h-14 bg-surface border-b border-border flex items-center justify-between px-margin z-20 shrink-0">
+<!-- Search Input on Left -->
+<div class="flex items-center w-80">
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-secondary">
+<span class="material-symbols-outlined text-[18px]">search</span>
+</div>
+<input class="block w-full pl-9 pr-3 py-1.5 bg-surface-container-low border border-border rounded-lg text-body-md font-body-md placeholder-secondary text-on-background focus:outline-none focus:bg-surface focus:border-primary transition-colors" placeholder="Buscar en el catálogo..." type="text"/>
+</div>
+</div>
+<!-- Trailing Action Icons -->
+<div class="flex items-center gap-space-sm">
+<button class="w-9 h-9 flex items-center justify-center rounded-lg text-secondary hover:bg-surface-container-low hover:text-primary transition-colors duration-150" title="Notificaciones" type="button">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-lg text-secondary hover:bg-surface-container-low hover:text-primary transition-colors duration-150" title="Ayuda" type="button">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-4 w-px bg-border mx-1"></div>
+<div class="flex items-center gap-space-sm pl-1 cursor-pointer">
+<div class="w-7 h-7 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface text-caption font-medium border border-border">
+            AM
+          </div>
+<span class="text-body-md font-body-md font-medium text-on-surface">Ana Martín</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto p-margin bg-background flex flex-col gap-space-xl">
+<!-- Page Header: Title + Primary Action -->
+<div class="flex items-center justify-between">
+<div>
+<h1 class="text-page-title font-page-title text-on-surface tracking-tight">Pedidos</h1>
+<p class="text-body-md font-body-md text-secondary mt-1">Seguimiento de pedidos</p>
+</div>
+<div>
+<!-- button-primary (strict verb label, max 1 per screen) -->
+<button class="px-space-lg py-2 bg-primary text-on-primary rounded-lg font-body-md text-body-md font-medium hover:bg-primary-container transition-colors duration-150 flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Nuevo pedido</span>
+</button>
+</div>
+</div>
+<!-- Main Box / Card -->
+<div class="bg-surface rounded-xl border border-border flex flex-col">
+<!-- Filter Controls Toolbar -->
+<div class="p-space-lg border-b border-border flex flex-wrap items-center justify-between gap-space-md">
+<!-- Left side filters -->
+<div class="flex flex-wrap items-center gap-space-md">
+<!-- Search Bar -->
+<div class="relative w-64">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-secondary">
+<span class="material-symbols-outlined text-[18px]">search</span>
+</div>
+<input class="block w-full pl-9 pr-3 py-1.5 text-body-md font-body-md border border-border rounded-lg bg-surface placeholder-secondary text-on-background focus:outline-none focus:border-primary transition-colors" placeholder="Buscar por número, cliente..." type="text"/>
+</div>
+<!-- Estado Dropdown -->
+<div class="relative">
+<select class="appearance-none bg-surface border border-border rounded-lg pl-3 pr-8 py-1.5 text-body-md font-body-md text-on-background focus:outline-none focus:border-primary cursor-pointer">
+<option selected="">Todos los estados</option>
+<option>Confirmado</option>
+<option>Enviado</option>
+<option>Entregado</option>
+<option>En proceso</option>
+<option>Cancelado</option>
+<option>Borrador</option>
+</select>
+<div class="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-secondary">
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</div>
+</div>
+<!-- Cliente Dropdown -->
+<div class="relative">
+<select class="appearance-none bg-surface border border-border rounded-lg pl-3 pr-8 py-1.5 text-body-md font-body-md text-on-background focus:outline-none focus:border-primary cursor-pointer">
+<option selected="">Todos los clientes</option>
+<option>Comercial Ibérica S.L.</option>
+<option>Distribuciones Norte S.A.</option>
+<option>María García</option>
+<option>Talleres Ruiz S.L.</option>
+<option>Óptica Visión</option>
+<option>Moda Sur S.L.</option>
+</select>
+<div class="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-secondary">
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</div>
+</div>
+<!-- Date Range Selector -->
+<div class="flex items-center gap-2 border border-border rounded-lg px-3 py-1.5 bg-surface text-on-background text-body-md font-body-md cursor-pointer hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-secondary text-[18px]">calendar_today</span>
+<span class="text-caption font-caption text-secondary">Fecha:</span>
+<span class="text-body-md font-body-md">01/01/2024 - 31/05/2024</span>
+</div>
+</div>
+<!-- Right side actions -->
+<div class="flex items-center gap-space-sm">
+<button class="px-3 py-1.5 rounded-lg border border-border text-secondary hover:text-on-background hover:bg-surface-container-low text-body-md font-body-md transition-colors" type="button">
+              Limpiar filtros
+            </button>
+<button class="px-3 py-1.5 rounded-lg border border-border text-on-background hover:bg-surface-container-low text-body-md font-body-md flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Exportar</span>
+</button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto">
+<table class="w-full border-collapse text-left">
+<thead>
+<tr class="border-b border-border bg-surface-container-low/40">
+<th class="py-3 px-space-lg font-body-md text-label-sm font-medium text-secondary" scope="col">Número</th>
+<th class="py-3 px-space-lg font-body-md text-label-sm font-medium text-secondary" scope="col">Cliente</th>
+<th class="py-3 px-space-lg font-body-md text-label-sm font-medium text-secondary" scope="col">Fecha</th>
+<th class="py-3 px-space-lg font-body-md text-label-sm font-medium text-secondary" scope="col">Estado</th>
+<th class="py-3 px-space-lg font-body-md text-label-sm font-medium text-secondary text-right" scope="col">Total</th>
+<th class="py-3 px-space-lg font-body-md text-label-sm font-medium text-secondary text-right" scope="col">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border">
+<!-- Row 1: PED-1042 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors duration-150">
+<td class="py-3.5 px-space-lg font-medium text-on-background whitespace-nowrap">
+                  PED-1042
+                </td>
+<td class="py-3.5 px-space-lg text-on-background font-body-md">
+                  Comercial Ibérica S.L.
+                </td>
+<td class="py-3.5 px-space-lg text-secondary text-body-md whitespace-nowrap">
+                  hace 2 horas
+                </td>
+<td class="py-3.5 px-space-lg whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-caption font-caption bg-blue-50 text-blue-700 border border-blue-200"><span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+                    Confirmado
+                  </span>
+</td>
+<td class="py-3.5 px-space-lg text-right font-medium text-on-background tabular-nums whitespace-nowrap">
+                  340,00 €
+                </td>
+<td class="py-3.5 px-space-lg text-right whitespace-nowrap">
+<button class="p-1 rounded-lg text-secondary hover:text-on-background hover:bg-surface-container-high transition-colors" title="Opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: PED-1041 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors duration-150">
+<td class="py-3.5 px-space-lg font-medium text-on-background whitespace-nowrap">
+                  PED-1041
+                </td>
+<td class="py-3.5 px-space-lg text-on-background font-body-md">
+                  Distribuciones Norte S.A.
+                </td>
+<td class="py-3.5 px-space-lg text-secondary text-body-md whitespace-nowrap">
+                  hace 5 horas
+                </td>
+<td class="py-3.5 px-space-lg whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-caption font-caption bg-sky-50 text-sky-700 border border-sky-200"><span class="w-1.5 h-1.5 rounded-full bg-sky-600"></span>
+                    Enviado
+                  </span>
+</td>
+<td class="py-3.5 px-space-lg text-right font-medium text-on-background tabular-nums whitespace-nowrap">
+                  1.240,50 €
+                </td>
+<td class="py-3.5 px-space-lg text-right whitespace-nowrap">
+<button class="p-1 rounded-lg text-secondary hover:text-on-background hover:bg-surface-container-high transition-colors" title="Opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: PED-1040 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors duration-150">
+<td class="py-3.5 px-space-lg font-medium text-on-background whitespace-nowrap">
+                  PED-1040
+                </td>
+<td class="py-3.5 px-space-lg text-on-background font-body-md">
+                  María García
+                </td>
+<td class="py-3.5 px-space-lg text-secondary text-body-md whitespace-nowrap">
+                  ayer
+                </td>
+<td class="py-3.5 px-space-lg whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-caption font-caption bg-emerald-50 text-emerald-700 border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                    Entregado
+                  </span>
+</td>
+<td class="py-3.5 px-space-lg text-right font-medium text-on-background tabular-nums whitespace-nowrap">
+                  89,90 €
+                </td>
+<td class="py-3.5 px-space-lg text-right whitespace-nowrap">
+<button class="p-1 rounded-lg text-secondary hover:text-on-background hover:bg-surface-container-high transition-colors" title="Opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 4: PED-1039 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors duration-150">
+<td class="py-3.5 px-space-lg font-medium text-on-background whitespace-nowrap">
+                  PED-1039
+                </td>
+<td class="py-3.5 px-space-lg text-on-background font-body-md">
+                  Talleres Ruiz S.L.
+                </td>
+<td class="py-3.5 px-space-lg text-secondary text-body-md whitespace-nowrap">
+                  ayer
+                </td>
+<td class="py-3.5 px-space-lg whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-caption font-caption bg-amber-50 text-amber-700 border border-amber-200"><span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span>
+                    En proceso
+                  </span>
+</td>
+<td class="py-3.5 px-space-lg text-right font-medium text-on-background tabular-nums whitespace-nowrap">
+                  560,00 €
+                </td>
+<td class="py-3.5 px-space-lg text-right whitespace-nowrap">
+<button class="p-1 rounded-lg text-secondary hover:text-on-background hover:bg-surface-container-high transition-colors" title="Opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 5: PED-1038 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors duration-150">
+<td class="py-3.5 px-space-lg font-medium text-on-background whitespace-nowrap">
+                  PED-1038
+                </td>
+<td class="py-3.5 px-space-lg text-on-background font-body-md">
+                  Óptica Visión
+                </td>
+<td class="py-3.5 px-space-lg text-secondary text-body-md whitespace-nowrap">
+                  hace 2 días
+                </td>
+<td class="py-3.5 px-space-lg whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-caption font-caption bg-rose-50 text-rose-700 border border-rose-200"><span class="w-1.5 h-1.5 rounded-full bg-rose-600"></span>
+                    Cancelado
+                  </span>
+</td>
+<td class="py-3.5 px-space-lg text-right font-medium text-on-background tabular-nums whitespace-nowrap">
+                  210,00 €
+                </td>
+<td class="py-3.5 px-space-lg text-right whitespace-nowrap">
+<button class="p-1 rounded-lg text-secondary hover:text-on-background hover:bg-surface-container-high transition-colors" title="Opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 6: PED-1037 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors duration-150">
+<td class="py-3.5 px-space-lg font-medium text-on-background whitespace-nowrap">
+                  PED-1037
+                </td>
+<td class="py-3.5 px-space-lg text-on-background font-body-md">
+                  Moda Sur S.L.
+                </td>
+<td class="py-3.5 px-space-lg text-secondary text-body-md whitespace-nowrap">
+                  hace 3 días
+                </td>
+<td class="py-3.5 px-space-lg whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-caption font-caption bg-zinc-100 text-zinc-700 border border-zinc-200"><span class="w-1.5 h-1.5 rounded-full bg-zinc-500"></span>
+                    Borrador
+                  </span>
+</td>
+<td class="py-3.5 px-space-lg text-right font-medium text-on-background tabular-nums whitespace-nowrap">
+                  430,00 €
+                </td>
+<td class="py-3.5 px-space-lg text-right whitespace-nowrap">
+<button class="p-1 rounded-lg text-secondary hover:text-on-background hover:bg-surface-container-high transition-colors" title="Opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="p-space-lg border-t border-border flex items-center justify-between">
+<div class="text-body-md font-body-md text-secondary">
+            Mostrando 6 de 148 pedidos
+          </div>
+<div class="flex items-center gap-1">
+<button class="px-3 py-1 rounded-lg border border-border text-caption font-caption text-secondary/50 cursor-not-allowed" disabled="" type="button">
+              Anterior
+            </button>
+<button class="w-8 h-8 rounded-lg bg-primary text-on-primary text-caption font-caption font-medium flex items-center justify-center" type="button">
+              1
+            </button>
+<button class="w-8 h-8 rounded-lg border border-border text-on-background hover:bg-surface-container-low text-caption font-caption flex items-center justify-center transition-colors" type="button">
+              2
+            </button>
+<button class="w-8 h-8 rounded-lg border border-border text-on-background hover:bg-surface-container-low text-caption font-caption flex items-center justify-center transition-colors" type="button">
+              3
+            </button>
+<span class="px-1 text-secondary text-caption">...</span>
+<button class="px-3 py-1 rounded-lg border border-border text-on-background hover:bg-surface-container-low text-caption font-caption transition-colors" type="button">
+              Siguiente
+            </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

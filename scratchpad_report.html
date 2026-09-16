@@ -1,0 +1,375 @@
+<title>Cierre de Verificación</title>
+<meta name="description" content="Informe de cierre de /flx-verify para flxCatalog: qué se comprobó en pantalla, qué se corrigió en vivo y qué queda abierto para más adelante.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAFA;
+    --surface: #FFFFFF;
+    --surface-2: #F3F3F4;
+    --border: #E4E4E7;
+    --ink: #1A1C1D;
+    --muted: #57685E;
+    --muted-2: #6B7280;
+    --accent: #1C1B1D;
+    --accent-ink: #FFFFFF;
+    --success-bg: #ECFDF5;
+    --success-ink: #047857;
+    --success-line: #A7F3D0;
+    --warn-bg: #FFFBEB;
+    --warn-ink: #92400E;
+    --warn-line: #FDE68A;
+    --danger-bg: #FEF2F2;
+    --danger-ink: #B91C1C;
+    --danger-line: #FECACA;
+    --info-bg: #EFF6FF;
+    --info-ink: #1D4ED8;
+    --info-line: #BFDBFE;
+    --scope-bg: #F5F3FF;
+    --scope-ink: #6D28D9;
+    --scope-line: #DDD6FE;
+    --shadow: 0 1px 2px rgba(0,0,0,0.04), 0 1px 12px rgba(0,0,0,0.03);
+    --radius: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17181A;
+      --surface: #1F2123;
+      --surface-2: #26282B;
+      --border: #34373B;
+      --ink: #ECEDEE;
+      --muted: #A7B0BD;
+      --muted-2: #9CA3AF;
+      --accent: #ECEDEE;
+      --accent-ink: #17181A;
+      --success-bg: #0B2A21;
+      --success-ink: #6EE7B7;
+      --success-line: #134E3A;
+      --warn-bg: #2E2308;
+      --warn-ink: #FCD34D;
+      --warn-line: #4B3A0F;
+      --danger-bg: #2E1214;
+      --danger-ink: #FCA5A5;
+      --danger-line: #4B1D20;
+      --info-bg: #10233F;
+      --info-ink: #93C5FD;
+      --info-line: #1E3A5F;
+      --scope-bg: #241B3D;
+      --scope-ink: #C4B5FD;
+      --scope-line: #3B2E63;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 1px 12px rgba(0,0,0,0.25);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17181A;
+    --surface: #1F2123;
+    --surface-2: #26282B;
+    --border: #34373B;
+    --ink: #ECEDEE;
+    --muted: #A7B0BD;
+    --muted-2: #9CA3AF;
+    --accent: #ECEDEE;
+    --accent-ink: #17181A;
+    --success-bg: #0B2A21;
+    --success-ink: #6EE7B7;
+    --success-line: #134E3A;
+    --warn-bg: #2E2308;
+    --warn-ink: #FCD34D;
+    --warn-line: #4B3A0F;
+    --danger-bg: #2E1214;
+    --danger-ink: #FCA5A5;
+    --danger-line: #4B1D20;
+    --info-bg: #10233F;
+    --info-ink: #93C5FD;
+    --info-line: #1E3A5F;
+    --scope-bg: #241B3D;
+    --scope-ink: #C4B5FD;
+    --scope-line: #3B2E63;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 1px 12px rgba(0,0,0,0.25);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    padding-inline: 20px;
+    padding-block: 40px 80px;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  code, .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+
+  h1, h2, h3 { text-wrap: balance; font-weight: 700; letter-spacing: -0.01em; }
+  h1 { font-size: clamp(28px, 5vw, 38px); margin: 0 0 6px; }
+  h2 { font-size: 22px; margin: 48px 0 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+  h2 .num { font-family: 'IBM Plex Mono', monospace; color: var(--muted); font-weight: 500; font-size: 15px; margin-right: 10px; }
+  h3 { font-size: 16px; margin: 24px 0 10px; }
+  p { line-height: 1.6; color: var(--ink); }
+  .lede { color: var(--muted); font-size: 15px; margin: 0 0 28px; max-width: 62ch; line-height: 1.6; }
+
+  .meta-row { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+  .meta-row .mono { color: var(--muted-2); }
+
+  .verdict {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 22px 24px;
+    margin-bottom: 32px;
+  }
+  .verdict .badge-lg {
+    flex: none;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--success-bg);
+    border: 1px solid var(--success-line);
+    color: var(--success-ink);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .verdict h2 { margin: 0 0 4px; padding: 0; border: 0; font-size: 18px; }
+  .verdict p { margin: 0; color: var(--muted); font-size: 14.5px; }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .stat { background: var(--surface); padding: 16px 18px; }
+  .stat .n { font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .stat .l { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 600; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+  .table-wrap { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; overflow-x: auto; background: var(--surface); box-shadow: var(--shadow); margin-bottom: 20px; }
+  .table-wrap table { min-width: 480px; }
+
+  .pill { display: inline-flex; align-items: center; gap: 5px; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 500; border: 1px solid transparent; white-space: nowrap; }
+  .pill.ok { background: var(--success-bg); color: var(--success-ink); border-color: var(--success-line); }
+  .pill.warn { background: var(--warn-bg); color: var(--warn-ink); border-color: var(--warn-line); }
+  .pill.info { background: var(--info-bg); color: var(--info-ink); border-color: var(--info-line); }
+  .pill.scope { background: var(--scope-bg); color: var(--scope-ink); border-color: var(--scope-line); }
+  .pill.danger { background: var(--danger-bg); color: var(--danger-ink); border-color: var(--danger-line); }
+  .pill .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  .shot {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    margin: 14px 0 22px;
+    background: var(--surface);
+  }
+  .shot img { display: block; width: 100%; height: auto; }
+  .shot figcaption { padding: 10px 14px; font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--border); background: var(--surface-2); }
+  figure { margin: 0; }
+
+  .fix-list { list-style: none; margin: 0 0 24px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .fix-list li {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 12px 14px; box-shadow: var(--shadow); font-size: 14px; line-height: 1.55;
+  }
+  .fix-list .ico { flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--success-bg); color: var(--success-ink); border: 1px solid var(--success-line); display: flex; align-items: center; justify-content: center; font-size: 12px; margin-top: 1px; }
+  .fix-list b { font-weight: 600; }
+  .fix-list .tag { color: var(--muted); font-size: 12.5px; }
+
+  .screen-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px 20px; margin-bottom: 18px; }
+  .screen-card h3 { margin: 0 0 4px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .screen-card .row-summary { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0 8px; }
+  .screen-card p { margin: 6px 0 0; font-size: 13.5px; color: var(--muted); }
+
+  .gap-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--scope-line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 18px; margin-bottom: 14px; }
+  .gap-card.platform { border-left-color: var(--info-line); }
+  .gap-card h3 { margin: 0 0 8px; font-size: 15px; }
+  .gap-card dl { margin: 0; font-size: 13.5px; }
+  .gap-card dt { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em; margin-top: 10px; }
+  .gap-card dt:first-child { margin-top: 0; }
+  .gap-card dd { margin: 3px 0 0; line-height: 1.55; }
+
+  .decision-list { display: flex; flex-direction: column; gap: 8px; margin: 0 0 24px; }
+  .decision-item { display: grid; grid-template-columns: 52px 1fr; gap: 12px; padding: 10px 4px; border-bottom: 1px solid var(--border); font-size: 13.5px; align-items: baseline; }
+  .decision-item:last-child { border-bottom: 0; }
+  .decision-item .d-id { font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: var(--muted); }
+  .decision-item .d-text b { font-weight: 600; }
+  .decision-item .d-text .why { color: var(--muted); }
+
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted-2); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+  @media (max-width: 560px) {
+    .decision-item { grid-template-columns: 1fr; }
+    .verdict { flex-direction: column; }
+  }
+</style>
+
+<div class="wrap">
+
+  <h1>flxCatalog — Cierre de verificación</h1>
+  <p class="lede">Desarrollo <span class="mono">catalogo-demo</span> · comprobación funcional y comparación de diseño de las 4 bloques construidos, pantalla por pantalla, con navegador real.</p>
+  <div class="meta-row">
+    <span>15 septiembre 2026</span>
+    <span>·</span>
+    <span class="mono">/flx-verify</span>
+    <span>·</span>
+    <span>Interfaz <span class="mono">web2026</span>, usuario real</span>
+  </div>
+
+  <div class="verdict">
+    <div class="badge-lg">✓</div>
+    <div>
+      <h2>Verificación cerrada — nada quedó reabierto</h2>
+      <p>26/26 tareas, 4/4 bloques. Las 7 pantallas con diseño aprobado tienen su comparación fila a fila cerrada (misma / no aplica / diferente con causa y decisión). 3 defectos reales de datos y color se corrigieron en vivo. 6 acciones que solo existían de mentira ahora son procesos reales, probados creando y borrando registros de prueba. El barrido de calidad (<span class="mono">/flx-quality</span>) encontró y cerró 3 ausencias más — buscador, orden por columna, enlace de vuelta — en 11 pantallas. Quedan 2 huecos de plataforma registrados y 2 piezas de alcance mayor decididas para un desarrollo posterior — ninguno es un error, los dos están documentados y decididos, no abandonados. <span class="mono">flexygo_development_status</span> confirma el desarrollo completo: revisado, verificado y barrido de calidad, sin ninguna tarea reabierta.</p>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat"><div class="n">26/26</div><div class="l">Tareas</div></div>
+    <div class="stat"><div class="n">7/7</div><div class="l">Pantallas comparadas</div></div>
+    <div class="stat"><div class="n">84/84</div><div class="l">Filas de diseño cerradas</div></div>
+    <div class="stat"><div class="n">9</div><div class="l">Correcciones en vivo</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Tareas reabiertas</div></div>
+  </div>
+
+  <h2><span class="num">01</span>Qué se comprobó</h2>
+  <p>Cada pantalla se abrió en un navegador real, con sesión de administrador y los datos del <span class="mono">pSeed_ResetDemoData</span>, y se comparó fila a fila contra la maqueta aprobada en Stitch (paleta, tipografía, fila de lista, ficha, badges, espaciado, iconografía, composición, densidad, navegación, cromado de módulo, barra de acciones).</p>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Pantalla</th><th>Funcional</th><th>Diseño</th></tr>
+      <tr><td>Panel de control</td><td><span class="pill ok"><span class="dot"></span>OK</span></td><td>12/12 cerradas</td></tr>
+      <tr><td>Listado de productos</td><td><span class="pill ok"><span class="dot"></span>OK</span></td><td>12/12 cerradas</td></tr>
+      <tr><td>Ficha de producto</td><td><span class="pill ok"><span class="dot"></span>OK</span></td><td>12/12 cerradas</td></tr>
+      <tr><td>Listado de clientes</td><td><span class="pill ok"><span class="dot"></span>OK</span></td><td>12/12 cerradas</td></tr>
+      <tr><td>Listado de pedidos</td><td><span class="pill ok"><span class="dot"></span>OK</span></td><td>12/12 cerradas</td></tr>
+      <tr><td>Ficha de pedido</td><td><span class="pill ok"><span class="dot"></span>OK</span></td><td>12/12 cerradas</td></tr>
+      <tr><td>Catálogo público</td><td><span class="pill ok"><span class="dot"></span>OK</span></td><td>12/12 cerradas</td></tr>
+      <tr><td>Familias (listado + ficha)</td><td><span class="pill ok"><span class="dot"></span>OK — corregida en esta pasada</span></td><td>sin maqueta aprobada</td></tr>
+      <tr><td>Marcas · Ficha de cliente</td><td><span class="pill ok"><span class="dot"></span>OK</span></td><td>sin maqueta aprobada</td></tr>
+    </table>
+  </div>
+
+  <h2><span class="num">02</span>Defectos reales encontrados y corregidos en vivo</h2>
+  <p style="margin-top:-10px; margin-bottom: 18px;">Ninguno se dejó anotado para más tarde: se corrigió, se volvió a mirar en pantalla y se registró con su medición.</p>
+  <ul class="fix-list">
+    <li><span class="ico">✓</span><div><b>"Familia padre" en crudo</b> — el listado y la ficha de Familias mostraban el GUID en vez del nombre. La vista de la ficha imprimía el valor tal cual en vez de una columna ya resuelta. <span class="tag">Vista + plantilla, listado y ficha</span></div></li>
+    <li><span class="ico">✓</span><div><b>Gráfica "Ventas por familia" sin distinguir colores</b> — el <code>CASE</code> de color comparaba contra las familias padre, pero la consulta agrupa por familia hija: casi todas las porciones salían del mismo gris. <span class="tag">SQL del módulo de gráfica</span></div></li>
+    <li><span class="ico">✓</span><div><b>Badges "Confirmado" y "Enviado" con el mismo color</b> — Pedidos.Estado tiene 6 valores y la paleta de badges de la plataforma solo da 5 colores utilizables; los dos colisionaban en el mismo rosa. <span class="tag">Clases CSS propias + plantilla</span></div></li>
+    <li><span class="ico">✓</span><div><b>Widget "Pedidos recientes" arrastraba columnas del listado completo</b> — compartía plantilla con el listado de Pedidos (incluía Acciones, orden distinto). Se le dio plantilla propia. <span class="tag">Panel de control</span></div></li>
+    <li><span class="ico">✓</span><div><b>8 fotos de producto añadidas</b> — de Wikimedia Commons (licencias libres, créditos archivados), servidas desde el sitio y resueltas por la plantilla del catálogo. <span class="tag">wwwroot + seed</span></div></li>
+    <li><span class="ico">✓</span><div><b>Duplicar y Archivar (Producto)</b> — solo existían como botones sin función. Ahora son procesos reales: probado creando una copia con sus 4 variantes y archivándola; registro de prueba borrado al terminar. <span class="tag">2 stored procedures</span></div></li>
+    <li><span class="ico">✓</span><div><b>Confirmar, Cancelar y Generar PDF (Pedido)</b> — mismo caso. Probado sobre un pedido real: pasó de Borrador a Confirmado, se descargó un PDF de 32&nbsp;KB con los datos correctos, y se canceló. El pedido se devolvió a su estado original al terminar. <span class="tag">2 SP + 1 proceso DLL con QuestPDF</span></div></li>
+    <li><span class="ico">✓</span><div><b>Panel "Información fiscal" añadido a la Ficha de pedido</b> — faltaba mostrar los datos fiscales del cliente que ya existían en el modelo. <span class="tag">Módulo SQL nuevo</span></div></li>
+  </ul>
+
+  <h2><span class="num">03</span>Uso real, no solo mirar</h2>
+  <p>Además de comparar pantallas, se usó la aplicación de verdad sobre dos objetos del bloque, creando y borrando sus propios registros de prueba:</p>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Objeto</th><th>Crear</th><th>Proceso</th><th>Borrar</th></tr>
+      <tr><td>Producto</td><td><span class="pill ok">Duplicar → copia + 4 variantes</span></td><td><span class="pill ok">Archivar → ModifiedDate actualizado</span></td><td><span class="pill ok">Sin rastro</span></td></tr>
+      <tr><td>Pedido</td><td><span class="pill ok">Confirmar → Borrador→Confirmado</span></td><td><span class="pill ok">Generar PDF → 32&nbsp;KB descargados</span></td><td><span class="pill ok">Estado restaurado</span></td></tr>
+    </table>
+  </div>
+
+  <h2><span class="num">04</span>Capturas</h2>
+  <figure class="shot"><img src=".flexygo/developments/catalogo-demo/screenshots/verify-01-home-v5.png" alt="Panel de control con KPIs, gráficas y pedidos recientes"><figcaption>Panel de control — KPIs con datos reales, gráficas corregidas, pedidos recientes con badges distinguibles.</figcaption></figure>
+  <figure class="shot"><img src=".flexygo/developments/catalogo-demo/screenshots/verify-02-productos-list.png" alt="Listado de productos"><figcaption>Listado de productos — familia, marca y estado resueltos a texto, sin ids en crudo.</figcaption></figure>
+  <figure class="shot"><img src=".flexygo/developments/catalogo-demo/screenshots/verify-03e-duplicar-result.png" alt="Ficha de producto con los botones Duplicar y Archivar"><figcaption>Ficha de producto — Duplicar y Archivar ya son procesos reales (aquí, justo tras duplicar Camiseta Urban).</figcaption></figure>
+  <figure class="shot"><img src=".flexygo/developments/catalogo-demo/screenshots/verify-08e-familia-camisetas-fixed2.png" alt="Ficha de familia con el campo Familia padre resuelto a Ropa"><figcaption>Ficha de familia — "Familia padre" resuelto a "Ropa" (antes: GUID en crudo).</figcaption></figure>
+  <figure class="shot"><img src=".flexygo/developments/catalogo-demo/screenshots/verify-04-clientes-list.png" alt="Listado de clientes"><figcaption>Listado de clientes — tarifa y estado legibles.</figcaption></figure>
+  <figure class="shot"><img src=".flexygo/developments/catalogo-demo/screenshots/verify-10-cliente-view.png" alt="Ficha de cliente con datos fiscales completos"><figcaption>Ficha de cliente — razón social, CIF, dirección fiscal y tarifa (resuelta), tal y como pidió la ampliación del modelo.</figcaption></figure>
+  <figure class="shot"><img src=".flexygo/developments/catalogo-demo/screenshots/verify-05-pedidos-list.png" alt="Listado de pedidos"><figcaption>Listado de pedidos — estado y fecha relativa legibles.</figcaption></figure>
+  <figure class="shot"><img src=".flexygo/developments/catalogo-demo/screenshots/verify-06c-pedido-fiscal.png" alt="Ficha de pedido con Confirmar, Cancelar, Generar PDF e Información fiscal"><figcaption>Ficha de pedido — Confirmar / Cancelar / Generar PDF funcionando, más el panel de Información fiscal nuevo.</figcaption></figure>
+  <figure class="shot"><img src=".flexygo/developments/catalogo-demo/screenshots/verify-07-catalogo-publico.png" alt="Catálogo público con fotos reales de producto"><figcaption>Catálogo público — las 8 fotos de producto cargan correctamente; el carrito sigue siendo un placeholder a propósito (D-4).</figcaption></figure>
+
+  <h2><span class="num">05</span>Huecos de plataforma</h2>
+  <p style="margin-top:-10px;">Pedidos que este servidor no sabe hacer, registrados para priorizarlos — no son errores de lo construido.</p>
+
+  <div class="gap-card platform">
+    <h3><span class="pill info"><span class="dot"></span>plataforma</span> &nbsp;paleta-skin2026</h3>
+    <dl>
+      <dt>Pedido</dt><dd>Aplicar la paleta aprobada (NavColor, OutstandingColor, PrimaryColor…) al perfil real del usuario, que usa la interfaz <code>web2026</code> / skin <code>skin2026</code>.</dd>
+      <dt>Medido</dt><dd><code>--nav-color</code> en pantalla resuelve a <code>#191d22</code> (valor propio de skin2026), no al <code>#1c1b1d</code> configurado. <code>flexygo_set_skin_variable</code> solo escribe en la skin <code>flexy2022</code>, sin parámetro para elegir otra.</dd>
+      <dt>Estado</dt><dd>No resuelto. La paleta sí quedó bien en flexy2022/webdefault (perfil sin usuarios reales).</dd>
+    </dl>
+  </div>
+
+  <div class="gap-card platform">
+    <h3><span class="pill info"><span class="dot"></span>plataforma</span> &nbsp;datos-semilla</h3>
+    <dl>
+      <dt>Pedido</dt><dd>Ejecutar (EXEC) el stored procedure de reseteo de datos de demo desde una herramienta de este servidor.</dd>
+      <dt>Medido</dt><dd>Ninguna de las tres herramientas de SQL admite <code>ExecuteStatement</code>.</dd>
+      <dt>Estado</dt><dd>Rodeado sin parche silencioso: el procedimiento existe tal cual para que el usuario lo ejecute él mismo (SSMS, tarea programada); esta vez se sembró con las mismas sentencias vía <code>flexygo_execute_dml</code>.</dd>
+    </dl>
+  </div>
+
+  <h2><span class="num">06</span>Decisiones de esta pasada</h2>
+  <div class="decision-list">
+    <div class="decision-item"><span class="d-id">D-7</span><span class="d-text"><b>Mantener el cromado estándar de Flexygo</b> en cabeceras de módulo, tipografía y densidad, en vez de replicar el aspecto "sin cromar" de las maquetas. <span class="why">Coherente con D1. Sin coste adicional.</span></span></div>
+    <div class="decision-item"><span class="d-id">D-8</span><span class="d-text"><b>Galería de imágenes real</b> en la Ficha de producto queda para un desarrollo posterior — el componente estándar de Flexygo solo cuenta archivos, no los muestra. <span class="why">Pantalla a medida, alcance mayor.</span></span></div>
+    <div class="decision-item"><span class="d-id">D-9</span><span class="d-text"><b>Acceso anónimo real al Catálogo público</b> (cabecera propia, sin la barra del backoffice) queda para un bloque de seguridad dedicado. <span class="why">No se improvisa sin usuario presente.</span></span></div>
+  </div>
+
+  <h2><span class="num">07</span>Barrido de calidad — lo que la maqueta no podía enseñar</h2>
+  <p style="margin-top:-10px; margin-bottom: 18px;">Una copia fiel de la maqueta puede seguir siendo una aplicación pobre: una foto no tiene segunda página, ni lista vacía, ni buscador. <span class="mono">/flx-quality</span> comprueba los doce puntos de ese catálogo en cada pantalla del bloque. Se encontraron y cerraron 3 ausencias reales, más un defecto de plataforma que las mismas correcciones destaparon.</p>
+  <ul class="fix-list">
+    <li><span class="ico">✓</span><div><b>Buscador activado</b> en los 6 listados (Familias, Marcas, Productos, Clientes, Pedidos, Catálogo público) — venía desactivado por defecto. <span class="tag">list-no-searcher</span></div></li>
+    <li><span class="ico">✓</span><div><b>Orden por columna</b> añadido en los 5 listados tabulares (Nombre, Precio, Fecha, Total…) — las cabeceras no tenían ningún <code>data-sort</code>. Probado en vivo: un clic en "Precio" reordenó la lista de menor a mayor. <span class="tag">list-no-column-sort</span></div></li>
+    <li><span class="ico">✓</span><div><b>Enlace "Volver a…"</b> añadido en las 5 fichas (Familia, Marca, Producto, Cliente, Pedido) — ninguna de las 25 combinaciones de botones estándar de Flexygo lleva de vuelta al listado; no es un descuido de la copia, la plataforma nunca lo dio. <span class="tag">view-no-way-back</span></div></li>
+    <li><span class="ico">✓</span><div><b>Defecto de plataforma destapado por el propio arreglo:</b> al activar el buscador, el CSS de la plataforma (<code>skinBundle.css</code>) oculta <code>.cntBodyHeader</code> siempre que no contenga un chip de filtro o un botón — sin contar el buscador como contenido. El buscador quedaba en el HTML con 0×0 px, invisible pese a existir. Corregido con una regla de plugin con ámbito a los 6 módulos de este proyecto, nunca a toda la instalación.</div></li>
+  </ul>
+  <p style="margin-top:-6px; margin-bottom:28px; font-size:13.5px; color:var(--muted);">Dos entradas del catálogo se revisaron y no aplicaban: el orden por columna en el Catálogo público (rejilla de tarjetas, sin cabecera) y el buscador en el widget "Pedidos recientes" del panel de control (vistazo de 8 pedidos de los últimos 60 días, acotado por diseño).</p>
+
+  <h2><span class="num">08</span>Qué queda para más adelante</h2>
+  <p style="margin-top:-10px;">Todo lo de aquí está decidido y documentado — no es una lista de pendientes sueltos.</p>
+  <ul class="fix-list">
+    <li><span class="ico" style="background:var(--scope-bg);color:var(--scope-ink);border-color:var(--scope-line);">→</span><div><b>Catálogo público con cabecera y acceso anónimo reales</b> (D-9) — hoy cuelga del árbol del backoffice.</div></li>
+    <li><span class="ico" style="background:var(--scope-bg);color:var(--scope-ink);border-color:var(--scope-line);">→</span><div><b>Galería de imágenes real en Producto</b> (D-8) — hoy es un contador.</div></li>
+    <li><span class="ico" style="background:var(--info-bg);color:var(--info-ink);border-color:var(--info-line);">→</span><div><b>Paleta en skin2026</b> — sin camino conocido con las herramientas actuales.</div></li>
+    <li><span class="ico" style="background:var(--info-bg);color:var(--info-ink);border-color:var(--info-line);">→</span><div><b>Carrito de compra funcional</b> — el botón del catálogo público es un placeholder a propósito (D-4).</div></li>
+  </ul>
+
+  <h2><span class="num">09</span>Frente a la especificación completa (101 puntos)</h2>
+  <p style="margin-top:-10px; margin-bottom:18px;">El documento original (<span class="mono">docs/Catálogo Demo Flexygo - Funcionalidades.md</span>, repartido en <span class="mono">docs/funcionalidades/00…13</span>) describe una aplicación mucho más grande que lo que este desarrollo construyó: 101 puntos repartidos en 14 áreas. <span class="mono">catalogo-demo</span> implementó el <b>modelo funcional principal</b> (punto 100) — Cliente, Producto, Pedido y sus alrededores inmediatos — con la profundidad y el rigor de todo este informe. El resto es trabajo real, no una lista de retoques, y necesita su propio paso por <span class="mono">/flx-context → /flx-plan → /flx-discuss</span> antes de tocar código: varias piezas (carrito de verdad, favoritos, presupuestos) no pueden construirse con solidez hasta que exista una identidad de cliente real en el catálogo público — la misma pieza que D-9 dejó pendiente.</p>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Área</th><th>Contenido</th><th>Estado</th></tr>
+      <tr><td class="mono">00</td><td>Visión general</td><td><span class="pill ok">Cubierta</span></td></tr>
+      <tr><td class="mono">01</td><td>Usuarios, accesos y seguridad</td><td><span class="pill danger">Sin construir</span></td></tr>
+      <tr><td class="mono">02</td><td>Catálogo de productos</td><td><span class="pill ok">Cubierta en su mayoría</span></td></tr>
+      <tr><td class="mono">03</td><td>Clientes y comercial</td><td><span class="pill ok">Cubierta en su mayoría</span></td></tr>
+      <tr><td class="mono">04</td><td>Precios, tarifas y promociones</td><td><span class="pill warn">Parcial — solo tarifas simples</span></td></tr>
+      <tr><td class="mono">05</td><td>Favoritos, listas, comparador, carrito y pedidos</td><td><span class="pill warn">Parcial — pedidos reales, carrito placeholder</span></td></tr>
+      <tr><td class="mono">06</td><td>Presupuestos y postventa</td><td><span class="pill danger">Sin construir</span></td></tr>
+      <tr><td class="mono">07</td><td>Notificaciones y comunicación</td><td><span class="pill danger">Sin construir</span></td></tr>
+      <tr><td class="mono">08</td><td>Dashboards e informes</td><td><span class="pill warn">Parcial — 1 panel admin</span></td></tr>
+      <tr><td class="mono">09</td><td>Administración y backoffice</td><td><span class="pill warn">Parcial — CRUD + 2 procesos</span></td></tr>
+      <tr><td class="mono">10</td><td>Contenido web público</td><td><span class="pill warn">Parcial — catálogo sin más secciones</span></td></tr>
+      <tr><td class="mono">11</td><td>Automatizaciones e IA</td><td><span class="pill danger">Sin construir</span></td></tr>
+      <tr><td class="mono">12</td><td>Integraciones y API</td><td><span class="pill danger">Sin construir</span></td></tr>
+      <tr><td class="mono">13</td><td>Datos demo y modelo</td><td><span class="pill ok">Cubierta (a menor escala que la sugerida)</span></td></tr>
+    </table>
+  </div>
+  <p style="margin-top:-6px; font-size:13.5px; color:var(--muted);">Siguiente paso recomendado para retomar: abrir un nuevo desarrollo con <span class="mono">/flx-new-development</span> sobre el área 01 (acceso anónimo real) — es la pieza de la que dependen 05, 06 y buena parte de 10.</p>
+
+  <footer>
+    <span>flxCatalog · desarrollo <span class="mono">catalogo-demo</span> · cerrado</span>
+    <span>Siguiente → <span class="mono">/flx-new-development</span> para el próximo encargo</span>
+  </footer>
+
+</div>

@@ -1,3 +1,17 @@
 {
-    "dotnet.preferCSharpExtension": false
+    "dotnet.preferCSharpExtension": false,
+    "mssql.connections": [
+        {
+            "id": "ab5893e6-e3a7-4498-be8f-50e5ff6d8039",
+            "groupId": "ROOT",
+            "profileName": "Flexygo: flxCatalog_IC",
+            "server": "localhost",
+            "database": "flxCatalog_IC",
+            "user": "sa",
+            "authenticationType": "SqlLogin",
+            "trustServerCertificate": true,
+            "savePassword": false,
+            "password": ""
+        }
+    ]
 }

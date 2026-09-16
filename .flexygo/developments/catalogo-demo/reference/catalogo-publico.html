@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Catálogo de productos — flxCatalog</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-fixed-dim": "#cec4c4",
+            "surface-variant": "#e2e2e3",
+            "surface-container-highest": "#e2e2e3",
+            "primary-fixed-dim": "#c8c6c8",
+            "primary": "#000000",
+            "border": "#E4E4E7",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f3f3f4",
+            "secondary-fixed": "#e3e1ec",
+            "on-tertiary-fixed": "#1f1a1a",
+            "error": "#ba1a1a",
+            "surface-tint": "#5f5e60",
+            "on-tertiary-fixed-variant": "#4c4545",
+            "surface-dim": "#dadadb",
+            "primary-container": "#1c1b1d",
+            "on-secondary-fixed": "#1a1b22",
+            "on-primary-fixed": "#1c1b1d",
+            "surface-container": "#eeeeef",
+            "outline-variant": "#c8c5ca",
+            "warning": "#F59E0B",
+            "secondary": "#5d5e66",
+            "on-background": "#1a1c1d",
+            "secondary-fixed-dim": "#c6c5cf",
+            "on-primary-fixed-variant": "#474649",
+            "surface-container-high": "#e8e8e9",
+            "outline": "#78767b",
+            "primary-fixed": "#e5e1e4",
+            "surface-bright": "#f9f9fa",
+            "surface": "#FFFFFF",
+            "on-tertiary": "#ffffff",
+            "on-surface-variant": "#47464a",
+            "on-secondary-fixed-variant": "#46464e",
+            "tertiary": "#000000",
+            "on-primary": "#ffffff",
+            "tertiary-container": "#1f1a1a",
+            "background": "#FAFAFA",
+            "on-error-container": "#93000a",
+            "tertiary-fixed": "#ebe0df",
+            "inverse-on-surface": "#f0f1f2",
+            "on-secondary-container": "#63646c",
+            "inverse-primary": "#c8c6c8",
+            "inverse-surface": "#2f3132",
+            "on-surface": "#1a1c1d",
+            "on-secondary": "#ffffff",
+            "on-tertiary-container": "#8a8282",
+            "on-error": "#ffffff",
+            "secondary-container": "#e3e1ec",
+            "error-container": "#ffdad6",
+            "success": "#10B981",
+            "danger": "#EF4444",
+            "on-primary-container": "#858386"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xl": "24px",
+            "space-md": "12px",
+            "margin": "32px",
+            "gutter": "20px",
+            "space-xs": "4px",
+            "space-sm": "8px",
+            "space-lg": "16px"
+          },
+          "fontFamily": {
+            "page-title": ["Inter"],
+            "caption": ["Inter"],
+            "label-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "box-title": ["Inter"]
+          },
+          "fontSize": {
+            "page-title": ["30px", { "lineHeight": "36px", "fontWeight": "700" }],
+            "caption": ["11px", { "lineHeight": "14px", "fontWeight": "400" }],
+            "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "box-title": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 18px;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md text-body-md selection:bg-surface-variant">
+<!-- Top Navigation Bar (Shared Component: TopNavBar execution) -->
+<header class="w-full border-b border-border dark:border-outline-variant bg-surface dark:bg-surface px-margin flex items-center justify-between h-16 sticky top-0 z-30">
+<!-- Left: Brand Identity -->
+<div class="flex items-center gap-space-lg">
+<a class="flex items-center gap-space-sm focus:outline-none" href="#">
+<div class="w-7 h-7 bg-primary text-on-primary rounded flex items-center justify-center font-bold text-xs tracking-tight">
+          flx
+        </div>
+<span class="font-box-title text-box-title text-primary dark:text-primary tracking-tight font-semibold">
+          flxCatalog
+        </span>
+</a>
+<!-- Center Nav Links -->
+<nav class="hidden md:flex items-center gap-space-lg ml-space-md h-16">
+<a class="text-primary dark:text-primary font-medium border-b-2 border-primary dark:border-primary py-5 font-body-md text-body-md transition-colors" href="#">
+          Catálogo
+        </a>
+<a class="text-secondary dark:text-secondary hover:text-on-background dark:hover:text-on-background py-5 font-body-md text-body-md transition-colors" href="#">
+          Marcas
+        </a>
+<a class="text-secondary dark:text-secondary hover:text-on-background dark:hover:text-on-background py-5 font-body-md text-body-md transition-colors" href="#">
+          Novedades
+        </a>
+<a class="text-secondary dark:text-secondary hover:text-on-background dark:hover:text-on-background py-5 font-body-md text-body-md transition-colors" href="#">
+          Ofertas
+        </a>
+<a class="text-secondary dark:text-secondary hover:text-on-background dark:hover:text-on-background py-5 font-body-md text-body-md transition-colors" href="#">
+          Ayuda
+        </a>
+<a class="text-secondary dark:text-secondary hover:text-on-background dark:hover:text-on-background py-5 font-body-md text-body-md transition-colors" href="#">
+          Contacto
+        </a>
+</nav>
+</div>
+<!-- Far Right: Search, Cart, Sign In -->
+<div class="flex items-center gap-space-md">
+<!-- Search input field -->
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-secondary pointer-events-none text-base" data-icon="search">search</span>
+<input class="w-48 lg:w-60 h-8 pl-8 pr-3 bg-surface-container-low border border-border rounded text-body-md font-body-md placeholder:text-secondary focus:outline-none focus:border-primary focus:bg-surface transition-all text-xs" placeholder="Buscar artículos..." type="text"/>
+</div>
+<!-- Shopping Cart Icon with Badge -->
+<button aria-label="Carrito de compras" class="relative p-2 text-on-surface hover:text-primary rounded border border-transparent hover:border-border transition-colors" type="button">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="absolute top-1 right-1 w-4 h-4 bg-primary text-on-primary rounded-full text-[10px] font-semibold flex items-center justify-center leading-none">
+          2
+        </span>
+</button>
+<div class="h-4 w-[1px] bg-border mx-1"></div>
+<!-- Trailing Secondary Action -->
+<a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors py-1.5 px-2" href="#">
+        Iniciar sesión
+      </a>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 px-margin py-space-xl max-w-[1440px] w-full mx-auto">
+<!-- Page Header -->
+<section class="mb-space-xl flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div>
+<h1 class="font-page-title text-page-title text-primary tracking-tight">
+          Catálogo de productos
+        </h1>
+<p class="font-body-md text-body-md text-secondary mt-1">
+          148 artículos disponibles
+        </p>
+</div>
+</section>
+<!-- Filter & Control Bar -->
+<section class="mb-space-xl bg-surface border border-border rounded-lg p-space-md flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md">
+<!-- Dropdown Filter Controls -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Dropdown: Familia -->
+<div class="relative">
+<select class="appearance-none bg-surface-bright hover:bg-surface-container-low border border-border rounded px-3 py-1.5 pr-8 font-body-md text-body-md text-on-surface cursor-pointer focus:outline-none focus:border-primary transition-colors">
+<option>Todas las familias</option>
+<option>Camisetas</option>
+<option>Sudaderas</option>
+<option>Pantalones</option>
+<option>Calzado</option>
+<option>Accesorios</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-secondary" data-icon="expand_more">expand_more</span>
+</div>
+<!-- Dropdown: Marca -->
+<div class="relative">
+<select class="appearance-none bg-surface-bright hover:bg-surface-container-low border border-border rounded px-3 py-1.5 pr-8 font-body-md text-body-md text-on-surface cursor-pointer focus:outline-none focus:border-primary transition-colors">
+<option>Todas las marcas</option>
+<option>Norden</option>
+<option>Trailmark</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-secondary" data-icon="expand_more">expand_more</span>
+</div>
+<!-- Dropdown: Ordenar por -->
+<div class="relative">
+<select class="appearance-none bg-surface-bright hover:bg-surface-container-low border border-border rounded px-3 py-1.5 pr-8 font-body-md text-body-md text-on-surface cursor-pointer focus:outline-none focus:border-primary transition-colors">
+<option>Ordenar por: Relevancia</option>
+<option>Precio: menor a mayor</option>
+<option>Precio: mayor a menor</option>
+<option>Nombre: A-Z</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-secondary" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- Search in catalog bar -->
+<div class="relative w-full lg:w-72">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary pointer-events-none" data-icon="search">search</span>
+<input class="w-full h-9 pl-9 pr-3 bg-surface border border-border rounded text-body-md font-body-md text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary transition-colors" placeholder="Filtrar por nombre o SKU..." type="text"/>
+</div>
+</section>
+<!-- Product Grid: Exactly 4 columns × 2 rows (8 product cards) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Card 1: Camiseta Urban -->
+<article class="bg-surface border border-border rounded-lg overflow-hidden flex flex-col hover:border-outline transition-colors group">
+<div class="aspect-square bg-[#f3f3f4] relative overflow-hidden flex items-center justify-center p-4">
+<img class="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-200" data-alt="A minimalist studio product photograph of a premium black cotton urban t-shirt cleanly laid flat against a neutral light grey backdrop. The apparel is styled with crisp, modern lines under diffused high-key studio lighting with no harsh shadows. Designed for a sleek e-commerce presentation with sophisticated monochrome tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO4oHAks5OICq7BTEnfAuVL-lwvjcDryLi_6mR_RW6gJjecFdGt5JPBjLNHXFU4pT3O_eP6fQO2n8ITElfIkN1y5D8JnrfEXH5_-d-t6DOW9mDVhUDoB9fWluEO6DhtekCIVJ-I9Hh_yUCXHl1MUClQal3cFqKS7HefKfDJgdYRjXbtQAZmFBRhKRHoVXV0OfKm7WIJDwl0dqxC1AZmW3te1ks3-VbbShUGHZa_B7gp7Y0LxJsBmtFxgLLO3apNfrMxWo_nWq_eCDu"/>
+</div>
+<div class="p-space-lg flex flex-col flex-1 justify-between">
+<div>
+<span class="font-caption text-caption text-secondary block mb-1">Camisetas · Norden</span>
+<h2 class="font-box-title text-[15px] leading-5 text-primary font-semibold">Camiseta Urban</h2>
+</div>
+<div class="mt-4 pt-3 border-t border-border flex items-center justify-between">
+<span class="text-base font-bold text-primary font-mono tabular-nums">19,90 €</span>
+</div>
+<button class="w-full mt-3 bg-primary text-on-primary hover:bg-neutral-800 active:bg-neutral-900 rounded py-2 px-3 text-body-md font-body-md font-medium text-center transition-colors" type="button">
+            Añadir al carrito
+          </button>
+</div>
+</article>
+<!-- Card 2: Sudadera Basic -->
+<article class="bg-surface border border-border rounded-lg overflow-hidden flex flex-col hover:border-outline transition-colors group">
+<div class="aspect-square bg-[#f3f3f4] relative overflow-hidden flex items-center justify-center p-4">
+<img class="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-200" data-alt="A studio photograph of an athletic heather grey pullover hoodie neatly centered on a clean light grey studio background. The soft fleece garment is captured with subtle fabric folds, high-key balanced overhead lighting, and minimalist aesthetics emphasizing clean sportswear craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7ZNSV6THn501DcXDd8bfagyvxTzpilOIOJZOFFLcwdiD4-om_G-6eLA_WZpOAjGeGEmeuCsADBntE-4YWg228KOgeRo8-n7SfBrRkNuNRPP_LyQmyMO1zEXNtaDznrWZUHwq-KH4DU9s-tzlwwT5QH1SppUPqo5tlNt2wryyQqAaO9Y1YehVcAJe_WfruX9C2CPOOtT5dZe8GN1bSAt7g_DslgLdiSkVHyCA8Dg8uoXlOmURStM8TxEh0C0Jg6eP8D_m_rqiVVrCa"/>
+</div>
+<div class="p-space-lg flex flex-col flex-1 justify-between">
+<div>
+<span class="font-caption text-caption text-secondary block mb-1">Sudaderas · Norden</span>
+<h2 class="font-box-title text-[15px] leading-5 text-primary font-semibold">Sudadera Basic</h2>
+</div>
+<div class="mt-4 pt-3 border-t border-border flex items-center justify-between">
+<span class="text-base font-bold text-primary font-mono tabular-nums">34,90 €</span>
+</div>
+<button class="w-full mt-3 bg-primary text-on-primary hover:bg-neutral-800 active:bg-neutral-900 rounded py-2 px-3 text-body-md font-body-md font-medium text-center transition-colors" type="button">
+            Añadir al carrito
+          </button>
+</div>
+</article>
+<!-- Card 3: Pantalón Cargo (Oferta badge) -->
+<article class="bg-surface border border-border rounded-lg overflow-hidden flex flex-col hover:border-outline transition-colors group">
+<div class="aspect-square bg-[#f3f3f4] relative overflow-hidden flex items-center justify-center p-4">
+<img class="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-200" data-alt="A minimalist product photo of modern charcoal technical cargo pants laid flat on a neutral off-white surface. The tactical pockets and water-resistant ripstop texture are highlighted by soft architectural studio lighting, maintaining an understated modern streetwear aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCThGWgEbZHat6jG3suy4T38wWhIACKCazoUc5bCPbiZOpg0ln0ApEzsvWMLAZdXDrln3kG41pKh3goPA07qd8cnvlx_hb2G2LmLUz99W8Ma8uzS6InFF1b-TaMbv4kD44IIhxhfA54miKJzFKB0BH1-qHgO15GnfzLNBvHxFWfVfFuDYAWRUAM_ngd8fJTaqGUkSSsMPkjq9hQqrWNrN-nThx-Lt_1EUUZAn5SJ3N4ozVIsdJ0ahY7TbKF3neEbWhGEbVwoqa_O7W8"/>
+</div>
+<div class="p-space-lg flex flex-col flex-1 justify-between">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-caption text-caption text-secondary">Pantalones · Trailmark</span>
+<!-- Amber Pill: Oferta -->
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium bg-amber-50 text-amber-800 border border-amber-200/60"><span class="w-1.5 h-1.5 rounded-full bg-warning"></span>
+                Oferta
+              </span>
+</div>
+<h2 class="font-box-title text-[15px] leading-5 text-primary font-semibold">Pantalón Cargo</h2>
+</div>
+<div class="mt-4 pt-3 border-t border-border flex items-center justify-between">
+<span class="text-base font-bold text-primary font-mono tabular-nums">49,90 €</span>
+</div>
+<button class="w-full mt-3 bg-primary text-on-primary hover:bg-neutral-800 active:bg-neutral-900 rounded py-2 px-3 text-body-md font-body-md font-medium text-center transition-colors" type="button">
+            Añadir al carrito
+          </button>
+</div>
+</article>
+<!-- Card 4: Zapatilla Runner -->
+<article class="bg-surface border border-border rounded-lg overflow-hidden flex flex-col hover:border-outline transition-colors group">
+<div class="aspect-square bg-[#f3f3f4] relative overflow-hidden flex items-center justify-center p-4">
+<img class="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-200" data-alt="A side-profile studio packshot of an engineered trail running shoe in monochromatic black and light grey mesh. The sneaker is shown hovering slightly against a pale seamless light backdrop with natural ambient studio shadows, highlighting technical tread patterns and sleek contours." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi6e2dQmR_tNsuaUSP6gxaY-B5NrDoHSkMSzzR_o5C0Lil4OJKJHkCZSJA-Fh31dz8Ezw-uO83PLfCPxL9bEe0JbPf4Wm6-TtG_T_8yU_jFozyqlhqhNo1YW0Zc4gZsFoLaOVGIOzuUSf-e2YGmFYnJR_0QOtjJZkws8Ol0x75GmIw3pYzJBCJVycCOY2BcM0my7cj4ZQuh35e_cAEzTB2ybH-a_fcKkBjN34fxsgnabR_XU2DVRjn39ykwzHwwhOCAI4okbTUrRx7"/>
+</div>
+<div class="p-space-lg flex flex-col flex-1 justify-between">
+<div>
+<span class="font-caption text-caption text-secondary block mb-1">Deportivo · Trailmark</span>
+<h2 class="font-box-title text-[15px] leading-5 text-primary font-semibold">Zapatilla Runner</h2>
+</div>
+<div class="mt-4 pt-3 border-t border-border flex items-center justify-between">
+<span class="text-base font-bold text-primary font-mono tabular-nums">79,90 €</span>
+</div>
+<button class="w-full mt-3 bg-primary text-on-primary hover:bg-neutral-800 active:bg-neutral-900 rounded py-2 px-3 text-body-md font-body-md font-medium text-center transition-colors" type="button">
+            Añadir al carrito
+          </button>
+</div>
+</article>
+<!-- Card 5: Mochila Urban 20L (Novedad badge) -->
+<article class="bg-surface border border-border rounded-lg overflow-hidden flex flex-col hover:border-outline transition-colors group">
+<div class="aspect-square bg-[#f3f3f4] relative overflow-hidden flex items-center justify-center p-4">
+<img class="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-200" data-alt="A front-facing studio product photograph of a minimalist 20-liter matte black commuter backpack standing upright on a solid light stone background. The waterproof matte finish and clean metallic zipper accents are captured with subtle highlight gradients and understated Scandinavian styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA0zwvoGk6C8rjq_QIMxxfUOKb1u_DUq0K8Z4l7nEFWys7T1ma2VKpb3MtZPZlSXbpoV3b9rL9ONJf_tuYpJ6__aru2E_1W5gsZC6DnmVaC-1EWcJR-YixuBhOsRyTD7cu74X-3I6Oo8-1AgXKILLHa_bwdu3w2ZhKFIIwMzCFmyvnRNo6ONqSigwT1pryGXehWe74b3nrbiZwZ9j8dFKiTcWrZti3UE1eTecJRN0x2KZBIomptf70w2VjA-b7cc3orBrRaELc6ABL"/>
+</div>
+<div class="p-space-lg flex flex-col flex-1 justify-between">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-caption text-caption text-secondary">Mochilas · Norden</span>
+<!-- Soft blue tinted pill: Novedad -->
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium bg-blue-50 text-blue-800 border border-blue-200/60"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                Novedad
+              </span>
+</div>
+<h2 class="font-box-title text-[15px] leading-5 text-primary font-semibold">Mochila Urban 20L</h2>
+</div>
+<div class="mt-4 pt-3 border-t border-border flex items-center justify-between">
+<span class="text-base font-bold text-primary font-mono tabular-nums">59,90 €</span>
+</div>
+<button class="w-full mt-3 bg-primary text-on-primary hover:bg-neutral-800 active:bg-neutral-900 rounded py-2 px-3 text-body-md font-body-md font-medium text-center transition-colors" type="button">
+            Añadir al carrito
+          </button>
+</div>
+</article>
+<!-- Card 6: Gorra Classic -->
+<article class="bg-surface border border-border rounded-lg overflow-hidden flex flex-col hover:border-outline transition-colors group">
+<div class="aspect-square bg-[#f3f3f4] relative overflow-hidden flex items-center justify-center p-4">
+<img class="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-200" data-alt="A refined product photograph of a structured dark charcoal baseball cap photographed at a three-quarters perspective on a flat light neutral pedestal. The clean twill fabric texture is illuminated by balanced softbox lights that define its brim curve and understated profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxHY3pPHakDC8taFQDu6UYd0L0oxVJKJ3TucA1F9Q6q6A-xO3H0s-6EgQmyS9AhJf9E9GT0A_Vwnyzuv8_gcswj4tYXfgtrzgPQ99tYgG9vill-mlsUW6-nstCiwp-mS-WzzzKuzakVvZyNdbuPIc4gJJsFFwWpdi8qAkwEtVH5M6_A2R8QRTQrvaN6NvIN5CgTCwVL15kEGDXHEzse13RRw6wwy0LqvxlG73KMVRV5aIZgae2TWaLQ0BhbQX8_eqJZDvmHGSXMUOz"/>
+</div>
+<div class="p-space-lg flex flex-col flex-1 justify-between">
+<div>
+<span class="font-caption text-caption text-secondary block mb-1">Gorras · Trailmark</span>
+<h2 class="font-box-title text-[15px] leading-5 text-primary font-semibold">Gorra Classic</h2>
+</div>
+<div class="mt-4 pt-3 border-t border-border flex items-center justify-between">
+<span class="text-base font-bold text-primary font-mono tabular-nums">14,90 €</span>
+</div>
+<button class="w-full mt-3 bg-primary text-on-primary hover:bg-neutral-800 active:bg-neutral-900 rounded py-2 px-3 text-body-md font-body-md font-medium text-center transition-colors" type="button">
+            Añadir al carrito
+          </button>
+</div>
+</article>
+<!-- Card 7: Chaqueta Trail -->
+<article class="bg-surface border border-border rounded-lg overflow-hidden flex flex-col hover:border-outline transition-colors group">
+<div class="aspect-square bg-[#f3f3f4] relative overflow-hidden flex items-center justify-center p-4">
+<img class="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-200" data-alt="A clean technical apparel shot of an olive-grey hooded lightweight windbreaker jacket displayed on a ghost mannequin against a pale cool grey backdrop. Taped seams, ergonomic zipper pulls, and weather-resistant nylon weave are sharp and clearly defined in crisp modern daylight studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyn1HfmuwgdNf7KxyBjgVCEUuj74hkv5wIyojKdY1WYexnCma37UwXoXMa-4tL9fEtTySxFTrPdclg9uHuQ80_od8El-NBKpq99xnFPwlxRk7G-U084BVlIwvfsxdFSE4A2sCEa7Gm7pIcKokTfBS8uAH_o_rxJpb1-uyu7B8-y80G12Urh076LMvGZFjq2dalPc5FZgX09eqs7KZYuKOJU5LOfVwyEUQ27rGRU_yUdkSrA0oY6f2PeMA45I-JULXxy8gyPUqkqMQy"/>
+</div>
+<div class="p-space-lg flex flex-col flex-1 justify-between">
+<div>
+<span class="font-caption text-caption text-secondary block mb-1">Chaquetas · Trailmark</span>
+<h2 class="font-box-title text-[15px] leading-5 text-primary font-semibold">Chaqueta Trail</h2>
+</div>
+<div class="mt-4 pt-3 border-t border-border flex items-center justify-between">
+<span class="text-base font-bold text-primary font-mono tabular-nums">89,90 €</span>
+</div>
+<button class="w-full mt-3 bg-primary text-on-primary hover:bg-neutral-800 active:bg-neutral-900 rounded py-2 px-3 text-body-md font-body-md font-medium text-center transition-colors" type="button">
+            Añadir al carrito
+          </button>
+</div>
+</article>
+<!-- Card 8: Zapatilla Casual -->
+<article class="bg-surface border border-border rounded-lg overflow-hidden flex flex-col hover:border-outline transition-colors group">
+<div class="aspect-square bg-[#f3f3f4] relative overflow-hidden flex items-center justify-center p-4">
+<img class="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-200" data-alt="A clean top-three-quarters studio product photo of low-top canvas casual sneakers in off-white with off-white rubber foxing. Shot on an immaculate matte bone-colored surface under calm diffused light, evoking an unhurried, minimalist urban wardrobe essential." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-xaGQJIQeU90vz4KkYggjygJJnEw8m3_kfK4N4jxChwAd777AYFGEaSTdNLZAHUoat75VBeZ6JEWvG1_R7vO6houKqfMLssT0Kva8L-jgindQze0BTmt4FGf6KOU_uBTzyIo7K_-iJ2hW1VTmZc5Cn1RyPwUCvqRCo_eCk6Xf28F3t_6XqGy24C8qc29JJIHfpXF_BdbfbPMgXfpIuY9dLqEshfIBvqyXX2HqciW06mxeHZgkSs8v2KfJMvaMALW1QO4vES2cJVtb"/>
+</div>
+<div class="p-space-lg flex flex-col flex-1 justify-between">
+<div>
+<span class="font-caption text-caption text-secondary block mb-1">Calzado · Norden</span>
+<h2 class="font-box-title text-[15px] leading-5 text-primary font-semibold">Zapatilla Casual</h2>
+</div>
+<div class="mt-4 pt-3 border-t border-border flex items-center justify-between">
+<span class="text-base font-bold text-primary font-mono tabular-nums">65,00 €</span>
+</div>
+<button class="w-full mt-3 bg-primary text-on-primary hover:bg-neutral-800 active:bg-neutral-900 rounded py-2 px-3 text-body-md font-body-md font-medium text-center transition-colors" type="button">
+            Añadir al carrito
+          </button>
+</div>
+</article>
+</section>
+<!-- Pagination / Count summary -->
+<div class="mt-space-xl flex flex-col sm:flex-row items-center justify-between pt-space-lg border-t border-border gap-space-md">
+<span class="text-caption font-caption text-secondary">
+        Mostrando 8 de 148 artículos
+      </span>
+<div class="flex items-center gap-1">
+<button class="px-2.5 py-1 border border-border rounded text-caption font-caption text-outline bg-surface-container-low cursor-not-allowed" disabled="" type="button">
+          Anterior
+        </button>
+<button class="px-2.5 py-1 border border-primary bg-primary text-on-primary rounded text-caption font-caption font-medium" type="button">
+          1
+        </button>
+<button class="px-2.5 py-1 border border-border rounded text-caption font-caption text-secondary hover:text-primary hover:bg-surface-container-low transition-colors" type="button">
+          2
+        </button>
+<button class="px-2.5 py-1 border border-border rounded text-caption font-caption text-secondary hover:text-primary hover:bg-surface-container-low transition-colors" type="button">
+          3
+        </button>
+<span class="px-1 text-secondary text-caption">...</span>
+<button class="px-2.5 py-1 border border-border rounded text-caption font-caption text-secondary hover:text-primary hover:bg-surface-container-low transition-colors" type="button">
+          19
+        </button>
+<button class="px-2.5 py-1 border border-border rounded text-caption font-caption text-secondary hover:text-primary hover:bg-surface-container-low transition-colors" type="button">
+          Siguiente
+        </button>
+</div>
+</div>
+</main>
+<script>
+    // Lightweight interactions for cart addition confirmation
+    document.querySelectorAll('button').forEach(btn => {
+      if (btn.innerText.trim() === 'Añadir al carrito') {
+        btn.addEventListener('click', (e) => {
+          const originalText = btn.innerText;
+          btn.innerText = 'Añadido ✓';
+          btn.classList.add('bg-neutral-700');
+          setTimeout(() => {
+            btn.innerText = originalText;
+            btn.classList.remove('bg-neutral-700');
+          }, 1400);
+        });
+      }
+    });
+  </script>
+</body></html>

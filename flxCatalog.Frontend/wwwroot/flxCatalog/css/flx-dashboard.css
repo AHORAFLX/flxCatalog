@@ -1,0 +1,66 @@
+/* flx-dashboard.css — PART 1: undo the skin. No taste here, only removing what the approved design does not show. */
+
+flx-module .cntHeader { text-transform: none; }
+flx-module .cntHeader .cntTitle { letter-spacing: 0; }
+
+.flx-easyinfo h5, .flx-easyinfo[size] h5 { position: relative; min-width: 0; text-transform: none; display: flex; flex-direction: column; margin: 0; }
+.flx-easyinfo h5 label, .flx-easyinfo[size] h5 label { margin: 0; text-transform: none; }
+.flx-easyinfo h5 span, .flx-easyinfo[size] h5 span { margin: 0; text-align: left; }
+.flx-easyinfo h5 i, .flx-easyinfo[size] h5 i, .flx-easyinfo[size] i { position: absolute; top: 0; right: 0; margin: 0; float: none; }
+
+flx-module[modulename$="-easyinfo"] { background: transparent !important; border: 0 !important; box-shadow: none !important; padding: 0 !important; }
+flx-module[modulename$="-easyinfo"] .cntHeader { display: none; }
+flx-module[modulename$="-easyinfo"] .cntBody { padding: 0 !important; }
+flx-easyinfo[modulename] { background: transparent !important; border: 0 !important; box-shadow: none !important; border-radius: 0 !important; padding: 0 !important; }
+flx-module[modulename$="-html"] { background: transparent !important; border: 0; box-shadow: none; }
+flx-module[modulename$="-html"] .cntHeader { display: none; }
+
+flx-search tr:nth-child(even):not(.rowHeader):hover, flx-search tr:nth-child(odd):not(.rowHeader):hover,
+flx-list .flxRszTbl tr:nth-child(even):not(.rowHeader):hover, flx-list .flxRszTbl tr:nth-child(odd):not(.rowHeader):hover,
+.flx-list tr:nth-child(even):not(.rowHeader):hover, .flx-list tr:nth-child(odd):not(.rowHeader):hover,
+body[mode="dark"] flx-list .flxRszTbl tr:nth-child(odd):not(.rowHeader):hover {
+  background-color: color-mix(in srgb, var(--outstanding-color) 10%, var(--module-color)) !important;
+  color: inherit !important;
+}
+.flx-structure-table > div:not(.flx-structure-table-header):hover {
+  background-color: color-mix(in srgb, var(--outstanding-color) 10%, var(--module-color));
+  box-shadow: none;
+}
+
+/* Pedidos.Estado only has 6 states but the platform's badge palette has 5 usable colours
+   (info is transparent) — "Confirmado" and "Enviado" collided on flx-state-tools, painting
+   two different states identically. These give each its own colour instead. */
+.flx-state-confirmed {
+  background: light-dark(#eff6ff, #1e3a5f) !important;
+  color: light-dark(#1d4ed8, #93c5fd) !important;
+}
+.flx-state-shipped {
+  background: light-dark(#f0f9ff, #0c4a6e) !important;
+  color: light-dark(#0369a1, #7dd3fc) !important;
+}
+
+/* The platform hides .cntBodyHeader whenever it has no filter chip / module button, without
+   counting the inline search box (.listSearcher) as content worth keeping — so enabling
+   `searcher: true` on a list whose toolbar sits in the header (Filter button included) silently
+   paints nothing (quality gate list-no-searcher). Keep it visible when it holds the searcher.
+   Scoped to this project's own list modules only, not every screen on the installation. */
+flx-module[modulename="mod-cat-familia-list"] > .cntBodyHeader:has(.listSearcher),
+flx-module[modulename="mod-cat-marca-list"] > .cntBodyHeader:has(.listSearcher),
+flx-module[modulename="mod-cat-producto-list"] > .cntBodyHeader:has(.listSearcher),
+flx-module[modulename="mod-cat-producto-publico-list"] > .cntBodyHeader:has(.listSearcher),
+flx-module[modulename="mod-cli-cliente-list"] > .cntBodyHeader:has(.listSearcher),
+flx-module[modulename="mod-vta-pedido-list"] > .cntBodyHeader:has(.listSearcher) {
+  display: block !important;
+}
+
+/* "Volver a X" back-links on view pages (quality gate view-no-way-back) */
+flx-navbutton.flx-back-link {
+  display: inline-block;
+  padding: 12px 4px 4px;
+  font-size: 13px;
+  color: light-dark(#555e6c, #a7b0bd);
+  cursor: pointer;
+}
+flx-navbutton.flx-back-link:hover {
+  color: var(--outstanding-color);
+}

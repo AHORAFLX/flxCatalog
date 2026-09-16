@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background text-on-background" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>flxCatalog - Detalle de pedido PED-1042</title>
+<!-- Google Fonts Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-fixed": "#e5e1e4",
+            "on-tertiary": "#ffffff",
+            "outline": "#78767b",
+            "on-tertiary-fixed": "#1f1a1a",
+            "on-primary-container": "#858386",
+            "on-tertiary-fixed-variant": "#4c4545",
+            "surface-tint": "#5f5e60",
+            "on-surface": "#1a1c1d",
+            "surface-container": "#eeeeef",
+            "inverse-on-surface": "#f0f1f2",
+            "on-primary-fixed-variant": "#474649",
+            "danger": "#EF4444",
+            "on-secondary-fixed": "#1a1b22",
+            "on-secondary-container": "#63646c",
+            "warning": "#F59E0B",
+            "on-error": "#ffffff",
+            "background": "#FAFAFA",
+            "primary": "#000000",
+            "border": "#E4E4E7",
+            "secondary": "#5d5e66",
+            "secondary-fixed-dim": "#c6c5cf",
+            "on-background": "#1a1c1d",
+            "surface-container-high": "#e8e8e9",
+            "surface-container-low": "#f3f3f4",
+            "on-surface-variant": "#47464a",
+            "on-primary": "#ffffff",
+            "tertiary-container": "#1f1a1a",
+            "success": "#10B981",
+            "outline-variant": "#c8c5ca",
+            "inverse-surface": "#2f3132",
+            "surface-dim": "#dadadb",
+            "tertiary-fixed-dim": "#cec4c4",
+            "on-tertiary-container": "#8a8282",
+            "surface-container-highest": "#e2e2e3",
+            "secondary-container": "#e3e1ec",
+            "on-primary-fixed": "#1c1b1d",
+            "on-secondary": "#ffffff",
+            "secondary-fixed": "#e3e1ec",
+            "surface-variant": "#e2e2e3",
+            "error-container": "#ffdad6",
+            "primary-container": "#1c1b1d",
+            "tertiary": "#000000",
+            "tertiary-fixed": "#ebe0df",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed-dim": "#c8c6c8",
+            "on-secondary-fixed-variant": "#46464e",
+            "surface-bright": "#f9f9fa",
+            "surface": "#FFFFFF",
+            "inverse-primary": "#c8c6c8",
+            "error": "#ba1a1a",
+            "on-error-container": "#93000a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xl": "24px",
+            "margin": "32px",
+            "space-xs": "4px",
+            "space-lg": "16px",
+            "space-sm": "8px",
+            "gutter": "20px",
+            "space-md": "12px"
+          },
+          "fontFamily": {
+            "label-sm": ["Inter"],
+            "box-title": ["Inter"],
+            "page-title": ["Inter"],
+            "body-md": ["Inter"],
+            "caption": ["Inter"]
+          },
+          "fontSize": {
+            "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "box-title": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "page-title": ["30px", { "lineHeight": "36px", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "caption": ["11px", { "lineHeight": "14px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 18px;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="h-full flex bg-background font-body-md text-body-md text-on-background antialiased selection:bg-neutral-200">
+<!-- ================= SIDEBAR NAVIGATION (Shared Component Anchor) ================= -->
+<aside class="fixed top-0 bottom-0 left-0 w-64 flex flex-col justify-between bg-primary z-30 border-r border-border/20 text-on-primary">
+<div class="flex flex-col h-full justify-between p-space-lg">
+<!-- Top Brand Anchor -->
+<div>
+<div class="flex items-center gap-space-sm px-space-md py-space-sm mb-6">
+<div class="w-8 h-8 rounded-lg bg-surface flex items-center justify-center text-primary font-bold text-base tracking-tight shrink-0 shadow-sm">
+            flx
+          </div>
+<div class="flex flex-col">
+<span class="text-box-title font-box-title font-bold text-on-primary text-base leading-tight">flxCatalog</span>
+<span class="text-caption font-caption text-on-primary-container leading-normal">Catálogo B2B/B2C demo</span>
+</div>
+</div>
+<!-- Tab Items -->
+<nav class="space-y-1">
+<!-- 1: Panel de control -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Panel de control</span>
+</a>
+<!-- 2: Productos -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Productos</span>
+</a>
+<!-- 3: Familias -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">category</span>
+<span>Familias</span>
+</a>
+<!-- 4: Marcas -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">branding_watermark</span>
+<span>Marcas</span>
+</a>
+<!-- 5: Clientes -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span>Clientes</span>
+</a>
+<!-- 6: Pedidos (ACTIVE SELECTION) -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg bg-on-primary/10 text-on-primary font-body-md text-body-md font-medium transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+<span>Pedidos</span>
+</a>
+</nav>
+</div>
+<!-- Bottom User Profile and Logout -->
+<div class="pt-4 border-t border-on-primary/10 space-y-1">
+<div class="flex items-center gap-3 px-space-md py-space-sm rounded-lg">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest/20 text-on-primary flex items-center justify-center font-semibold text-xs shrink-0 border border-on-primary/20">
+            AM
+          </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md text-body-md font-medium text-on-primary truncate">Ana Martín</span>
+<span class="text-caption font-caption text-on-primary-container truncate">Administrador</span>
+</div>
+</div>
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-primary-container font-body-md text-body-md hover:bg-on-primary/5 hover:text-on-primary transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Cerrar sesión</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- ================= MAIN LAYOUT WRAPPER ================= -->
+<div class="pl-64 flex-1 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="h-14 w-full bg-surface border-b border-border flex items-center justify-between px-margin sticky top-0 z-20">
+<!-- Search Input on Left -->
+<div class="flex items-center w-80">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-secondary pointer-events-none">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 bg-surface border border-border rounded-lg text-body-md font-body-md text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary transition-colors" placeholder="Buscar en el catálogo..." type="text"/>
+</div>
+</div>
+<!-- Trailing Action Cluster -->
+<div class="flex items-center gap-space-md">
+<button aria-label="Notificaciones" class="p-1.5 rounded-lg text-secondary hover:text-primary hover:bg-surface-container-low transition-colors duration-150" type="button">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button aria-label="Ayuda" class="p-1.5 rounded-lg text-secondary hover:text-primary hover:bg-surface-container-low transition-colors duration-150" type="button">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-4 w-[1px] bg-border mx-1"></div>
+<div class="flex items-center gap-2 pl-1 cursor-pointer">
+<div class="w-7 h-7 rounded-full bg-secondary-container text-on-secondary-fixed flex items-center justify-center font-medium text-xs">
+            AM
+          </div>
+<span class="font-body-md text-body-md font-medium text-primary hidden md:inline">Ana Martín</span>
+</div>
+</div>
+</header>
+<!-- Main Canvas Content Area -->
+<main class="flex-1 p-margin space-y-6 max-w-7xl w-full">
+<!-- Back Navigation Action -->
+<div>
+<a class="inline-flex items-center gap-1.5 text-secondary hover:text-primary font-body-md text-body-md transition-colors duration-150 group" href="#">
+<span class="material-symbols-outlined transition-transform group-hover:-translate-x-0.5">arrow_back</span>
+<span>Volver a pedidos</span>
+</a>
+</div>
+<!-- Bento-style Two Column Grid (Wide Left Slot & Narrow Right Slot) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- ================= LEFT WIDE SLOT (8 COLS) ================= -->
+<div class="lg:col-span-8 space-y-6">
+<!-- 1. Principal Order Record Card -->
+<div class="bg-surface rounded-lg border border-border p-space-xl space-y-6 shadow-none">
+<!-- Record Header -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-border">
+<div class="space-y-1.5">
+<div class="flex items-center gap-2.5">
+<span class="px-2 py-0.5 rounded bg-surface-container-low border border-border text-xs font-mono font-medium text-secondary">
+                    PED-1042
+                  </span>
+<!-- Soft tinted blue pill with dot -->
+<div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50/70 border border-blue-200/60 text-blue-700">
+<span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+<span class="text-caption font-caption font-medium">Confirmado</span>
+</div>
+</div>
+<h1 class="text-box-title font-box-title text-primary tracking-tight">Pedido de Comercial Ibérica S.L.</h1>
+</div>
+<!-- Action Buttons Row -->
+<div class="flex items-center gap-2 self-start sm:self-auto shrink-0">
+<button class="px-3 py-1.5 border border-border bg-surface hover:bg-surface-container-low text-primary font-label-sm text-label-sm font-medium rounded-lg transition-colors duration-150" type="button">
+                  Confirmar
+                </button>
+<button class="px-3 py-1.5 border border-border bg-surface hover:bg-surface-container-low text-primary font-label-sm text-label-sm font-medium rounded-lg transition-colors duration-150" type="button">
+                  Cancelar
+                </button>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary hover:bg-primary-container text-on-primary font-label-sm text-label-sm font-medium rounded-lg transition-colors duration-150" type="button">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+<span>Generar PDF</span>
+</button>
+</div>
+</div>
+<!-- Details Subsection -->
+<div class="space-y-3">
+<h2 class="font-body-md text-body-md font-semibold text-primary">Detalles</h2>
+<!-- Data Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-y-4 gap-x-6">
+<div>
+<span class="block font-label-sm text-label-sm text-secondary">Cliente</span>
+<span class="mt-0.5 block font-body-md text-body-md font-medium text-primary">Comercial Ibérica S.L.</span>
+</div>
+<div>
+<span class="block font-label-sm text-label-sm text-secondary">Fecha</span>
+<span class="mt-0.5 block font-body-md text-body-md font-medium text-primary">14/09/2026</span>
+</div>
+<div>
+<span class="block font-label-sm text-label-sm text-secondary">Forma de pago</span>
+<span class="mt-0.5 block font-body-md text-body-md font-medium text-primary">Transferencia</span>
+</div>
+<div class="sm:col-span-2">
+<span class="block font-label-sm text-label-sm text-secondary">Dirección de entrega</span>
+<span class="mt-0.5 block font-body-md text-body-md font-medium text-primary">Oficina central, Madrid</span>
+</div>
+<div>
+<span class="block font-label-sm text-label-sm text-secondary">Total</span>
+<span class="mt-0.5 block font-box-title text-box-title font-semibold text-primary tabular-nums">340,00 €</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 2. Related Order Lines Table Card -->
+<div class="bg-surface rounded-lg border border-border overflow-hidden shadow-none">
+<div class="px-space-xl py-4 border-b border-border flex items-center justify-between">
+<div class="flex items-center gap-2">
+<h3 class="font-body-md text-body-md font-semibold text-primary">Líneas del pedido</h3>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-low border border-border text-caption font-caption text-secondary font-medium">
+                  2 artículos
+                </span>
+</div>
+</div>
+<!-- Table Structure -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-border bg-surface-bright/50 text-secondary font-label-sm text-label-sm">
+<th class="py-2.5 px-space-xl font-medium" scope="col">Producto</th>
+<th class="py-2.5 px-4 font-medium text-right" scope="col">Cantidad</th>
+<th class="py-2.5 px-4 font-medium text-right" scope="col">Precio</th>
+<th class="py-2.5 px-space-xl font-medium text-right" scope="col">Subtotal</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border text-body-md font-body-md">
+<tr class="hover:bg-surface-bright/40 transition-colors duration-150">
+<td class="py-3 px-space-xl font-medium text-primary">
+<div class="flex flex-col">
+<span>Camiseta Urban</span>
+<span class="text-caption font-caption text-secondary">Talla M, Color Negro</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right tabular-nums text-on-surface">10</td>
+<td class="py-3 px-4 text-right tabular-nums text-secondary">19,90 €</td>
+<td class="py-3 px-space-xl text-right tabular-nums font-medium text-primary">199,00 €</td>
+</tr>
+<tr class="hover:bg-surface-bright/40 transition-colors duration-150">
+<td class="py-3 px-space-xl font-medium text-primary">
+<div class="flex flex-col">
+<span>Sudadera Basic</span>
+<span class="text-caption font-caption text-secondary">Algodón orgánico</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right tabular-nums text-on-surface">4</td>
+<td class="py-3 px-4 text-right tabular-nums text-secondary">34,90 €</td>
+<td class="py-3 px-space-xl text-right tabular-nums font-medium text-primary">139,60 €</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Totals Footer Section -->
+<div class="p-space-xl border-t border-border bg-surface-bright/30 flex justify-end">
+<div class="w-64 space-y-1.5 text-right">
+<div class="flex justify-between font-label-sm text-label-sm text-secondary">
+<span>Base imponible:</span>
+<span class="tabular-nums font-medium text-primary">280,99 €</span>
+</div>
+<div class="flex justify-between font-label-sm text-label-sm text-secondary">
+<span>IVA (21%):</span>
+<span class="tabular-nums font-medium text-primary">59,01 €</span>
+</div>
+<div class="pt-2 border-t border-border flex justify-between font-body-md text-body-md font-semibold text-primary">
+<span>Total pedido:</span>
+<span class="tabular-nums text-base">340,00 €</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. Horizontal Timeline Progress Card -->
+<div class="bg-surface rounded-lg border border-border p-space-xl space-y-5 shadow-none">
+<div class="flex items-center justify-between">
+<h3 class="font-body-md text-body-md font-semibold text-primary">Progreso del pedido</h3>
+<span class="text-caption font-caption text-secondary">Actualizado hace 2 horas</span>
+</div>
+<!-- 5 Steps Connected Track -->
+<div class="py-2">
+<div class="relative flex items-center justify-between w-full">
+<!-- Background hairline timeline bar -->
+<div class="absolute left-4 right-4 top-3.5 -translate-y-1/2 h-[2px] bg-border z-0"></div>
+<!-- Completed hairline segment -->
+<div class="absolute left-4 top-3.5 -translate-y-1/2 h-[2px] bg-primary z-0" style="width: 25%;"></div>
+<!-- Step 1: Pedido realizado (Completed) -->
+<div class="relative z-10 flex flex-col items-center group">
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center ring-4 ring-surface shadow-xs">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="mt-2 font-label-sm text-label-sm font-medium text-primary whitespace-nowrap text-center">Pedido realizado</span>
+<span class="text-[10px] text-secondary">14/09 09:12</span>
+</div>
+<!-- Step 2: Confirmado (Current/Active) -->
+<div class="relative z-10 flex flex-col items-center group">
+<div class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center ring-4 ring-blue-100/80 shadow-xs">
+<span class="material-symbols-outlined text-[15px]">done</span>
+</div>
+<span class="mt-2 font-label-sm text-label-sm font-semibold text-blue-700 whitespace-nowrap text-center">Confirmado</span>
+<span class="text-[10px] text-blue-600/80">14/09 11:30</span>
+</div>
+<!-- Step 3: En proceso (Pending) -->
+<div class="relative z-10 flex flex-col items-center group">
+<div class="w-7 h-7 rounded-full bg-surface border-2 border-border text-outline flex items-center justify-center ring-4 ring-surface">
+<span class="w-2 h-2 rounded-full bg-border"></span>
+</div>
+<span class="mt-2 font-label-sm text-label-sm text-secondary whitespace-nowrap text-center">En proceso</span>
+<span class="text-[10px] text-transparent">--</span>
+</div>
+<!-- Step 4: Enviado (Pending) -->
+<div class="relative z-10 flex flex-col items-center group">
+<div class="w-7 h-7 rounded-full bg-surface border-2 border-border text-outline flex items-center justify-center ring-4 ring-surface">
+<span class="w-2 h-2 rounded-full bg-border"></span>
+</div>
+<span class="mt-2 font-label-sm text-label-sm text-secondary whitespace-nowrap text-center">Enviado</span>
+<span class="text-[10px] text-transparent">--</span>
+</div>
+<!-- Step 5: Entregado (Pending) -->
+<div class="relative z-10 flex flex-col items-center group">
+<div class="w-7 h-7 rounded-full bg-surface border-2 border-border text-outline flex items-center justify-center ring-4 ring-surface">
+<span class="w-2 h-2 rounded-full bg-border"></span>
+</div>
+<span class="mt-2 font-label-sm text-label-sm text-secondary whitespace-nowrap text-center">Entregado</span>
+<span class="text-[10px] text-transparent">--</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= RIGHT NARROW SLOT (4 COLS) ================= -->
+<div class="lg:col-span-4 space-y-6">
+<!-- Documents Card -->
+<div class="bg-surface rounded-lg border border-border p-space-xl space-y-5 shadow-none">
+<div class="flex items-center justify-between pb-3 border-b border-border">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">folder_open</span>
+<h3 class="font-body-md text-body-md font-semibold text-primary">Documentos</h3>
+</div>
+<span class="text-caption font-caption text-secondary">2 archivos</span>
+</div>
+<!-- Clean Document List -->
+<div class="space-y-2.5">
+<!-- Document 1: Presupuesto.pdf -->
+<div class="group flex items-center justify-between p-3 rounded-lg border border-border bg-surface-bright/40 hover:bg-surface-bright hover:border-secondary/30 transition-all duration-150">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-9 h-9 rounded bg-red-50 text-red-600 flex items-center justify-center shrink-0 border border-red-100">
+<span class="material-symbols-outlined text-[20px]">description</span>
+</div>
+<div class="min-w-0">
+<p class="font-body-md text-body-md font-medium text-primary truncate leading-snug">Presupuesto.pdf</p>
+<p class="text-caption font-caption text-secondary">142 KB · 14/09/2026</p>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0 ml-2">
+<button aria-label="Descargar Presupuesto" class="p-1.5 rounded text-secondary hover:text-primary hover:bg-surface-container transition-colors duration-150" title="Descargar" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button aria-label="Visualizar Presupuesto" class="p-1.5 rounded text-secondary hover:text-primary hover:bg-surface-container transition-colors duration-150" title="Visualizar" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</div>
+<!-- Document 2: Albarán.pdf -->
+<div class="group flex items-center justify-between p-3 rounded-lg border border-border bg-surface-bright/40 hover:bg-surface-bright hover:border-secondary/30 transition-all duration-150">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-9 h-9 rounded bg-red-50 text-red-600 flex items-center justify-center shrink-0 border border-red-100">
+<span class="material-symbols-outlined text-[20px]">description</span>
+</div>
+<div class="min-w-0">
+<p class="font-body-md text-body-md font-medium text-primary truncate leading-snug">Albarán.pdf</p>
+<p class="text-caption font-caption text-secondary">88 KB · 14/09/2026</p>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0 ml-2">
+<button aria-label="Descargar Albarán" class="p-1.5 rounded text-secondary hover:text-primary hover:bg-surface-container transition-colors duration-150" title="Descargar" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button aria-label="Visualizar Albarán" class="p-1.5 rounded text-secondary hover:text-primary hover:bg-surface-container transition-colors duration-150" title="Visualizar" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Upload / Attach Secondary Action -->
+<button class="w-full py-2 px-3 border border-dashed border-border rounded-lg text-secondary hover:text-primary hover:border-primary/50 hover:bg-surface-container-low text-label-sm font-label-sm font-medium flex items-center justify-center gap-1.5 transition-colors duration-150" type="button">
+<span class="material-symbols-outlined text-[16px]">upload_file</span>
+<span>Adjuntar nuevo documento</span>
+</button>
+</div>
+<!-- Customer Context Note Card (Vercel / Radix clean card) -->
+<div class="bg-surface rounded-lg border border-border p-space-xl space-y-3 shadow-none">
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md font-semibold text-primary">Información fiscal</span>
+<span class="text-caption font-caption text-secondary font-mono">B84920194</span>
+</div>
+<div class="text-caption font-caption text-secondary space-y-1">
+<p class="text-on-surface">Comercial Ibérica de Distribución S.L.</p>
+<p>Paseo de la Castellana 112, Planta 4</p>
+<p>28046 Madrid, España</p>
+<p class="pt-1 text-primary font-medium">contacto@ibericadistribucion.es</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

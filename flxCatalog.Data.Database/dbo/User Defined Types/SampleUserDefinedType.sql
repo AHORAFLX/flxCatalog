@@ -1,1 +1,2 @@
-﻿CREATE TYPE [dbo].[SampleUserDefinedType] FROM NVARCHAR(100) NOT NULL;
+﻿CREATE TYPE [dbo].[SampleUserDefinedType] FROM [nvarchar](100) NOT NULL
+GO
