@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Clientes](
-	[IdCliente] [uniqueidentifier] NOT NULL,
+	[IdCliente] [nvarchar](50) NOT NULL CONSTRAINT [DF_Clientes_IdCliente] DEFAULT (NEWID()),
 	[CodigoCliente] [nvarchar](20) NOT NULL,
 	[RazonSocial] [nvarchar](200) NOT NULL,
 	[NombreComercial] [nvarchar](200) NULL,
@@ -7,7 +7,7 @@
 	[DireccionFiscal] [nvarchar](300) NULL,
 	[Email] [nvarchar](200) NULL,
 	[Telefono] [nvarchar](30) NULL,
-	[IdTarifa] [uniqueidentifier] NOT NULL,
+	[IdTarifa] [nvarchar](50) NOT NULL,
 	[Comercial] [nvarchar](150) NULL,
 	[Activo] [bit] NOT NULL,
 	[CreatedBy] [nvarchar](200) NULL,

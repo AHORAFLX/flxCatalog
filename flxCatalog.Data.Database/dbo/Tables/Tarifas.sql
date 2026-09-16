@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Tarifas](
-	[IdTarifa] [uniqueidentifier] NOT NULL,
+	[IdTarifa] [nvarchar](50) NOT NULL CONSTRAINT [DF_Tarifas_IdTarifa] DEFAULT (NEWID()),
 	[Nombre] [nvarchar](50) NOT NULL,
- CONSTRAINT [PK_Tarifas] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_Tarifas] PRIMARY KEY CLUSTERED
 (
 	[IdTarifa] ASC
 )

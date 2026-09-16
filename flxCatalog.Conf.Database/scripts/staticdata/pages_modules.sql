@@ -21,8 +21,8 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Order":0,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
-	"flxInsertedDate":"2026-09-15T08:02:00",
-	"flxUpdatedDate":"2026-09-15T08:02:00",
+	"flxInsertedDate":"2026-09-16T17:58:00",
+	"flxUpdatedDate":"2026-09-16T17:58:00",
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
@@ -164,13 +164,33 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"CLI_Cliente_View",
 	"ModuleName":"mod-cli-cliente-back-html",
 	"LayoutPositionId":"TopPosition",
-	"Order":-1,
+	"Order":3,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T18:10:00",
 	"flxUpdatedDate":"2026-09-15T18:10:00",
 	"OriginAddonId":"Main",
-	"OriginId":1
+	"OriginId":1,
+	"PositionX":0,
+	"PositionY":13,
+	"Width":12,
+	"Height":2
+},{
+	"PageName":"CLI_Cliente_View",
+	"ModuleName":"mod-cli-cliente-top-productos-echart",
+	"LayoutPositionId":"TopPosition",
+	"Order":1,
+	"Title":"Artículos más comprados",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-16T13:48:00",
+	"flxUpdatedDate":"2026-09-16T13:48:00",
+	"OriginAddonId":"Main",
+	"OriginId":1,
+	"PositionX":6,
+	"PositionY":0,
+	"Width":6,
+	"Height":8
 },{
 	"PageName":"CLI_Cliente_View",
 	"ModuleName":"mod-cli-cliente-view",
@@ -181,7 +201,27 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"flxInsertedDate":"2026-09-15T08:30:00",
 	"flxUpdatedDate":"2026-09-15T08:30:00",
 	"OriginAddonId":"Main",
-	"OriginId":1
+	"OriginId":1,
+	"PositionX":0,
+	"PositionY":0,
+	"Width":6,
+	"Height":8
+},{
+	"PageName":"CLI_Cliente_View",
+	"ModuleName":"mod-vta-pedido-list-cliente",
+	"LayoutPositionId":"TopPosition",
+	"Order":2,
+	"Title":"Pedidos recientes",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-16T12:28:00",
+	"flxUpdatedDate":"2026-09-16T12:28:00",
+	"OriginAddonId":"Main",
+	"OriginId":1,
+	"PositionX":0,
+	"PositionY":8,
+	"Width":12,
+	"Height":5
 },{
 	"PageName":"HOME",
 	"ModuleName":"mod-home-banner-html",

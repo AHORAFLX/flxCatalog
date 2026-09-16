@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[Productos_Variantes](
-	[IdVariante] [uniqueidentifier] NOT NULL,
-	[IdProducto] [uniqueidentifier] NOT NULL,
-	[IdTalla] [uniqueidentifier] NOT NULL,
-	[IdColor] [uniqueidentifier] NOT NULL,
+	[IdVariante] [nvarchar](50) NOT NULL CONSTRAINT [DF_Productos_Variantes_IdVariante] DEFAULT (NEWID()),
+	[IdProducto] [nvarchar](50) NOT NULL,
+	[IdTalla] [nvarchar](50) NOT NULL,
+	[IdColor] [nvarchar](50) NOT NULL,
 	[Referencia] [nvarchar](50) NOT NULL,
 	[Stock] [int] NOT NULL,
  CONSTRAINT [PK_Productos_Variantes] PRIMARY KEY CLUSTERED 

@@ -155,3 +155,51 @@
 | `list-no-searcher` | dismissed | mod-vta-pedido-recent-list: Modules.Searcher=False. | — | Gate de la entrada: widget de 8 pedidos recientes de los últimos 60 días, de solo vistazo — el mismo límite que exime a list-no-pager de una lista acotada por el modelo de datos. |
 
 **CLOSED on the findings.** Every one is `fixed`, `dismissed` with the user's reason, or `raised` with its class of cause.
+
+## 2026-09-16 · module `mod-cat-familia-list`
+
+| Entry | Status | What was seen | Mechanism | Reason or cause |
+|---|---|---|---|---|
+| `list-no-searcher` | dismissed | Se había activado searcher:true y una regla CSS de plugin para hacerlo visible. | flexygo_update_object_list_module(searcher:false); regla CSS retirada de flx-dashboard.css. | El usuario no quiere el buscador de texto libre: 'No lo quiero, me vale con los filtros que ya hay configurado.' El botón Filtro de la barra ya cubre esa necesidad. |
+
+**CLOSED on the findings.** Every one is `fixed`, `dismissed` with the user's reason, or `raised` with its class of cause.
+
+## 2026-09-16 · module `mod-cat-marca-list`
+
+| Entry | Status | What was seen | Mechanism | Reason or cause |
+|---|---|---|---|---|
+| `list-no-searcher` | dismissed | Se había activado searcher:true y una regla CSS de plugin para hacerlo visible. | flexygo_update_object_list_module(searcher:false); regla CSS retirada de flx-dashboard.css. | El usuario no quiere el buscador de texto libre: 'No lo quiero, me vale con los filtros que ya hay configurado.' El botón Filtro de la barra ya cubre esa necesidad. |
+
+**CLOSED on the findings.** Every one is `fixed`, `dismissed` with the user's reason, or `raised` with its class of cause.
+
+## 2026-09-16 · module `mod-cat-producto-list`
+
+| Entry | Status | What was seen | Mechanism | Reason or cause |
+|---|---|---|---|---|
+| `list-no-searcher` | dismissed | Se había activado searcher:true y una regla CSS de plugin para hacerlo visible. | flexygo_update_object_list_module(searcher:false); regla CSS retirada de flx-dashboard.css. | El usuario no quiere el buscador de texto libre: 'No lo quiero, me vale con los filtros que ya hay configurado.' El botón Filtro de la barra ya cubre esa necesidad. |
+
+**CLOSED on the findings.** Every one is `fixed`, `dismissed` with the user's reason, or `raised` with its class of cause.
+
+## 2026-09-16 · module `mod-cat-producto-publico-list`
+
+| Entry | Status | What was seen | Mechanism | Reason or cause |
+|---|---|---|---|---|
+| `list-no-searcher` | dismissed | Se había activado searcher:true y una regla CSS de plugin para hacerlo visible. | flexygo_update_object_list_module(searcher:false); regla CSS retirada de flx-dashboard.css. | El usuario no quiere el buscador de texto libre: 'No lo quiero, me vale con los filtros que ya hay configurado.' El botón Filtro de la barra ya cubre esa necesidad. |
+
+**CLOSED on the findings.** Every one is `fixed`, `dismissed` with the user's reason, or `raised` with its class of cause.
+
+## 2026-09-16 · module `mod-cli-cliente-list`
+
+| Entry | Status | What was seen | Mechanism | Reason or cause |
+|---|---|---|---|---|
+| `list-no-searcher` | dismissed | Se había activado searcher:true y una regla CSS de plugin para hacerlo visible. | flexygo_update_object_list_module(searcher:false); regla CSS retirada de flx-dashboard.css. | El usuario no quiere el buscador de texto libre: 'No lo quiero, me vale con los filtros que ya hay configurado.' El botón Filtro de la barra ya cubre esa necesidad. |
+
+**CLOSED on the findings.** Every one is `fixed`, `dismissed` with the user's reason, or `raised` with its class of cause.
+
+## 2026-09-16 · module `mod-vta-pedido-list`
+
+| Entry | Status | What was seen | Mechanism | Reason or cause |
+|---|---|---|---|---|
+| `list-no-searcher` | dismissed | Se había activado searcher:true y una regla CSS de plugin para hacerlo visible. | flexygo_update_object_list_module(searcher:false); regla CSS retirada de flx-dashboard.css. | El usuario no quiere el buscador de texto libre: 'No lo quiero, me vale con los filtros que ya hay configurado.' El botón Filtro de la barra ya cubre esa necesidad. |
+
+**CLOSED on the findings.** Every one is `fixed`, `dismissed` with the user's reason, or `raised` with its class of cause.

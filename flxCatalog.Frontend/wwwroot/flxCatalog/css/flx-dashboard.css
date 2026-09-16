@@ -39,18 +39,28 @@ body[mode="dark"] flx-list .flxRszTbl tr:nth-child(odd):not(.rowHeader):hover {
   color: light-dark(#0369a1, #7dd3fc) !important;
 }
 
-/* The platform hides .cntBodyHeader whenever it has no filter chip / module button, without
-   counting the inline search box (.listSearcher) as content worth keeping — so enabling
-   `searcher: true` on a list whose toolbar sits in the header (Filter button included) silently
-   paints nothing (quality gate list-no-searcher). Keep it visible when it holds the searcher.
-   Scoped to this project's own list modules only, not every screen on the installation. */
-flx-module[modulename="mod-cat-familia-list"] > .cntBodyHeader:has(.listSearcher),
-flx-module[modulename="mod-cat-marca-list"] > .cntBodyHeader:has(.listSearcher),
-flx-module[modulename="mod-cat-producto-list"] > .cntBodyHeader:has(.listSearcher),
-flx-module[modulename="mod-cat-producto-publico-list"] > .cntBodyHeader:has(.listSearcher),
-flx-module[modulename="mod-cli-cliente-list"] > .cntBodyHeader:has(.listSearcher),
-flx-module[modulename="mod-vta-pedido-list"] > .cntBodyHeader:has(.listSearcher) {
-  display: block !important;
+/* Every flx-state-* badge, everywhere in the app: a solid border and a pill shape, with a
+   leading status dot — the look "Pedidos recientes" had by typing "● " into its own template
+   text. Done here instead so every badge gets it for free (border/radius/dot follow the class's
+   own colour via currentColor, so a new state class needs nothing extra) and no template has to
+   carry a literal bullet character — flx-vta-pedido-recent-list had its "● " removed once this
+   covered it, since CSS ::before would otherwise double it. */
+[class*="flx-state-"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  font-weight: 600;
+}
+[class*="flx-state-"]::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: currentColor;
 }
 
 /* "Volver a X" back-links on view pages (quality gate view-no-way-back) */
@@ -63,4 +73,55 @@ flx-navbutton.flx-back-link {
 }
 flx-navbutton.flx-back-link:hover {
   color: var(--outstanding-color);
+}
+
+/* Familias list — hierarchy redesigned with Stitch (D-10): parent rows carry a left accent bar,
+   child rows a thin tree-connector rule offset under their parent, instead of the old flat list
+   with a disconnected "↳" prefix. Back on a standard object list (mod-cat-familia-list) so the
+   platform's own "Nuevo" toolbar button and quick-create work exactly like every other list — an
+   flx-sqllist was tried instead for a while specifically to get a real ORDER BY (the table's own
+   clustered index is on a random string key, so without one parents and children only stay grouped
+   by luck of the physical row order), but a sqllist never gets the native New button no matter what
+   toolbar is configured on it, and the user chose the native button over reliable default order.
+   Scoped to this project's own module. */
+/* The accent/indent lives on the NAME CELL only (.flx-fam-name), never on the row itself —
+   a border or margin on the whole .row-line row shifts every column after it (Productos, Estado,
+   Acciones came out staggered between parent and child rows because of exactly that). A transparent
+   3px border is reserved on every name cell so colouring it in for parent/child never changes the
+   cell's width either. */
+flx-module[modulename="mod-cat-familia-list"] .flx-fam-name {
+  padding-left: 10px;
+  border-left: 3px solid transparent;
+  box-sizing: border-box;
+}
+flx-module[modulename="mod-cat-familia-list"] .flx-fam-parent .flx-fam-name {
+  font-weight: 600;
+  font-size: 15px;
+  border-left-color: var(--outstanding-color);
+}
+flx-module[modulename="mod-cat-familia-list"] .flx-fam-child .flx-fam-name {
+  padding-left: 32px;
+  border-left-color: var(--border-module-color);
+}
+flx-module[modulename="mod-cat-familia-list"] .flx-fam-child:hover .flx-fam-name {
+  border-left-color: var(--outstanding-color);
+}
+flx-module[modulename="mod-cat-familia-list"] .flx-fam-count {
+  color: light-dark(#555e6c, #a7b0bd);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Catálogo público grid: the template's own .pub-cell only carries col-3/col-l-4/col-m-6 (a
+   quarter width, 4 per row, at the widest breakpoint Flexygo's grid defines) — there is no wider
+   tier, so on a big desktop screen the 4 cards keep growing and the square photos come out huge.
+   These add two wider tiers so the card (and its photo) shrink back down instead. */
+@media (min-width: 1600px) {
+  main.pageContainer[pagename="CAT_Catalogo_Publico"] .pub-cell {
+    width: 16.6667% !important; /* 6 per row */
+  }
+}
+@media (min-width: 2000px) {
+  main.pageContainer[pagename="CAT_Catalogo_Publico"] .pub-cell {
+    width: 12.5% !important; /* 8 per row */
+  }
 }

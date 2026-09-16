@@ -176,12 +176,12 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Generic":false,
 	"Offline":false,
 	"flxInsertedBy":"flexygo-mcp",
-	"flxUpdatedBy":"flexygo-mcp",
+	"flxUpdatedBy":"admin",
 	"flxInsertedDate":"2026-09-15T08:30:00",
-	"flxUpdatedDate":"2026-09-15T08:30:00",
+	"flxUpdatedDate":"2026-09-16T15:39:00",
 	"OriginAddonId":"Main",
 	"OriginId":1,
-	"FreeLayout":false
+	"FreeLayout":true
 },{
 	"PageName":"HOME",
 	"TypeId":"generic",

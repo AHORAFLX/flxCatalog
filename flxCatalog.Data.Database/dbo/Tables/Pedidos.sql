@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[Pedidos](
-	[IdPedido] [uniqueidentifier] NOT NULL,
+	[IdPedido] [nvarchar](50) NOT NULL CONSTRAINT [DF_Pedidos_IdPedido] DEFAULT (NEWID()),
 	[Numero] [nvarchar](20) NOT NULL,
-	[IdCliente] [uniqueidentifier] NOT NULL,
-	[IdEstado] [uniqueidentifier] NOT NULL,
+	[IdCliente] [nvarchar](50) NOT NULL,
+	[IdEstado] [nvarchar](50) NOT NULL,
 	[Fecha] [datetime2](7) NOT NULL,
 	[DireccionEntrega] [nvarchar](300) NULL,
 	[FormaPago] [nvarchar](100) NULL,

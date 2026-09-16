@@ -8,6 +8,7 @@ EXEC sp_MSforeachtable 'ALTER TABLE ? DISABLE TRIGGER all'
 
 PRINT N'config.sql...'
 :r .\config.sql
+:r .\staticdata\2026-09-16_181742_origin_0_system_customizations.sql
 :r .\staticdata\documents_objects_config.sql
 :r .\staticdata\help.sql
 :r .\staticdata\menus.sql

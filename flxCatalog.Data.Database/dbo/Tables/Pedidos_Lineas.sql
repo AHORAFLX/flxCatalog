@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[Pedidos_Lineas](
-	[IdLinea] [uniqueidentifier] NOT NULL,
-	[IdPedido] [uniqueidentifier] NOT NULL,
-	[IdProducto] [uniqueidentifier] NOT NULL,
-	[IdVariante] [uniqueidentifier] NULL,
+	[IdLinea] [nvarchar](50) NOT NULL CONSTRAINT [DF_Pedidos_Lineas_IdLinea] DEFAULT (NEWID()),
+	[IdPedido] [nvarchar](50) NOT NULL,
+	[IdProducto] [nvarchar](50) NOT NULL,
+	[IdVariante] [nvarchar](50) NULL,
 	[Cantidad] [int] NOT NULL,
 	[Precio] [decimal](18, 2) NOT NULL,
 	[Subtotal] [decimal](18, 2) NOT NULL,

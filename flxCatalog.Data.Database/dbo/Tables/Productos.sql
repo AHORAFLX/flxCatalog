@@ -1,10 +1,10 @@
 ﻿CREATE TABLE [dbo].[Productos](
-	[IdProducto] [uniqueidentifier] NOT NULL,
+	[IdProducto] [nvarchar](50) NOT NULL CONSTRAINT [DF_Productos_IdProducto] DEFAULT (NEWID()),
 	[Referencia] [nvarchar](50) NOT NULL,
 	[Nombre] [nvarchar](200) NOT NULL,
 	[DescripcionCorta] [nvarchar](500) NULL,
-	[IdFamilia] [uniqueidentifier] NOT NULL,
-	[IdMarca] [uniqueidentifier] NOT NULL,
+	[IdFamilia] [nvarchar](50) NOT NULL,
+	[IdMarca] [nvarchar](50) NOT NULL,
 	[PrecioBase] [decimal](18, 2) NOT NULL,
 	[IVA] [decimal](5, 2) NOT NULL,
 	[Stock] [int] NOT NULL,
