@@ -26,6 +26,17 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"MenuId":"67AE80E8-4003-43A5-88D2-787CFBCC1918",
+	"Descrip":"Resetear datos demo",
+	"IconName":"fa-database",
+	"Disabled":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-17T15:41:00",
+	"flxUpdatedDate":"2026-09-17T15:41:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"MenuId":"8E45BCFC-3C45-47B6-AB0E-4F0418A2E5CC",
 	"Descrip":"Archivar producto",
 	"IconName":"archive",

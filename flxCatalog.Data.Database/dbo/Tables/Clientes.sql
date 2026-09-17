@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Clientes](
-	[IdCliente] [nvarchar](50) NOT NULL CONSTRAINT [DF_Clientes_IdCliente] DEFAULT (NEWID()),
+	[IdCliente] [nvarchar](50) NOT NULL CONSTRAINT [DF_Clientes_IdCliente] DEFAULT (newid()),
 	[CodigoCliente] [nvarchar](20) NOT NULL,
 	[RazonSocial] [nvarchar](200) NOT NULL,
 	[NombreComercial] [nvarchar](200) NULL,
@@ -16,7 +16,7 @@
 	[ModifiedDate] [datetime2](7) NULL,
  CONSTRAINT [PK_Clientes] PRIMARY KEY CLUSTERED 
 (
-	[IdCliente] ASC
+	[IdCliente] ASC CONSTRAINT [DF_Clientes_IdCliente] DEFAULT (newid())
 )
 ,
  CONSTRAINT [FK_Clientes_Tarifa] FOREIGN KEY([IdTarifa])

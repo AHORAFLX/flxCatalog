@@ -34,6 +34,22 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"ObjectName":"CAT_Producto",
+	"ProcessName":"pSeed_ResetDemoData",
+	"MenuId":"67AE80E8-4003-43A5-88D2-787CFBCC1918",
+	"Order":0,
+	"Active":true,
+	"BagOnly":false,
+	"ClearSelectionBag":true,
+	"Offline":false,
+	"IconMenuClass":"fa-database",
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-17T15:41:00",
+	"flxUpdatedDate":"2026-09-17T15:41:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"ObjectName":"VTA_Pedido",
 	"ProcessName":"pVTA_CancelarPedido",
 	"MenuId":"61210B41-C30C-4AA0-82D6-F11378DAEB4A",

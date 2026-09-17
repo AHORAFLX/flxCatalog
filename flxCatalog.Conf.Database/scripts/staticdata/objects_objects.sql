@@ -226,6 +226,38 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"flxInsertedDate":"2026-09-15T08:32:00",
 	"flxUpdatedDate":"2026-09-15T08:32:00",
 	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ObjectName":"CAT_Producto",
+	"ChildCollection":"VTA_PreciosTarifa",
+	"ObjectRelation":"IdProducto=IdProducto",
+	"ObjectDefaults":"IdProducto=IdProducto",
+	"ShowInMenu":false,
+	"ShowInAnalysis":true,
+	"OneToOneRelation":false,
+	"Order":3,
+	"RemoveOnDelete":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-17T09:36:00",
+	"flxUpdatedDate":"2026-09-17T09:36:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ObjectName":"VTA_Tarifa",
+	"ChildCollection":"VTA_PreciosTarifa",
+	"ObjectRelation":"IdTarifa=IdTarifa",
+	"ObjectDefaults":"IdTarifa=IdTarifa",
+	"ShowInMenu":false,
+	"ShowInAnalysis":true,
+	"OneToOneRelation":false,
+	"Order":1,
+	"RemoveOnDelete":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-17T09:36:00",
+	"flxUpdatedDate":"2026-09-17T09:36:00",
+	"OriginAddonId":"Main",
 	"OriginId":1}]')
 
 

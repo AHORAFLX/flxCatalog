@@ -4,7 +4,52 @@ BEGIN TRY
 
 DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar(max),''),N'
 [{
+	"ToolbarName":"tb-cat-producto-cliente-list",
+	"Descrip":"List toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"ToolbarName":"tb-cat-producto-view",
+	"Descrip":"View toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ToolbarName":"tb-cli-cliente-mi-ficha-list",
+	"Descrip":"List toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ToolbarName":"tb-cli-cliente-mi-ficha-view",
+	"Descrip":"View toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ToolbarName":"tb-vta-pedido-cliente-list",
+	"Descrip":"List toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ToolbarName":"tb-vta-pedido-cliente-view",
 	"Descrip":"View toolbar",
 	"flxInsertedBy":"admin",
 	"flxUpdatedBy":"admin",

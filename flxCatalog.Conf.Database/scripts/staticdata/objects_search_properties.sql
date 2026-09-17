@@ -214,6 +214,21 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"SearchId":"418C3D33-6D9C-486F-824A-7A56EA30AF23",
+	"ObjectName":"VTA_Tarifa",
+	"PropertyName":"Nombre",
+	"ObjectPath":"VTA_Tarifas",
+	"Size":6,
+	"Order":0,
+	"Label":"Nombre",
+	"PropertySearchType":"text",
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-17T09:34:00",
+	"flxUpdatedDate":"2026-09-17T09:34:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"SearchId":"19D85F68-99A0-445D-AEB1-90BFFD24F219",
 	"ObjectName":"VTA_Pedido",
 	"PropertyName":"Fecha",
@@ -346,6 +361,51 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"flxUpdatedBy":"unknown",
 	"flxInsertedDate":"2026-09-15T08:07:00",
 	"flxUpdatedDate":"2026-09-15T08:07:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"SearchId":"41D8187D-7788-45CF-8EA0-A763391E5021",
+	"ObjectName":"VTA_PrecioTarifa",
+	"PropertyName":"IdProducto",
+	"ObjectPath":"VTA_PreciosTarifa",
+	"Size":6,
+	"Order":1,
+	"Label":"Producto",
+	"PropertySearchType":"dbcombo",
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-17T09:36:00",
+	"flxUpdatedDate":"2026-09-17T09:36:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"SearchId":"41D8187D-7788-45CF-8EA0-A763391E5021",
+	"ObjectName":"VTA_PrecioTarifa",
+	"PropertyName":"IdTarifa",
+	"ObjectPath":"VTA_PreciosTarifa",
+	"Size":6,
+	"Order":0,
+	"Label":"Tarifa",
+	"PropertySearchType":"dbcombo",
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-17T09:36:00",
+	"flxUpdatedDate":"2026-09-17T09:36:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"SearchId":"41D8187D-7788-45CF-8EA0-A763391E5021",
+	"ObjectName":"VTA_PrecioTarifa",
+	"PropertyName":"Precio",
+	"ObjectPath":"VTA_PreciosTarifa",
+	"Size":3,
+	"Order":2,
+	"Label":"Precio",
+	"PropertySearchType":"number",
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-17T09:36:00",
+	"flxUpdatedDate":"2026-09-17T09:36:00",
 	"OriginAddonId":"Main",
 	"OriginId":1}]')
 

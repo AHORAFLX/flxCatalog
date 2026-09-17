@@ -60,6 +60,20 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"SearchId":"418C3D33-6D9C-486F-824A-7A56EA30AF23",
+	"ObjectName":"VTA_Tarifas",
+	"Name":"Buscar tarifas",
+	"Generic":false,
+	"IsDefault":false,
+	"Type":"Properties",
+	"Order":1,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-17T09:34:00",
+	"flxUpdatedDate":"2026-09-17T09:34:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"SearchId":"19D85F68-99A0-445D-AEB1-90BFFD24F219",
 	"ObjectName":"VTA_Pedidos",
 	"Name":"Buscar pedidos",
@@ -85,6 +99,20 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"flxUpdatedBy":"unknown",
 	"flxInsertedDate":"2026-09-15T08:07:00",
 	"flxUpdatedDate":"2026-09-15T08:07:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"SearchId":"41D8187D-7788-45CF-8EA0-A763391E5021",
+	"ObjectName":"VTA_PreciosTarifa",
+	"Name":"Buscar precios de tarifa",
+	"Generic":false,
+	"IsDefault":false,
+	"Type":"Properties",
+	"Order":1,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-17T09:36:00",
+	"flxUpdatedDate":"2026-09-17T09:36:00",
 	"OriginAddonId":"Main",
 	"OriginId":1}]')
 

@@ -294,3 +294,7 @@ flxCatalog.Frontend/wwwroot/**/*.d.ts
 # Variables locales del compose. El fichero versionado es .env.example.
 .env
 .playwright-mcp/*.*
+
+# flexygo_script_changes exporta AspNetUsers con PasswordHash/SecurityStamp en claro.
+# Nunca se versiona: son credenciales reales de las cuentas del entorno local.
+flxCatalog.Conf.Database/scripts/staticdata/aspnetusers.sql

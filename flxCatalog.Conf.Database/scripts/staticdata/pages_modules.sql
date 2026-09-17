@@ -93,6 +93,17 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"PageName":"CAT_Producto_Cliente_List",
+	"ModuleName":"mod-cat-producto-cliente-list",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-17T09:45:00",
+	"flxUpdatedDate":"2026-09-17T09:45:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"PageName":"CAT_Producto_List",
 	"ModuleName":"mod-cat-producto-list",
 	"LayoutPositionId":"TopPosition",
@@ -106,49 +117,65 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 },{
 	"PageName":"CAT_Producto_View",
 	"ModuleName":"cat_producto_gestion_doc_img",
-	"LayoutPositionId":"RightPosition",
-	"Order":0,
+	"LayoutPositionId":"TopPosition",
+	"Order":2,
 	"Title":"Imágenes",
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:09:00",
 	"flxUpdatedDate":"2026-09-15T08:09:00",
 	"OriginAddonId":"Main",
-	"OriginId":1
+	"OriginId":1,
+	"PositionX":8,
+	"PositionY":1,
+	"Width":4,
+	"Height":2
 },{
 	"PageName":"CAT_Producto_View",
 	"ModuleName":"mod-cat-producto-back-html",
 	"LayoutPositionId":"TopPosition",
-	"Order":-1,
+	"Order":0,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T18:10:00",
 	"flxUpdatedDate":"2026-09-15T18:10:00",
 	"OriginAddonId":"Main",
-	"OriginId":1
+	"OriginId":1,
+	"PositionX":0,
+	"PositionY":0,
+	"Width":8,
+	"Height":1
 },{
 	"PageName":"CAT_Producto_View",
 	"ModuleName":"mod-cat-producto-view",
 	"LayoutPositionId":"TopPosition",
-	"Order":0,
+	"Order":1,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:09:00",
 	"flxUpdatedDate":"2026-09-15T08:09:00",
 	"OriginAddonId":"Main",
-	"OriginId":1
+	"OriginId":1,
+	"PositionX":0,
+	"PositionY":1,
+	"Width":8,
+	"Height":8
 },{
 	"PageName":"CAT_Producto_View",
 	"ModuleName":"mod-cat-variante-list-producto",
 	"LayoutPositionId":"TopPosition",
-	"Order":1,
+	"Order":3,
 	"Title":"Variantes",
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:09:00",
 	"flxUpdatedDate":"2026-09-15T08:09:00",
 	"OriginAddonId":"Main",
-	"OriginId":1
+	"OriginId":1,
+	"PositionX":0,
+	"PositionY":9,
+	"Width":8,
+	"Height":3
 },{
 	"PageName":"CLI_Cliente_List",
 	"ModuleName":"mod-cli-cliente-list",
@@ -161,10 +188,43 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"PageName":"CLI_Cliente_Mi_Ficha_List",
+	"ModuleName":"mod-cli-cliente-mi-ficha-list",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-17T09:44:00",
+	"flxUpdatedDate":"2026-09-17T09:44:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"CLI_Cliente_Mi_Ficha_View",
+	"ModuleName":"mod-cli-cliente-mi-ficha-back-html",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-17T19:14:00",
+	"flxUpdatedDate":"2026-09-17T19:14:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"CLI_Cliente_Mi_Ficha_View",
+	"ModuleName":"mod-cli-cliente-mi-ficha-view",
+	"LayoutPositionId":"TopPosition",
+	"Order":1,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-17T09:44:00",
+	"flxUpdatedDate":"2026-09-17T09:44:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"PageName":"CLI_Cliente_View",
 	"ModuleName":"mod-cli-cliente-back-html",
 	"LayoutPositionId":"TopPosition",
-	"Order":3,
+	"Order":0,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T18:10:00",
@@ -172,14 +232,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1,
 	"PositionX":0,
-	"PositionY":13,
+	"PositionY":0,
 	"Width":12,
-	"Height":2
+	"Height":1
 },{
 	"PageName":"CLI_Cliente_View",
 	"ModuleName":"mod-cli-cliente-top-productos-echart",
 	"LayoutPositionId":"TopPosition",
-	"Order":1,
+	"Order":2,
 	"Title":"Artículos más comprados",
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
@@ -188,14 +248,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1,
 	"PositionX":6,
-	"PositionY":0,
+	"PositionY":1,
 	"Width":6,
 	"Height":8
 },{
 	"PageName":"CLI_Cliente_View",
 	"ModuleName":"mod-cli-cliente-view",
 	"LayoutPositionId":"TopPosition",
-	"Order":0,
+	"Order":1,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:30:00",
@@ -203,14 +263,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1,
 	"PositionX":0,
-	"PositionY":0,
+	"PositionY":1,
 	"Width":6,
 	"Height":8
 },{
 	"PageName":"CLI_Cliente_View",
 	"ModuleName":"mod-vta-pedido-list-cliente",
 	"LayoutPositionId":"TopPosition",
-	"Order":2,
+	"Order":3,
 	"Title":"Pedidos recientes",
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
@@ -219,9 +279,33 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1,
 	"PositionX":0,
-	"PositionY":8,
+	"PositionY":9,
 	"Width":12,
 	"Height":5
+},{
+	"PageName":"d2e00246-cc6a-4cdb-993d-6ec7bd7c8d86",
+	"ModuleName":"mod-home-cliente-saludo-easyinfo",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"Title":"Bienvenida",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-17T10:36:00",
+	"flxUpdatedDate":"2026-09-17T10:36:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"d2e00246-cc6a-4cdb-993d-6ec7bd7c8d86",
+	"ModuleName":"mod-vta-pedido-home-list",
+	"LayoutPositionId":"TopPosition",
+	"Order":1,
+	"Title":"Pedidos recientes",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-17T10:36:00",
+	"flxUpdatedDate":"2026-09-17T10:36:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
 },{
 	"PageName":"HOME",
 	"ModuleName":"mod-home-banner-html",
@@ -278,6 +362,39 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:38:00",
 	"flxUpdatedDate":"2026-09-15T08:38:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Pedido_Cliente_List",
+	"ModuleName":"mod-vta-pedido-cliente-list",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-17T09:45:00",
+	"flxUpdatedDate":"2026-09-17T09:45:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Pedido_Cliente_View",
+	"ModuleName":"mod-vta-pedido-cliente-back-html",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-17T19:14:00",
+	"flxUpdatedDate":"2026-09-17T19:14:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Pedido_Cliente_View",
+	"ModuleName":"mod-vta-pedido-cliente-view",
+	"LayoutPositionId":"TopPosition",
+	"Order":1,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-17T09:45:00",
+	"flxUpdatedDate":"2026-09-17T09:45:00",
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
@@ -347,6 +464,40 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:32:00",
 	"flxUpdatedDate":"2026-09-15T08:32:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Tarifa_List",
+	"ModuleName":"mod-vta-tarifa-list",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-17T09:35:00",
+	"flxUpdatedDate":"2026-09-17T09:35:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Tarifa_View",
+	"ModuleName":"mod-vta-preciotarifa-list-tarifa",
+	"LayoutPositionId":"TopPosition",
+	"Order":1,
+	"Title":"Precios por producto",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-17T09:36:00",
+	"flxUpdatedDate":"2026-09-17T09:36:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Tarifa_View",
+	"ModuleName":"mod-vta-tarifa-view",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-17T09:35:00",
+	"flxUpdatedDate":"2026-09-17T09:35:00",
 	"OriginAddonId":"Main",
 	"OriginId":1}]')
 

@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Pedidos](
-	[IdPedido] [nvarchar](50) NOT NULL CONSTRAINT [DF_Pedidos_IdPedido] DEFAULT (NEWID()),
+	[IdPedido] [nvarchar](50) NOT NULL CONSTRAINT [DF_Pedidos_IdPedido] DEFAULT (newid()),
 	[Numero] [nvarchar](20) NOT NULL,
 	[IdCliente] [nvarchar](50) NOT NULL,
 	[IdEstado] [nvarchar](50) NOT NULL,
@@ -9,7 +9,7 @@
 	[Total] [decimal](18, 2) NOT NULL,
  CONSTRAINT [PK_Pedidos] PRIMARY KEY CLUSTERED 
 (
-	[IdPedido] ASC
+	[IdPedido] ASC CONSTRAINT [DF_Pedidos_IdPedido] DEFAULT (newid())
 )
 ,
  CONSTRAINT [FK_Pedidos_Cliente] FOREIGN KEY([IdCliente])

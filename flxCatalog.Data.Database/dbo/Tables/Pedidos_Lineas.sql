@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Pedidos_Lineas](
-	[IdLinea] [nvarchar](50) NOT NULL CONSTRAINT [DF_Pedidos_Lineas_IdLinea] DEFAULT (NEWID()),
+	[IdLinea] [nvarchar](50) NOT NULL CONSTRAINT [DF_Pedidos_Lineas_IdLinea] DEFAULT (newid()),
 	[IdPedido] [nvarchar](50) NOT NULL,
 	[IdProducto] [nvarchar](50) NOT NULL,
 	[IdVariante] [nvarchar](50) NULL,
@@ -8,7 +8,7 @@
 	[Subtotal] [decimal](18, 2) NOT NULL,
  CONSTRAINT [PK_Pedidos_Lineas] PRIMARY KEY CLUSTERED 
 (
-	[IdLinea] ASC
+	[IdLinea] ASC CONSTRAINT [DF_Pedidos_Lineas_IdLinea] DEFAULT (newid())
 )
 ,
  CONSTRAINT [FK_Lineas_Pedido] FOREIGN KEY([IdPedido])

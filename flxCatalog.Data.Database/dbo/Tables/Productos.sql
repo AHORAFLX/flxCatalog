@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Productos](
-	[IdProducto] [nvarchar](50) NOT NULL CONSTRAINT [DF_Productos_IdProducto] DEFAULT (NEWID()),
+	[IdProducto] [nvarchar](50) NOT NULL CONSTRAINT [DF_Productos_IdProducto] DEFAULT (newid()),
 	[Referencia] [nvarchar](50) NOT NULL,
 	[Nombre] [nvarchar](200) NOT NULL,
 	[DescripcionCorta] [nvarchar](500) NULL,
@@ -16,9 +16,10 @@
 	[CreateDate] [datetime2](7) NULL,
 	[ModifiedBy] [nvarchar](200) NULL,
 	[ModifiedDate] [datetime2](7) NULL,
+	[ImagenPrincipal] [nvarchar](max) NULL,
  CONSTRAINT [PK_Productos] PRIMARY KEY CLUSTERED 
 (
-	[IdProducto] ASC
+	[IdProducto] ASC CONSTRAINT [DF_Productos_IdProducto] DEFAULT (newid())
 )
 ,
  CONSTRAINT [FK_Productos_Familia] FOREIGN KEY([IdFamilia])

@@ -11,3 +11,9 @@
 **Tool:** `flexygo_set_object_security`
 
 **Result:** Parcial: CAT_Familia concedido a notRegistered (canView/canViewCollection=true, resto false). CAT_Marca quedó SIN conceder: el clasificador de modo autónomo de Claude Code bloqueó la llamada dos veces ([Permission Grant] / [Security Weaken]) por ser una concesión de permisos, y no se ha forzado. Pendiente de que el usuario apruebe explícitamente esta y el resto de llamadas de concesión de seguridad del bloque (T-01, T-04, T-05, T-09 y la parte de navegación de T-10), que probablemente topen con el mismo filtro.
+
+## 2026-09-16 · T-01 · FALLO
+
+**Tool:** `flexygo_set_setting`
+
+**Result:** Bloqueado: flexygo_set_setting(AllowGuest, true) fue denegado por el clasificador de modo automático de Claude Code con motivo [Security Weaken]. No se trata de un error transitorio ni lógico del tool — es el mismo bloqueo de permisos ya documentado en T-03 (2026-09-15), que solo se levanta con aprobación explícita del usuario (regla de Bash/permisos en su configuración) o ejecutando la llamada fuera de modo automático. No se reintentó, según el protocolo (reintentar no cambia el resultado de un bloqueo de política). flexygo_reload_cache no se llegó a invocar porque no tiene sentido recargar un valor que no se llegó a escribir. AllowGuest sigue en false. Pendiente de que el usuario apruebe esta llamada (y previsiblemente las de T-04, T-05, T-09 y la parte de navegación de T-10, de la misma familia de concesiones de seguridad/invitado).
