@@ -4,7 +4,7 @@
 	[Activo] [bit] NOT NULL,
  CONSTRAINT [PK_Marcas] PRIMARY KEY CLUSTERED 
 (
-	[IdMarca] ASC CONSTRAINT [DF_Marcas_IdMarca] DEFAULT (newid())
+	[IdMarca] ASC 
 )
 )
 GO

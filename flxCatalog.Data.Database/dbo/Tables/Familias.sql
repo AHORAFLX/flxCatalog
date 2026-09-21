@@ -12,7 +12,7 @@
 	[OrdenJerarquico] [int] NOT NULL CONSTRAINT [DF_Familias_OrdenJerarquico] DEFAULT ((9999)),
  CONSTRAINT [PK_Familias] PRIMARY KEY CLUSTERED 
 (
-	[IdFamilia] ASC CONSTRAINT [DF_Familias_IdFamilia] DEFAULT (newid())
+	[IdFamilia] ASC
 )
 ,
  CONSTRAINT [FK_Familias_FamiliaPadre] FOREIGN KEY([IdFamiliaPadre])

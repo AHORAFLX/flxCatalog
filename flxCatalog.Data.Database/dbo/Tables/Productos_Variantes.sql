@@ -7,7 +7,7 @@
 	[Stock] [int] NOT NULL,
  CONSTRAINT [PK_Productos_Variantes] PRIMARY KEY CLUSTERED 
 (
-	[IdVariante] ASC CONSTRAINT [DF_Productos_Variantes_IdVariante] DEFAULT (newid())
+	[IdVariante] ASC
 )
 ,
  CONSTRAINT [FK_Variantes_Color] FOREIGN KEY([IdColor])

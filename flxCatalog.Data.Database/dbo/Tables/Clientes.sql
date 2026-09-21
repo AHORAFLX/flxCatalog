@@ -16,7 +16,7 @@
 	[ModifiedDate] [datetime2](7) NULL,
  CONSTRAINT [PK_Clientes] PRIMARY KEY CLUSTERED 
 (
-	[IdCliente] ASC CONSTRAINT [DF_Clientes_IdCliente] DEFAULT (newid())
+	[IdCliente] ASC
 )
 ,
  CONSTRAINT [FK_Clientes_Tarifa] FOREIGN KEY([IdTarifa])

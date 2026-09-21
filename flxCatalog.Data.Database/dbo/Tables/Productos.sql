@@ -19,7 +19,7 @@
 	[ImagenPrincipal] [nvarchar](max) NULL,
  CONSTRAINT [PK_Productos] PRIMARY KEY CLUSTERED 
 (
-	[IdProducto] ASC CONSTRAINT [DF_Productos_IdProducto] DEFAULT (newid())
+	[IdProducto] ASC
 )
 ,
  CONSTRAINT [FK_Productos_Familia] FOREIGN KEY([IdFamilia])

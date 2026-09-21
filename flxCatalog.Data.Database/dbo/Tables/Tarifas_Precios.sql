@@ -5,9 +5,10 @@
 	[Precio] [decimal](18, 2) NOT NULL,
  CONSTRAINT [PK_Tarifas_Precios] PRIMARY KEY CLUSTERED 
 (
-	[IdPrecio] ASC CONSTRAINT [DF_Tarifas_Precios_IdPrecio] DEFAULT (newid())
+	[IdPrecio] ASC
 )
- CONSTRAINT [UQ_Tarifas_Precios_Tarifa_Producto] UNIQUE NONCLUSTERED 
+,
+ CONSTRAINT [UQ_Tarifas_Precios_Tarifa_Producto] UNIQUE NONCLUSTERED
 (
 	[IdTarifa] ASC,
 	[IdProducto] ASC

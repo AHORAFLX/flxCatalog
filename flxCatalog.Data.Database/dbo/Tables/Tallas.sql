@@ -4,7 +4,7 @@
 	[Orden] [int] NOT NULL,
  CONSTRAINT [PK_Tallas] PRIMARY KEY CLUSTERED 
 (
-	[IdTalla] ASC CONSTRAINT [DF_Tallas_IdTalla] DEFAULT (newid())
+	[IdTalla] ASC 
 )
 )
 GO

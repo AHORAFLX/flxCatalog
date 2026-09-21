@@ -9,7 +9,7 @@
 	[Total] [decimal](18, 2) NOT NULL,
  CONSTRAINT [PK_Pedidos] PRIMARY KEY CLUSTERED 
 (
-	[IdPedido] ASC CONSTRAINT [DF_Pedidos_IdPedido] DEFAULT (newid())
+	[IdPedido] ASC
 )
 ,
  CONSTRAINT [FK_Pedidos_Cliente] FOREIGN KEY([IdCliente])

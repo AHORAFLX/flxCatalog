@@ -8,7 +8,7 @@
 	[Subtotal] [decimal](18, 2) NOT NULL,
  CONSTRAINT [PK_Pedidos_Lineas] PRIMARY KEY CLUSTERED 
 (
-	[IdLinea] ASC CONSTRAINT [DF_Pedidos_Lineas_IdLinea] DEFAULT (newid())
+	[IdLinea] ASC
 )
 ,
  CONSTRAINT [FK_Lineas_Pedido] FOREIGN KEY([IdPedido])

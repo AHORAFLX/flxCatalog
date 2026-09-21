@@ -4,7 +4,7 @@
 	[Orden] [int] NOT NULL,
  CONSTRAINT [PK_Pedidos_Estados] PRIMARY KEY CLUSTERED 
 (
-	[IdEstado] ASC CONSTRAINT [DF_Pedidos_Estados_IdEstado] DEFAULT (newid())
+	[IdEstado] ASC
 )
 )
 GO

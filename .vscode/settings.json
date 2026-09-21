@@ -12,6 +12,18 @@
             "trustServerCertificate": true,
             "savePassword": false,
             "password": ""
+        },
+        {
+            "id": "4045bf18-a7d9-423a-9a70-32b73e98f70b",
+            "groupId": "ROOT",
+            "profileName": "Flexygo: flxCatalog",
+            "server": "localhost",
+            "database": "flxCatalog",
+            "user": "sa",
+            "authenticationType": "SqlLogin",
+            "trustServerCertificate": true,
+            "savePassword": false,
+            "password": ""
         }
     ]
 }
