@@ -14,6 +14,8 @@
 	[CreateDate] [datetime2](7) NULL,
 	[ModifiedBy] [nvarchar](200) NULL,
 	[ModifiedDate] [datetime2](7) NULL,
+	[Nombre] [nvarchar](255) NULL,
+	[Geolocalizacion] [nvarchar](100) NULL,
  CONSTRAINT [PK_Clientes] PRIMARY KEY CLUSTERED 
 (
 	[IdCliente] ASC

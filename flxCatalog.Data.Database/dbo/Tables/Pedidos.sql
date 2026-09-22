@@ -7,6 +7,12 @@
 	[DireccionEntrega] [nvarchar](300) NULL,
 	[FormaPago] [nvarchar](100) NULL,
 	[Total] [decimal](18, 2) NOT NULL,
+	[Transportista] [nvarchar](150) NULL,
+	[NumeroSeguimiento] [nvarchar](100) NULL,
+	[UrlSeguimiento] [nvarchar](500) NULL,
+	[FechaEntregaEstimada] [datetime2](7) NULL,
+	[UltimoEstadoNotificado] [nvarchar](50) NULL,
+	[UltimoEstadoEmailEnviado] [nvarchar](50) NULL,
  CONSTRAINT [PK_Pedidos] PRIMARY KEY CLUSTERED 
 (
 	[IdPedido] ASC

@@ -22,7 +22,7 @@ None.
 
 ### B-1 · Interruptor de invitado
 
-- [ ] T-01 · Activar el acceso anónimo (flexygo_set_setting AllowGuest=true, hoy en false: sin esto no hay invitado aunque todo lo demás esté concedido) y flexygo_reload_cache inmediatamente, porque el valor no llega a la aplicación en marcha hasta entonces. — ⚠️ failed 2026-09-16 · see execution.md
+- [ ] T-01 · Activar el acceso anónimo (flexygo_set_setting AllowGuest=true, hoy en false: sin esto no hay invitado aunque todo lo demás esté concedido) y flexygo_reload_cache inmediatamente, porque el valor no llega a la aplicación en marcha hasta entonces. — ⚠️ failed 2026-09-16 · see execution.md — ⚠️ failed 2026-09-21 · see execution.md
 
 ### B-2 · Seguridad del catálogo para el invitado
 

@@ -84,3 +84,55 @@ Skin `flexy2022` — the palette the application already wears:
 This palette is installation-wide — one set of rows per skin, never one per origin — so changing it REPAINTS EVERY PAGE ALREADY BUILT, not only the new work.
 
 ⚠️ THE PROJECT'S OWN CONVENTIONS CONTRADICT EACH OTHER: 3 different prefixes are in use (`CAT_`, `VTA_`, `CLI_`). This project cannot say by itself how a new entity should be named. ASK THE USER which one to follow BEFORE proposing a model, and record the answer with flexygo_record_decision — choosing in silence is the failure this measurement exists to prevent.
+
+## 2026-09-21 · measured
+
+Origin 1 (Product): 13 entity(ies), 13 collection(s), 50 module(s), 21 page(s).
+
+Prefixes in use:
+- `CAT_` — 7 entity(ies), tables drop the prefix.
+- `VTA_` — 5 entity(ies), tables drop the prefix.
+- `CLI_` — 1 entity(ies), tables drop the prefix.
+
+Families already built:
+- `CAT_`: Color, Familia, Favorito, Marca, Producto, Talla, Variante
+- `VTA_`: EstadoPedido, LineaPedido, Pedido, PrecioTarifa, Tarifa
+- `CLI_`: Cliente
+
+Skin `flexy2022` — the palette the application already wears:
+- `NavColor` #1c1b1d
+- `txtNavColor` #ffffff
+- `HeaderColor` #ffffff
+- `bgColor` #FAFAFA
+- `OutstandingColor` #333234
+- `PrimaryColor` #000000
+- `NotifyColor` #4361ee
+This palette is installation-wide — one set of rows per skin, never one per origin — so changing it REPAINTS EVERY PAGE ALREADY BUILT, not only the new work.
+
+⚠️ THE PROJECT'S OWN CONVENTIONS CONTRADICT EACH OTHER: 3 different prefixes are in use (`CAT_`, `VTA_`, `CLI_`). This project cannot say by itself how a new entity should be named. ASK THE USER which one to follow BEFORE proposing a model, and record the answer with flexygo_record_decision — choosing in silence is the failure this measurement exists to prevent.
+
+## 2026-09-21 · measured
+
+Origin 1 (Product): 18 entity(ies), 18 collection(s), 60 module(s), 26 page(s).
+
+Prefixes in use:
+- `VTA_` — 10 entity(ies), tables drop the prefix.
+- `CAT_` — 7 entity(ies), tables drop the prefix.
+- `CLI_` — 1 entity(ies), tables drop the prefix.
+
+Families already built:
+- `VTA_`: Devolucion, EstadoDevolucion, EstadoIncidencia, EstadoPedido, Incidencia, LineaPedido, Pedido, PrecioTarifa, Tarifa, TipoIncidencia
+- `CAT_`: Color, Familia, Favorito, Marca, Producto, Talla, Variante
+- `CLI_`: Cliente
+
+Skin `flexy2022` — the palette the application already wears:
+- `NavColor` #1c1b1d
+- `txtNavColor` #ffffff
+- `HeaderColor` #ffffff
+- `bgColor` #FAFAFA
+- `OutstandingColor` #333234
+- `PrimaryColor` #000000
+- `NotifyColor` #4361ee
+This palette is installation-wide — one set of rows per skin, never one per origin — so changing it REPAINTS EVERY PAGE ALREADY BUILT, not only the new work.
+
+⚠️ THE PROJECT'S OWN CONVENTIONS CONTRADICT EACH OTHER: 3 different prefixes are in use (`VTA_`, `CAT_`, `CLI_`). This project cannot say by itself how a new entity should be named. ASK THE USER which one to follow BEFORE proposing a model, and record the answer with flexygo_record_decision — choosing in silence is the failure this measurement exists to prevent.

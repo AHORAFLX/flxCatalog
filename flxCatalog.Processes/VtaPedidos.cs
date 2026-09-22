@@ -1,6 +1,8 @@
 using FLEXYGO.Data;
 using FLEXYGO.Objects;
+using Microsoft.Data.SqlClient;
 using System.Data;
+using System.Data.Common;
 using System.Globalization;
 using static FLEXYGO.Processing.ProcessManager;
 using QuestPDF.Fluent;
@@ -19,14 +21,19 @@ namespace flxCatalog_processes
             DataManager dm = new DataManager(Ret.ConfToken.UserSecurity.ConnectionStrings["DataConnectionString"]);
             try
             {
+                // El id llega como texto desde la plantilla; se valida como GUID antes de usarlo
+                // y se pasa siempre como parámetro — nunca concatenado en el SQL.
+                string idPedido = Guid.Parse(IdPedido).ToString();
+
                 DataTable cabecera = dm.DataTable(
-                    $@"SELECT p.Numero, p.Fecha, p.FormaPago, p.DireccionEntrega, p.Total,
+                    @"SELECT p.Numero, p.Fecha, p.FormaPago, p.DireccionEntrega, p.Total,
                               c.RazonSocial, c.CifNif, c.DireccionFiscal, c.Email,
                               e.Nombre AS Estado
                        FROM Pedidos p
                        LEFT JOIN Clientes c ON c.IdCliente = p.IdCliente
                        LEFT JOIN Pedidos_Estados e ON e.IdEstado = p.IdEstado
-                       WHERE p.IdPedido = '{Guid.Parse(IdPedido)}'", null);
+                       WHERE p.IdPedido = @IdPedido",
+                    new List<DbParameter> { new SqlParameter("@IdPedido", SqlDbType.NVarChar, 50) { Value = idPedido } });
 
                 if (cabecera.Rows.Count == 0)
                 {
@@ -37,10 +44,11 @@ namespace flxCatalog_processes
                 DataRow ped = cabecera.Rows[0];
 
                 DataTable lineas = dm.DataTable(
-                    $@"SELECT pr.Nombre AS Producto, l.Cantidad, l.Precio, l.Subtotal
+                    @"SELECT pr.Nombre AS Producto, l.Cantidad, l.Precio, l.Subtotal
                        FROM Pedidos_Lineas l
                        LEFT JOIN Productos pr ON pr.IdProducto = l.IdProducto
-                       WHERE l.IdPedido = '{Guid.Parse(IdPedido)}'", null);
+                       WHERE l.IdPedido = @IdPedido",
+                    new List<DbParameter> { new SqlParameter("@IdPedido", SqlDbType.NVarChar, 50) { Value = idPedido } });
 
                 QuestPDF.Settings.License = LicenseType.Community;
 

@@ -1,14 +1,35 @@
-﻿CREATE     PROCEDURE [dbo].[pSeed_ResetDemoData]
+﻿CREATE         PROCEDURE [dbo].[pSeed_ResetDemoData]
 AS
 BEGIN
   SET NOCOUNT ON;
 
   -- Orden de borrado: hijos antes que padres. Tarifas_Precios depende de Tarifas y Productos,
   -- así que se borra ANTES de ambas (si no, ALTER/DELETE falla por violación de FK).
+  -- Comentarios/Devoluciones/Incidencias/Favoritos dependen de Pedidos/Pedidos_Lineas/Clientes/
+  -- Productos: se borran antes que todos ellos.
+  DELETE FROM dbo.Comentarios;
+  DELETE FROM dbo.Devoluciones;
+  DELETE FROM dbo.Incidencias;
+  DELETE FROM dbo.Favoritos;
   DELETE FROM dbo.Pedidos_Lineas;
   DELETE FROM dbo.Pedidos;
   DELETE FROM dbo.Tarifas_Precios;
+  -- SolicitudesContacto depende de Clientes: se borra antes que Clientes.
+  DELETE FROM dbo.SolicitudesContacto;
   DELETE FROM dbo.Clientes;
+  -- Los maestros de SolicitudesContacto usan GUIDs fijos (no NEWID()), porque las
+  -- propiedades IdTipo/IdEstado de COM_SolicitudContacto los llevan grabados como
+  -- DefaultValue (el formulario de alta del cliente los rellena en oculto). Si se
+  -- regeneraran con NEWID() en cada reset, esos defaults apuntarían a filas que ya
+  -- no existen. Mismo motivo que el IdCliente fijo del cliente de demo, más abajo.
+  DELETE FROM dbo.SolicitudesContacto_Tipos;
+  DELETE FROM dbo.SolicitudesContacto_Estados;
+  -- El estado 'Solicitada' de Devoluciones también usa un GUID fijo (VTA_Devolucion.IdEstado
+  -- lo lleva grabado como DefaultValue oculto); los demás maestros de aquí abajo no tienen
+  -- ningún default hardcodeado y pueden regenerarse con NEWID() sin problema.
+  DELETE FROM dbo.Devoluciones_Estados;
+  DELETE FROM dbo.Incidencias_Estados;
+  DELETE FROM dbo.Incidencias_Tipos;
   DELETE FROM dbo.Productos_Variantes;
   DELETE FROM dbo.Productos;
   DELETE FROM dbo.Familias;
@@ -99,6 +120,40 @@ BEGIN
     (N'Borrador',1), (N'Confirmado',2), (N'En proceso',3),
     (N'Enviado',4), (N'Entregado',5), (N'Cancelado',6)
   ) AS v(Nombre, Orden);
+
+  -- GUIDs fijos: ver el comentario junto al DELETE de estas dos tablas, más arriba.
+  INSERT INTO dbo.SolicitudesContacto_Tipos (IdTipo, Nombre, Orden)
+  VALUES
+    (N'11111111-1111-1111-1111-111111111101', N'Contacto', 1),
+    (N'11111111-1111-1111-1111-111111111102', N'Demostración', 2);
+
+  INSERT INTO dbo.SolicitudesContacto_Estados (IdEstado, Nombre, Orden)
+  VALUES
+    (N'22222222-2222-2222-2222-222222222201', N'Nueva', 1),
+    (N'22222222-2222-2222-2222-222222222202', N'En proceso', 2),
+    (N'22222222-2222-2222-2222-222222222203', N'Resuelta', 3);
+
+  INSERT INTO dbo.Devoluciones_Estados (IdEstado, Nombre, Orden)
+  VALUES
+    (N'CB6E0913-0A81-4C7B-BC78-925F53FCF836', N'Solicitada', 1),
+    (CAST(NEWID() AS NVARCHAR(50)), N'En revisión', 2),
+    (CAST(NEWID() AS NVARCHAR(50)), N'Aceptada', 3),
+    (CAST(NEWID() AS NVARCHAR(50)), N'Rechazada', 4),
+    (CAST(NEWID() AS NVARCHAR(50)), N'Abonada', 5);
+
+  INSERT INTO dbo.Incidencias_Estados (IdEstado, Nombre, Orden)
+  VALUES
+    (CAST(NEWID() AS NVARCHAR(50)), N'Abierta', 1),
+    (CAST(NEWID() AS NVARCHAR(50)), N'Cerrada', 2);
+
+  INSERT INTO dbo.Incidencias_Tipos (IdTipo, Nombre, Orden)
+  VALUES
+    (CAST(NEWID() AS NVARCHAR(50)), N'Producto incorrecto', 1),
+    (CAST(NEWID() AS NVARCHAR(50)), N'Producto defectuoso', 2),
+    (CAST(NEWID() AS NVARCHAR(50)), N'Falta material', 3),
+    (CAST(NEWID() AS NVARCHAR(50)), N'Problema de entrega', 4),
+    (CAST(NEWID() AS NVARCHAR(50)), N'Facturación', 5),
+    (CAST(NEWID() AS NVARCHAR(50)), N'Consulta general', 6);
 
   ---------------------------------------------------------------------------
   -- PRODUCTOS: generación por combinación de sustantivo x adjetivo (>=130)
@@ -191,6 +246,54 @@ BEGIN
   SELECT IdProducto, Referencia, Nombre, DescripcionCorta, IdFamilia, IdMarca, PrecioBase, 21, Stock, Destacado, Novedad, Oferta, Activo,
          N'admin', SYSDATETIME(), N'admin', SYSDATETIME(), NULL
   FROM @ProductosGenerados;
+
+  ---------------------------------------------------------------------------
+  -- FOTOS: una imagen de Pexels por producto, agrupadas por familia (hasta 6
+  -- fotos distintas por familia, cicladas entre los productos de esa familia).
+  ---------------------------------------------------------------------------
+
+  DECLARE @FamiliaImagenes TABLE (FamiliaNombre NVARCHAR(150), Slug NVARCHAR(50), MaxImg INT);
+  INSERT INTO @FamiliaImagenes (FamiliaNombre, Slug, MaxImg) VALUES
+    (N'Abrigos Niño', N'abrigos-nino', 6),
+    (N'Bolsos', N'bolsos', 6),
+    (N'Botas', N'botas', 6),
+    (N'Bufandas', N'bufandas', 6),
+    (N'Calcetines', N'calcetines', 6),
+    (N'Calzado Niño', N'calzado-nino', 6),
+    (N'Camisas', N'camisas', 6),
+    (N'Camisetas', N'camisetas', 6),
+    (N'Camisetas Niño', N'camisetas-nino', 6),
+    (N'Camisetas Técnicas', N'camisetas-tecnicas', 5),
+    (N'Casual', N'casual', 6),
+    (N'Chalecos Deportivos', N'chalecos-deportivos', 6),
+    (N'Chaquetas', N'chaquetas', 6),
+    (N'Cinturones', N'cinturones', 6),
+    (N'Deportivo', N'deportivo', 6),
+    (N'Faldas', N'faldas', 6),
+    (N'Gorras', N'gorras', 6),
+    (N'Guantes', N'guantes', 6),
+    (N'Mallas Deportivas', N'mallas-deportivas', 5),
+    (N'Mochilas', N'mochilas', 6),
+    (N'Pantalones', N'pantalones', 6),
+    (N'Pantalones Deportivos', N'pantalones-deportivos', 6),
+    (N'Pantalones Niño', N'pantalones-nino', 6),
+    (N'Ropa Interior Femenina', N'ropa-interior-femenina', 6),
+    (N'Ropa Interior Masculina', N'ropa-interior-masculina', 6),
+    (N'Sandalias', N'sandalias', 6),
+    (N'Sudaderas', N'sudaderas', 6),
+    (N'Vestidos', N'vestidos', 6);
+
+  ;WITH Ranked AS (
+    SELECT pg.IdProducto, fi.Slug, fi.MaxImg,
+           ROW_NUMBER() OVER (PARTITION BY pg.IdFamilia ORDER BY pg.IdProducto) AS rn
+    FROM @ProductosGenerados pg
+    JOIN dbo.Familias f ON f.IdFamilia = pg.IdFamilia
+    JOIN @FamiliaImagenes fi ON fi.FamiliaNombre = f.Nombre
+  )
+  UPDATE p
+  SET p.ImagenPrincipal = N'/flxCatalog/images/productos/' + r.Slug + N'-' + CAST(((r.rn - 1) % r.MaxImg) + 1 AS NVARCHAR(2)) + N'.jpg'
+  FROM dbo.Productos p
+  JOIN Ranked r ON r.IdProducto = p.IdProducto;
 
   ---------------------------------------------------------------------------
   -- VARIANTES: solo familias de tipo ROPA o CALZADO (>=150)
@@ -335,7 +438,11 @@ BEGIN
   )
   INSERT INTO @ClientesGenerados (IdCliente, CodigoCliente, RazonSocial, NombreComercial, CifNif, DireccionFiscal, Email, Telefono, IdTarifa, Comercial, Activo)
   SELECT
-    NEWID(),
+    -- El cliente #1 conserva siempre el mismo IdCliente: es el que enlaza el login de
+    -- demo 'cliente' (AspNetUsers.Reference), y un reset que le diera un GUID nuevo cada
+    -- vez rompería ese enlace (ya pasó una vez: FK_Favoritos_Cliente contra un IdCliente
+    -- que el reset anterior había borrado).
+    CASE WHEN p.seq = 1 THEN N'E391566D-5E36-4C0E-A74D-CF48EDB2C09F' ELSE CAST(NEWID() AS NVARCHAR(50)) END,
     N'CLI-' + RIGHT(N'0000' + CAST(2100 + p.seq AS NVARCHAR(10)), 4),
     p.Nombre + N' ' + p.Apellido1 + N' ' + ap2.Apellido,
     NULL,
@@ -454,6 +561,109 @@ BEGIN
   INNER JOIN (
     SELECT IdPedido, SUM(Subtotal) AS Base FROM dbo.Pedidos_Lineas GROUP BY IdPedido
   ) t ON t.IdPedido = p.IdPedido;
+
+  ---------------------------------------------------------------------------
+  -- DEVOLUCIONES: sobre líneas de pedido reales, motivo y estado variados.
+  ---------------------------------------------------------------------------
+
+  DECLARE @Motivos TABLE (Motivo NVARCHAR(200), seq INT IDENTITY(1,1));
+  INSERT INTO @Motivos (Motivo) VALUES
+    (N'Talla incorrecta'), (N'Color distinto al pedido'), (N'Llegó dañado'),
+    (N'Producto defectuoso'), (N'No corresponde con la descripción'),
+    (N'Talla incorrecta, necesito una talla más grande');
+
+  DECLARE @DevEstados TABLE (Nombre NVARCHAR(50), IdEstado NVARCHAR(50), seq INT IDENTITY(1,1));
+  INSERT INTO @DevEstados (Nombre, IdEstado)
+  SELECT Nombre, IdEstado FROM dbo.Devoluciones_Estados ORDER BY Orden;
+
+  ;WITH LineasNum AS (
+    SELECT IdLinea, IdPedido, Cantidad,
+           ROW_NUMBER() OVER (ORDER BY CHECKSUM(NEWID(), IdLinea)) AS rn
+    FROM dbo.Pedidos_Lineas
+  )
+  INSERT INTO dbo.Devoluciones (IdDevolucion, IdPedido, IdLinea, Cantidad, Motivo, Comentario, IdEstado, FechaSolicitud, Activo)
+  SELECT
+    NEWID(),
+    l.IdPedido,
+    l.IdLinea,
+    1 + ABS(CHECKSUM(NEWID(), l.IdLinea)) % l.Cantidad,
+    m.Motivo,
+    NULL,
+    -- distribución realista: Solicitada/En revisión más frecuentes que Rechazada/Abonada
+    de.IdEstado,
+    DATEADD(DAY, -(ABS(CHECKSUM(NEWID(), l.IdLinea, N'fecha')) % 60), SYSDATETIME()),
+    1
+  FROM LineasNum l
+  JOIN @Motivos m ON m.seq = ((l.rn - 1) % (SELECT COUNT(*) FROM @Motivos)) + 1
+  JOIN @DevEstados de ON de.seq = (CASE (l.rn - 1) % 8
+      WHEN 0 THEN 1 WHEN 1 THEN 1 WHEN 2 THEN 1  -- Solicitada
+      WHEN 3 THEN 2 WHEN 4 THEN 2 WHEN 5 THEN 2  -- En revisión
+      WHEN 6 THEN 3                              -- Aceptada
+      ELSE 5                                     -- Abonada
+    END)
+  WHERE l.rn <= 13;
+
+  ---------------------------------------------------------------------------
+  -- INCIDENCIAS: sobre pedidos reales, tipo/estado/descripción variados.
+  ---------------------------------------------------------------------------
+
+  DECLARE @Descripciones TABLE (Descripcion NVARCHAR(500), seq INT IDENTITY(1,1));
+  INSERT INTO @Descripciones (Descripcion) VALUES
+    (N'Consulta general sobre el estado del pedido.'),
+    (N'Falta uno de los artículos del pedido en el envío recibido.'),
+    (N'Retraso en la entrega respecto a la fecha estimada.'),
+    (N'El cliente reporta un desperfecto en el artículo recibido.'),
+    (N'El paquete llegó con la caja abierta y falta uno de los artículos.'),
+    (N'El cliente solicita revisión de la factura emitida.');
+
+  DECLARE @IncTipos TABLE (IdTipo NVARCHAR(50), seq INT IDENTITY(1,1));
+  INSERT INTO @IncTipos (IdTipo) SELECT IdTipo FROM dbo.Incidencias_Tipos ORDER BY Orden;
+
+  DECLARE @IncEstados TABLE (Nombre NVARCHAR(50), IdEstado NVARCHAR(50), seq INT IDENTITY(1,1));
+  INSERT INTO @IncEstados (Nombre, IdEstado)
+  SELECT Nombre, IdEstado FROM dbo.Incidencias_Estados ORDER BY Orden;
+
+  ;WITH PedidosNum AS (
+    SELECT IdPedido,
+           ROW_NUMBER() OVER (ORDER BY CHECKSUM(NEWID(), IdPedido)) AS rn
+    FROM dbo.Pedidos
+  )
+  INSERT INTO dbo.Incidencias (IdIncidencia, IdPedido, IdTipo, IdEstado, Descripcion, FechaAlta, Activo)
+  SELECT
+    NEWID(),
+    p.IdPedido,
+    it.IdTipo,
+    -- ~60% Abierta, ~40% Cerrada
+    ie.IdEstado,
+    d.Descripcion,
+    DATEADD(DAY, -(ABS(CHECKSUM(NEWID(), p.IdPedido, N'fecha')) % 60), SYSDATETIME()),
+    1
+  FROM PedidosNum p
+  JOIN @Descripciones d ON d.seq = ((p.rn - 1) % (SELECT COUNT(*) FROM @Descripciones)) + 1
+  JOIN @IncTipos it ON it.seq = ((p.rn - 1) % (SELECT COUNT(*) FROM @IncTipos)) + 1
+  JOIN @IncEstados ie ON ie.seq = (CASE (p.rn - 1) % 5 WHEN 0 THEN 1 WHEN 1 THEN 1 WHEN 2 THEN 1 ELSE 2 END)
+  WHERE p.rn <= 12;
+
+  ---------------------------------------------------------------------------
+  -- FAVORITOS: unos pocos productos marcados como favoritos por clientes reales.
+  ---------------------------------------------------------------------------
+
+  ;WITH ClientesNum AS (
+    SELECT IdCliente, ROW_NUMBER() OVER (ORDER BY CHECKSUM(NEWID(), IdCliente)) AS rn
+    FROM dbo.Clientes
+  ),
+  ProductosNum AS (
+    SELECT IdProducto, ROW_NUMBER() OVER (ORDER BY CHECKSUM(NEWID(), IdProducto)) AS rn
+    FROM dbo.Productos WHERE Activo = 1
+  )
+  INSERT INTO dbo.Favoritos (IdFavorito, IdCliente, IdProducto, FechaAlta)
+  SELECT NEWID(), c.IdCliente, p.IdProducto,
+         DATEADD(DAY, -(ABS(CHECKSUM(NEWID(), c.IdCliente, N'fecha')) % 90), SYSDATETIME())
+  FROM ClientesNum c
+  JOIN ProductosNum p ON p.rn = ((c.rn - 1) % 20) + 1
+  WHERE c.rn <= 15;
+
+  -- Comentarios: sin seed de datos (se crean a mano desde la aplicación).
 
   SELECT N'Datos de demostración regenerados correctamente.' AS SuccessMessage, 1 AS Refresh;
 

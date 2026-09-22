@@ -5,7 +5,7 @@
 	[Orden] [int] NOT NULL,
  CONSTRAINT [PK_Colores] PRIMARY KEY CLUSTERED 
 (
-	[IdColor] ASC 
+	[IdColor] ASC
 )
 )
 GO

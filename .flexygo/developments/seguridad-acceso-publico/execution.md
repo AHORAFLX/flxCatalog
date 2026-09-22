@@ -17,3 +17,9 @@
 **Tool:** `flexygo_set_setting`
 
 **Result:** Bloqueado: flexygo_set_setting(AllowGuest, true) fue denegado por el clasificador de modo automático de Claude Code con motivo [Security Weaken]. No se trata de un error transitorio ni lógico del tool — es el mismo bloqueo de permisos ya documentado en T-03 (2026-09-15), que solo se levanta con aprobación explícita del usuario (regla de Bash/permisos en su configuración) o ejecutando la llamada fuera de modo automático. No se reintentó, según el protocolo (reintentar no cambia el resultado de un bloqueo de política). flexygo_reload_cache no se llegó a invocar porque no tiene sentido recargar un valor que no se llegó a escribir. AllowGuest sigue en false. Pendiente de que el usuario apruebe esta llamada (y previsiblemente las de T-04, T-05, T-09 y la parte de navegación de T-10, de la misma familia de concesiones de seguridad/invitado).
+
+## 2026-09-21 · T-01 · FALLO
+
+**Tool:** `flexygo_set_setting`
+
+**Result:** Bloqueado de nuevo: flexygo_set_setting(AllowGuest, true) denegado por el clasificador de modo automático de Claude Code, motivo [Security Weaken]. Tercer intento con el mismo bloqueo (ver 2026-09-16). No se reintenta sin aprobación explícita del usuario. AllowGuest sigue en false. Además, se detecta que B-3 de este plan (T-06, T-08, T-09) depende de la página CAT_Catalogo_Publico y del módulo mod-cat-producto-publico-list, que fueron borrados el 2026-09-18 al fusionar "Catálogo Público" con "Mi catálogo" (desarrollo carrito-pedidos / trabajo ad-hoc posterior) — ese bloque necesita replanificarse antes de ejecutarse.
