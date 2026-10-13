@@ -4,6 +4,17 @@ BEGIN TRY
 
 DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar(max),''),N'
 [{
+	"MenuId":"01BB72BF-5E92-4EDF-937B-D364E8CD928B",
+	"Descrip":"Quitar de favoritos",
+	"IconName":"heart-1",
+	"Disabled":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-17T20:59:00",
+	"flxUpdatedDate":"2026-09-17T20:59:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"MenuId":"036C0D31-2393-4E8A-9129-A44830FB7B60",
 	"Descrip":"Duplicar producto",
 	"IconName":"copy-1",
@@ -12,6 +23,50 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"flxUpdatedBy":"unknown",
 	"flxInsertedDate":"2026-09-15T17:34:00",
 	"flxUpdatedDate":"2026-09-15T17:34:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"MenuId":"041C45A9-A0AB-4DBA-BA64-F97BE9ACF780",
+	"Descrip":"Solicitar devolución",
+	"IconName":"return",
+	"Disabled":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-22T21:56:00",
+	"flxUpdatedDate":"2026-09-22T21:56:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"MenuId":"083E8F7D-4382-48C5-AA37-35865F41B000",
+	"Descrip":"Solicitar incidencia",
+	"IconName":"warning-1",
+	"Disabled":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-22T21:56:00",
+	"flxUpdatedDate":"2026-09-22T21:56:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"MenuId":"2ECBB551-016B-4E8C-AD91-B99246449667",
+	"Descrip":"Cancelar incidencia",
+	"IconName":"warning-1",
+	"Disabled":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-22T21:15:00",
+	"flxUpdatedDate":"2026-09-22T21:15:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"MenuId":"308661C1-06F0-4686-BD30-C878C6D59AAE",
+	"Descrip":"Añadir\/quitar de favoritos",
+	"IconName":"heart-1",
+	"Disabled":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-17T20:56:00",
+	"flxUpdatedDate":"2026-09-17T20:56:00",
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
@@ -67,6 +122,17 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"flxUpdatedBy":"unknown",
 	"flxInsertedDate":"2026-09-15T17:52:00",
 	"flxUpdatedDate":"2026-09-15T17:52:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"MenuId":"CD035A92-4FA6-486A-9699-191F0BB9966C",
+	"Descrip":"Cancelar devolución",
+	"IconName":"return",
+	"Disabled":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-22T21:15:00",
+	"flxUpdatedDate":"2026-09-22T21:15:00",
 	"OriginAddonId":"Main",
 	"OriginId":1}]')
 

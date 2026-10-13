@@ -5,6 +5,7 @@
 	[Texto] [nvarchar](1000) NOT NULL,
 	[Autor] [nvarchar](200) NOT NULL,
 	[Fecha] [datetime2](7) NOT NULL,
+	[Puntuacion] [int] NULL,
  CONSTRAINT [PK_Comentarios] PRIMARY KEY CLUSTERED 
 (
 	[IdComentario] ASC

@@ -30,11 +30,21 @@ Update DbConnectionStrings set UpdateDataModel = 1, PackageDbName = 'Data' where
 
 Update [AspNetUsers] set [ProfileName]='2026' where [Id]=N'1'
 Update [AspNetUsers] set [CultureId]='es-es' where [Id]=N'1'
+Update [AspNetUsers] set [ConcurrencyStamp]='b5674663-b1eb-45a6-ba35-1841be489a77' where [Id]=N'1'
+Update [AspNetUsers] set [Reference]='E391566D-5E36-4C0E-A74D-CF48EDB2C09F' where [Id]=N'1'
+
 Update [Interfaces] set [StartupPageName]='HOME' where [InterfaceName]=N'web2026'
-Update [Interfaces] set [flxUpdatedBy]='flexygo-mcp' where [InterfaceName]=N'web2026'
 Update [Interfaces] set [StartupPageName]='HOME' where [InterfaceName]=N'webdefault'
-Update [Interfaces] set [flxUpdatedBy]='flexygo-mcp' where [InterfaceName]=N'webdefault'
+
 Update [Skins_Variables] set [VarValue]='FAFAFA' where [SkinId]=N'flexy2022' AND [VarName]=N'bgColor'
 Update [Skins_Variables] set [VarValue]='1c1b1d' where [SkinId]=N'flexy2022' AND [VarName]=N'NavColor'
 Update [Skins_Variables] set [VarValue]='333234' where [SkinId]=N'flexy2022' AND [VarName]=N'OutstandingColor'
 Update [Skins_Variables] set [VarValue]='000000' where [SkinId]=N'flexy2022' AND [VarName]=N'PrimaryColor'
+
+Update [Navigation_Nodes] set [Order]=4 where [NodeId]=N'3EFA1E96-A067-4C9E-AC1E-1B86ECDFF81B'
+Update [Navigation_Nodes] set [Order]=8 where [NodeId]=N'DE243A5F-E146-412A-B369-3C8A8B8B3E0C'
+
+Update [Jobs] set [Enabled]=1 where [JobName]=N'BuildMailsandnotifications'
+
+Update [Objects_Templates] set [IsDefault]=0 where [TemplateId]=N'flx-sysNoticeUsersList'
+Update [Objects_Views] set [IsDefault]=0 where [ObjectName]=N'sysNoticeUser' AND [ViewName]=N'sysNoticeUserDefaultList'

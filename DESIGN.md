@@ -2,9 +2,12 @@
 version: alpha
 name: flxCatalog
 description: Screens assembled from independent boxes, drawn in the shadcn / Radix / Vercel idiom.
-omitted:
-  - section: colors
-    reason: No palette has been decided for this project. Choose a restrained, professional one and keep it consistent across every screen.
+colors:
+  primary: '#000000'
+  success: '#16a34a'
+  warning: '#ca8a04'
+  danger: '#dc2626'
+  muted: '#71717a'
 typography:
   page-title:
     fontFamily: Inter
@@ -44,6 +47,8 @@ spacing:
   card-padding: 24px
   table-row-height: 56px
 ---
+
+<!-- identity taken from: captures already archived in this project -->
 
 ## Overview
 
@@ -106,6 +111,8 @@ Containers, cards and interactive elements use a restrained radius. Status pills
 
 ## Project identity
 
-No identity has been decided for this project yet. When the user names a palette, a typeface or a
-rule of their own, it is written here, it outranks every guideline above, and every future
-development on this same product keeps it.
+flxCatalog. This identity is the project's own and outranks every guideline above; every
+future development on this same product keeps it.
+
+- The accent is #000000.
+- The palette: {"NavColor":"#1c1b1d","txtNavColor":"#ffffff","HeaderColor":"#ffffff","bgColor":"#FAFAFA","OutstandingColor":"#333234","PrimaryColor":"#000000","NotifyColor":"#4361ee"}

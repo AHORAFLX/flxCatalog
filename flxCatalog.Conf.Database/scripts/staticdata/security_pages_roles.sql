@@ -4,6 +4,26 @@ BEGIN TRY
 
 DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar(max),''),N'
 [{
+	"PageName":"CAT_Color_List",
+	"RoleId":"allUsers",
+	"Canview":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T19:57:00",
+	"flxUpdatedDate":"2026-10-02T19:57:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"CAT_Color_View",
+	"RoleId":"allUsers",
+	"Canview":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T20:05:00",
+	"flxUpdatedDate":"2026-10-02T20:05:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"PageName":"CAT_Familia_List",
 	"RoleId":"cliente",
 	"Canview":false,
@@ -74,6 +94,26 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"PageName":"CAT_Talla_List",
+	"RoleId":"allUsers",
+	"Canview":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T19:58:00",
+	"flxUpdatedDate":"2026-10-02T19:58:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"CAT_Talla_View",
+	"RoleId":"allUsers",
+	"Canview":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T20:06:00",
+	"flxUpdatedDate":"2026-10-02T20:06:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"PageName":"CLI_Cliente_List",
 	"RoleId":"cliente",
 	"Canview":false,
@@ -114,13 +154,103 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
-	"PageName":"VTA_Pedido_Cliente_List",
+	"PageName":"HOME",
+	"RoleId":"cliente",
+	"Canview":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-28T08:33:00",
+	"flxUpdatedDate":"2026-09-28T08:33:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Dashboard_Page",
+	"RoleId":"allUsers",
+	"Canview":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T19:51:00",
+	"flxUpdatedDate":"2026-10-02T19:51:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_EstadoDevolucion_List",
+	"RoleId":"allUsers",
+	"Canview":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T19:58:00",
+	"flxUpdatedDate":"2026-10-02T19:58:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_EstadoDevolucion_View",
+	"RoleId":"allUsers",
+	"Canview":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T20:06:00",
+	"flxUpdatedDate":"2026-10-02T20:06:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_EstadoIncidencia_List",
+	"RoleId":"allUsers",
+	"Canview":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T19:58:00",
+	"flxUpdatedDate":"2026-10-02T19:58:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_EstadoIncidencia_View",
+	"RoleId":"allUsers",
+	"Canview":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T20:06:00",
+	"flxUpdatedDate":"2026-10-02T20:06:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_EstadoPedido_List",
+	"RoleId":"allUsers",
+	"Canview":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T19:58:00",
+	"flxUpdatedDate":"2026-10-02T19:58:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_EstadoPedido_View",
+	"RoleId":"allUsers",
+	"Canview":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T20:06:00",
+	"flxUpdatedDate":"2026-10-02T20:06:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_MesaTrabajo_Page",
+	"RoleId":"allUsers",
+	"Canview":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T19:46:00",
+	"flxUpdatedDate":"2026-10-02T19:46:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_MisDocumentos_List",
 	"RoleId":"cliente",
 	"Canview":true,
 	"flxInsertedBy":"unknown",
 	"flxUpdatedBy":"unknown",
-	"flxInsertedDate":"2026-09-17T09:50:00",
-	"flxUpdatedDate":"2026-09-17T09:50:00",
+	"flxInsertedDate":"2026-09-21T11:41:00",
+	"flxUpdatedDate":"2026-09-21T11:41:00",
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
@@ -136,7 +266,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 },{
 	"PageName":"VTA_Pedido_List",
 	"RoleId":"cliente",
-	"Canview":false,
+	"Canview":true,
 	"flxInsertedBy":"unknown",
 	"flxUpdatedBy":"unknown",
 	"flxInsertedDate":"2026-09-17T09:51:00",
@@ -171,6 +301,26 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"flxUpdatedBy":"unknown",
 	"flxInsertedDate":"2026-09-17T09:51:00",
 	"flxUpdatedDate":"2026-09-17T09:51:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_TipoIncidencia_List",
+	"RoleId":"allUsers",
+	"Canview":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T19:58:00",
+	"flxUpdatedDate":"2026-10-02T19:58:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_TipoIncidencia_View",
+	"RoleId":"allUsers",
+	"Canview":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T20:06:00",
+	"flxUpdatedDate":"2026-10-02T20:06:00",
 	"OriginAddonId":"Main",
 	"OriginId":1}]')
 

@@ -1,1 +1,0 @@
-# Verifications — seguridad-acceso-publico

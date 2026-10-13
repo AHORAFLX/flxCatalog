@@ -1,4 +1,4 @@
-﻿CREATE         PROCEDURE [dbo].[pSeed_ResetDemoData]
+﻿CREATE   PROCEDURE [dbo].[pSeed_ResetDemoData]
 AS
 BEGIN
   SET NOCOUNT ON;
@@ -14,29 +14,19 @@ BEGIN
   DELETE FROM dbo.Pedidos_Lineas;
   DELETE FROM dbo.Pedidos;
   DELETE FROM dbo.Tarifas_Precios;
-  -- SolicitudesContacto depende de Clientes: se borra antes que Clientes.
-  DELETE FROM dbo.SolicitudesContacto;
   DELETE FROM dbo.Clientes;
-  -- Los maestros de SolicitudesContacto usan GUIDs fijos (no NEWID()), porque las
-  -- propiedades IdTipo/IdEstado de COM_SolicitudContacto los llevan grabados como
-  -- DefaultValue (el formulario de alta del cliente los rellena en oculto). Si se
-  -- regeneraran con NEWID() en cada reset, esos defaults apuntarían a filas que ya
-  -- no existen. Mismo motivo que el IdCliente fijo del cliente de demo, más abajo.
-  DELETE FROM dbo.SolicitudesContacto_Tipos;
-  DELETE FROM dbo.SolicitudesContacto_Estados;
-  -- El estado 'Solicitada' de Devoluciones también usa un GUID fijo (VTA_Devolucion.IdEstado
-  -- lo lleva grabado como DefaultValue oculto); los demás maestros de aquí abajo no tienen
-  -- ningún default hardcodeado y pueden regenerarse con NEWID() sin problema.
-  DELETE FROM dbo.Devoluciones_Estados;
-  DELETE FROM dbo.Incidencias_Estados;
-  DELETE FROM dbo.Incidencias_Tipos;
+  -- Devoluciones_Estados, Incidencias_Estados/Tipos y Pedidos_Estados NO se borran ni se
+  -- regeneran aquí: son maestros puros con GUID fijo por fila, poblados una vez por el
+  -- postdeploy de la base de datos (scripts/staticdata/*.sql) y referenciados en el resto de
+  -- este procedimiento vía SELECT. Un reset de datos demo no debe tocar su identidad: varias
+  -- propiedades (VTA_Devolucion.IdEstado) y ahora también Objects_Processes.EnabledValues
+  -- llevan esos GUIDs grabados.
   DELETE FROM dbo.Productos_Variantes;
   DELETE FROM dbo.Productos;
   DELETE FROM dbo.Familias;
   DELETE FROM dbo.Marcas;
   DELETE FROM dbo.Tallas;
   DELETE FROM dbo.Colores;
-  DELETE FROM dbo.Pedidos_Estados;
   DELETE FROM dbo.Tarifas;
 
   ---------------------------------------------------------------------------
@@ -114,47 +104,6 @@ BEGIN
   SELECT NEWID(), v.Nombre
   FROM (VALUES (N'Público'), (N'Distribuidor'), (N'Profesional'), (N'Mayorista'), (N'VIP')) AS v(Nombre);
 
-  INSERT INTO dbo.Pedidos_Estados (IdEstado, Nombre, Orden)
-  SELECT NEWID(), v.Nombre, v.Orden
-  FROM (VALUES
-    (N'Borrador',1), (N'Confirmado',2), (N'En proceso',3),
-    (N'Enviado',4), (N'Entregado',5), (N'Cancelado',6)
-  ) AS v(Nombre, Orden);
-
-  -- GUIDs fijos: ver el comentario junto al DELETE de estas dos tablas, más arriba.
-  INSERT INTO dbo.SolicitudesContacto_Tipos (IdTipo, Nombre, Orden)
-  VALUES
-    (N'11111111-1111-1111-1111-111111111101', N'Contacto', 1),
-    (N'11111111-1111-1111-1111-111111111102', N'Demostración', 2);
-
-  INSERT INTO dbo.SolicitudesContacto_Estados (IdEstado, Nombre, Orden)
-  VALUES
-    (N'22222222-2222-2222-2222-222222222201', N'Nueva', 1),
-    (N'22222222-2222-2222-2222-222222222202', N'En proceso', 2),
-    (N'22222222-2222-2222-2222-222222222203', N'Resuelta', 3);
-
-  INSERT INTO dbo.Devoluciones_Estados (IdEstado, Nombre, Orden)
-  VALUES
-    (N'CB6E0913-0A81-4C7B-BC78-925F53FCF836', N'Solicitada', 1),
-    (CAST(NEWID() AS NVARCHAR(50)), N'En revisión', 2),
-    (CAST(NEWID() AS NVARCHAR(50)), N'Aceptada', 3),
-    (CAST(NEWID() AS NVARCHAR(50)), N'Rechazada', 4),
-    (CAST(NEWID() AS NVARCHAR(50)), N'Abonada', 5);
-
-  INSERT INTO dbo.Incidencias_Estados (IdEstado, Nombre, Orden)
-  VALUES
-    (CAST(NEWID() AS NVARCHAR(50)), N'Abierta', 1),
-    (CAST(NEWID() AS NVARCHAR(50)), N'Cerrada', 2);
-
-  INSERT INTO dbo.Incidencias_Tipos (IdTipo, Nombre, Orden)
-  VALUES
-    (CAST(NEWID() AS NVARCHAR(50)), N'Producto incorrecto', 1),
-    (CAST(NEWID() AS NVARCHAR(50)), N'Producto defectuoso', 2),
-    (CAST(NEWID() AS NVARCHAR(50)), N'Falta material', 3),
-    (CAST(NEWID() AS NVARCHAR(50)), N'Problema de entrega', 4),
-    (CAST(NEWID() AS NVARCHAR(50)), N'Facturación', 5),
-    (CAST(NEWID() AS NVARCHAR(50)), N'Consulta general', 6);
-
   ---------------------------------------------------------------------------
   -- PRODUCTOS: generación por combinación de sustantivo x adjetivo (>=130)
   ---------------------------------------------------------------------------
@@ -226,7 +175,7 @@ BEGIN
     c.NounNombre + N' ' + c.Adjetivo,
     N'Diseño ' + c.Adjetivo + N', línea ' + f.Nombre + N'.',
     f.IdFamilia,
-    m.IdMarca,
+    mn.IdMarca,
     CAST(
       (CASE c.TipoVariante WHEN N'CALZADO' THEN 40 WHEN N'ROPA' THEN 15 ELSE 8 END)
       + (ABS(CHECKSUM(NEWID())) % (CASE c.TipoVariante WHEN N'CALZADO' THEN 80 WHEN N'ROPA' THEN 75 ELSE 55 END))
@@ -240,7 +189,18 @@ BEGIN
     c.TipoVariante
   FROM Combos c
   JOIN dbo.Familias f ON f.Nombre = c.FamiliaNombre
-  CROSS APPLY (SELECT TOP 1 IdMarca FROM dbo.Marcas ORDER BY NEWID()) m;
+  -- Marca al azar por fila: un CROSS APPLY sin correlación con la fila externa puede evaluarse
+  -- UNA sola vez para toda la consulta (el optimizador lo trata como constante) y dejar a todos
+  -- los productos con la misma marca — pasó de verdad (140/140 = Norden).
+  -- Y un CROSS APPLY que solo PROYECTA una expresión (CHECKSUM(NEWID(),...) AS rn), sin un
+  -- TOP/ORDER BY real que lo obligue a materializarse fila a fila, tampoco es una barrera para
+  -- el optimizador: es una simple Compute Scalar que puede reescribirse hacia dentro del ON del
+  -- JOIN siguiente, como si nunca hubiera pasado por el CROSS APPLY — la misma trampa, solo que
+  -- escrita distinto (comprobado: duplicó al cliente demo de GUID fijo en Empresas/Personas con
+  -- ese patrón). La única forma fiable es escoger la fila DIRECTAMENTE con TOP 1 + ORDER BY
+  -- sobre un hash correlacionado con la fila externa (igual que las tallas más abajo): eso sí es
+  -- una operación bloqueante (Sort + Top) que el optimizador no puede colar dentro de otro JOIN.
+  CROSS APPLY (SELECT TOP 1 IdMarca FROM dbo.Marcas ORDER BY CHECKSUM(NEWID(), c.seq)) mn;
 
   INSERT INTO dbo.Productos (IdProducto, Referencia, Nombre, DescripcionCorta, IdFamilia, IdMarca, PrecioBase, IVA, Stock, Destacado, Novedad, Oferta, Activo, CreatedBy, CreateDate, ModifiedBy, ModifiedDate, ImagenPrincipal)
   SELECT IdProducto, Referencia, Nombre, DescripcionCorta, IdFamilia, IdMarca, PrecioBase, 21, Stock, Destacado, Novedad, Oferta, Activo,
@@ -301,20 +261,30 @@ BEGIN
 
   INSERT INTO dbo.Productos_Variantes (IdVariante, IdProducto, IdTalla, IdColor, Referencia, Stock)
   SELECT
-    NEWID(), p.IdProducto, t.IdTalla, c.IdColor,
-    p.Referencia + N'-' + tn.Nombre + N'-' + UPPER(LEFT(cn.Nombre, 3)),
+    NEWID(), p.IdProducto, t.IdTalla, cn2.IdColor,
+    p.Referencia + N'-' + tn.Nombre + N'-' + UPPER(LEFT(cn2.Nombre, 3)),
     ABS(CHECKSUM(NEWID())) % 40
   FROM @ProductosGenerados p
   CROSS APPLY (
+    -- Correlacionado de verdad (WHERE referencia p.TipoVariante): esta sí se evalúa por fila.
     SELECT TOP 3 IdTalla
     FROM dbo.Tallas
     WHERE (p.TipoVariante = N'ROPA' AND ISNUMERIC(Nombre) = 0)
        OR (p.TipoVariante = N'CALZADO' AND ISNUMERIC(Nombre) = 1)
     ORDER BY NEWID()
   ) t
-  CROSS APPLY (SELECT TOP 2 IdColor FROM dbo.Colores ORDER BY NEWID()) c
+  -- 2 colores al azar por (producto, talla), sin repetir: TOP 2 ... ORDER BY <hash correlado>
+  -- dentro del propio CROSS APPLY, igual que la de tallas arriba. Un CROSS APPLY que solo
+  -- proyecta una expresión (sin TOP/ORDER BY que fuerce una ordenación real) no es una barrera
+  -- para el optimizador: lo puede reescribir como si el CHECKSUM(NEWID(),...) estuviera en el
+  -- ON de un JOIN normal contra dbo.Colores, y esa es la misma trampa del principio — encaja 0
+  -- o 2+ veces por fila (comprobado: duplicó filas de Productos_Variantes de verdad).
+  CROSS APPLY (
+    SELECT TOP 2 IdColor, Nombre
+    FROM dbo.Colores
+    ORDER BY CHECKSUM(NEWID(), p.IdProducto, t.IdTalla)
+  ) cn2
   JOIN dbo.Tallas tn ON tn.IdTalla = t.IdTalla
-  JOIN dbo.Colores cn ON cn.IdColor = c.IdColor
   WHERE p.TipoVariante IN (N'ROPA', N'CALZADO');
 
   ---------------------------------------------------------------------------
@@ -422,9 +392,17 @@ BEGIN
     CASE WHEN ABS(CHECKSUM(NEWID())) % 9 = 0 THEN NULL ELSE co.Nombre END,
     CASE WHEN ABS(CHECKSUM(NEWID())) % 23 = 0 THEN 0 ELSE 1 END
   FROM Empresas e
-  CROSS APPLY (SELECT TOP 1 Ciudad FROM @Ciudades ORDER BY NEWID()) ci
-  CROSS APPLY (SELECT TOP 1 Calle FROM @Calles ORDER BY NEWID()) ca
-  CROSS APPLY (SELECT TOP 1 Nombre FROM @Comerciales ORDER BY NEWID()) co
+  -- Ciudad/calle/comercial al azar por empresa: sin correlación con e.seq, el optimizador puede
+  -- fijar el mismo valor para las 75 filas (pasó de verdad: 2 ciudades y 1 calle para 110
+  -- clientes). La fila se escoge DIRECTAMENTE con TOP 1 + ORDER BY sobre un hash correlacionado
+  -- con e.seq (igual que las tallas de Productos_Variantes) — nunca calculando antes un número de
+  -- fila en un CROSS APPLY que solo proyecta una expresión: eso no es una barrera real para el
+  -- optimizador (es una simple Compute Scalar) y se reescribe hacia el ON de un JOIN normal,
+  -- donde la expresión puede reevaluarse una vez por cada fila candidata comparada y encajar 0 o
+  -- 2+ veces por fila externa — así fue como se duplicó de verdad el cliente de GUID fijo.
+  CROSS APPLY (SELECT TOP 1 Ciudad FROM @Ciudades ORDER BY CHECKSUM(NEWID(), e.seq, N'ciudad')) ci
+  CROSS APPLY (SELECT TOP 1 Calle FROM @Calles ORDER BY CHECKSUM(NEWID(), e.seq, N'calle')) ca
+  CROSS APPLY (SELECT TOP 1 Nombre FROM @Comerciales ORDER BY CHECKSUM(NEWID(), e.seq, N'comercial')) co
   JOIN @TarifasNum tn ON tn.rn = ((e.seq - 1) % 5) + 1;
 
   -- Particulares (~35)
@@ -438,10 +416,10 @@ BEGIN
   )
   INSERT INTO @ClientesGenerados (IdCliente, CodigoCliente, RazonSocial, NombreComercial, CifNif, DireccionFiscal, Email, Telefono, IdTarifa, Comercial, Activo)
   SELECT
-    -- El cliente #1 conserva siempre el mismo IdCliente: es el que enlaza el login de
-    -- demo 'cliente' (AspNetUsers.Reference), y un reset que le diera un GUID nuevo cada
-    -- vez rompería ese enlace (ya pasó una vez: FK_Favoritos_Cliente contra un IdCliente
-    -- que el reset anterior había borrado).
+    -- El cliente #1 conserva siempre el mismo IdCliente: es el que enlazan tanto el login
+    -- de demo 'cliente' como el 'admin' (AspNetUsers.Reference de ambos), y un reset que le
+    -- diera un GUID nuevo cada vez rompería ese enlace (ya pasó una vez: FK_Favoritos_Cliente
+    -- contra un IdCliente que el reset anterior había borrado).
     CASE WHEN p.seq = 1 THEN N'E391566D-5E36-4C0E-A74D-CF48EDB2C09F' ELSE CAST(NEWID() AS NVARCHAR(50)) END,
     N'CLI-' + RIGHT(N'0000' + CAST(2100 + p.seq AS NVARCHAR(10)), 4),
     p.Nombre + N' ' + p.Apellido1 + N' ' + ap2.Apellido,
@@ -458,11 +436,16 @@ BEGIN
     CASE WHEN ABS(CHECKSUM(NEWID())) % 9 = 0 THEN NULL ELSE co.Nombre END,
     CASE WHEN ABS(CHECKSUM(NEWID())) % 23 = 0 THEN 0 ELSE 1 END
   FROM Personas p
-  CROSS APPLY (SELECT TOP 1 Apellido FROM @Apellidos ORDER BY NEWID()) ap2
-  CROSS APPLY (SELECT TOP 1 Ciudad FROM @Ciudades ORDER BY NEWID()) ci
-  CROSS APPLY (SELECT TOP 1 Calle FROM @Calles ORDER BY NEWID()) ca
-  CROSS APPLY (SELECT TOP 1 Nombre FROM @Comerciales ORDER BY NEWID()) co
-  CROSS APPLY (SELECT TOP 1 Dominio FROM @Dominios ORDER BY NEWID()) dom
+  -- Mismo problema que en Empresas: la fila se escoge DIRECTAMENTE con TOP 1 + ORDER BY sobre un
+  -- hash correlacionado con p.seq y una etiqueta (nunca calculando antes un número de fila en un
+  -- CROSS APPLY que solo proyecta una expresión — eso no es una barrera real para el optimizador
+  -- y acaba reescrito como el ON de un JOIN normal). Fue justo ese patrón el que de verdad
+  -- duplicó al cliente de GUID fijo (p.seq = 1) y tiró la carga con PRIMARY KEY 'PK_Clientes'.
+  CROSS APPLY (SELECT TOP 1 Apellido FROM @Apellidos ORDER BY CHECKSUM(NEWID(), p.seq, N'apellido2')) ap2
+  CROSS APPLY (SELECT TOP 1 Ciudad FROM @Ciudades ORDER BY CHECKSUM(NEWID(), p.seq, N'ciudad')) ci
+  CROSS APPLY (SELECT TOP 1 Calle FROM @Calles ORDER BY CHECKSUM(NEWID(), p.seq, N'calle')) ca
+  CROSS APPLY (SELECT TOP 1 Nombre FROM @Comerciales ORDER BY CHECKSUM(NEWID(), p.seq, N'comercial')) co
+  CROSS APPLY (SELECT TOP 1 Dominio FROM @Dominios ORDER BY CHECKSUM(NEWID(), p.seq, N'dominio')) dom
   JOIN @TarifasNum tn ON tn.rn = ((p.seq - 1) % 5) + 1;
 
   INSERT INTO dbo.Clientes (IdCliente, CodigoCliente, RazonSocial, NombreComercial, CifNif, DireccionFiscal, Email, Telefono, IdTarifa, Comercial, Activo, CreatedBy, CreateDate, ModifiedBy, ModifiedDate)
@@ -507,7 +490,11 @@ BEGIN
     s.DireccionFiscal,
     CASE WHEN est.Nombre = N'Borrador' THEN NULL ELSE fp.Forma END
   FROM Seed s
-  CROSS APPLY (SELECT TOP 1 Forma FROM @FormasPago ORDER BY NEWID()) fp
+  -- Forma de pago al azar por pedido: sin correlación con s.seq colapsaba a un único valor
+  -- para los 152 pedidos. La fila se escoge DIRECTAMENTE con TOP 1 + ORDER BY sobre un hash
+  -- correlacionado con s.seq (ver nota en la marca de Productos: un CROSS APPLY que solo
+  -- proyecta un número de fila no es una barrera real para el optimizador).
+  CROSS APPLY (SELECT TOP 1 Forma FROM @FormasPago ORDER BY CHECKSUM(NEWID(), s.seq)) fp
   JOIN @EstadosNum est ON est.rn =
     CASE (s.seq % 10)
       WHEN 0 THEN 2 WHEN 1 THEN 2
@@ -521,6 +508,19 @@ BEGIN
   INSERT INTO dbo.Pedidos (IdPedido, Numero, IdCliente, IdEstado, Fecha, DireccionEntrega, FormaPago, Total)
   SELECT IdPedido, Numero, IdCliente, IdEstado, Fecha, DireccionEntrega, FormaPago, 0
   FROM @PedidosGenerados;
+
+  -- Garantiza que el cliente demo (login 'cliente', GUID fijo) tenga siempre al menos un pedido
+  -- en estado 'Entregado': el reparto de estados por fila es determinista por posición
+  -- (seq % 10), no por cliente, así que dejarlo a esa suerte hacía que unas veces lo tuviera y
+  -- otras no — y los tests de devoluciones/incidencias abren justo ese pedido.
+  UPDATE dbo.Pedidos
+  SET IdEstado = (SELECT IdEstado FROM dbo.Pedidos_Estados WHERE Nombre = N'Entregado'),
+      FormaPago = ISNULL(FormaPago, N'Tarjeta')
+  WHERE IdPedido = (
+    SELECT TOP 1 IdPedido FROM dbo.Pedidos
+    WHERE IdCliente = N'E391566D-5E36-4C0E-A74D-CF48EDB2C09F'
+    ORDER BY Fecha DESC
+  );
 
   ---------------------------------------------------------------------------
   -- PEDIDOS_LINEAS: 3 a 6 líneas por pedido (>=300 en total, con margen),
@@ -550,8 +550,24 @@ BEGIN
     ISNULL(tp.Precio, prod.PrecioBase),
     cant.Cantidad * ISNULL(tp.Precio, prod.PrecioBase)
   FROM @LineasSeed ls
-  CROSS APPLY (SELECT TOP 1 IdProducto, PrecioBase FROM dbo.Productos WHERE Activo = 1 ORDER BY NEWID()) prod
-  CROSS APPLY (SELECT 1 + ABS(CHECKSUM(NEWID())) % 10 AS Cantidad) cant
+  -- Producto al azar por línea: sin correlación con la fila (IdPedido+LineNum son su clave real),
+  -- este era el colapso más grave de todos — 672 líneas repartidas entre solo 3 productos
+  -- distintos, que es también por lo que "Mis reseñas" nunca tenía material de sobra. La fila se
+  -- escoge DIRECTAMENTE con TOP 1 + ORDER BY sobre un hash correlacionado (ver nota en la marca
+  -- de Productos: calcular antes un número de fila en un CROSS APPLY que solo proyecta una
+  -- expresión no es una barrera real para el optimizador — así fue como fanned out y duplicó
+  -- filas contra dbo.Productos, cientos de filas candidatas, en el intento anterior).
+  CROSS APPLY (
+    SELECT TOP 1 IdProducto, PrecioBase
+    FROM dbo.Productos WHERE Activo = 1
+    ORDER BY CHECKSUM(NEWID(), ls.IdPedido, ls.LineNum)
+  ) prod
+  -- Cantidad al azar por línea: también correlacionada (IdPedido+LineNum), o el mismo colapso de
+  -- la marca de Productos deja la misma cantidad en las 672 líneas. Sin JOIN aguas abajo que use
+  -- este valor, la correlación por sí sola basta — no hace falta TOP/ORDER BY aquí.
+  CROSS APPLY (SELECT 1 + ABS(CHECKSUM(NEWID(), ls.IdPedido, ls.LineNum, N'cantidad')) % 10 AS Cantidad) cant
+  -- Correlacionado de verdad (WHERE IdProducto = prod.IdProducto): ahora que prod varía por
+  -- fila, esta sí escoge una variante distinta por producto sin tocarla.
   OUTER APPLY (SELECT TOP 1 IdVariante FROM dbo.Productos_Variantes WHERE IdProducto = prod.IdProducto ORDER BY NEWID()) var
   LEFT JOIN dbo.Clientes cli ON cli.IdCliente = ls.IdCliente
   LEFT JOIN dbo.Tarifas_Precios tp ON tp.IdProducto = prod.IdProducto AND tp.IdTarifa = cli.IdTarifa;
@@ -597,8 +613,9 @@ BEGIN
   JOIN @Motivos m ON m.seq = ((l.rn - 1) % (SELECT COUNT(*) FROM @Motivos)) + 1
   JOIN @DevEstados de ON de.seq = (CASE (l.rn - 1) % 8
       WHEN 0 THEN 1 WHEN 1 THEN 1 WHEN 2 THEN 1  -- Solicitada
-      WHEN 3 THEN 2 WHEN 4 THEN 2 WHEN 5 THEN 2  -- En revisión
-      WHEN 6 THEN 3                              -- Aceptada
+      WHEN 3 THEN 2 WHEN 4 THEN 2                -- En revisión
+      WHEN 5 THEN 3                              -- Aceptada
+      WHEN 6 THEN 6                              -- Cancelada
       ELSE 5                                     -- Abonada
     END)
   WHERE l.rn <= 13;
@@ -641,7 +658,7 @@ BEGIN
   FROM PedidosNum p
   JOIN @Descripciones d ON d.seq = ((p.rn - 1) % (SELECT COUNT(*) FROM @Descripciones)) + 1
   JOIN @IncTipos it ON it.seq = ((p.rn - 1) % (SELECT COUNT(*) FROM @IncTipos)) + 1
-  JOIN @IncEstados ie ON ie.seq = (CASE (p.rn - 1) % 5 WHEN 0 THEN 1 WHEN 1 THEN 1 WHEN 2 THEN 1 ELSE 2 END)
+  JOIN @IncEstados ie ON ie.seq = (CASE (p.rn - 1) % 5 WHEN 0 THEN 1 WHEN 1 THEN 1 WHEN 2 THEN 2 WHEN 3 THEN 2 ELSE 3 END)
   WHERE p.rn <= 12;
 
   ---------------------------------------------------------------------------
@@ -663,7 +680,74 @@ BEGIN
   JOIN ProductosNum p ON p.rn = ((c.rn - 1) % 20) + 1
   WHERE c.rn <= 15;
 
-  -- Comentarios: sin seed de datos (se crean a mano desde la aplicación).
+  ---------------------------------------------------------------------------
+  -- COMENTARIOS (reseñas de producto): solo sobre combinaciones (cliente,
+  -- producto) donde ese cliente tiene realmente una línea de pedido de ese
+  -- producto — nunca al azar. Un cliente puede aparecer más de una vez si
+  -- compró varios productos distintos, y un producto puede recibir varias
+  -- reseñas si lo compraron varios clientes (EntidadTipo/EntidadId sobre
+  -- COM_Comentario, patrón ya usado por notificaciones-comunicacion).
+  ---------------------------------------------------------------------------
+
+  DECLARE @ResenasTextos TABLE (Texto NVARCHAR(1000), seq INT IDENTITY(1,1));
+  INSERT INTO @ResenasTextos (Texto) VALUES
+    (N'Excelente calidad en los acabados, se nota que es un producto premium desde el primer día.'),
+    (N'Muy buena relación calidad-precio. El tallaje es exacto al habitual, sin sorpresas.'),
+    (N'El envío llegó en 24h y el embalaje impecable. Muy contento con la compra.'),
+    (N'Cumple perfectamente lo que promete. Lo recomiendo sin dudarlo.'),
+    (N'Un poco más rígido de lo esperado los primeros días, pero luego se adapta bien.'),
+    (N'Los colores son tal cual se ven en las fotos del catálogo. Muy satisfecho.'),
+    (N'Segunda vez que compro este artículo, nunca decepciona.'),
+    (N'Buen producto aunque el tallaje me pareció algo ajustado, pediría una talla más.'),
+    (N'La verdad es que superó mis expectativas, volveré a comprarlo.'),
+    (N'Correcto por el precio, sin ser excepcional. Cumple su función.'),
+    (N'Materiales de buena calidad y muy cómodo para el uso diario.'),
+    (N'Llegó algo más tarde de lo previsto pero el producto en sí está muy bien.'),
+    (N'Ideal para el uso que buscaba, ligero y resistente a la vez.'),
+    (N'No es la primera vez que compro esta marca y de nuevo no defrauda.'),
+    (N'El acabado es correcto pero esperaba algo más por el precio pagado.'),
+    (N'Perfecto para regalo, la presentación y la calidad están a la altura.'),
+    (N'Muy buena compra, el producto es tal y como se describe en la ficha.'),
+    (N'Se ajusta perfectamente y el material transpira bien incluso en uso intenso.'),
+    (N'Relación calidad-precio muy buena, repetiré con otros artículos de la tienda.'),
+    (N'Un acierto total, era justo lo que estaba buscando.'),
+    (N'Aceptable, hace su función pero el acabado podría mejorar un poco.'),
+    (N'Recomendado sin duda, la calidad de los materiales se nota al tacto.'),
+    (N'Compra rápida y sin complicaciones, el producto llegó en perfecto estado.'),
+    (N'Muy cómodo desde el primer uso, ya lo he recomendado a varios amigos.');
+
+  DECLARE @Puntuaciones TABLE (Puntuacion INT, seq INT IDENTITY(1,1));
+  INSERT INTO @Puntuaciones (Puntuacion) VALUES
+    (5), (5), (5), (5), (4), (4), (4), (4), (4), (3), (3), (2), (1);
+
+  ;WITH ComprasUnicas AS (
+    SELECT DISTINCT pl.IdProducto, pe.IdCliente
+    FROM dbo.Pedidos_Lineas pl
+    JOIN dbo.Pedidos pe ON pe.IdPedido = pl.IdPedido
+  ),
+  ComprasNum AS (
+    SELECT IdProducto, IdCliente,
+           ROW_NUMBER() OVER (ORDER BY CHECKSUM(NEWID(), IdProducto, IdCliente)) AS rn
+    FROM ComprasUnicas
+  )
+  INSERT INTO dbo.Comentarios (IdComentario, EntidadTipo, EntidadId, Texto, Autor, Fecha, Puntuacion)
+  SELECT
+    CAST(NEWID() AS NVARCHAR(50)),
+    N'Producto',
+    cu.IdProducto,
+    txt.Texto,
+    cli.RazonSocial,
+    DATEADD(DAY, -(ABS(CHECKSUM(NEWID(), cu.IdProducto, cu.IdCliente, N'fecha')) % 120), SYSDATETIME()),
+    pun.Puntuacion
+  FROM ComprasNum cu
+  JOIN dbo.Clientes cli ON cli.IdCliente = cu.IdCliente
+  -- Texto/puntuación al azar por reseña: sin correlación con cu.rn, colapsaba a un único texto.
+  -- La fila se escoge DIRECTAMENTE con TOP 1 + ORDER BY sobre un hash correlacionado (ver nota
+  -- en la marca de Productos: calcular antes un número de fila en un CROSS APPLY que solo
+  -- proyecta una expresión no es una barrera real para el optimizador).
+  CROSS APPLY (SELECT TOP 1 Texto FROM @ResenasTextos ORDER BY CHECKSUM(NEWID(), cu.rn, N'texto')) txt
+  CROSS APPLY (SELECT TOP 1 Puntuacion FROM @Puntuaciones ORDER BY CHECKSUM(NEWID(), cu.rn, N'puntuacion')) pun
+  WHERE cu.rn <= 150;
 
   SELECT N'Datos de demostración regenerados correctamente.' AS SuccessMessage, 1 AS Refresh;
 

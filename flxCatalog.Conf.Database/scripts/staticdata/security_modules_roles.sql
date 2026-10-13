@@ -34,13 +34,93 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
-	"ModuleName":"mod-vta-pedido-cliente-list",
-	"RoleId":"cliente",
-	"CanView":true,
+	"ModuleName":"mod-dash-clientes-problemas-chart",
+	"RoleId":"allUsers",
+	"CanView":false,
 	"flxInsertedBy":"unknown",
 	"flxUpdatedBy":"unknown",
-	"flxInsertedDate":"2026-09-17T09:50:00",
-	"flxUpdatedDate":"2026-09-17T09:50:00",
+	"flxInsertedDate":"2026-10-02T19:51:00",
+	"flxUpdatedDate":"2026-10-02T19:51:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-dash-kpis-easyinfo",
+	"RoleId":"allUsers",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T19:51:00",
+	"flxUpdatedDate":"2026-10-02T19:51:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-dash-top-clientes-chart",
+	"RoleId":"allUsers",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T19:51:00",
+	"flxUpdatedDate":"2026-10-02T19:51:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-dash-top-devueltos-chart",
+	"RoleId":"allUsers",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T19:51:00",
+	"flxUpdatedDate":"2026-10-02T19:51:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-dash-top-vendidos-chart",
+	"RoleId":"allUsers",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T19:51:00",
+	"flxUpdatedDate":"2026-10-02T19:51:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-vta-mesa-devoluciones-kanban",
+	"RoleId":"allUsers",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T19:46:00",
+	"flxUpdatedDate":"2026-10-02T19:46:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-vta-mesa-incidencias-kanban",
+	"RoleId":"allUsers",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T19:46:00",
+	"flxUpdatedDate":"2026-10-02T19:46:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-vta-mesa-pedidos-kanban",
+	"RoleId":"allUsers",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T19:46:00",
+	"flxUpdatedDate":"2026-10-02T19:46:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-vta-mesa-trabajo-tabs",
+	"RoleId":"allUsers",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-02T19:46:00",
+	"flxUpdatedDate":"2026-10-02T19:46:00",
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{

@@ -16,6 +16,48 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"flxInsertedDate":"2026-09-15T08:39:00",
 	"flxUpdatedDate":"2026-09-15T08:39:00",
 	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"HelpId":"Help_CLI_Cliente_Geolocalizacion",
+	"Title":"Geolocalización",
+	"HTMLText":"Coordenadas (latitud, longitud) obtenidas de Google Places al buscar el negocio",
+	"TargetId":"current",
+	"IconName":"noicon",
+	"Order":0,
+	"Category":"Tool_Properties",
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-18T13:11:00",
+	"flxUpdatedDate":"2026-09-18T13:11:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"HelpId":"Help_CLI_Cliente_Nombre",
+	"Title":"Buscar negocio (Google)",
+	"HTMLText":"Busca el negocio en Google y se rellenará automáticamente la ficha",
+	"TargetId":"current",
+	"IconName":"noicon",
+	"Order":0,
+	"Category":"Tool_Properties",
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-18T10:44:00",
+	"flxUpdatedDate":"2026-09-18T10:44:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"HelpId":"Help_COM_Comentario_Puntuacion",
+	"Title":"Puntuación",
+	"HTMLText":"Puntuación de 1 a 5 (solo reseñas de producto)",
+	"TargetId":"current",
+	"IconName":"noicon",
+	"Order":0,
+	"Category":"Tool_Properties",
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-22T19:13:00",
+	"flxUpdatedDate":"2026-09-22T19:13:00",
+	"OriginAddonId":"Main",
 	"OriginId":1}]')
 
 

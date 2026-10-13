@@ -17,6 +17,32 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"ModuleEventId":"vta_devolucion_gestion_doc_img_event",
+	"ModuleName":"vta_devolucion_gestion_doc_img",
+	"EventClass":"dialog",
+	"EventType":"closed",
+	"EventAction":"refresh",
+	"Active":true,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-21T11:55:00",
+	"flxUpdatedDate":"2026-09-21T11:55:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleEventId":"vta_incidencia_gestion_doc_img_event",
+	"ModuleName":"vta_incidencia_gestion_doc_img",
+	"EventClass":"dialog",
+	"EventType":"closed",
+	"EventAction":"refresh",
+	"Active":true,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-21T12:42:00",
+	"flxUpdatedDate":"2026-09-21T12:42:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"ModuleEventId":"vta_pedido_gestion_doc_img_event",
 	"ModuleName":"vta_pedido_gestion_doc_img",
 	"EventClass":"dialog",

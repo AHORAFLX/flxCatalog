@@ -13,6 +13,15 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"ToolbarName":"tb-cat-producto-comparador-list",
+	"Descrip":"List toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"ToolbarName":"tb-cat-producto-view",
 	"Descrip":"View toolbar",
 	"flxInsertedBy":"admin",
@@ -32,6 +41,42 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginId":1
 },{
 	"ToolbarName":"tb-cli-cliente-mi-ficha-view",
+	"Descrip":"View toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ToolbarName":"tb-vta-devolucion-view",
+	"Descrip":"View toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ToolbarName":"tb-vta-incidencia-view",
+	"Descrip":"View toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ToolbarName":"tb-vta-lineapedido-detalle-list",
+	"Descrip":"List toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ToolbarName":"tb-vta-pedido-carrito-view",
 	"Descrip":"View toolbar",
 	"flxInsertedBy":"admin",
 	"flxUpdatedBy":"admin",

@@ -5,6 +5,10 @@ using FLEXYGO.Context;
 using FLEXYGO.Data;
 using FLEXYGO.Identity;
 using FLEXYGO.Interfaces.Embedded;
+using FLEXYGO.Objects;
+using FLEXYGO.Processing;
+using static FLEXYGO.Processing.ProcessManager;
+using static FLEXYGO.Utilities.General.Util;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
@@ -106,9 +110,14 @@ namespace flxCatalog_UnitTest
                 full = baseDir.Substring(0, baseDir.LastIndexOf(".UnitTest")) + ".Backend/conf/";
             }
 
+            // appsettings.json se deja vacío a propósito (.claude/CLAUDE.md): las cadenas de
+            // conexión reales están en appsettings.Development.json, que Backend/Frontend cargan
+            // vía ASPNETCORE_ENVIRONMENT en su propio host — aquí no hay host, así que hay que
+            // pedirlo explícitamente o el ConfToken se construye con la cadena de conexión vacía.
             return new ConfigurationBuilder()
                 .SetBasePath(full)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
                 .AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: true)
                 .Build();
         }

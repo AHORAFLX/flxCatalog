@@ -1,0 +1,58 @@
+{
+  "connection": {
+    "baseUrl": "http://cloud.localhost:8880/api",
+    "domain": "localhost",
+    "registry": "localhost:5000"
+  },
+  "product": {
+    "name": "Catálogo",
+    "description": "Este es mi catalogo",
+    "imageUrl": "",
+    "websiteUrl": "",
+    "isActive": true,
+    "version": "1.0.5-beta.1",
+    "envVarsSchema": [
+      {
+        "key": "SQL_PASSWORD",
+        "label": "Contraseña de la base de datos (sa)",
+        "defaultValue": "-CHANGE_me1234",
+        "mode": "Secret"
+      }
+    ],
+    "composeTemplate": "services:\n  flxcatalog-frontend:\n    image: localhost:5000/flxcatalog-frontend:1.0.5-beta.1\n    restart: unless-stopped\n    environment:\n      ASPNETCORE_ENVIRONMENT: Development\n      BackendEndpoint: http://flxcatalog-backend:8080/api/backend/\n    volumes:\n      - flxcatalog-front-conf:/app/conf\n      - flxcatalog-front-custom:/app/custom\n    networks:\n      - proxy\n      - default\n    depends_on:\n      - flxcatalog-backend\n    labels:\n      - traefik.enable=true\n      - traefik.docker.network=proxy\n      - traefik.http.routers.${APP_SUBDOMAIN}.rule=Host(`${APP_SUBDOMAIN}.${BASE_DOMAIN}`)\n      - traefik.http.services.${APP_SUBDOMAIN}.loadbalancer.server.port=8080\n  flxcatalog-backend:\n    image: localhost:5000/flxcatalog-backend:1.0.5-beta.1\n    restart: unless-stopped\n    environment:\n      ASPNETCORE_ENVIRONMENT: Development\n      MSSQL_SA_PASSWORD: ${SQL_PASSWORD}\n      FrontendEndpoint: http://flxcatalog-frontend:8080\n      ConnectionStrings__ConfConnectionString: Server=flxcatalog-db;Integrated Security=false;Initial Catalog=flxCatalog_IC;User ID=sa;Password=${SQL_PASSWORD};Encrypt=False;TrustServerCertificate=True\n      ConnectionStrings__DataConnectionString: Server=flxcatalog-db;Integrated Security=false;Initial Catalog=flxCatalog_I;User ID=sa;Password=${SQL_PASSWORD};Encrypt=False;TrustServerCertificate=True\n      DatabaseNuget__PackageId: flxCatalog.Conf.Database\n      DatabaseNuget__NugetUrl: http://localhost:5100/v3/index.json\n      DatabaseNuget__PreReleaseVersions: \"true\"\n    volumes:\n      - flxcatalog-back-conf:/app/conf\n      - flxcatalog-back-custom:/app/custom\n    depends_on:\n      flxcatalog-db:\n        condition: service_healthy\n  flxcatalog-db:\n    image: localhost:5000/flxcatalog-db:1.0.5-beta.1\n    restart: unless-stopped\n    environment:\n      ACCEPT_EULA: Y\n      MSSQL_SA_PASSWORD: ${SQL_PASSWORD}\n      MSSQL_PID: Express\n    volumes:\n      - flxcatalog-db-data:/var/opt/mssql/data/\n      - flxcatalog-db-log:/var/opt/mssql/log/\n      - flxcatalog-db-secrets:/var/opt/mssql/secrets/\nvolumes:\n  flxcatalog-front-conf:\n  flxcatalog-front-custom:\n  flxcatalog-back-conf:\n  flxcatalog-back-custom:\n  flxcatalog-db-data:\n  flxcatalog-db-log:\n  flxcatalog-db-secrets:\nnetworks:\n  proxy:\n    external: true\n",
+    "id": "36cb615b-517b-4834-b592-adb53d06bb87"
+  },
+  "lastRun": {
+    "date": "2026-10-13T10:36:47.235Z",
+    "success": true,
+    "stage": "done",
+    "message": "Product published and verified.",
+    "requestBody": {
+      "name": "Catálogo",
+      "description": "Este es mi catalogo",
+      "envVarsSchema": [
+        {
+          "key": "SQL_PASSWORD",
+          "label": "Contraseña de la base de datos (sa)",
+          "defaultValue": "-CHANGE_me1234",
+          "mode": "Secret"
+        }
+      ],
+      "composeTemplate": "services:\n  flxcatalog-frontend:\n    image: localhost:5000/flxcatalog-frontend:1.0.5-beta.1\n    restart: unless-stopped\n    environment:\n      ASPNETCORE_ENVIRONMENT: Development\n      BackendEndpoint: http://flxcatalog-backend:8080/api/backend/\n    volumes:\n      - flxcatalog-front-conf:/app/conf\n      - flxcatalog-front-custom:/app/custom\n    networks:\n      - proxy\n      - default\n    depends_on:\n      - flxcatalog-backend\n    labels:\n      - traefik.enable=true\n      - traefik.docker.network=proxy\n      - traefik.http.routers.${APP_SUBDOMAIN}.rule=Host(`${APP_SUBDOMAIN}.${BASE_DOMAIN}`)\n      - traefik.http.services.${APP_SUBDOMAIN}.loadbalancer.server.port=8080\n  flxcatalog-backend:\n    image: localhost:5000/flxcatalog-backend:1.0.5-beta.1\n    restart: unless-stopped\n    environment:\n      ASPNETCORE_ENVIRONMENT: Development\n      MSSQL_SA_PASSWORD: ${SQL_PASSWORD}\n      FrontendEndpoint: http://flxcatalog-frontend:8080\n      ConnectionStrings__ConfConnectionString: Server=flxcatalog-db;Integrated Security=false;Initial Catalog=flxCatalog_IC;User ID=sa;Password=${SQL_PASSWORD};Encrypt=False;TrustServerCertificate=True\n      ConnectionStrings__DataConnectionString: Server=flxcatalog-db;Integrated Security=false;Initial Catalog=flxCatalog_I;User ID=sa;Password=${SQL_PASSWORD};Encrypt=False;TrustServerCertificate=True\n      DatabaseNuget__PackageId: flxCatalog.Conf.Database\n      DatabaseNuget__NugetUrl: http://localhost:5100/v3/index.json\n      DatabaseNuget__PreReleaseVersions: \"true\"\n    volumes:\n      - flxcatalog-back-conf:/app/conf\n      - flxcatalog-back-custom:/app/custom\n    depends_on:\n      flxcatalog-db:\n        condition: service_healthy\n  flxcatalog-db:\n    image: localhost:5000/flxcatalog-db:1.0.5-beta.1\n    restart: unless-stopped\n    environment:\n      ACCEPT_EULA: Y\n      MSSQL_SA_PASSWORD: ${SQL_PASSWORD}\n      MSSQL_PID: Express\n    volumes:\n      - flxcatalog-db-data:/var/opt/mssql/data/\n      - flxcatalog-db-log:/var/opt/mssql/log/\n      - flxcatalog-db-secrets:/var/opt/mssql/secrets/\nvolumes:\n  flxcatalog-front-conf:\n  flxcatalog-front-custom:\n  flxcatalog-back-conf:\n  flxcatalog-back-custom:\n  flxcatalog-db-data:\n  flxcatalog-db-log:\n  flxcatalog-db-secrets:\nnetworks:\n  proxy:\n    external: true\n"
+    },
+    "verification": [
+      "Cliente de prueba 8d860fea-afc1-4d95-b1d5-33676ab57aaf creado",
+      "Aplicación 31945984-5336-4925-b655-8005e112ab8e desplegada en http://prueba-a0675a.localhost:8880",
+      "Contraseña del administrador de la instancia de prueba (si el portal usa el motor SQL común): ***",
+      "Estado tras desplegar: Running",
+      "http://prueba-a0675a.localhost:8880 responde HTTP 302",
+      "deployment-status OK: Frontend 1.0.5-beta.1 · Backend 1.0.5-beta.1 · BBDD 1.0.5-beta.1",
+      "Log de instalación: Unattended setup completed in 150 s. Project 'prueba-a0675a'. Configuration database: prueba_a0675a_flxCatalog_IC Created | Main data Configuration String: prueba_a0675a_flxCatalog_I Created | Mail: not configured",
+      "Parar: Stopped",
+      "Arrancar: Running",
+      "deployment-status OK: Frontend 1.0.5-beta.1 · Backend 1.0.5-beta.1 · BBDD 1.0.5-beta.1",
+      "Aplicación 31945984-5336-4925-b655-8005e112ab8e borrada",
+      "Cliente 8d860fea-afc1-4d95-b1d5-33676ab57aaf borrado"
+    ]
+  }
+}
