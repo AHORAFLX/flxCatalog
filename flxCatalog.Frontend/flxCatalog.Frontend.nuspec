@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
 	<metadata>
 		<id>flxCatalog.Frontend</id>
@@ -12,11 +12,11 @@
 		<projectUrl>http://flexygo.com</projectUrl>
 		<iconUrl>https://docs.flexygo.com/isotipo.png</iconUrl>
 		<tags>Rad Framework Rapid CMS Builder</tags>
-		<releaseNotes/>
+		<releaseNotes />
 		<!-- SOLO dependencia al Frontend del padre directo (pinned). Las terceras
 		     llegan transitivamente desde la cadena. NO redeclarar. -->
 		<dependencies>
-			<dependency id="Flexygo.Frontend" version="10.0.0-beta.56" />
+			<dependency id="Flexygo.Frontend" version="[10.0.0-beta.137]" />
 		</dependencies>
 		<contentFiles>
 			<files include="**\*.*" buildAction="None" copyToOutput="true" flatten="false" />
@@ -24,28 +24,21 @@
 	</metadata>
 	<files>
 		<!-- Static web assets propios del nivel -->
-		<file src=".\wwwroot\" target="staticwebassets" exclude="**\*.br;**\*.gz;"/>
-
+		<file src=".\wwwroot\" target="staticwebassets" exclude="**\*.br;**\*.gz;" />
 		<!-- contentFiles propios para dev consumer -->
-		<file src="..\publish\flxCatalog\flxCatalog.Frontend\web.config" target="contentFiles\any\any\"/>
-		<file src="..\publish\flxCatalog\flxCatalog.Frontend\conf\appsettings.json" target="contentFiles\any\any\conf\"/>
-		<file src="..\publish\flxCatalog\flxCatalog.Frontend\flxCatalog.Frontend.*" target="contentFiles\any\any\" exclude="**\*.dll;**\*.pdb"/>
-
+		<file src="..\publish\flxCatalog\flxCatalog.Frontend\web.config" target="contentFiles\any\any\" />
+		<file src="..\publish\flxCatalog\flxCatalog.Frontend\conf\appsettings.json" target="contentFiles\any\any\conf\" />
+		<file src="..\publish\flxCatalog\flxCatalog.Frontend\flxCatalog.Frontend.*" target="contentFiles\any\any\" exclude="**\*.dll;**\*.pdb" />
 		<!-- DLLs propias del nivel -->
 		<file src="..\publish\flxCatalog\flxCatalog.Frontend\**\flxCatalog.*.dll" target="lib\net9.0" />
 		<file src="..\publish\flxCatalog\flxCatalog.Frontend\**\flxCatalog.*.pdb" target="lib\net9.0" />
-
 		<!-- MSBuild auto-import -->
 		<file src=".\buildTransitive\flxCatalog.Frontend.props" target="buildTransitive" />
-
 		<!-- tools/install/: output COMPLETO de dotnet publish (instalador) -->
-		<file src="..\publish\flxCatalog\flxCatalog.Frontend\**\*" target="tools\install" exclude="**\*.br;**\*.gz;**\*.d.ts;**/appsettings.Development.json"/>
-
+		<file src="..\publish\flxCatalog\flxCatalog.Frontend\**\*" target="tools\install" exclude="**\*.br;**\*.gz;**\*.d.ts;**/appsettings.Development.json" />
 		<file src="nuget\init.ps1" target="tools" />
-
 		<!-- ICONO y Readme -->
 		<file src="nuget\isotipo.png" target="images\" />
 		<file src="nuget\readme.md" target="docs\" />
 	</files>
 </package>
-

@@ -4,6 +4,20 @@ BEGIN TRY
 
 DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar(max),''),N'
 [{
+	"PluginId":"459886C3-F657-46CA-B2C7-4122BCA58546",
+	"Path":"~\/flxCatalog\/css\/flxcatalog-cat-reviews.css",
+	"Descrip":"Estilos de la caja de reseñas de producto (CAT_Producto view): valoración media, lista y formulario",
+	"Order":210,
+	"typeId":1,
+	"Bundle":true,
+	"Enabled":true,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-22T19:17:00",
+	"flxUpdatedDate":"2026-09-22T19:17:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"PluginId":"99D55D21-E0A9-489D-A490-78D45FE88DF9",
 	"Path":"~\/flxCatalog\/css\/flx-dashboard.css",
 	"Descrip":"Aspecto del panel de control: quita mayúsculas, doble tarjeta en KPIs y hover del skin",
@@ -15,6 +29,62 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"flxUpdatedBy":"unknown",
 	"flxInsertedDate":"2026-09-15T08:36:00",
 	"flxUpdatedDate":"2026-09-15T08:36:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PluginId":"87191C70-51CB-4E69-80E7-899B361B4B93",
+	"Path":"~\/flxCatalog\/js\/flxcatalog-comparador.js",
+	"Descrip":"Selección de productos y navegación al comparador desde Mi catálogo",
+	"Order":208,
+	"typeId":0,
+	"Bundle":true,
+	"Enabled":true,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-17T22:50:00",
+	"flxUpdatedDate":"2026-09-17T22:50:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PluginId":"24373BE7-AEFA-4A7F-A406-AC5228CEB905",
+	"Path":"~\/flxCatalog\/js\/flxcatalog-carrito.js",
+	"Descrip":"Popup de selección de variante (color\/talla) al añadir un producto al carrito desde Mi catálogo",
+	"Order":207,
+	"typeId":0,
+	"Bundle":true,
+	"Enabled":true,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-17T21:57:00",
+	"flxUpdatedDate":"2026-09-17T21:57:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PluginId":"CE3774EA-50C9-4254-8350-BEABEA43317C",
+	"Path":"~\/flxCatalog\/js\/flxcatalog-cat-reviews.js",
+	"Descrip":"Lógica de la caja de reseñas de producto: carga valoración, últimas reseñas, compra y publica",
+	"Order":211,
+	"typeId":0,
+	"Bundle":true,
+	"Enabled":true,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-22T19:18:00",
+	"flxUpdatedDate":"2026-09-22T19:18:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PluginId":"5D9C8084-4351-4F91-B362-EE6342208332",
+	"Path":"~\/flxCatalog\/js\/flxcatalog-googleplaces.js",
+	"Descrip":"Autocompleta la ficha de cliente buscando el negocio en Google Places",
+	"Order":209,
+	"typeId":0,
+	"Bundle":true,
+	"Enabled":true,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-09-18T10:44:00",
+	"flxUpdatedDate":"2026-09-18T10:44:00",
 	"OriginAddonId":"Main",
 	"OriginId":1}]')
 

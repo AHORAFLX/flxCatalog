@@ -8,38 +8,47 @@ EXEC sp_MSforeachtable 'ALTER TABLE ? DISABLE TRIGGER all'
 
 PRINT N'config.sql...'
 :r .\config.sql
-:r .\staticdata\2026-09-17_195921_origin_0_system_customizations.sql
 :r .\staticdata\aspnetprofiles.sql
 :r .\staticdata\aspnetroles.sql
+:r .\staticdata\aspnetusers.sql
 :r .\staticdata\contextvars.sql
-:r .\staticdata\interfaces.sql
-:r .\staticdata\security_modules_roles.sql
-:r .\staticdata\security_pages_roles.sql
-:r .\staticdata\2026-09-16_181742_origin_0_system_customizations.sql
 :r .\staticdata\documents_objects_config.sql
 :r .\staticdata\help.sql
+:r .\staticdata\interfaces.sql
+:r .\staticdata\kanban_settings.sql
 :r .\staticdata\menus.sql
-:r .\staticdata\modules.sql
 :r .\staticdata\modules_events.sql
+:r .\staticdata\modules.sql
 :r .\staticdata\navigation_nodes.sql
-:r .\staticdata\objects.sql
+:r .\staticdata\notices_sentences.sql
+:r .\staticdata\notices.sql
 :r .\staticdata\objects_images_settings.sql
 :r .\staticdata\objects_objects.sql
 :r .\staticdata\objects_processes.sql
 :r .\staticdata\objects_properties.sql
-:r .\staticdata\objects_search.sql
 :r .\staticdata\objects_search_properties.sql
+:r .\staticdata\objects_search.sql
 :r .\staticdata\objects_templates.sql
-:r .\staticdata\objects_views.sql
 :r .\staticdata\objects_views_properties.sql
-:r .\staticdata\pages.sql
+:r .\staticdata\objects_views.sql
+:r .\staticdata\objects.sql
+:r .\staticdata\pages_modules_tabs.sql
 :r .\staticdata\pages_modules.sql
+:r .\staticdata\pages.sql
 :r .\staticdata\plugins.sql
-:r .\staticdata\processes.sql
+:r .\staticdata\processes_params_dependencies.sql
 :r .\staticdata\processes_params.sql
+:r .\staticdata\processes.sql
+:r .\staticdata\security_modules_roles.sql
+:r .\staticdata\security_navigation_nodes_roles.sql
+:r .\staticdata\security_objects_processes_roles.sql
+:r .\staticdata\security_objects_properties_roles.sql
 :r .\staticdata\security_objects_roles.sql
-:r .\staticdata\toolbars.sql
+:r .\staticdata\security_pages_roles.sql
 :r .\staticdata\toolbars_buttons.sql
+:r .\staticdata\toolbars.sql
+
+
 
 -- El orden tiene que ser  primero habilitar triggers y constraint, luego lanzar el proceso de actualizacion 
 EXEC sp_MSforeachtable 'ALTER TABLE ? ENABLE TRIGGER all'

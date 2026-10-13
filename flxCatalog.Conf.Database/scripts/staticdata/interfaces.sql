@@ -11,13 +11,13 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Logo":"~\/img\/logo.png",
 	"SkinId":"skin2026",
 	"MainNavigateId":"C0167E61-8539-4658-BAEB-7FB023D88F58",
-	"NavigateId":"502DC12A-C032-407C-AD4E-372A476E7309",
+	"NavigateId":"5290BFAF-50CF-4BBA-9194-D42D96229629",
 	"DefaultPageSize":50,
 	"DefaultDropDownRows":20,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"admin",
 	"flxInsertedDate":"2026-09-17T10:08:00",
-	"flxUpdatedDate":"2026-09-17T10:22:00",
+	"flxUpdatedDate":"2026-09-18T10:16:00",
 	"OriginAddonId":"Main",
 	"OriginId":1}]')
 

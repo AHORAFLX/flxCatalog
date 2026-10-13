@@ -20,6 +20,38 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"ObjectName":"VTA_Devolucion",
+	"KeyProperty":"IdDevolucion",
+	"RootPath":"~\/custom\/images\/VTA_Devolucion",
+	"TypeId":"flexygo",
+	"DefaultCategoryId":"sysimg-generic",
+	"ExtensionId":"sysImages",
+	"Compression":0,
+	"CreateObjectIDFolder":true,
+	"DownloadBDName":false,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-21T11:55:00",
+	"flxUpdatedDate":"2026-09-21T11:55:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ObjectName":"VTA_Incidencia",
+	"KeyProperty":"IdIncidencia",
+	"RootPath":"~\/custom\/images\/VTA_Incidencia",
+	"TypeId":"flexygo",
+	"DefaultCategoryId":"sysimg-generic",
+	"ExtensionId":"sysImages",
+	"Compression":0,
+	"CreateObjectIDFolder":true,
+	"DownloadBDName":false,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-21T12:42:00",
+	"flxUpdatedDate":"2026-09-21T12:42:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"ObjectName":"VTA_Pedido",
 	"KeyProperty":"IdPedido",
 	"RootPath":"~\/custom\/images\/VTA_Pedido",

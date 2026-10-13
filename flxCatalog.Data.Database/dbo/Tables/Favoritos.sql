@@ -6,9 +6,8 @@
  CONSTRAINT [PK_Favoritos] PRIMARY KEY CLUSTERED 
 (
 	[IdFavorito] ASC
-)
-,
- CONSTRAINT [UQ_Favoritos_Cliente_Producto] UNIQUE NONCLUSTERED
+),
+ CONSTRAINT [UQ_Favoritos_Cliente_Producto] UNIQUE NONCLUSTERED 
 (
 	[IdCliente] ASC,
 	[IdProducto] ASC

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
 	<metadata>
 		<id>flxCatalog.Conf.Database</id>
@@ -12,10 +12,10 @@
 		<projectUrl>http://flexygo.com</projectUrl>
 		<iconUrl>https://docs.flexygo.com/isotipo.png</iconUrl>
 		<tags>Rad Framework Rapid CMS Builder</tags>
-		<releaseNotes/>
+		<releaseNotes />
 		<dependencies>
 			<dependency id="Microsoft.SqlServer.Dacpacs.Master" version="160.2.1" />
-			<dependency id="Flexygo.Conf.Database" version="10.0.0-beta.56" />
+			<dependency id="Flexygo.Conf.Database" version="[10.0.0-beta.137]" />
 		</dependencies>
 	</metadata>
 	<files>
@@ -24,7 +24,6 @@
 		     no declaran PackageReference directa a este package. Asi se propaga
 		     la cadena de dacpacs a cualquier profundidad. -->
 		<file src="buildTransitive\flxCatalog.Conf.Database.targets" target="buildTransitive" />
-
 		<!-- tools/install/: dacpac (aplica el instalador en cadena).
 		     El merge script (mergeSSDTScripts.ps1) vive UNICAMENTE en
 		     Flexygo.Conf.Database (L0) y se propaga transitivamente.
@@ -32,10 +31,8 @@
 		     Microsoft.Build.Sql). -->
 		<file src="bin\Release\*.dacpac" target="tools\" />
 		<file src="bin\Release\*.dacpac" target="tools\install" />
-
 		<!-- ICONO y Readme -->
 		<file src="nuget\isotipo.png" target="images\" />
 		<file src="nuget\readme.md" target="docs\" />
 	</files>
 </package>
-

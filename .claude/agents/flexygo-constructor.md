@@ -1,6 +1,6 @@
 ---
 name: flexygo-constructor
-description: "Builds Flexygo artifacts — tables, objects, properties, relations, views, filters, templates, modules and pages — using the Flexygo MCP tools. Use it for the construction tasks of an /flx-execute block, especially those marked [P] that can run in parallel. Do NOT use it to plan, discuss or decide the data model: that is directed by the user."
+description: Builds Flexygo artifacts — tables, objects, properties, relations, views, filters, templates, modules and pages — using the Flexygo MCP tools. Use it for the construction tasks of an /flx-execute block, especially those marked [P] that can run in parallel. Do NOT use it to plan, discuss or decide the data model: that is directed by the user.
 model: sonnet
 ---
 

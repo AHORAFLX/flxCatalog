@@ -6,9 +6,8 @@
  CONSTRAINT [PK_Tarifas_Precios] PRIMARY KEY CLUSTERED 
 (
 	[IdPrecio] ASC
-)
-,
- CONSTRAINT [UQ_Tarifas_Precios_Tarifa_Producto] UNIQUE NONCLUSTERED
+),
+ CONSTRAINT [UQ_Tarifas_Precios_Tarifa_Producto] UNIQUE NONCLUSTERED 
 (
 	[IdTarifa] ASC,
 	[IdProducto] ASC

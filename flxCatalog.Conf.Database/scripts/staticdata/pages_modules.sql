@@ -4,14 +4,36 @@ BEGIN TRY
 
 DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar(max),''),N'
 [{
-	"PageName":"CAT_Catalogo_Publico",
-	"ModuleName":"mod-cat-producto-publico-list",
+	"PageName":"CAT_Color_List",
+	"ModuleName":"mod-cat-color-list",
 	"LayoutPositionId":"TopPosition",
 	"Order":0,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
-	"flxInsertedDate":"2026-09-15T08:39:00",
-	"flxUpdatedDate":"2026-09-15T08:39:00",
+	"flxInsertedDate":"2026-10-02T19:57:00",
+	"flxUpdatedDate":"2026-10-02T19:57:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"CAT_Color_View",
+	"ModuleName":"mod-cat-color-back-html",
+	"LayoutPositionId":"TopPosition",
+	"Order":-1,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T20:05:00",
+	"flxUpdatedDate":"2026-10-02T20:05:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"CAT_Color_View",
+	"ModuleName":"mod-cat-color-view",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T20:05:00",
+	"flxUpdatedDate":"2026-10-02T20:05:00",
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
@@ -60,6 +82,17 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"PageName":"CAT_Favorito_Cliente_List",
+	"ModuleName":"mod-cat-favorito-cliente-list",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-17T21:00:00",
+	"flxUpdatedDate":"2026-09-17T21:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"PageName":"CAT_Marca_List",
 	"ModuleName":"mod-cat-marca-list",
 	"LayoutPositionId":"TopPosition",
@@ -93,6 +126,18 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"PageName":"CAT_Marca_View",
+	"ModuleName":"mod-cat-producto-list-marca",
+	"LayoutPositionId":"TopPosition",
+	"Order":1,
+	"Title":"Productos de esta marca",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-18T08:57:00",
+	"flxUpdatedDate":"2026-09-18T08:57:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"PageName":"CAT_Producto_Cliente_List",
 	"ModuleName":"mod-cat-producto-cliente-list",
 	"LayoutPositionId":"TopPosition",
@@ -101,6 +146,17 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T09:45:00",
 	"flxUpdatedDate":"2026-09-17T09:45:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"CAT_Producto_Comparador_List",
+	"ModuleName":"mod-comparador-productos-html",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-17T22:55:00",
+	"flxUpdatedDate":"2026-09-17T22:55:00",
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
@@ -174,8 +230,53 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginId":1,
 	"PositionX":0,
 	"PositionY":9,
-	"Width":8,
-	"Height":3
+	"Width":12,
+	"Height":10
+},{
+	"PageName":"CAT_Producto_View",
+	"ModuleName":"mod-com-comentario-list-producto",
+	"LayoutPositionId":"TopPosition",
+	"Order":4,
+	"Title":"Comentarios internos",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-22T10:28:00",
+	"flxUpdatedDate":"2026-09-22T10:28:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"CAT_Talla_List",
+	"ModuleName":"mod-cat-talla-list",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T19:58:00",
+	"flxUpdatedDate":"2026-10-02T19:58:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"CAT_Talla_View",
+	"ModuleName":"mod-cat-talla-back-html",
+	"LayoutPositionId":"TopPosition",
+	"Order":-1,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T20:06:00",
+	"flxUpdatedDate":"2026-10-02T20:06:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"CAT_Talla_View",
+	"ModuleName":"mod-cat-talla-view",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T20:06:00",
+	"flxUpdatedDate":"2026-10-02T20:06:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
 },{
 	"PageName":"CLI_Cliente_List",
 	"ModuleName":"mod-cli-cliente-list",
@@ -196,17 +297,6 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T09:44:00",
 	"flxUpdatedDate":"2026-09-17T09:44:00",
-	"OriginAddonId":"Main",
-	"OriginId":1
-},{
-	"PageName":"CLI_Cliente_Mi_Ficha_View",
-	"ModuleName":"mod-cli-cliente-mi-ficha-back-html",
-	"LayoutPositionId":"TopPosition",
-	"Order":0,
-	"flxInsertedBy":"flexygo-mcp",
-	"flxUpdatedBy":"flexygo-mcp",
-	"flxInsertedDate":"2026-09-17T19:14:00",
-	"flxUpdatedDate":"2026-09-17T19:14:00",
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
@@ -268,6 +358,18 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Height":8
 },{
 	"PageName":"CLI_Cliente_View",
+	"ModuleName":"mod-com-comentario-list-cliente",
+	"LayoutPositionId":"TopPosition",
+	"Order":4,
+	"Title":"Comentarios internos",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-22T10:28:00",
+	"flxUpdatedDate":"2026-09-22T10:28:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"CLI_Cliente_View",
 	"ModuleName":"mod-vta-pedido-list-cliente",
 	"LayoutPositionId":"TopPosition",
 	"Order":3,
@@ -283,15 +385,26 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Width":12,
 	"Height":5
 },{
+	"PageName":"COM_MisNotificaciones_List",
+	"ModuleName":"mod-com-misnotificaciones-list",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-22T09:56:00",
+	"flxUpdatedDate":"2026-09-22T09:56:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"PageName":"d2e00246-cc6a-4cdb-993d-6ec7bd7c8d86",
-	"ModuleName":"mod-home-cliente-saludo-easyinfo",
+	"ModuleName":"mod-home-cliente-saludo-html",
 	"LayoutPositionId":"TopPosition",
 	"Order":0,
 	"Title":"Bienvenida",
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
-	"flxInsertedDate":"2026-09-17T10:36:00",
-	"flxUpdatedDate":"2026-09-17T10:36:00",
+	"flxInsertedDate":"2026-09-18T08:53:00",
+	"flxUpdatedDate":"2026-09-18T08:53:00",
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
@@ -365,14 +478,342 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
-	"PageName":"VTA_Pedido_Cliente_List",
-	"ModuleName":"mod-vta-pedido-cliente-list",
+	"PageName":"VTA_Dashboard_Page",
+	"ModuleName":"mod-dash-clientes-problemas-chart",
+	"LayoutPositionId":"BottomPosition",
+	"Order":1,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T19:51:00",
+	"flxUpdatedDate":"2026-10-02T19:51:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Dashboard_Page",
+	"ModuleName":"mod-dash-kpis-easyinfo",
 	"LayoutPositionId":"TopPosition",
 	"Order":0,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
-	"flxInsertedDate":"2026-09-17T09:45:00",
-	"flxUpdatedDate":"2026-09-17T09:45:00",
+	"flxInsertedDate":"2026-10-02T19:51:00",
+	"flxUpdatedDate":"2026-10-02T19:51:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Dashboard_Page",
+	"ModuleName":"mod-dash-top-clientes-chart",
+	"LayoutPositionId":"BottomPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T19:51:00",
+	"flxUpdatedDate":"2026-10-02T19:51:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Dashboard_Page",
+	"ModuleName":"mod-dash-top-devueltos-chart",
+	"LayoutPositionId":"RightPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T19:51:00",
+	"flxUpdatedDate":"2026-10-02T19:51:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Dashboard_Page",
+	"ModuleName":"mod-dash-top-vendidos-chart",
+	"LayoutPositionId":"LeftPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T19:51:00",
+	"flxUpdatedDate":"2026-10-02T19:51:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Devolucion_List",
+	"ModuleName":"mod-vta-devolucion-list",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-21T11:54:00",
+	"flxUpdatedDate":"2026-09-21T11:54:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Devolucion_View",
+	"ModuleName":"mod-vta-devolucion-back-html",
+	"LayoutPositionId":"TopPosition",
+	"Order":-1,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-21T17:13:00",
+	"flxUpdatedDate":"2026-09-21T17:13:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Devolucion_View",
+	"ModuleName":"mod-vta-devolucion-view",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-21T11:54:00",
+	"flxUpdatedDate":"2026-09-21T11:54:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Devolucion_View",
+	"ModuleName":"vta_devolucion_gestion_doc_img",
+	"LayoutPositionId":"RightPosition",
+	"Order":0,
+	"Title":"Fotografías",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-21T11:55:00",
+	"flxUpdatedDate":"2026-09-21T11:55:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_EstadoDevolucion_List",
+	"ModuleName":"mod-vta-estadodevolucion-list",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T19:58:00",
+	"flxUpdatedDate":"2026-10-02T19:58:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_EstadoDevolucion_View",
+	"ModuleName":"mod-vta-estadodevolucion-back-html",
+	"LayoutPositionId":"TopPosition",
+	"Order":-1,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T20:06:00",
+	"flxUpdatedDate":"2026-10-02T20:06:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_EstadoDevolucion_View",
+	"ModuleName":"mod-vta-estadodevolucion-view",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T20:06:00",
+	"flxUpdatedDate":"2026-10-02T20:06:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_EstadoIncidencia_List",
+	"ModuleName":"mod-vta-estadoincidencia-list",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T19:58:00",
+	"flxUpdatedDate":"2026-10-02T19:58:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_EstadoIncidencia_View",
+	"ModuleName":"mod-vta-estadoincidencia-back-html",
+	"LayoutPositionId":"TopPosition",
+	"Order":-1,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T20:06:00",
+	"flxUpdatedDate":"2026-10-02T20:06:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_EstadoIncidencia_View",
+	"ModuleName":"mod-vta-estadoincidencia-view",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T20:06:00",
+	"flxUpdatedDate":"2026-10-02T20:06:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_EstadoPedido_List",
+	"ModuleName":"mod-vta-estadopedido-list",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T19:58:00",
+	"flxUpdatedDate":"2026-10-02T19:58:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_EstadoPedido_View",
+	"ModuleName":"mod-vta-estadopedido-back-html",
+	"LayoutPositionId":"TopPosition",
+	"Order":-1,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T20:06:00",
+	"flxUpdatedDate":"2026-10-02T20:06:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_EstadoPedido_View",
+	"ModuleName":"mod-vta-estadopedido-view",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T20:06:00",
+	"flxUpdatedDate":"2026-10-02T20:06:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Incidencia_List",
+	"ModuleName":"mod-vta-incidencia-list",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-21T12:42:00",
+	"flxUpdatedDate":"2026-09-21T12:42:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Incidencia_View",
+	"ModuleName":"mod-com-comentario-list-incidencia",
+	"LayoutPositionId":"TopPosition",
+	"Order":1,
+	"Title":"Comentarios internos",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-22T10:28:00",
+	"flxUpdatedDate":"2026-09-22T10:28:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Incidencia_View",
+	"ModuleName":"mod-vta-incidencia-back-html",
+	"LayoutPositionId":"TopPosition",
+	"Order":-1,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-21T17:13:00",
+	"flxUpdatedDate":"2026-09-21T17:13:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Incidencia_View",
+	"ModuleName":"mod-vta-incidencia-view",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-21T12:42:00",
+	"flxUpdatedDate":"2026-09-21T12:42:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Incidencia_View",
+	"ModuleName":"vta_incidencia_gestion_doc_img",
+	"LayoutPositionId":"RightPosition",
+	"Order":0,
+	"Title":"Fotografías",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-21T12:42:00",
+	"flxUpdatedDate":"2026-09-21T12:42:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_MesaTrabajo_Page",
+	"ModuleName":"mod-vta-mesa-devoluciones-kanban",
+	"LayoutPositionId":"TopPosition",
+	"Order":3,
+	"Title":"Devoluciones",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T19:46:00",
+	"flxUpdatedDate":"2026-10-02T19:46:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_MesaTrabajo_Page",
+	"ModuleName":"mod-vta-mesa-incidencias-kanban",
+	"LayoutPositionId":"TopPosition",
+	"Order":1,
+	"Title":"Incidencias",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T19:46:00",
+	"flxUpdatedDate":"2026-10-02T19:46:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_MesaTrabajo_Page",
+	"ModuleName":"mod-vta-mesa-pedidos-kanban",
+	"LayoutPositionId":"TopPosition",
+	"Order":2,
+	"Title":"Pedidos",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T19:46:00",
+	"flxUpdatedDate":"2026-10-02T19:46:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_MesaTrabajo_Page",
+	"ModuleName":"mod-vta-mesa-trabajo-tabs",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T19:46:00",
+	"flxUpdatedDate":"2026-10-02T19:46:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_MisDocumentos_List",
+	"ModuleName":"mod-vta-pedido-documentos-cliente-sqllist",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"Title":"Mis documentos",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-25T10:25:00",
+	"flxUpdatedDate":"2026-09-25T10:25:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_MisDocumentos_List",
+	"ModuleName":"mod-vta-tarifa-list-documentos",
+	"LayoutPositionId":"TopPosition",
+	"Order":1,
+	"Title":"Mi tarifa",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-21T17:35:00",
+	"flxUpdatedDate":"2026-09-21T17:35:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Pedido_Cliente_View",
+	"ModuleName":"mod-vta-lineapedido-detalle-list",
+	"LayoutPositionId":"TopPosition",
+	"Order":2,
+	"Title":"Líneas del pedido",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-18T08:52:00",
+	"flxUpdatedDate":"2026-09-18T08:52:00",
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
@@ -406,6 +847,41 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:31:00",
 	"flxUpdatedDate":"2026-09-15T08:31:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Pedido_MiCarrito_View",
+	"ModuleName":"mod-vta-lineapedido-carrito-list",
+	"LayoutPositionId":"TopPosition",
+	"Order":1,
+	"Title":"Mis productos",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-17T22:31:00",
+	"flxUpdatedDate":"2026-09-17T22:31:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Pedido_MiCarrito_View",
+	"ModuleName":"mod-vta-pedido-carrito-view",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-17T22:31:00",
+	"flxUpdatedDate":"2026-09-17T22:31:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_Pedido_View",
+	"ModuleName":"mod-com-comentario-list-pedido",
+	"LayoutPositionId":"TopPosition",
+	"Order":2,
+	"Title":"Comentarios internos",
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-09-22T10:28:00",
+	"flxUpdatedDate":"2026-09-22T10:28:00",
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
@@ -498,6 +974,39 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T09:35:00",
 	"flxUpdatedDate":"2026-09-17T09:35:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_TipoIncidencia_List",
+	"ModuleName":"mod-vta-tipoincidencia-list",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T19:58:00",
+	"flxUpdatedDate":"2026-10-02T19:58:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_TipoIncidencia_View",
+	"ModuleName":"mod-vta-tipoincidencia-back-html",
+	"LayoutPositionId":"TopPosition",
+	"Order":-1,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T20:06:00",
+	"flxUpdatedDate":"2026-10-02T20:06:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"PageName":"VTA_TipoIncidencia_View",
+	"ModuleName":"mod-vta-tipoincidencia-view",
+	"LayoutPositionId":"TopPosition",
+	"Order":0,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-02T20:06:00",
+	"flxUpdatedDate":"2026-10-02T20:06:00",
 	"OriginAddonId":"Main",
 	"OriginId":1}]')
 

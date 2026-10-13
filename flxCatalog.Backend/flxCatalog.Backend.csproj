@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Flexygo.Backend" Version="10.0.0-beta.56">
+    <PackageReference Include="Flexygo.Backend" Version="10.0.0-beta.137">
       <ExcludeAssets>contentFiles</ExcludeAssets>
     </PackageReference>
   </ItemGroup>

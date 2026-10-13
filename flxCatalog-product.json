@@ -1,0 +1,20 @@
+{
+  "product": {
+    "name": "Catálogo",
+    "description": "Este es mi catalogo",
+    "imageUrl": "",
+    "websiteUrl": "",
+    "isActive": true,
+    "version": "1.0.5-beta.1",
+    "envVarsSchema": [
+      {
+        "key": "SQL_PASSWORD",
+        "label": "Contraseña de la base de datos (sa)",
+        "defaultValue": "-CHANGE_me1234",
+        "mode": "Secret"
+      }
+    ],
+    "composeTemplate": "services:\n  flxcatalog-frontend:\n    image: localhost:5000/flxcatalog-frontend:1.0.5-beta.1\n    restart: unless-stopped\n    environment:\n      ASPNETCORE_ENVIRONMENT: Development\n      BackendEndpoint: http://flxcatalog-backend:8080/api/backend/\n    volumes:\n      - flxcatalog-front-conf:/app/conf\n      - flxcatalog-front-custom:/app/custom\n    networks:\n      - proxy\n      - default\n    depends_on:\n      - flxcatalog-backend\n    labels:\n      - traefik.enable=true\n      - traefik.docker.network=proxy\n      - traefik.http.routers.${APP_SUBDOMAIN}.rule=Host(`${APP_SUBDOMAIN}.${BASE_DOMAIN}`)\n      - traefik.http.services.${APP_SUBDOMAIN}.loadbalancer.server.port=8080\n  flxcatalog-backend:\n    image: localhost:5000/flxcatalog-backend:1.0.5-beta.1\n    restart: unless-stopped\n    environment:\n      ASPNETCORE_ENVIRONMENT: Development\n      MSSQL_SA_PASSWORD: ${SQL_PASSWORD}\n      FrontendEndpoint: http://flxcatalog-frontend:8080\n      ConnectionStrings__ConfConnectionString: Server=flxcatalog-db;Integrated Security=false;Initial Catalog=flxCatalog_IC;User ID=sa;Password=${SQL_PASSWORD};Encrypt=False;TrustServerCertificate=True\n      ConnectionStrings__DataConnectionString: Server=flxcatalog-db;Integrated Security=false;Initial Catalog=flxCatalog_I;User ID=sa;Password=${SQL_PASSWORD};Encrypt=False;TrustServerCertificate=True\n      DatabaseNuget__PackageId: flxCatalog.Conf.Database\n      DatabaseNuget__NugetUrl: http://localhost:5100/v3/index.json\n      DatabaseNuget__PreReleaseVersions: \"true\"\n    volumes:\n      - flxcatalog-back-conf:/app/conf\n      - flxcatalog-back-custom:/app/custom\n    depends_on:\n      flxcatalog-db:\n        condition: service_healthy\n  flxcatalog-db:\n    image: localhost:5000/flxcatalog-db:1.0.5-beta.1\n    restart: unless-stopped\n    environment:\n      ACCEPT_EULA: Y\n      MSSQL_SA_PASSWORD: ${SQL_PASSWORD}\n      MSSQL_PID: Express\n    volumes:\n      - flxcatalog-db-data:/var/opt/mssql/data/\n      - flxcatalog-db-log:/var/opt/mssql/log/\n      - flxcatalog-db-secrets:/var/opt/mssql/secrets/\nvolumes:\n  flxcatalog-front-conf:\n  flxcatalog-front-custom:\n  flxcatalog-back-conf:\n  flxcatalog-back-custom:\n  flxcatalog-db-data:\n  flxcatalog-db-log:\n  flxcatalog-db-secrets:\nnetworks:\n  proxy:\n    external: true\n",
+    "id": "36cb615b-517b-4834-b592-adb53d06bb87"
+  }
+}

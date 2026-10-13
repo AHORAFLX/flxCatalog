@@ -1,0 +1,45 @@
+/* Reseñas de producto (CAT_Producto view) — resumen de valoración, últimas reseñas y formulario.
+   Scope: clases con prefijo catrev-, exclusivas de este bloque; no se reutilizan en ningún otro
+   módulo del proyecto. */
+
+.catrev-box { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-module-color); }
+
+.catrev-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.catrev-head h4 { margin: 0; }
+
+.catrev-badge { display: flex; align-items: center; gap: 8px; border: 1px solid var(--border-module-color); border-radius: 10px; padding: 8px 14px; background: var(--module-color); min-height: 20px; }
+.catrev-avg { font-size: 20px; font-weight: 700; color: var(--txt-color); }
+.catrev-count { font-size: 13px; color: light-dark(#555e6c, #a7b0bd); }
+
+.catrev-stars-outer { position: relative; display: inline-block; white-space: nowrap; line-height: 1; letter-spacing: 2px; color: light-dark(#d1d5db, #4b5563); font-size: 16px; }
+.catrev-stars-outer.catrev-stars-lg { font-size: 20px; }
+.catrev-stars-outer.catrev-stars-sm { font-size: 14px; letter-spacing: 1px; }
+.catrev-stars-inner { position: absolute; top: 0; left: 0; overflow: hidden; white-space: nowrap; color: #f59e0b; }
+
+.catrev-list { margin-top: 18px; display: flex; flex-direction: column; }
+.catrev-item { padding: 16px 0; border-bottom: 1px solid var(--border-module-color); }
+.catrev-item:last-child { border-bottom: none; }
+.catrev-top { display: flex; align-items: flex-start; gap: 12px; }
+.catrev-avatar { flex: none; width: 40px; height: 40px; border-radius: 50%; background: light-dark(#e5e7eb, #374151); color: var(--txt-color); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; }
+.catrev-who { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.catrev-who-main { min-width: 0; }
+.catrev-name { font-weight: 600; color: var(--txt-color); margin-bottom: 2px; }
+.catrev-date { flex: none; font-size: 12px; color: light-dark(#555e6c, #a7b0bd); white-space: nowrap; }
+.catrev-text { margin-top: 8px; margin-left: 52px; color: var(--txt-color); font-size: 14px; line-height: 1.5; }
+.catrev-empty, .catrev-loading { color: light-dark(#555e6c, #a7b0bd); font-size: 13px; padding: 8px 0; }
+
+.catrev-form { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-module-color); }
+.catrev-form-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+.catrev-form-head h4 { margin: 0; }
+.catrev-pick { display: flex; align-items: center; gap: 8px; }
+.catrev-pick-label { font-size: 13px; color: light-dark(#555e6c, #a7b0bd); }
+.catrev-stars-pick { display: inline-flex; gap: 2px; font-size: 20px; cursor: pointer; }
+.catrev-star-pick { color: light-dark(#d1d5db, #4b5563); transition: color .1s ease; }
+.catrev-star-pick.catrev-star-pick-on { color: #f59e0b; }
+.catrev-textarea { width: 100%; min-height: 90px; resize: vertical; border: 1px solid var(--border-module-color); border-radius: 8px; padding: 10px 12px; font-size: 14px; font-family: inherit; color: var(--txt-color); background: var(--module-color); box-sizing: border-box; }
+.catrev-textarea:focus { outline: none; border-color: var(--outstanding-color); }
+.catrev-actions { display: flex; justify-content: flex-end; margin-top: 10px; }
+.catrev-submit { background: var(--primary-color); color: #fff; border: none; border-radius: 8px; padding: 10px 20px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.catrev-submit:hover { opacity: .88; }
+.catrev-submit:disabled { opacity: .5; cursor: default; }
+.catrev-form-locked { font-size: 13px; color: light-dark(#555e6c, #a7b0bd); padding: 10px 0; }
