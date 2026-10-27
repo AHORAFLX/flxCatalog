@@ -1,0 +1,39 @@
+<style>
+#cierre-w .rowp { position: absolute; display: flex; gap: 0.35em; }
+#cierre-w .rowp .tile { width: 5em; height: 5em; border-radius: 0.5em; flex: none; background-size: cover; background-position: center; }
+.fmt-L #cierre-w .rowp { font-size: 52px; } .fmt-L #cierre-w .r1 { left: -200px; top: 40px; } .fmt-L #cierre-w .r2 { left: -600px; top: 780px; }
+.fmt-V #cierre-w .rowp { font-size: 56px; } .fmt-V #cierre-w .r1 { left: -300px; top: 150px; } .fmt-V #cierre-w .r2 { left: -700px; top: 1450px; }
+.fmt-S #cierre-w .rowp { font-size: 40px; } .fmt-S #cierre-w .r1 { left: -200px; top: 30px; } .fmt-S #cierre-w .r2 { left: -500px; top: 840px; }
+#cierre-w .lock { position: absolute; left: 0; right: 0; text-align: center; z-index: 5; }
+.fmt-L #cierre-w .lock { top: 330px; } .fmt-V #cierre-w .lock { top: 620px; } .fmt-S #cierre-w .lock { top: 340px; }
+#cierre-w .bn { font-weight: 800; letter-spacing: -0.035em; line-height: 1; }
+#cierre-w .bn b { color: #148a84; font-weight: 800; }
+.fmt-L #cierre-w .bn { font-size: 140px; } .fmt-V #cierre-w .bn { font-size: 132px; } .fmt-S #cierre-w .bn { font-size: 104px; }
+.fmt-V #cierre-w .bn b { display: block; }
+#cierre-w .tg { font-weight: 500; color: #3f3f46; }
+.fmt-L #cierre-w .tg { font-size: 42px; margin-top: 26px; } .fmt-V #cierre-w .tg { font-size: 48px; margin-top: 34px; } .fmt-S #cierre-w .tg { font-size: 36px; margin-top: 22px; }
+#cierre-w .mw { display: inline-flex; align-items: center; gap: 0.5em; color: #52525b; font-weight: 500; }
+.fmt-L #cierre-w .mw { font-size: 30px; margin-top: 46px; } .fmt-V #cierre-w .mw { font-size: 36px; margin-top: 60px; } .fmt-S #cierre-w .mw { font-size: 26px; margin-top: 34px; }
+#cierre-w .mw img { height: 1.9em; display: block; }
+</style>
+<div class="rowp r1" id="cierre-r1" data-layout-allow-overflow data-layout-ignore>
+  <div class="tile" style="background-image:url('assets/photos/mallas-deportivas-1.jpg')"></div><div class="tile" style="background-image:url('assets/photos/gorras-1.jpg')"></div><div class="tile" style="background-image:url('assets/photos/faldas-1.jpg')"></div><div class="tile" style="background-image:url('assets/photos/deportivo-1.jpg')"></div><div class="tile" style="background-image:url('assets/photos/botas-1.jpg')"></div><div class="tile" style="background-image:url('assets/photos/mochilas-1.jpg')"></div><div class="tile" style="background-image:url('assets/photos/vestidos-3.jpg')"></div><div class="tile" style="background-image:url('assets/photos/camisetas-nino-1.jpg')"></div><div class="tile" style="background-image:url('assets/photos/pantalones-1.jpg')"></div>
+</div>
+<div class="rowp r2" id="cierre-r2" data-layout-allow-overflow data-layout-ignore>
+  <div class="tile" style="background-image:url('assets/photos/chaquetas-1.jpg')"></div><div class="tile" style="background-image:url('assets/photos/pantalones-deportivos-1.jpg')"></div><div class="tile" style="background-image:url('assets/photos/calcetines-2.jpg')"></div><div class="tile" style="background-image:url('assets/photos/mochilas-2.jpg')"></div><div class="tile" style="background-image:url('assets/photos/pantalones-deportivos-3.jpg')"></div><div class="tile" style="background-image:url('assets/photos/pantalones-3.jpg')"></div><div class="tile" style="background-image:url('assets/photos/pantalones-deportivos-4.jpg')"></div><div class="tile" style="background-image:url('assets/photos/ropa-interior-masculina-1.jpg')"></div><div class="tile" style="background-image:url('assets/photos/gorras-1.jpg')"></div>
+</div>
+<div class="lock" id="cierre-lock">
+  <div class="bn" id="cierre-bn">Catálogo <b>Flexygo</b></div>
+  <div class="tg" id="cierre-tg">Catálogo, pedidos y postventa.</div>
+  <div class="mw" id="cierre-mw">Hecho con <img src="assets/brand/flexygo-logo.svg" alt="Flexygo"></div>
+</div>
+<script>
+  // Two rows of the catalogue's own photos drift in opposite directions behind the name.
+  tl.fromTo("#cierre-r1", { x: 0 }, { x: pick(-260, -200, -160), duration: 3, ease: "none" }, 0);
+  tl.fromTo("#cierre-r2", { x: 0 }, { x: pick(260, 200, 160), duration: 3, ease: "none" }, 0);
+  tl.fromTo(["#cierre-r1", "#cierre-r2"], { opacity: 0 }, { opacity: 0.9, duration: 0.4 }, 0);
+  // beat-locked: the name lands at 27.5 s of the film (0.5 s into the scene).
+  tl.fromTo("#cierre-bn", { opacity: 0, scale: 1.12, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.35, ease: "power4.out" }, 0.45);
+  tl.fromTo("#cierre-tg", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 0.8);
+  tl.fromTo("#cierre-mw", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 0.92);
+</script>

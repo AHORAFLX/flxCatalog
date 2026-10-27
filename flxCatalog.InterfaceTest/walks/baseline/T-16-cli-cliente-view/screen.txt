@@ -1,0 +1,55 @@
+# mod-cli-cliente-back-html
+← Volver a clientes
+# mod-cli-cliente-view
+Ficha de cliente
+Editar
+Alejandro Moreno García
+CLI-2134
+Nuevo comentario
+Nombre comercial
+—
+CIF/NIF
+47642764Z
+Correo
+alejandro.moreno@gmail.com
+Teléfono
+604309419
+Dirección fiscal
+Calle Gran Vía 7, 48045 Sevilla, España
+Tarifa
+Distribuidor
+Comercial
+Laura Gómez
+Activo
+Sí
+# mod-cli-cliente-top-productos-echart
+Artículos más comprados
+# mod-vta-pedido-list-cliente
+Pedidos recientes
+Nuevo
+Número
+Cliente
+Fecha
+Estado
+Total
+Acciones
+PED-1113
+Alejandro Moreno García
+hace 2 días
+En proceso
+1.771,92 €
+PED-1107
+Alejandro Moreno García
+hace un mes
+Entregado
+2.092,23 €
+1
+Página
+1
+de
+1
+Total:
+2
+# mod-com-comentario-list-cliente
+Comentarios internos
+Sin comentarios todavía

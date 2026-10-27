@@ -246,8 +246,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 },{
 	"ObjectName":"VTA_MesaTrabajo",
 	"ChildCollection":"VTA_Devoluciones",
-	"ObjectRelation":"1=1",
-	"ObjectDefaults":"1=1",
+	"ObjectRelation":"Activo=Activo",
 	"ShowInMenu":false,
 	"ShowInAnalysis":false,
 	"OneToOneRelation":false,
@@ -294,8 +293,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 },{
 	"ObjectName":"VTA_MesaTrabajo",
 	"ChildCollection":"VTA_Incidencias",
-	"ObjectRelation":"1=1",
-	"ObjectDefaults":"1=1",
+	"ObjectRelation":"Activo=Activo",
 	"ShowInMenu":false,
 	"ShowInAnalysis":false,
 	"OneToOneRelation":false,
@@ -406,8 +404,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 },{
 	"ObjectName":"VTA_MesaTrabajo",
 	"ChildCollection":"VTA_Pedidos",
-	"ObjectRelation":"1=1",
-	"ObjectDefaults":"1=1",
+	"ObjectRelation":"Activo=Activo",
 	"ShowInMenu":false,
 	"ShowInAnalysis":false,
 	"OneToOneRelation":false,

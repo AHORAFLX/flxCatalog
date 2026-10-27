@@ -55,3 +55,63 @@
 **Found:** La auditoría no ve duplicados de objetos ni referencias rotas. Avisa de que «Home Cliente» no tiene entrada, de cinco procesos sin enlazar y de siete módulos sin página. Ninguno lo creó este desarrollo.
 
 **Deviation:** Ninguna atribuible a este desarrollo: son avisos que ya había antes.
+
+## 2026-10-13 · affects B-1
+
+**Agreed:** Borrar todo lo de Contacto y Demostración sin que una publicación de la base de configuración lo reintroduzca, y sin filas de seguridad huérfanas.
+
+**Found:** Revisado de nuevo el 13/10: ni los scripts exportados de Conf.Database, ni el proyecto Data, ni los procesos C#, ni el plugin contienen referencias a COM_SolicitudContacto, COM_SolicitudDemo, COM_EstadoSolicitud, COM_TipoSolicitud ni SolicitudesContacto. En flxCatalog_IC: 0 objetos, 0 páginas, 0 nodos y 0 filas de Security_Objects_Roles relacionadas.
+
+**Deviation:** Ninguna
+
+**Decisions on record:** D-8
+
+## 2026-10-13 · affects B-5
+
+**Agreed:** Icono en la barra superior, igual que el del distintivo de noticias, que muestre los elementos del carrito.
+
+**Found:** Nodo «Mi carrito» en la barra superior y en el menú del cliente, con un contador SQL (unidades del pedido en Borrador del cliente) que se refresca cada 15 s. Visible solo para el rol cliente. Comprobado en pantalla por el test del carrito el 13/10.
+
+**Deviation:** Ninguna
+
+**Decisions on record:** D-8
+
+## 2026-10-13 · affects B-6
+
+**Agreed:** Circuitos de test de interfaz para pedido, devolución, incidencia y altas, modificaciones y borrados de artículo, cliente y tarifa.
+
+**Found:** Ejecutados el 13/10 contra la aplicación en marcha (beta.137). Corregidos los tests desfasados (dashboard en lugar de HOME, aviso de privacidad, nodo duplicado, «Correo»). Añadido el recorrido de pantallas por rol con captura. Todos los circuitos pasan; solo falla la mesa de trabajo, que es un defecto real del bloque B-2.
+
+**Deviation:** Ninguna
+
+**Decisions on record:** D-8
+
+## 2026-10-13 · affects B-3
+
+**Agreed:** Dashboard con más devueltos, más vendidos, clientes que más compran, clientes con más problemas, ventas del año y ventas del mes.
+
+**Found:** Visto en pantalla el 13/10: 5 indicadores y 4 rankings ordenados de mayor a menor con eje desde cero. Hoja flx-dashboard.css registrada. Las 4 vistas extra son las que permiten el top N, que el gráfico no admite.
+
+**Deviation:** Solo falta que el usuario confirme el criterio de «Pedidos pendientes» (estados Confirmado y En proceso).
+
+**Decisions on record:** D-8
+
+## 2026-10-13 · affects B-3
+
+**Agreed:** Dashboard con más devueltos, más vendidos, clientes que más compran, clientes con más problemas, ventas del año y ventas del mes.
+
+**Found:** Visto en pantalla el 13/10, con rankings ordenados y eje desde cero. El usuario acepta el criterio de «Pedidos pendientes» (Confirmado y En proceso), decisión D-10.
+
+**Deviation:** Ninguna
+
+**Decisions on record:** D-12
+
+## 2026-10-13 · affects B-2
+
+**Agreed:** Pantalla de trabajo con 3 kanban (incidencias, pedidos y devoluciones) dentro de un separador, con el kanban de Flexygo.
+
+**Found:** Funciona en beta.137 tras sustituir la relación constante 1=1 por Activo=Activo (D-9). Esto añade la columna Activo a MesasTrabajo y Pedidos. Se ha visto que las tarjetas salen en su columna en las tres pestañas, y un test comprueba que arrastrar una tarjeta guarda el estado.
+
+**Deviation:** Ninguna
+
+**Decisions on record:** D-12

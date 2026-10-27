@@ -95,6 +95,10 @@ public class ClienteCarritoPedidosTests : ClienteTestBase
             var cantidad = fila.Locator("input").First;
             await Assertions.Expect(cantidad).ToHaveValueAsync("2");
 
+            // The cart entry in the menus carries the number of units in the cart; it refreshes every 15 s.
+            await Assertions.Expect(Page.Locator("#mainNav li[title=\"Mi carrito\"]").Filter(new() { Visible = true }).First)
+                .ToContainTextAsync(new Regex(@"\d"), new() { Timeout = 20000 });
+
             await cantidad.FillAsync("3");
             await cantidad.DispatchEventAsync("change");
             await Page.WaitForTimeoutAsync(1200);

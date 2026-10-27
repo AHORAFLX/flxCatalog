@@ -5,17 +5,29 @@ description: Shows where the development stands — current block, tasks done an
 
 # Where the work stands
 
-1. Call `flexygo_development_status`. If the user gave a slug, pass it. It returns the breakdown by
-   block, the assumptions with their `S-n` id and scope, and the open points.
-2. If there is more than one development, `flexygo_list_developments` lists them with their progress
-   and says which one is active. To switch, use `flexygo_set_active_development` — never by editing
-   `state.md`.
-3. For the detail, read the artifacts under `.flexygo/developments/<slug>/`: `plan.md` (what is
-   missing and what failed), `decisions.md` (what was agreed), `execution.md` (what was done,
-   including tasks undone) and `reviews.md` (the deviations found).
-4. Sum it up in four lines: active development, progress, open points, and the next step —
-   which the tool now states itself, under **Where you are in the flow**, together with the
-   phase of the seven. Say it back; do not work out a different one.
+1. Call `flexygo_get_project_status`. Its answer ends with the **checkpoint**: the phase and block,
+   the open decisions, the last verify results, the known incidents and missing capabilities, and
+   what comes next. Resume from it: do not re-read `plan.md`, `execution.md` or the catalogue to
+   find where things stand. Its last lines say whether the model is as the checkpoint left it; if
+   it changed, tell the user what changed.
+2. Only for the detail the user asks for — the breakdown by block, the assumptions with their `S-n`
+   id and scope — call `flexygo_development_status`, with the slug if the user gave one. If there is
+   more than one development, `flexygo_list_developments` lists them with their progress, says which
+   one is active, and tells a **finished** development from one that is only **built** (every task
+   done, the closure sweep not passed). To switch, use `flexygo_set_active_development` — never by
+   editing `state.md`.
+3. Sum it up in four lines: active development, progress, open points, and the next step — which
+   the checkpoint states itself, together with the phase. Say it back; do not work out a different
+   one.
+4. **When the next step is a different phase from the one this conversation has been working on,
+   recommend a new chat, in one line that says why**: this conversation carries everything before
+   it and every turn pays for it again, while a new chat resumes from the checkpoint for a fraction
+   of the cost. Say nothing about it when the phase has not changed. To the user the checkpoint is
+   the saved summary of where the work stands; do not call it a checkpoint.
+5. If `ONBOARDING.md` at the project's root still draws `A[First step] --> B[Next step]` (or those two boxes in the
+   project's language), nobody
+   has written how the business flows. Say so in one line and offer to write it with the user, as
+   `/flx-context` does; only with their yes, and only outside the `flexygo:generated` markers.
 
 Write to the user in their language: this phase reports, and the report is for them.
 

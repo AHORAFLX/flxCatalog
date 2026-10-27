@@ -21,7 +21,10 @@ description: Turns the user's request into a plan of blocks with a task list, us
    read. Without a database there is no planning — the plan would come out invented. Have the user
    configure `ConfConnectionString` and `DataConnectionString` and publish the databases before
    going on. It also refuses when another development is unfinished — ask the user for the reason
-   and pass it in `reason`; never invent one.
+   and pass it in `reason`; never invent one. If the one standing in the way is a THROWAWAY
+   development nobody plans to finish, do not clear it by deleting its folder: remove it with
+   `flexygo_delete_development(slug: '...', reason: '...')`, which refuses while it has a done
+   task or is the active one.
 2. Introspect the project with the MCP's read tools **before** proposing anything: objects,
    properties, navigation and tables. Do not assert what you have not looked at.
    Look at `flexygo_get_project_status` too: it says which **origin** what gets created lands in,
@@ -35,13 +38,33 @@ description: Turns the user's request into a plan of blocks with a task list, us
 3. Propose the blocks and tasks to the user **in the chat**, and only write them once approved.
 4. Write the plan with **`flexygo_write_plan`**, passing the blocks and their tasks. The `B-n` and
    `T-nn` ids are set by the tool. Mark `parallel: true` on the tasks that can run at the same time
-   (different files, no dependencies between them). It refuses to rewrite a standing plan without a
-   `reason` — ask the user, never invent one — and refuses outright once any task is done.
+   (different files, no dependencies between them). Within a block a task already waits for the
+   ones before it; give it `dependsOn` with the `T-nn` of each EARLIER task in another block that it
+   cannot be built without — a menu needs the pages it points to, demo data closed through a
+   process needs that process, a role's security needs the roles. Ids count T-01, T-02… in the
+   order you pass the tasks; a task that needs a LATER one is refused, so move it instead. The
+   answer names any task whose text mentions an earlier one it does not declare: declare it, or
+   leave it if the text only mentions it. The user's board draws these links, and a task waiting
+   on one is shown locked. It refuses to rewrite a standing plan without a
+   `reason` — ask the user, never invent one — and refuses outright once any task is done. From
+   then on the plan changes ONE block at a time with `flexygo_amend_plan_block`: a block with
+   nothing done is rewritten (its tasks replaced, every other block keeps its ids), a block with
+   work done only grows at its end, each new task carrying its `origin`. Recorded in decisions.md.
 5. Every doubt goes on the task it affects, with `clarify` and `clarifyBlocking` according to
-   whether it prevents building.
+   whether it prevents building. When you can name the answers, add them in `clarifyOptions`, each
+   led by its letter (`"A · …"`, `"B · …"`), and the letter you recommend in `clarifyRecommended`:
+   the user's band offers them as buttons, and `/flx-discuss` asks with them.
 6. In `assumptions` put **only what you take as true without having verified it**. What you have
    checked with the tools is not an assumption: it is a fact, and it goes in the impact or in the
    task that uses it.
+
+## A "PDF of X" or "send X by mail" is a REPORT task
+
+A task that reads "PDF of the invoice", "print the certificate" or "email the receipt" is a task
+for `flexygo_create_report` (`flexygo_get_reports_reference`), never a process that draws bytes by
+hand — the platform already renders, secures and offers PDF/Word/Excel for a registered report, and
+none of that survives a hand-drawn one. There is no guardian refusing the wrong choice yet; call it
+out here while proposing the blocks.
 
 ## The menu is decided once, and it is decided here
 
@@ -99,6 +122,56 @@ it the page the application opens on — `flexygo_update_interface` with `interf
 refuses a plan with a home screen and no such task. Measured 2026-09-10 on a finished development:
 33 tasks, the dashboard built, verified and design-compared, and `Interfaces.StartupPageName`
 still NULL — the login landed on the platform's empty control panel and HOME opened a blank page.
+
+## A project that draws first does not plan a page nobody drew
+
+If this development's own `design.md` says the web screens come from Stitch or from an approved
+reference, that governs; failing that, `memory/design.md` — the project's own answer — does. The
+first answer for a surface is the project's, wherever it is given, so a development only has its
+own entry when it recorded a SECOND answer while active; that own answer (typically recorded when
+it adds no new screen of its own) outranks the project's for THAT development only and never gates
+or exempts a sibling. Either way, every page this plan builds has its screen filed in this
+development's `reference.md`.
+`flexygo_write_plan` **refuses** a page task with no filed screen, naming the tasks and the screens
+that are filed; a page task passes when its text names the filed screen it copies, spelled as it was
+filed. Two ways through, and only two: `/flx-design` for the screens the development adds — it files
+each one with `flexygo_record_reference` — or the user's decision to build those pages with the
+platform's own look, recorded with `flexygo_record_decision` against the development with an answer
+that says "without reference" and names the pages. Never in silence: measured 2026-09-16 on a real
+cold run, four new pages and a filled home were built with no design and no reference in a project
+whose memory said "design first, with Stitch".
+
+## With several kinds of users, the plan says who sees what
+
+`/flx-context` recorded who uses the application: the `**Roles:**` and `**Public screens:**` lines
+of the project memory, which `flexygo_create_development` hands you whole. With **several** roles, or
+with screens that open without signing in, a plan that builds a page, an object, a module or a
+process carries the security of what it builds: read `flexygo_get_security_reference` first, then
+roles and profiles, and after them objects, pages, modules, navigation and processes — each task
+saying what every role sees and does of what THIS development builds, by the role names the memory
+carries. `flexygo_write_plan` and `flexygo_amend_plan_block` **refuse** such a plan with no security
+task. The other way through is the user's: if they decide that every role sees what this builds,
+record it with `flexygo_record_decision` (`affects: development`) and pass its D-n, e.g.
+`flexygo_write_plan(blocks: [...], securityWaivedBy: 'D-3')`. Never in silence: measured on the Tender
+calque, nine administration screens were left open to the supplier role — new artifacts with no row
+beside siblings that had one.
+
+A project that never answered who uses it gets its plan refused too, until `/flx-context` records
+it — asking only that, not the rest again. A plan that builds nothing (schema only, a fix) passes.
+
+## A plan with screens ends in its demo data
+
+A plan that builds screens has a **last block of demo data**, behind every process and screen: in an
+ERP the rows go in through the real processes, which have to exist first, and the states to cover
+are the ones the finished screens paint. Its task names `flexygo_demo_data` and says what it shows:
+which states of each screen (the open one, the closed one, the overdue one…), dates counted from
+today, and the `DEMO` marker on every root row — `flexygo_get_schema_and_seeding_guide` has the
+rules. `flexygo_write_plan` and `flexygo_amend_plan_block` **refuse** a plan with screens and no such
+task, and one whose demo block is not the last that builds. The other way through is the user's: if
+they decide this development goes without demo data (it works on the customer's own database, say),
+record it with `flexygo_record_decision` (`affects: development`) and pass its D-n, e.g.
+`flexygo_write_plan(blocks: [...], demoDataWaivedBy: 'D-4')`. Without credible rows the verification,
+the screenshots and a demo show empty lists — and rows seeded by hand stay on one machine.
 
 ## When there is an approved design, the palette is a task
 

@@ -1,0 +1,274 @@
+# mod-tour-tour-pedidos
+Cómo leer el listado de pedidos y abrir uno para hacerlo avanzar.
+
+Hacer el recorrido
+Editar pasos
+# mod-vta-pedido-list
+Listado de pedidos
+Nuevo
+Número
+Cliente
+Fecha
+Estado
+Total
+Acciones
+PED-1020
+Cantábrica Distribución S.L.U.
+hace 23 minutos
+Confirmado
+1.259,17 €
+PED-1150
+Marta Rodríguez Díaz
+hace 2 días
+Entregado
+1.305,68 €
+PED-1113
+Alejandro Moreno García
+hace 2 días
+En proceso
+1.771,92 €
+PED-1087
+Hispana Boutique S.L.U.
+hace 3 días
+Entregado
+1.749,10 €
+PED-1137
+Central Retail S.L.U.
+hace 4 días
+Entregado
+1.535,65 €
+PED-1041
+Hispana Moda S.A.
+hace 4 días
+Confirmado
+1.520,10 €
+PED-1089
+Levante Confección S.A.
+hace 6 días
+Borrador
+1.597,20 €
+PED-1069
+Urbana Retail S.L.
+hace 6 días
+Borrador
+409,56 €
+PED-1033
+Carlos González Alonso
+hace 6 días
+En proceso
+562,36 €
+PED-1030
+Ana Moreno López
+hace 6 días
+Confirmado
+771,39 €
+PED-1083
+Central Comercio S.L.U.
+hace 7 días
+En proceso
+758,96 €
+PED-1067
+Central Boutique S.A.
+hace 7 días
+Entregado
+1.528,29 €
+PED-1079
+Sur Moda S.L.
+hace 9 días
+Borrador
+1.094,40 €
+PED-1133
+Carlos Rodríguez Pérez
+hace 12 días
+En proceso
+1.626,73 €
+PED-1036
+María Vázquez Domínguez
+hace 12 días
+Entregado
+712,48 €
+PED-1025
+Litoral Retail S.L.
+hace 12 días
+Enviado
+1.584,95 €
+PED-1112
+Peninsular Textil S.L.U.
+hace 13 días
+En proceso
+2.194,56 €
+PED-1002
+Atlántica Comercial S.L.U.
+hace 13 días
+En proceso
+874,53 €
+PED-1084
+Meridional Distribución S.A.
+hace 14 días
+Enviado
+1.660,34 €
+PED-1142
+Atlántica Almacenes S.L.U.
+hace 15 días
+En proceso
+936,24 €
+PED-1138
+Atlántica Comercial S.L.U.
+hace 15 días
+Cancelado
+1.542,42 €
+PED-1081
+Atlántica Importación S.L.U.
+hace 16 días
+Confirmado
+1.839,92 €
+PED-1022
+Mediterránea Comercio S.A.
+hace 17 días
+En proceso
+1.638,54 €
+PED-1121
+Sara Fernández Álvarez
+hace 19 días
+Confirmado
+1.086,08 €
+PED-1072
+Urbana Boutique S.L.U.
+hace 19 días
+En proceso
+1.197,63 €
+PED-1016
+Peninsular Confección S.L.
+hace 20 días
+Entregado
+1.576,48 €
+PED-1032
+Mediterránea Almacenes S.A.
+hace 21 días
+En proceso
+668,88 €
+PED-1116
+Ibérica Comercio S.L.
+hace 25 días
+Entregado
+1.757,87 €
+PED-1104
+David Rodríguez Navarro
+hace un mes
+Enviado
+481,40 €
+PED-1064
+Antonio Sánchez Alonso
+hace un mes
+Enviado
+1.650,80 €
+PED-1062
+Norte Importación S.L.
+hace un mes
+En proceso
+669,06 €
+PED-1055
+Levante Comercial S.L.
+hace un mes
+Enviado
+843,91 €
+PED-1026
+Javier López Domínguez
+hace un mes
+Entregado
+1.018,69 €
+PED-1139
+Global Moda S.L.U.
+hace un mes
+Borrador
+845,55 €
+PED-1078
+Mediterránea Retail S.L.
+hace un mes
+Cancelado
+1.139,23 €
+PED-1001
+Ibérica Almacenes S.L.U.
+hace un mes
+Confirmado
+1.161,60 €
+PED-1149
+Marta Rodríguez Díaz
+hace un mes
+Borrador
+2.235,68 €
+PED-1035
+Marta López González
+hace un mes
+Enviado
+1.555,65 €
+PED-1082
+Mediterránea Textil S.A.
+hace un mes
+En proceso
+1.174,85 €
+PED-1070
+Nacional Comercio S.A.
+hace un mes
+Confirmado
+126,18 €
+PED-1127
+Sur Confección S.A.
+hace un mes
+Entregado
+1.437,05 €
+PED-1143
+José Ruiz Torres
+hace un mes
+En proceso
+987,16 €
+PED-1132
+Sur Moda S.L.
+hace un mes
+En proceso
+996,03 €
+PED-1129
+Sara Alonso Álvarez
+hace un mes
+Borrador
+1.775,61 €
+PED-1107
+Alejandro Moreno García
+hace un mes
+Entregado
+2.092,23 €
+PED-1045
+Sur Textil S.L.U.
+hace un mes
+Enviado
+1.070,09 €
+PED-1009
+Mediterránea Almacenes S.L.
+hace un mes
+Borrador
+1.240,50 €
+PED-1117
+Norte Almacenes S.L.
+hace un mes
+Entregado
+904,09 €
+PED-1052
+Levante Distribución S.L.U.
+hace un mes
+En proceso
+947,12 €
+PED-1039
+José Ruiz Torres
+hace un mes
+Borrador
+501,52 €
+1
+2
+3
+4
+Página
+1
+de
+4
+Total:
+152

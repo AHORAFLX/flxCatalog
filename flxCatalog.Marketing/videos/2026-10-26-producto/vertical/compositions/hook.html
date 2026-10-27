@@ -1,0 +1,186 @@
+<template>
+  <style>
+#root { position: absolute; inset: 0; overflow: hidden; background: #eef1f4; font-family: Inter, sans-serif; color: #1c1b1d; }
+.fmt, .w { position: absolute; inset: 0; }
+.w * { box-sizing: border-box; }
+
+/* copy block: number, title, line */
+.copy { position: absolute; }
+.fmt-L .copy { left: 120px; top: 92px; width: 1100px; }
+.fmt-V .copy { left: 80px; top: 170px; width: 920px; }
+.fmt-S .copy { left: 64px; top: 60px; width: 952px; }
+.num { font-weight: 800; color: #148a84; letter-spacing: 0.06em; }
+.ttl { font-weight: 800; letter-spacing: -0.025em; line-height: 1.02; }
+.line { font-weight: 500; color: #5b5b63; line-height: 1.25; }
+.fmt-L .num { font-size: 30px; } .fmt-L .ttl { font-size: 84px; margin-top: 8px; } .fmt-L .line { font-size: 36px; margin-top: 14px; }
+.fmt-V .num { font-size: 36px; } .fmt-V .ttl { font-size: 100px; margin-top: 10px; } .fmt-V .line { font-size: 44px; margin-top: 20px; }
+.fmt-S .num { font-size: 28px; } .fmt-S .ttl { font-size: 68px; margin-top: 6px; } .fmt-S .line { font-size: 32px; margin-top: 12px; }
+
+/* stage: where the rebuilt UI lives */
+.stage { position: absolute; }
+.fmt-L .stage { left: 120px; right: 120px; top: 350px; bottom: 70px; }
+.fmt-V .stage { left: 64px; right: 64px; top: 560px; bottom: 140px; }
+.fmt-S .stage { left: 56px; right: 56px; top: 320px; bottom: 50px; }
+
+/* product UI primitives, drawn like the product (flexy2022 skin) */
+.card { position: absolute; background: #ffffff; border-radius: 18px; box-shadow: 0 18px 50px rgba(28, 27, 29, 0.10), 0 2px 6px rgba(28, 27, 29, 0.05); }
+.fmt-V .card { border-radius: 24px; }
+.mtitle { font-weight: 600; letter-spacing: -0.01em; }
+.muted { color: #71717a; }
+.btn { display: flex; align-items: center; justify-content: center; border-radius: 10px; font-weight: 600; white-space: nowrap; }
+.btn.teal { background: #2db7b0; color: #ffffff; }
+.btn.ghost { background: #ffffff; color: #1c1b1d; border: 2px solid #d4d4d8; }
+.btn.dark { background: #1c1b1d; color: #ffffff; }
+.pill { display: inline-flex; align-items: center; gap: 0.45em; border-radius: 999px; font-weight: 600; padding: 0.22em 0.75em; white-space: nowrap; }
+.pill::before { content: ""; width: 0.42em; height: 0.42em; border-radius: 50%; background: currentColor; }
+.pill.ok { background: #dcfce7; color: #166534; }
+.pill.warn { background: #fef3c7; color: #854d0e; }
+.pill.bad { background: #fee2e2; color: #991b1b; }
+.pill.info { background: #e0e7ff; color: #3730a3; }
+.pill.neu { background: #f4f4f5; color: #3f3f46; }
+.pill.new { background: #fde7ef; color: #9d174d; }
+.photo { background-size: cover; background-position: center; }
+.tab { font-variant-numeric: tabular-nums; }
+
+/* catalogue card, sized by its font-size (1em = 20px on the product's own card at 1x) */
+.pc { position: absolute; width: 13em; background: #ffffff; border-radius: 0.8em; overflow: hidden; box-shadow: 0 0.9em 2.4em rgba(28, 27, 29, 0.12); }
+.pc-ph { position: relative; height: 12.4em; }
+.pc-star { position: absolute; top: 0.55em; right: 0.55em; width: 1.7em; height: 1.7em; border-radius: 0.4em; background: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1em; color: #1c1b1d; }
+.pc-b { padding: 0.75em 0.85em 0.9em; }
+.pc-f { font-size: 0.6em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-n { font-size: 0.8em; font-weight: 600; margin-top: 0.3em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-p { font-size: 0.9em; font-weight: 700; margin-top: 0.4em; display: flex; align-items: center; justify-content: space-between; }
+.pc-p .pill { font-size: 0.62em; }
+.pc-btn { position: relative; margin-top: 0.75em; height: 2em; font-size: 0.72em; border-radius: 0.5em; }
+
+/* the one drawn object: a cursor */
+.cur { position: absolute; left: 0; top: 0; z-index: 50; }
+.fmt-L .cur { width: 46px; height: 62px; } .fmt-V .cur, .fmt-S .cur { width: 56px; height: 76px; }
+.press { position: absolute; inset: 0; border-radius: inherit; background: rgba(0, 0, 0, 0.18); opacity: 0; pointer-events: none; }
+.pc-star .s0, .pc-star .s1 { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.pc-star .s1 { color: #148a84; opacity: 0; font-size: 1.15em; }
+.cur svg { display: block; width: 100%; height: 100%; }
+
+
+#hook-w .wall { position: absolute; transform: rotate(-9deg); transform-origin: 50% 50%; }
+#hook-w .wall-in { display: grid; gap: 1.3em; }
+#hook-w .wall .pc { position: relative; }
+.fmt-L #hook-w .wall { left: 900px; top: -250px; font-size: 25px; }
+.fmt-L #hook-w .wall-in { grid-template-columns: repeat(4, 13em); }
+.fmt-V #hook-w .wall { left: -80px; top: 880px; font-size: 25px; }
+.fmt-V #hook-w .wall-in { grid-template-columns: repeat(4, 13em); }
+.fmt-S #hook-w .wall { left: 620px; top: -200px; font-size: 19px; }
+.fmt-S #hook-w .wall-in { grid-template-columns: repeat(3, 13em); }
+#hook-w .hc { position: absolute; z-index: 5; }
+.fmt-L #hook-w .hc { left: 120px; top: 290px; width: 760px; }
+.fmt-V #hook-w .hc { left: 80px; top: 190px; width: 920px; }
+.fmt-S #hook-w .hc { left: 64px; top: 250px; width: 500px; }
+#hook-w .h1 { font-weight: 800; letter-spacing: -0.035em; line-height: 0.95; }
+.fmt-L #hook-w .h1 { font-size: 132px; } .fmt-V #hook-w .h1 { font-size: 150px; } .fmt-S #hook-w .h1 { font-size: 92px; }
+#hook-w .h1 b { color: #148a84; font-weight: 800; }
+#hook-w .h2 { font-weight: 500; color: #3f3f46; line-height: 1.22; }
+.fmt-L #hook-w .h2 { font-size: 40px; margin-top: 30px; } .fmt-V #hook-w .h2 { font-size: 48px; margin-top: 34px; } .fmt-S #hook-w .h2 { font-size: 28px; margin-top: 22px; }
+#hook-w .chips { display: flex; flex-wrap: wrap; gap: 0.5em; }
+.fmt-L #hook-w .chips { font-size: 28px; margin-top: 40px; } .fmt-V #hook-w .chips { font-size: 34px; margin-top: 44px; } .fmt-S #hook-w .chips { font-size: 22px; margin-top: 28px; }
+#hook-w .chip { background: #ffffff; border-radius: 999px; padding: 0.35em 0.85em; font-weight: 500; box-shadow: 0 6px 18px rgba(28, 27, 29, 0.08); white-space: nowrap; }
+#hook-w .chip b { font-weight: 800; }
+#hook-w .fade { position: absolute; z-index: 3; pointer-events: none; }
+.fmt-L #hook-w .fade { left: 0; top: 0; bottom: 0; width: 980px; background: linear-gradient(90deg, #eef1f4 78%, rgba(238, 241, 244, 0)); }
+.fmt-V #hook-w .fade { left: 0; right: 0; top: 0; height: 960px; background: linear-gradient(180deg, #eef1f4 86%, rgba(238, 241, 244, 0)); }
+.fmt-S #hook-w .fade { left: 0; top: 0; bottom: 0; width: 640px; background: linear-gradient(90deg, #eef1f4 82%, rgba(238, 241, 244, 0)); }
+
+  </style>
+  <div data-hf-id="hf-srfg" id="root" data-composition-id="hook" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-a6dh" class="fmt fmt-V"><div data-hf-id="hf-zb44" class="w" id="hook-w">
+<div data-hf-id="hf-hy80" class="wall" data-layout-allow-overflow data-layout-ignore><div data-hf-id="hf-2ww4" class="wall-in" id="hook-wall">
+<div data-hf-id="hf-vgei" class="pc" id="hook-pc-malla"><div data-hf-id="hf-iuyx" class="pc-ph photo" style="background-image:url('assets/photos/mallas-deportivas-1.jpg')"><div data-hf-id="hf-28uw" class="pc-star" id="hook-star-malla"><span data-hf-id="hf-8z66" class="s0">&#9734;</span><span data-hf-id="hf-wue3" class="s1" id="hook-on-malla">&#9733;</span></div></div><div data-hf-id="hf-6gjq" class="pc-b"><div data-hf-id="hf-9x4k" class="pc-f muted">Mallas Deportivas · Urbana Co.</div><div data-hf-id="hf-n4pu" class="pc-n">Malla Deportiva Prime</div><div data-hf-id="hf-wvc3" class="pc-p tab">34,90 €</div><div data-hf-id="hf-jreq" class="btn teal pc-btn" id="hook-add-malla">A&ntilde;adir al carrito<span data-hf-id="hf-vdyi" class="press"></span></div></div></div>
+<div data-hf-id="hf-51p9" class="pc" id="hook-pc-cargo"><div data-hf-id="hf-lz1c" class="pc-ph photo" style="background-image:url('assets/photos/pantalones-1.jpg')"><div data-hf-id="hf-1zsb" class="pc-star" id="hook-star-cargo"><span data-hf-id="hf-eple" class="s0">&#9734;</span><span data-hf-id="hf-g6w6" class="s1" id="hook-on-cargo">&#9733;</span></div></div><div data-hf-id="hf-a79m" class="pc-b"><div data-hf-id="hf-4du0" class="pc-f muted">Pantalones · Ferric</div><div data-hf-id="hf-f3fb" class="pc-n">Pantalón Cargo Nova</div><div data-hf-id="hf-apdh" class="pc-p tab">69,90 €</div><div data-hf-id="hf-5c8z" class="btn teal pc-btn" id="hook-add-cargo">A&ntilde;adir al carrito<span data-hf-id="hf-aa0e" class="press"></span></div></div></div>
+<div data-hf-id="hf-hioy" class="pc" id="hook-pc-gorra"><div data-hf-id="hf-8pg5" class="pc-ph photo" style="background-image:url('assets/photos/gorras-1.jpg')"><div data-hf-id="hf-oazs" class="pc-star" id="hook-star-gorra"><span data-hf-id="hf-f3wf" class="s0">&#9734;</span><span data-hf-id="hf-a4tf" class="s1" id="hook-on-gorra">&#9733;</span></div></div><div data-hf-id="hf-alkn" class="pc-b"><div data-hf-id="hf-3ghd" class="pc-f muted">Gorras · Bruma</div><div data-hf-id="hf-50rx" class="pc-n">Gorra Wild</div><div data-hf-id="hf-yrdj" class="pc-p tab">49,90 €</div><div data-hf-id="hf-b91u" class="btn teal pc-btn" id="hook-add-gorra">A&ntilde;adir al carrito<span data-hf-id="hf-aobf" class="press"></span></div></div></div>
+<div data-hf-id="hf-3pft" class="pc" id="hook-pc-falda"><div data-hf-id="hf-5rq8" class="pc-ph photo" style="background-image:url('assets/photos/faldas-1.jpg')"><div data-hf-id="hf-px1v" class="pc-star" id="hook-star-falda"><span data-hf-id="hf-fi7g" class="s0">&#9734;</span><span data-hf-id="hf-5lja" class="s1" id="hook-on-falda">&#9733;</span></div></div><div data-hf-id="hf-azvo" class="pc-b"><div data-hf-id="hf-j1at" class="pc-f muted">Faldas · Cursa</div><div data-hf-id="hf-8t5g" class="pc-n">Falda Basic</div><div data-hf-id="hf-on5i" class="pc-p tab">40,90 € <span data-hf-id="hf-27rp" class="pill new">Novedad</span></div><div data-hf-id="hf-rlof" class="btn teal pc-btn" id="hook-add-falda">A&ntilde;adir al carrito<span data-hf-id="hf-b2mg" class="press"></span></div></div></div>
+<div data-hf-id="hf-s7t0" class="pc" id="hook-pc-running"><div data-hf-id="hf-d7hb" class="pc-ph photo" style="background-image:url('assets/photos/deportivo-1.jpg')"><div data-hf-id="hf-fhwu" class="pc-star" id="hook-star-running"><span data-hf-id="hf-fwih" class="s0">&#9734;</span><span data-hf-id="hf-2b05" class="s1" id="hook-on-running">&#9733;</span></div></div><div data-hf-id="hf-be6p" class="pc-b"><div data-hf-id="hf-rknr" class="pc-f muted">Deportivo · Urbana Co.</div><div data-hf-id="hf-as11" class="pc-n">Zapatilla Running Nova</div><div data-hf-id="hf-tqiv" class="pc-p tab">115,90 €</div><div data-hf-id="hf-ep90" class="btn teal pc-btn" id="hook-add-running">A&ntilde;adir al carrito<span data-hf-id="hf-8ah9" class="press"></span></div></div></div>
+<div data-hf-id="hf-c813" class="pc" id="hook-pc-bota"><div data-hf-id="hf-3b6k" class="pc-ph photo" style="background-image:url('assets/photos/botas-1.jpg')"><div data-hf-id="hf-d8xt" class="pc-star" id="hook-star-bota"><span data-hf-id="hf-gati" class="s0">&#9734;</span><span data-hf-id="hf-ex1c" class="s1" id="hook-on-bota">&#9733;</span></div></div><div data-hf-id="hf-bshq" class="pc-b"><div data-hf-id="hf-0k1g" class="pc-f muted">Botas · Trailmark</div><div data-hf-id="hf-85m4" class="pc-n">Bota Nova</div><div data-hf-id="hf-9hru" class="pc-p tab">71,90 €</div><div data-hf-id="hf-0fcb" class="btn teal pc-btn" id="hook-add-bota">A&ntilde;adir al carrito<span data-hf-id="hf-8osa" class="press"></span></div></div></div>
+<div data-hf-id="hf-zyq2" class="pc" id="hook-pc-mochila"><div data-hf-id="hf-nvxt" class="pc-ph photo" style="background-image:url('assets/photos/mochilas-1.jpg')"><div data-hf-id="hf-622w" class="pc-star" id="hook-star-mochila"><span data-hf-id="hf-gp4j" class="s0">&#9734;</span><span data-hf-id="hf-nw2j" class="s1" id="hook-on-mochila">&#9733;</span></div></div><div data-hf-id="hf-c6sr" class="pc-b"><div data-hf-id="hf-pyop" class="pc-f muted">Mochilas · Rivera</div><div data-hf-id="hf-ivzt" class="pc-n">Mochila Vintage</div><div data-hf-id="hf-r9ic" class="pc-p tab">59,90 €</div><div data-hf-id="hf-dcge" class="btn teal pc-btn" id="hook-add-mochila">A&ntilde;adir al carrito<span data-hf-id="hf-933b" class="press"></span></div></div></div>
+<div data-hf-id="hf-ofi9" class="pc" id="hook-pc-free"><div data-hf-id="hf-4qi8" class="pc-ph photo" style="background-image:url('assets/photos/pantalones-deportivos-1.jpg')"><div data-hf-id="hf-npyj" class="pc-star" id="hook-star-free"><span data-hf-id="hf-h3fk" class="s0">&#9734;</span><span data-hf-id="hf-fbs6" class="s1" id="hook-on-free">&#9733;</span></div></div><div data-hf-id="hf-cl3s" class="pc-b"><div data-hf-id="hf-bdl5" class="pc-f muted">Pantalones Deportivos · Urbana Co.</div><div data-hf-id="hf-3k0f" class="pc-n">Pantalón Deportivo Free</div><div data-hf-id="hf-i0s4" class="pc-p tab">77,90 €</div><div data-hf-id="hf-ig29" class="btn teal pc-btn" id="hook-add-free">A&ntilde;adir al carrito<span data-hf-id="hf-9hec" class="press"></span></div></div></div>
+<div data-hf-id="hf-kkoh" class="pc" id="hook-pc-vestido"><div data-hf-id="hf-xddy" class="pc-ph photo" style="background-image:url('assets/photos/vestidos-3.jpg')"><div data-hf-id="hf-tszn" class="pc-star" id="hook-star-vestido"><span data-hf-id="hf-b4u5" class="s0">&#9734;</span><span data-hf-id="hf-ibau" class="s1" id="hook-on-vestido">&#9733;</span></div></div><div data-hf-id="hf-czet" class="pc-b"><div data-hf-id="hf-8mfm" class="pc-f muted">Vestidos · Alara</div><div data-hf-id="hf-09ck" class="pc-n">Vestido Line</div><div data-hf-id="hf-hgjj" class="pc-p tab">38,90 €</div><div data-hf-id="hf-axb3" class="btn teal pc-btn" id="hook-add-vestido">A&ntilde;adir al carrito<span data-hf-id="hf-d25l" class="press"></span></div></div></div>
+<div data-hf-id="hf-bua3" class="pc" id="hook-pc-chaqueta"><div data-hf-id="hf-sgs4" class="pc-ph photo" style="background-image:url('assets/photos/chaquetas-1.jpg')"><div data-hf-id="hf-2ucx" class="pc-star" id="hook-star-chaqueta"><span data-hf-id="hf-bj56" class="s0">&#9734;</span><span data-hf-id="hf-jkvs" class="s1" id="hook-on-chaqueta">&#9733;</span></div></div><div data-hf-id="hf-ddpu" class="pc-b"><div data-hf-id="hf-7tse" class="pc-f muted">Chaquetas · Ferric</div><div data-hf-id="hf-dbi1" class="pc-n">Chaqueta Cortavientos Ultra</div><div data-hf-id="hf-sfxj" class="pc-p tab">16,90 €</div><div data-hf-id="hf-bs33" class="btn teal pc-btn" id="hook-add-chaqueta">A&ntilde;adir al carrito<span data-hf-id="hf-dggm" class="press"></span></div></div></div>
+<div data-hf-id="hf-2xa5" class="pc" id="hook-pc-nino"><div data-hf-id="hf-5f7y" class="pc-ph photo" style="background-image:url('assets/photos/camisetas-nino-1.jpg')"><div data-hf-id="hf-u23f" class="pc-star" id="hook-star-nino"><span data-hf-id="hf-xeo6" class="s0">&#9734;</span><span data-hf-id="hf-1efa" class="s1" id="hook-on-nino">&#9733;</span></div></div><div data-hf-id="hf-1dla" class="pc-b"><div data-hf-id="hf-rs6j" class="pc-f muted">Camisetas Niño · Solvane</div><div data-hf-id="hf-lwxq" class="pc-n">Camiseta Niño Free</div><div data-hf-id="hf-in2j" class="pc-p tab">23,90 €</div><div data-hf-id="hf-9a5t" class="btn teal pc-btn" id="hook-add-nino">A&ntilde;adir al carrito<span data-hf-id="hf-7v3u" class="press"></span></div></div></div>
+<div data-hf-id="hf-kkr5" class="pc" id="hook-pc-dsport"><div data-hf-id="hf-s932" class="pc-ph photo" style="background-image:url('assets/photos/pantalones-deportivos-3.jpg')"><div data-hf-id="hf-avn3" class="pc-star" id="hook-star-dsport"><span data-hf-id="hf-x0d5" class="s0">&#9734;</span><span data-hf-id="hf-66ui" class="s1" id="hook-on-dsport">&#9733;</span></div></div><div data-hf-id="hf-0za9" class="pc-b"><div data-hf-id="hf-q2yj" class="pc-f muted">Pantalones Deportivos · Bruma</div><div data-hf-id="hf-78v5" class="pc-n">Pantalón Deportivo Sport</div><div data-hf-id="hf-ikfz" class="pc-p tab">85,90 € <span data-hf-id="hf-y6fd" class="pill new">Novedad</span></div><div data-hf-id="hf-j79d" class="btn teal pc-btn" id="hook-add-dsport">A&ntilde;adir al carrito<span data-hf-id="hf-7gst" class="press"></span></div></div></div>
+</div></div>
+<div data-hf-id="hf-zypr" class="fade" data-layout-ignore></div>
+<div data-hf-id="hf-nvqu" class="hc" id="hook-hc">
+  <div data-hf-id="hf-mrlm" class="h1" id="hook-h1">Catálogo<br data-hf-id="hf-x5px"><b data-hf-id="hf-nml3">Flexygo</b></div>
+  <div data-hf-id="hf-yfzg" class="h2" id="hook-h2">Catálogo, pedidos y postventa en una sola aplicación.</div>
+  <div data-hf-id="hf-546w" class="chips" id="hook-chips"><span data-hf-id="hf-l9vs" class="chip"><b data-hf-id="hf-oxq8" class="tab" id="hook-n1">140</b> productos</span><span data-hf-id="hf-5d30" class="chip"><b data-hf-id="hf-tcni" class="tab" id="hook-n2">624</b> variantes</span><span data-hf-id="hf-tp7g" class="chip"><b data-hf-id="hf-nisj" class="tab" id="hook-n3">110</b> clientes</span></div>
+</div>
+    </div></div>
+  </div>
+  <script>
+    document.fonts.ready.then(() => {
+  const ID = "hook";
+  const FMT = "V";
+  const W = document.getElementById(ID + "-w");
+  const $ = (s) => W.querySelector(s);
+  const $$ = (s) => Array.from(W.querySelectorAll(s));
+  // Offset of an element inside the scene, measured once before building tweens.
+  // A scene is display:none until its slot: measure with its hidden ancestors shown for the instant of the read.
+  const withLayout = (fn) => {
+    const hid = [];
+    for (let e = W; e && e !== document.documentElement; e = e.parentElement) {
+      if (getComputedStyle(e).display === "none") { hid.push([e, e.style.getPropertyValue("display"), e.style.getPropertyPriority("display")]); e.style.setProperty("display", "block", "important"); }
+    }
+    try { return fn(); } finally { hid.reverse().forEach(([e, v, p]) => (v ? e.style.setProperty("display", v, p) : e.style.removeProperty("display"))); }
+  };
+  const off = (el) => { let x = 0, y = 0; while (el && el !== W) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return { x, y }; };
+  const pt = (sel, fx = 0.5, fy = 0.5) => withLayout(() => { const el = typeof sel === "string" ? $(sel) : sel; const o = off(el); return { x: o.x + el.offsetWidth * fx, y: o.y + el.offsetHeight * fy }; });
+  const tl = gsap.timeline({ paused: true });
+  const pick = (L, V, S) => (FMT === "L" ? L : FMT === "V" ? V : S);
+  // Scene entry: copy slides in from the left, the stage rises.
+  const enter = (t = 0.05) => {
+    tl.fromTo($(".copy"), { x: -70, opacity: 0 }, { x: 0, opacity: 1, duration: 0.42, ease: "expo.out" }, t);
+    tl.fromTo($(".stage"), { y: 90, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "expo.out" }, t + 0.1);
+  };
+  const exit = (t) => {
+    tl.to($(".copy"), { x: -50, opacity: 0, duration: 0.24, ease: "power3.in" }, t);
+    tl.to($(".stage"), { y: -40, opacity: 0, duration: 0.26, ease: "power3.in" }, t);
+    if ($(".cur")) tl.to($(".cur"), { opacity: 0, duration: 0.15 }, t);
+  };
+  // Cursor: travel to a target, then click it (the press lands on the click frame).
+  const cur = () => $(".cur");
+  const curFrom = (x, y, t = 0) => tl.fromTo(cur(), { x, y, scale: 1, opacity: 1 }, { x, y, duration: 0.01 }, t);
+  const moveTo = (sel, t, d = 0.45, fx = 0.5, fy = 0.55) => { const p = pt(sel, fx, fy); tl.to(cur(), { x: p.x - 6, y: p.y - 4, duration: d, ease: "power2.inOut" }, t); };
+  const click = (sel, t) => {
+    tl.to(cur(), { scale: 0.84, duration: 0.06, ease: "power2.in", transformOrigin: "6px 4px" }, t);
+    tl.to(cur(), { scale: 1, duration: 0.1, ease: "power2.out", transformOrigin: "6px 4px" }, t + 0.06);
+    const pr = sel && $(sel + " .press");
+    if (pr) { tl.fromTo(pr, { opacity: 0 }, { opacity: 1, duration: 0.05 }, t); tl.to(pr, { opacity: 0, duration: 0.18 }, t + 0.1); }
+  };
+  // Count a number into an element (es-ES formatting), measured by the timeline, not the clock.
+  const nf = (dec) => new Intl.NumberFormat("es-ES", { minimumFractionDigits: dec, maximumFractionDigits: dec, useGrouping: "always" });
+  const count = (sel, from, to, t, d, dec = 0, suffix = "") => {
+    const el = typeof sel === "string" ? $(sel) : sel; const f = nf(dec); const o = { v: from };
+    el.textContent = f.format(from) + suffix;
+    tl.to(o, { v: to, duration: d, ease: "power2.out", onUpdate: () => { el.textContent = f.format(o.v) + suffix; } }, t);
+  };
+  // Items arriving one by one.
+  const seq = (els, t, gap, from = { y: 40, opacity: 0 }, d = 0.45) => els.forEach((el, i) => tl.fromTo(el, from, { x: 0, y: 0, opacity: 1, scale: 1, duration: d, ease: "power3.out" }, t + i * gap));
+
+
+  // Cards rain in along the diagonal, then the wall drifts.
+  const cards = $$("#hook-wall .pc");
+  seq(cards, 0.0, 0.045, { y: 140, opacity: 0, scale: 0.9 }, 0.5);
+  tl.fromTo("#hook-wall", { y: 0 }, { y: pick(-90, -140, -70), duration: 3, ease: "none" }, 0);
+  // Title on frame 0-0.3 so the first frames already read.
+  // The title is already on frame 0 (the thumbnail); it only settles.
+  tl.fromTo("#hook-h1", { scale: 1.04, transformOrigin: "0% 50%" }, { scale: 1, duration: 0.6, ease: "power3.out" }, 0.0);
+  tl.fromTo("#hook-h2", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 0.1);
+  seq($$("#hook-chips .chip"), 0.75, 0.12, { y: 24, opacity: 0, scale: 0.9 }, 0.4);
+  count("#hook-n1", 0, 140, 0.75, 1.1);
+  count("#hook-n2", 0, 624, 0.87, 1.1);
+  count("#hook-n3", 0, 110, 0.99, 1.1);
+  // Out: the whole frame pushes left into the first feature.
+  tl.to(["#hook-wall", "#hook-hc"], { x: pick(-260, -200, -160), opacity: 0, duration: 0.24, ease: "power3.in" }, 2.76);
+
+      window.__timelines["hook"] = tl;
+    });
+  </script>
+</template>

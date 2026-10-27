@@ -37,9 +37,10 @@ namespace flxCatalog_processes
 
                 // La línea, su pedido y el cliente propietario del pedido — nunca concatenado, siempre parametrizado.
                 DataTable linea = dm.DataTable(
-                    @"SELECT pl.IdPedido, pl.Cantidad AS CantidadPedida, p.IdCliente
+                    @"SELECT pl.IdPedido, pl.Cantidad AS CantidadPedida, p.IdCliente, e.Nombre AS EstadoPedido
                        FROM Pedidos_Lineas pl
                        JOIN Pedidos p ON p.IdPedido = pl.IdPedido
+                       JOIN Pedidos_Estados e ON e.IdEstado = p.IdEstado
                        WHERE pl.IdLinea = @IdLinea",
                     new List<DbParameter> { new SqlParameter("@IdLinea", SqlDbType.NVarChar, 50) { Value = idLinea } });
 
@@ -60,6 +61,15 @@ namespace flxCatalog_processes
                 {
                     Ret.Success = false;
                     Ret.LastException = new Exception("No tienes permiso sobre este pedido.");
+                    return false;
+                }
+
+                // Solo se devuelve lo que ya ha llegado.
+                string estadoPedido = Convert.ToString(fila["EstadoPedido"]);
+                if (!string.Equals(estadoPedido, "Entregado", StringComparison.OrdinalIgnoreCase))
+                {
+                    Ret.Success = false;
+                    Ret.LastException = new Exception($"Solo se puede pedir la devolución de un pedido entregado (estado actual: {estadoPedido}).");
                     return false;
                 }
 
@@ -145,7 +155,10 @@ namespace flxCatalog_processes
                 }
 
                 DataTable pedido = dm.DataTable(
-                    "SELECT IdCliente FROM Pedidos WHERE IdPedido = @IdPedido",
+                    @"SELECT p.IdCliente, e.Nombre AS EstadoPedido
+                       FROM Pedidos p
+                       JOIN Pedidos_Estados e ON e.IdEstado = p.IdEstado
+                       WHERE p.IdPedido = @IdPedido",
                     new List<DbParameter> { new SqlParameter("@IdPedido", SqlDbType.NVarChar, 50) { Value = idPedido } });
 
                 if (pedido.Rows.Count == 0)
@@ -161,6 +174,15 @@ namespace flxCatalog_processes
                 {
                     Ret.Success = false;
                     Ret.LastException = new Exception("No tienes permiso sobre este pedido.");
+                    return false;
+                }
+
+                // Un carrito (Borrador) todavía no es un pedido: no hay nada sobre lo que reclamar.
+                string estadoPedido = Convert.ToString(pedido.Rows[0]["EstadoPedido"]);
+                if (string.Equals(estadoPedido, "Borrador", StringComparison.OrdinalIgnoreCase))
+                {
+                    Ret.Success = false;
+                    Ret.LastException = new Exception("No se puede abrir una incidencia sobre un pedido en Borrador: confírmalo antes.");
                     return false;
                 }
 

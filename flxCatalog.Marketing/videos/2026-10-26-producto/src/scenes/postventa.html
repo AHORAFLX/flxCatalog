@@ -1,0 +1,58 @@
+<style>
+#postventa-w .tb { position: absolute; padding: 0.75em 1em 0.6em; }
+#postventa-w .tb .mt { font-weight: 600; font-size: 1.08em; margin-bottom: 0.45em; }
+#postventa-w .r { display: grid; align-items: center; column-gap: 0.7em; padding: 0.42em 0; border-top: 1px solid #e4e4e7; }
+#postventa-w .r.h { font-weight: 700; font-size: 0.72em; border-top: 0; padding: 0.2em 0 0.4em; }
+#postventa-w .r b { font-weight: 700; }
+#postventa-w .r .m { color: #5b6b8c; font-size: 0.9em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#postventa-w .r > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#postventa-w .ps { position: relative; height: 1.4em; }
+#postventa-w .ps .pill { position: absolute; left: 0; top: 0; font-size: 0.78em; }
+#postventa-w .pill.rev { background: #fde7ef; color: #9d174d; }
+#postventa-w .dv .r { grid-template-columns: 5.4em 1fr 4.4em 7em 6.4em; }
+#postventa-w .in .r { grid-template-columns: 5.4em 1fr 5.6em; }
+.fmt-L #postventa-w .stage { font-size: 26px; }
+.fmt-L #postventa-w .dv { left: 0; top: 0; width: 1040px; }
+.fmt-L #postventa-w .in { left: 1080px; top: 0; right: 0; }
+.fmt-V #postventa-w .stage { font-size: 37px; }
+.fmt-V #postventa-w .stage, .fmt-S #postventa-w .stage { display: flex; flex-direction: column; gap: 36px; }
+.fmt-V #postventa-w .tb, .fmt-S #postventa-w .tb { position: relative; left: auto; top: auto; right: auto; }
+.fmt-V #postventa-w .dv { left: 0; right: 0; top: 0; }
+.fmt-V #postventa-w .dv .r { grid-template-columns: 5.4em 1fr 6.4em; }
+.fmt-V #postventa-w .dv .c3, .fmt-V #postventa-w .dv .c4 { display: none; }
+.fmt-S #postventa-w .stage { font-size: 23px; }
+.fmt-S #postventa-w .dv { left: 0; right: 0; top: 0; }
+.fmt-S #postventa-w .dv .r { grid-template-columns: 5.4em 1fr 4.4em 6.4em; }
+.fmt-S #postventa-w .dv .c4 { display: none; }
+.fmt-S #postventa-w .x4 { display: none; }
+</style>
+<div class="copy"><div class="num">06</div><div class="ttl">Devoluciones e incidencias</div><div class="line">La postventa, dentro del mismo portal.</div></div>
+<div class="stage" id="postventa-stage">
+  <div class="card tb dv" id="postventa-dv">
+    <div class="mt">Devoluciones</div>
+    <div class="r h"><span>Pedido</span><span>Producto</span><span class="c3">Cant.</span><span class="c4">Motivo</span><span>Estado</span></div>
+    <div class="r" id="postventa-d1"><b class="tab">PED-1022</b><span>Sandalia Sport</span><span class="c3 tab">7</span><span class="c4 m">Producto defectuoso</span><div class="ps"><span class="pill warn" id="postventa-s1">Solicitada</span><span class="pill neu" id="postventa-s2" style="opacity:0">Aceptada</span></div></div>
+    <div class="r" id="postventa-d2"><b class="tab">PED-1124</b><span>Pantalón Deportivo Sport</span><span class="c3 tab">4</span><span class="c4 m">Talla incorrecta</span><div class="ps"><span class="pill rev">En revisión</span></div></div>
+    <div class="r" id="postventa-d3"><b class="tab">PED-1130</b><span>Chaleco Deportivo Elite</span><span class="c3 tab">8</span><span class="c4 m">Color distinto al pe...</span><div class="ps"><span class="pill ok">Abonada</span></div></div>
+    <div class="r x4" id="postventa-d4"><b class="tab">PED-1077</b><span>Zapatilla Casual Vintage</span><span class="c3 tab">3</span><span class="c4 m">Talla incorrecta</span><div class="ps"><span class="pill bad">Cancelada</span></div></div>
+  </div>
+  <div class="card tb in" id="postventa-in">
+    <div class="mt">Listado de incidencias</div>
+    <div class="r h"><span>Pedido</span><span>Tipo</span><span>Estado</span></div>
+    <div class="r" id="postventa-i1"><b class="tab">PED-1132</b><span>Producto defectuoso</span><div class="ps"><span class="pill warn">Abierta</span></div></div>
+    <div class="r" id="postventa-i2"><b class="tab">PED-1058</b><span>Falta material</span><div class="ps"><span class="pill ok">Cerrada</span></div></div>
+    <div class="r x4" id="postventa-i3"><b class="tab">PED-1009</b><span>Facturación</span><div class="ps"><span class="pill bad">Cancelada</span></div></div>
+  </div>
+</div>
+<script>
+  enter();
+  tl.fromTo("#postventa-in", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "expo.out" }, 0.35);
+  seq($$("#postventa-dv .r:not(.h)"), 0.35, 0.1, { x: 40, opacity: 0 }, 0.35);
+  seq($$("#postventa-in .r:not(.h)"), 0.55, 0.1, { x: 40, opacity: 0 }, 0.35);
+  // A return moves on: Solicitada -> Aceptada.
+  tl.to("#postventa-d1", { backgroundColor: "#f0fdfa", duration: 0.2 }, 1.45);
+  tl.to("#postventa-s1", { opacity: 0, duration: 0.1 }, 1.6);
+  tl.fromTo("#postventa-s2", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.5)", transformOrigin: "0% 50%" }, 1.6);
+  tl.to("#postventa-d1", { backgroundColor: "rgba(240,253,250,0)", duration: 0.4 }, 2.1);
+  exit(2.74);
+</script>

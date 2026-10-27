@@ -18,7 +18,7 @@ public class ClienteCuentaTests : ClienteTestBase
         var ficha = FlexygoApp.Clean(await App.Module("mod-cli-cliente-mi-ficha-view").InnerTextAsync());
 
         StringAssert.Matches(ficha, new Regex(@"CLI-2101"), "El login 'cliente' está enlazado al cliente demo #1 (CLI-2101).");
-        foreach (var campo in new[] { "CIF/NIF", "Email", "Teléfono", "Dirección fiscal", "Tarifa" })
+        foreach (var campo in new[] { "CIF/NIF", "Correo", "Teléfono", "Dirección fiscal", "Tarifa" })
             StringAssert.Contains(ficha, campo);
         StringAssert.Contains(ficha, tarifaPortada, "La tarifa de la ficha debe coincidir con la que anuncia la portada.");
         Assert.AreEqual(0, await App.Module("mod-cli-cliente-mi-ficha-view").Locator(".cntHeader button[data-type=\"edit\"]").CountAsync(),
@@ -47,6 +47,13 @@ public class ClienteCuentaTests : ClienteTestBase
     {
         await App.OpenMenuAsync("Mis notificaciones", "COM_MisNotificaciones_List");
         var lista = App.Module("mod-com-misnotificaciones-list");
+        // Notices only exist once an order of this client changed state (the order test creates them);
+        // with none, what the screen owes the client is its empty state.
+        if (await lista.Locator("flx-navbutton").CountAsync() == 0)
+        {
+            StringAssert.Contains(await lista.InnerTextAsync(), "No tienes notificaciones");
+            return;
+        }
         var aviso = lista.Locator("flx-navbutton > *").First;
         await Assertions.Expect(aviso).ToBeVisibleAsync();
         var titulo = FlexygoApp.Clean(await lista.Locator("flx-navbutton").First.InnerTextAsync());
@@ -61,6 +68,8 @@ public class ClienteCuentaTests : ClienteTestBase
     [DataRow("CLI_Cliente_List")]
     [DataRow("CAT_Producto_List")]
     [DataRow("VTA_Tarifa_List")]
+    [DataRow("VTA_Dashboard_Page")]
+    [DataRow("VTA_MesaTrabajo_Page")]
     public async Task Seguridad_ElClienteNoAbrePantallasDeAdministracion(string pagina)
     {
         ExpectError("credentials|Failed to load resource|HTTP 500");

@@ -249,3 +249,53 @@ What was asked for that this server does not know how to do, recorded so it can 
 **Tried:** flexygo_script_data_structure (v1.1.0.1) ran without error, but its output does not compile (SQL46010). Defect 1: in all 19 tables whose key has a column default (newid()), the default constraint is written twice. It is correct inline on the column, and it is also injected into the PRIMARY KEY column list ("[Id] ASC CONSTRAINT [DF_..] DEFAULT (newid())"), leaving that line without CR in CRLF files. Defect 2: tables with a PRIMARY KEY followed by a UNIQUE constraint are missing the comma between the two constraints (Favoritos, Tarifas_Precios). Separately, flexygo_script_changes timed out twice (stopping at the ContextVars and then Modules_Containers comparison) and wrote nothing.
 
 **Resolved:** Generated files fixed by hand: removed the duplicated default from the PK column lists and added the missing commas. The project builds with 0 errors. The configuration export is still unresolved.
+
+## 2026-10-13 · actualizacion-plataforma
+
+**Asked for:** Tras subir el paquete de la plataforma (Backend y Conf.Database de beta.56 a beta.137), la base de configuración ya existente se quedó en el esquema antiguo: le falta el procedimiento pNet_LoadProcessesSecurity y las tablas Security_Processes_*, y cualquier usuario no administrador con un nodo de proceso en su menú no puede entrar (500 al cargar el perfil).
+
+**Tried:** flexygo_publish_databases se niega por diseño sobre una base que ya existe. Un DeployReport de sqlpackage contra el dacpac de beta.137 muestra un cambio solo aditivo (3 tablas, 3 funciones, 3 vistas, 1 procedimiento nuevo, 3 procedimientos modificados, 8 restricciones CHECK recreadas). El script completo arrastra además unas 900.000 líneas de MERGE de datos de plataforma (AspNetUsers incluida), que no es seguro aplicar sobre una base con datos.
+
+**Resolved:** Sin resolver en esta sesión: hecha copia de seguridad (flxCatalog_IC_pre_beta137_20261013.bak) y preparado un script de solo esquema; su aplicación queda pendiente de la autorización del usuario. Falta una herramienta que actualice el esquema de plataforma de una base existente sin reaplicar sus datos.
+
+## 2026-10-13 · actualizacion-plataforma
+
+**Asked for:** Actualizar la base de configuración de beta.56 a beta.137 conservando lo que no estaba en los scripts exportados. A petición del usuario: renombrar la base existente a _OLD, publicarla de nuevo y traspasar desde la antigua lo que faltase.
+
+**Tried:** flexygo_publish_databases falló la primera vez porque los ficheros físicos de la base renombrada conservaban el nombre (flxCatalog_IC_Primary.mdf). No hay herramienta para renombrar una base ni para comparar o traspasar filas entre dos bases de configuración.
+
+**Resolved:** Resuelto con SQL directo (sqlcmd y autenticación de Windows): ALTER DATABASE MODIFY NAME y MODIFY FILE, más un ren vía xp_cmdshell para los ficheros de la OLD. Tras la publicación, comparación por clave primaria y por contenido entre OLD y nueva. Traspasadas con INSERT/UPDATE directo: License (1), WebAPI_Objects CAT_Producto (1), Notices (6), Notices_Users (6) y 4 Settings (GoolgeAPIKey, MCP_Enabled, WebAPI_Enabled, BundleGUID). Origen activo devuelto a 1 con la herramienta. Nodo Tallas y contadores del carrito recreados con las herramientas. Reaplicado el arreglo bcp -u en los 7 procedimientos zScript% con QUOTED_IDENTIFIER ON.
+
+## 2026-10-13 · dashboard
+
+**Asked for:** Indicadores (flx-easyinfo) con etiqueta de dos líneas (<div> + <small>), tal como recomienda la referencia de dashboards.
+
+**Tried:** Con la plataforma 10.0.0-beta.137 la etiqueta se escapa: el usuario ve «<div>Ventas del año</div><small>…» literal en el dashboard. La referencia (flexygo_get_dashboard_reference) sigue diciendo que el label se inyecta como HTML, medido en beta.56.
+
+**Resolved:** Etiquetas pasadas a texto plano en mod-dash-kpis-easyinfo (se pierde el subtítulo). La referencia del servidor debería actualizarse para beta.137.
+
+## 2026-10-13 · exportacion-configuracion
+
+**Asked for:** Conservar en los scripts exportados de Conf.Database los caracteres que no son de Windows-1252 (←, ★, ☆, ●, ✕) usados en módulos HTML y plantillas.
+
+**Tried:** flexygo_script_changes (zScriptJSON) escribe esos caracteres como «?»: tras exportar, modules.sql y objects_templates.sql tenían «? {{translate|Volver…}}» y switch:[1:?,else:?], aunque la base guardaba bien el carácter. Una publicación posterior lleva el «?» a pantalla: así quedó flxCatalog en 15 enlaces de vuelta, las estrellas de favorito, el indicador de no leída y el botón de quitar del carrito. Las tildes y el € sobreviven porque están en 1252.
+
+**Resolved:** Resuelto en el proyecto usando entidades HTML ASCII (&larr;, &#9733;, &#9734;, &#9679;, &#10005;) en las 15 cabeceras de vuelta y las 3 plantillas. Comprobado por SQL que no queda ningún carácter fuera de 1252 en la configuración de origen 1. La exportación debería escribir en UTF-8 o avisar.
+
+## 2026-10-13 · notificaciones
+
+**Asked for:** Borrar las notificaciones (Notices y Notices_Users) de pedidos de test eliminados, que seguían saliendo al cliente en «Mis notificaciones».
+
+**Tried:** No hay herramienta para listar ni borrar avisos ya emitidos; flexygo_get_notification_activity solo informa.
+
+**Resolved:** Resuelto con sqlcmd y autenticación de Windows sobre flxCatalog_IC, con el usuario autorizándolo («lo que veas», D-11): borrados 36 avisos y 16 asignaciones a usuarios de los pedidos de test CARR-…, filtrando por su título exacto.
+
+## 2026-10-26 · ayuda
+
+**Asked for:** Poner el botón de ayuda de /flx-help en un dashboard cuyos módulos (indicadores flx-easyinfo y gráficos flx-echart) no tienen barra de botones: la verificación de ayuda exige que un botón de un módulo de la página abra la entrada.
+
+**Tried:** flexygo_add_toolbar_button sobre mod-dash-kpis-easyinfo y mod-dash-top-vendidos-echart: «carries no toolbar at all — dbo.Modules.ToolbarName is null». No hay herramienta para asignar una barra a un módulo que no la tiene.
+
+**Resolved:** No resuelto: la ayuda del Dashboard queda accesible por el menú «Ayuda», el recorrido de la pantalla y el de bienvenida.
+
+**Server:** flexygo-mcp unknown

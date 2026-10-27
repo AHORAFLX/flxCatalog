@@ -81,10 +81,9 @@ sections that say how to apply them. Three cases:
 - **It is in the standard** — carry on; if it names a section nobody has decided (the palette,
   most often), that is what is still open, not a defect to fix before moving on.
 
-⛔ **Flexygo's composition grammar is not in `DESIGN.md`, and is never copied there.** Call
-**`flexygo_get_design_grammar`** before designing or building any screen: it is what a screen is
-assembled from, what each page shape costs, and the hard limits — the design tool does not know any
-of it, and `DESIGN.md` describes the look, never the parts.
+⛔ **`DESIGN.md` carries no platform limit, on purpose.** The design tool draws better without one —
+a limit read here measurably biased it toward the stock grey back-office grids it was already
+reaching for. What a screen costs to build is read at BUILD time instead, not here.
 
 ⛔ **The visual base is OURS, and it is not up for negotiation with the user.** Do not offer to drop
 it, and do not ask which style they want: against the same screen and the same model, a generation
@@ -276,7 +275,7 @@ platform's own fall short — what changes without an original is not whether HT
 agreed there before it is built.
 
 ⛔ **And the row-by-row comparison is NOT run on this road.** There is no original to compare
-against, and answering twelve rows about a picture nobody ever drew is theatre. What stays is the
+against, and answering thirteen rows about a picture nobody ever drew is theatre. What stays is the
 part that still means something: look at the screens, and `flexygo_generate_interface_test_plan` to
 click through them, fill them and prove they work. `/flx-build-product` §0 carries the same road in
 full. Offer it as a decision with its consequence said out loud: the application will look like
@@ -442,7 +441,7 @@ arrives at once anyway. The batch wall clock is the whole of what can be measure
 to say what the parallel saves.
 
 **The prompt, per screen shape, always in this order:** the shape (list / record card / dashboard,
-in the words of the three page shapes of `DESIGN.md`), the chrome named explicitly —the left
+in plain words), the chrome named explicitly —the left
 navigation column and the slim top bar— on EVERY screen, the entity and its fields from step 3 with
 sample data in the user's language, the navigation entries the model gives and no others, the one
 primary action, and the status values with their colours. Stitch rewrites every prompt it receives;
@@ -724,9 +723,13 @@ months ago about the web half does not settle it:
    result, and a real road the user may choose.
 
 ⛔ **Then file it: `flexygo_record_design_origin(surface: 'offline', origin: 'stitch', pointer: 'stitch project 42, design system assets/7')`.**
-Its own entry, beside the web one, in `.flexygo/memory/design.md`. `flexygo_recall_decisions` brings
-both back, which is what lets this phase see what the web half was built from instead of inventing a
-second look for one product.
+The first answer for a surface is the project's, wherever it is given — and this is usually the
+FIRST time `offline` is ever answered, so even with the app's development open it lands in the
+project's `.flexygo/memory/design.md`, beside the web entry, reusable if the app is redesigned
+later from a different development. Only a SECOND `offline` answer, given while a development is
+active, would become that development's own. `flexygo_recall_decisions` brings both surfaces back,
+which is what lets this phase see what the web half was built from instead of inventing a second
+look for one product.
 
 ### Which mobile screens, and how they are generated
 
@@ -751,6 +754,30 @@ and the screens were indistinguishable from the one whose brief never mentioned 
 brief serves both surfaces; the mobile design system is the `deviceType: MOBILE` derivation of it,
 measured that day to differ from the desktop one in its `Components` (list rows, KPI tiles) while
 keeping the same tokens and palette.
+
+⛔ **Two walls the phone cannot cross, and they go in every mobile screen PROMPT, not the brief —
+naming them at DESIGN time is what stops a screen from being drawn around something that can never
+work.** (a) **There is no chart component on the phone.** The Ionic bundle the platform serves (182
+files, 26 `flx-*`, 88 `ion-*`, measured) draws none, and the project cannot add a library to it — so
+a proportion is a bar made of CSS and never a donut, a line or a sparkline. (b) **A mobile screen
+cannot run anything on the server** — no send, no e-mail, no export, no generate, no approve: the
+device is assumed off the network and nothing on a hand-written screen can reach a process. What
+needs the server happens after the sync, so never end a mobile screen with an action like "Send
+report" — measured 2026-09-03 on eight generated screens, BOTH runs finished the record screen with
+"Send report", including the one whose brief carried the whole ceiling, because the line was not in
+the PROMPT. Everything else the phone does differently — the four routed shapes, no grid, identity
+keys, the English placeholders, the measured proportions — is adapted at build time and lives in
+`flexygo_get_offline_screen_components_reference`.
+
+⛔ **Which phone shell — ask the reference before the first mobile screen.** Phones run either the
+current shell (Ionic 5) or the new 2026 one (Ionic 9, Capacitor 8.5.3), and the markup differs;
+`flexygo_get_offline_screen_components_reference` says how to tell them apart and carries the
+**2026 recipes** (home, list with filters, sectioned form, card with tabs, sync card, empty state)
+— for the 2026 shell ONLY. When the shell cannot be told, build with the current markup and say so.
+The recipes never outrank a design: with an approved original, a `DESIGN.md` or a filed origin,
+that is what is built. With Stitch in the development, the mobile screens are still drawn in Stitch;
+on the 2026 shell, brief it with the recipes' vocabulary and its "do not ask for" list, from that
+same reference.
 
 Everything else in this file applies unchanged: the batch in parallel, the review before showing
 anything, filing the original in step 6, the wait in step 7 and the row-by-row comparison in step 9.
@@ -834,8 +861,7 @@ answered before it becomes one:
 2. **A GLOBAL asset (`projectId` empty) can only ever carry the house style, never the project.**
    `DESIGN.md` is two halves too, just not the same two any more — the front matter, which is this
    project's **identity** and by §1 **outranks** everything else, and the canonical body, which is
-   the house style the server ships and is the same everywhere. (Flexygo's composition grammar sits
-   outside `DESIGN.md` entirely now — §1 above.) A "Flexygo 2026" global asset is therefore right
+   the house style the server ships and is the same everywhere. A "Flexygo 2026" global asset is therefore right
    for a project that declared no identity (the common case of §1) and wrong for one that did,
    because reusing it silently drops the half that wins. If it is built, it is built for the first
    case and named so nobody reaches for it in the second.
@@ -861,7 +887,7 @@ screenshots gets tidied away. With no reference there is no comparison, only opi
 
 **Archiving the HTML is not bookkeeping: it is what the comparison is allowed to demand.** On a
 screen whose markup is on disk, `typography` and `spacing` aim at **almost identical** like the
-other ten rows, instead of at *recognisable* against a PNG — a `font-family` cannot be read off an
+other eleven rows, instead of at *recognisable* against a PNG — a `font-family` cannot be read off an
 image and a padding measured on one has no known render scale. It is per screen: archive it for six
 screens and it is raised on six, for two and it is raised on two. The tool refuses the `.html`
 before that screen's capture is filed — the source is archived alongside the screenshot, never
@@ -878,8 +904,7 @@ generates with the SAME system — `generate_screen_from_text(designSystem: asse
 drifting away from what the client already approved. Record it with `flexygo_record_decision`
 (`affects: development`), naming the Stitch project id, the desktop `assetId` and, when there is
 one, the offline `assetId`. That is a project fact and `flexygo_recall_decisions` is what hands it
-back months later; the `DESIGN.md` at the root is the source it was derived from, and
-`flexygo_get_design_grammar` is where the composition rules that source does not carry live.
+back months later; the `DESIGN.md` at the root is the source it was derived from.
 
 ## 7 · Show them and wait
 
@@ -895,6 +920,20 @@ with the model: the entities of step 3 as they stand after the corrections, whic
 which transactional, the cardinalities, and the menu sections. The screens come after, each one
 named by its key. Neither `/flx-plan` nor `/flx-discuss` nor any `/flx-execute` block publishes
 another one on top of this.
+
+⛔ **The file behind the artifact goes to the session's scratchpad, never into the project.**
+Publishing, and republishing, takes an `.html` on disk first: write it in the scratchpad directory
+the session names — or the OS temp directory when it names none — and nowhere else. Measured
+2026-09-18 on flxCatalog: the closing report was written as `scratchpad_report.html` at the ROOT of
+the customer's repository, beside the `.sln`, and stayed there among their own files. The link is
+the deliverable, not the file: put it in the closing message and say the user can reopen it any time
+from their artifacts gallery (`/artifacts` in Claude Code); the file can go.
+`flexygo_get_project_status` names any `.html` or `.md` at the project root that cites a `/flx-`
+command as a report left behind — ask the user before removing one.
+
+⭐ **File the link before the closing message**: `flexygo_record_report_link(url: <the link the
+publish returned>, kind: model)`. The gallery does not say which project a report belongs to;
+`.flexygo/` does, and `flexygo_development_status` shows it from then on.
 
 What the report carries, per screen, and nothing else:
 
@@ -960,12 +999,12 @@ gets decided: a design asks for arrangements a list or a card does not paint —
 the top, three figures side by side, something that is not rows of records. Deciding it now is the
 point; discovering it halfway through execution means a block that cannot be closed.
 
-**That screen is `flexygo_create_html_module`**: your own HTML, CSS and JS, written against the
+**That zone is `flexygo_create_html_module`**: your own HTML, CSS and JS, written against the
 platform's own variables so it does not look like it came from another application —
 `flexygo_get_catalog('css_variables')` for the tokens, `flexygo_get_html_controls_reference` for the controls
 and their context tokens, `flexygo_get_js_reference` for navigating and running processes from it.
 
-⚠️ **For the screen that does not fit, not for the ones that do.** A listing that a list module
+⚠️ **For the zone that does not fit, not for the ones that do.** A listing that a list module
 already paints, rewritten by hand, is a screen nobody maintains and that stops following the skin
 the day somebody changes it. The test is whether a module CAN do it, not whether HTML would be
 quicker to write — and if the answer is that no module can, say so when the plan is written, not
@@ -974,12 +1013,21 @@ when the block is half done.
 The choice is not free-hand: `flexygo_get_custom_screens_reference` carries the ladder —typed module
 as it comes, typed module with its own template and CSS, a SQL-driven module, free HTML in a
 plugin— and what each rung costs in pager, search, presets and offline. **Read it before choosing**,
-and write the chosen rung into the plan, per screen. That ladder is the same on the three roads of
-step 0: it is decided by what the screen has to reproduce, not by who drew it.
+and write the rung into the plan **per zone — one zone, one module**. Name the zones of each screen
+(the header with its selector, the band of figures, a queue, a board you drag onto) and give each its
+rung and the reason for it; a screen built with fewer modules than zones says which share one and
+why. Free HTML is the rung of a zone, never of a whole screen; a list that paints nothing to feed
+another module's script is refused; and the zones talk through module events and the page's record,
+as the reference says. Each zone that is a list carries into the plan
+its pager or the reason it has none, the processes its events refresh go without `refresh`, a day
+that filters the whole screen travels as the page's defaults, and a child list inside each row is
+the native grouping. That ladder is the same on the three roads of step 0: it is decided by what
+the screen has to reproduce, not by who drew it.
 
 **Seeding is not optional here.** An approved design comes full of sample data and a freshly built
 Flexygo screen is empty: without seeding, the final comparison would come out "different" on every
-row for the wrong reason.
+row for the wrong reason. The seed is the plan's last block, the demo data saved and loaded with
+`flexygo_demo_data`: it covers the states the approved screens show, with dates counted from today.
 
 ⛔ **And that includes the photographs.** When the model carries an image property and the original
 shows photos, the seeds have to answer for them: either the images are seeded, or you **ask the
@@ -999,10 +1047,12 @@ or a later pass has no number to subtract this one from.
 
 ⛔ **If a row turns out to have been judged wrong, or gets closed later, amend it — do not
 re-measure the whole screen.** `flexygo_amend_design_row` corrects the `verdict`, `note`, `fix` or
-`cause` of ONE already-recorded row and stacks a new entry with the other eleven copied as they
+`cause` of ONE already-recorded row and stacks a new entry with the other twelve copied as they
 stood; `flexygo_record_design_comparison` is for a fresh pass, not for fixing one row of an old one.
+Closing a parked row is one call: `fix: done` alone drops the `cause` the raise carried, and the
+acknowledgement says which.
 
-⚠️ **And the twelve rows are ALL visual, so they cannot catch invented logic.** A copy identical
+⚠️ **And the thirteen rows are ALL visual, so they cannot catch invented logic.** A copy identical
 to the pixel whose rules were made up scores 11 `same` / 1 `similar` / 0 `different`. That is why
 `flexygo_record_design_comparison` also requires `behaviours`: what this screen does that the screen
 itself cannot show you — a control whose effect is not visible, a value whose rule is off screen, a
@@ -1013,7 +1063,7 @@ of the two was chosen. `[]` is a valid answer and is recorded as the claim it is
 `needs-user`.** That is the fourth resolution, and it is the state half of a real bank is actually
 in — some of what a screen does cannot be worked out from any reference and only the user knows it.
 It is not the cheap exit: it takes the `question` you are going to put to them, written out, and a
-screen with one open is **not closed**, whatever the twelve rows said. The failure it
+screen with one open is **not closed**, whatever the thirteen rows said. The failure it
 exists against is seven findings deleted for want of a box to put them in, and one screen signing
 "None declared" over two its own report had left explicitly open.
 `flexygo_get_custom_screens_reference` §15 has the triggers and three worked examples.
@@ -1026,7 +1076,18 @@ hex measured on the built screen and the token hex it was compared against. With
 refuses and hands back the original's tokens — the value is the list, not the refusal.
 `flexygo_get_custom_screens_reference` §17.
 
-Ten of the twelve rows have to come out **almost identical**; **typography** and **spacing** aim
+⛔ **A `same` on a visual row is closed with the two captures side by side, not with a number.**
+Take the screenshot of the built screen and put it beside the reference before closing it `same`.
+Save it with a `filename` under `.playwright-mcp/` (never the project root) and hand it to
+`flexygo_record_verification` in `screenshot` — the server moves it into `screenshots/verify/`; a
+capture left anywhere else is not on record. Since 2026-09-11 `evidence` on a `same` is checked
+against disk and has to name both — the file filed under `reference/` and the one filed under
+`screenshots/verify/` — or the call is refused.
+`kpi-tile` measures the indicator tile as a whole on `.flx-easyinfo`, never its `<h5>`: a KPI tile
+dressed on the wrong element closed `spacing: same` over a card drawn inside another card, numbers
+matching and nothing else.
+
+Eleven of the thirteen rows have to come out **almost identical**; **typography** and **spacing** aim
 lower only when the original is a PNG — an image has no `font-family` at all, and its pixel distances
 are not comparable once the capture's render scale is unknown. Where the original's own SOURCE is on
 disk that excuse does not exist and those two aim at almost identical like the rest, so read the

@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dbo].[VTA_DashTopArticulosVendidos]
+﻿CREATE   VIEW [dbo].[VTA_DashTopArticulosVendidos]
 AS
 SELECT TOP (8)
     N'Unidades vendidas' AS serie,

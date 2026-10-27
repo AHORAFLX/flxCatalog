@@ -1,0 +1,59 @@
+<style>
+#kpis-w .kg { position: absolute; left: 0; right: 0; top: 0; display: grid; gap: 0.6em; }
+#kpis-w .kp { position: relative; padding: 0.55em 0.8em 0.6em; }
+#kpis-w .kp .l { font-size: 0.66em; color: #52525b; }
+#kpis-w .kp .v { font-size: 1.5em; font-weight: 700; letter-spacing: -0.01em; margin-top: 0.1em; white-space: nowrap; }
+#kpis-w .kp.big .v { font-size: 2.1em; font-weight: 800; }
+#kpis-w .bc { position: absolute; left: 0; right: 0; bottom: 0; padding: 0.7em 1em 0.8em; }
+#kpis-w .bc .mt { font-weight: 600; font-size: 1.05em; }
+#kpis-w .lg { display: flex; align-items: center; justify-content: center; gap: 0.4em; font-size: 0.62em; color: #52525b; margin: 0.2em 0 0.5em; }
+#kpis-w .lg i { width: 2.2em; height: 0.9em; background: #6366f1; display: inline-block; }
+#kpis-w .br { display: grid; grid-template-columns: 11em 1fr; align-items: center; column-gap: 0.6em; height: 1.55em; }
+#kpis-w .br .t { font-size: 0.68em; text-align: right; color: #3f3f46; white-space: nowrap; }
+#kpis-w .br .b { height: 1.15em; position: relative; }
+#kpis-w .br .b i { position: absolute; left: 0; top: 0; bottom: 0; background: #6366f1; transform-origin: 0% 50%; }
+.fmt-L #kpis-w .stage { font-size: 30px; }
+.fmt-L #kpis-w .kg { grid-template-columns: 1.6fr 1fr 1fr 1fr; }
+.fmt-L #kpis-w .bc { top: 200px; }
+.fmt-V #kpis-w .stage { font-size: 40px; }
+.fmt-V #kpis-w .kg { grid-template-columns: 1fr 1fr 1fr; }
+.fmt-V #kpis-w .kp.big { grid-column: span 3; }
+.fmt-V #kpis-w .kp.big .v { font-size: 2.8em; }
+.fmt-V #kpis-w .bc { top: 600px; bottom: auto; }
+.fmt-V #kpis-w .br { grid-template-columns: 9.5em 1fr; }
+.fmt-S #kpis-w .stage { font-size: 25px; }
+.fmt-S #kpis-w .kg { grid-template-columns: 1fr 1fr 1fr; }
+.fmt-S #kpis-w .kp.big { grid-column: span 3; }
+.fmt-S #kpis-w .kp.big .v { font-size: 2.4em; }
+.fmt-S #kpis-w .bc { top: 330px; }
+.fmt-S #kpis-w .r5 { display: none; }
+</style>
+<div class="copy"><div class="num">08</div><div class="ttl">Indicadores clave</div><div class="line">Todo el negocio, de un vistazo.</div></div>
+<div class="stage" id="kpis-stage">
+  <div class="kg" id="kpis-kg">
+    <div class="card kp big"><div class="l">Ventas del año</div><div class="v tab" id="kpis-v1">162.849,58 €</div></div>
+    <div class="card kp"><div class="l">Pedidos pendientes</div><div class="v tab" id="kpis-v2">59</div></div>
+    <div class="card kp"><div class="l">Incidencias abiertas</div><div class="v tab" id="kpis-v3">6</div></div>
+    <div class="card kp"><div class="l">Devoluciones solicitadas</div><div class="v tab" id="kpis-v4">6</div></div>
+  </div>
+  <div class="card bc" id="kpis-bc">
+    <div class="mt">Artículos más vendidos</div>
+    <div class="lg"><i></i>Unidades vendidas</div>
+    <div class="br"><div class="t">Pack de Calcetines Essential</div><div class="b"><i style="width:90%"></i></div></div>
+    <div class="br"><div class="t">Zapatilla Niño Essential</div><div class="b"><i style="width:90%"></i></div></div>
+    <div class="br"><div class="t">Bolso Nova</div><div class="b"><i style="width:86%"></i></div></div>
+    <div class="br"><div class="t">Malla Deportiva Prime</div><div class="b"><i style="width:79%"></i></div></div>
+    <div class="br r5"><div class="t">Pack Ropa Interior Basic</div><div class="b"><i style="width:77%"></i></div></div>
+  </div>
+</div>
+<script>
+  enter();
+  seq($$("#kpis-kg .kp"), 0.25, 0.1, { y: 40, opacity: 0 }, 0.4);
+  count("#kpis-v1", 0, 162849.58, 0.35, 1.5, 2, " €");
+  count("#kpis-v2", 0, 59, 0.45, 1.0);
+  count("#kpis-v3", 0, 6, 0.55, 0.8);
+  count("#kpis-v4", 0, 6, 0.65, 0.8);
+  // Bars grow in the dashboard's own order.
+  $$("#kpis-bc .b i").forEach((el, i) => tl.fromTo(el, { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power3.out" }, 0.75 + i * 0.12));
+  exit(2.74);
+</script>

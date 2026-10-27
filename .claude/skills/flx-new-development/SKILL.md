@@ -43,6 +43,12 @@ record?»* was printed whole, was the same problem as the commission being plann
 not opened — because back then the answer never came. Now it does. Only a project with more
 decisions than fit gets a tail of headlines, and only those need a second call with the term.
 
+While you look, open `ONBOARDING.md` at the project's root. If it still draws
+`A[First step] --> B[Next step]` (or those two boxes in the project's language), nobody has written how the business flows, and a project whose
+context was recorded before that page existed never will by itself. Offer to write it with the user
+now, as `/flx-context` does, only outside the `flexygo:generated` markers: the new development is
+easier to place once the flow is on paper.
+
 ## 2 · Open the work, and READ what comes back
 
 `flexygo_create_development` with a short `slug` and the user's **literal request**.

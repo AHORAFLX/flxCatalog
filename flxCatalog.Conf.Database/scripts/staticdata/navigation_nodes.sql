@@ -4,23 +4,6 @@ BEGIN TRY
 
 DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar(max),''),N'
 [{
-	"NodeId":"3EFA1E96-A067-4C9E-AC1E-1B86ECDFF81B",
-	"ParentNodeId":"95CCFB38-0087-43DA-A5F8-6F4BFABE631A",
-	"Order":9,
-	"Title":"Maestros",
-	"IconName":"flx-database",
-	"Descrip":"Maestros",
-	"TypeId":"text",
-	"TargetId":"current",
-	"BadgeRefresh":0,
-	"Enabled":true,
-	"flxInsertedBy":"admin",
-	"flxUpdatedBy":"admin",
-	"flxInsertedDate":"2026-10-06T00:00:00",
-	"flxUpdatedDate":"2026-10-06T00:00:00",
-	"OriginAddonId":"Main",
-	"OriginId":1
-},{
 	"NodeId":"CBB70670-77B9-4A65-B499-01930A455ACA",
 	"ParentNodeId":"95CCFB38-0087-43DA-A5F8-6F4BFABE631A",
 	"Order":6,
@@ -32,6 +15,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"VTA_Devolucion_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:54:00",
@@ -50,6 +34,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"VTA_Pedido_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:40:00",
@@ -68,10 +53,29 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"VTA_TipoIncidencia_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:58:00",
 	"flxUpdatedDate":"2026-10-02T19:58:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"NodeId":"3EFA1E96-A067-4C9E-AC1E-1B86ECDFF81B",
+	"ParentNodeId":"95CCFB38-0087-43DA-A5F8-6F4BFABE631A",
+	"Order":9,
+	"Title":"Maestros",
+	"IconName":"flx-database",
+	"Descrip":"Maestros",
+	"TypeId":"text",
+	"TargetId":"current",
+	"BadgeRefresh":0,
+	"Enabled":true,
+	"Collapsible":false,
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2026-10-06T00:00:00",
+	"flxUpdatedDate":"2026-10-06T00:00:00",
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
@@ -86,6 +90,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"CLI_Cliente_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:40:00",
@@ -104,6 +109,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"VTA_EstadoPedido_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:58:00",
@@ -122,6 +128,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"CAT_Marca_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:54:00",
@@ -140,6 +147,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"CAT_Familia_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:41:00",
@@ -158,6 +166,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"CAT_Color_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:58:00",
@@ -176,6 +185,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"VTA_Incidencia_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:54:00",
@@ -192,8 +202,11 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"TypeId":"process",
 	"TargetId":"current",
 	"ProcessName":"pVTA_AbrirMiCarrito",
-	"BadgeRefresh":0,
+	"BadgeClass":"badge-outstanding",
+	"BadgeSQL":"SELECT NULLIF(SUM(Pedidos_Lineas.Cantidad),0) FROM Pedidos_Lineas INNER JOIN Pedidos ON Pedidos.IdPedido = Pedidos_Lineas.IdPedido INNER JOIN Pedidos_Estados ON Pedidos_Estados.IdEstado = Pedidos.IdEstado WHERE Pedidos.IdCliente = ''{{currentReference}}'' AND Pedidos_Estados.Nombre = N''Borrador''",
+	"BadgeRefresh":15,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T22:32:00",
@@ -212,6 +225,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"CAT_Producto_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:41:00",
@@ -230,6 +244,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"VTA_MesaTrabajo_Page",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:54:00",
@@ -248,6 +263,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"VTA_Devolucion_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-21T11:58:00",
@@ -266,6 +282,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"VTA_EstadoIncidencia_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:58:00",
@@ -282,11 +299,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"TypeId":"process",
 	"TargetId":"current",
 	"ProcessName":"pVTA_AbrirMiCarrito",
-	"BadgeRefresh":0,
+	"BadgeClass":"badge-outstanding",
+	"BadgeSQL":"SELECT NULLIF(SUM(Pedidos_Lineas.Cantidad),0) FROM Pedidos_Lineas INNER JOIN Pedidos ON Pedidos.IdPedido = Pedidos_Lineas.IdPedido INNER JOIN Pedidos_Estados ON Pedidos_Estados.IdEstado = Pedidos.IdEstado WHERE Pedidos.IdCliente = ''{{currentReference}}'' AND Pedidos_Estados.Nombre = N''Borrador''",
+	"BadgeRefresh":15,
 	"Enabled":true,
 	"SQLEnabledDescrip":"Solo el rol cliente ve el icono del carrito; administradores y resto de roles no.",
 	"SQLEnabled":"select case when ''{{currentRoleId}}''=''cliente'' then 1 else 0 end",
 	"ConnStringId":"ConfConnectionString",
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T20:00:00",
@@ -305,6 +325,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"VTA_Dashboard_Page",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:53:00",
@@ -321,10 +342,30 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"TargetId":"current",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"admin",
 	"flxUpdatedBy":"admin",
 	"flxInsertedDate":"2026-09-17T12:05:00",
 	"flxUpdatedDate":"2026-09-17T12:05:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"NodeId":"8860657D-A233-43E5-83A9-81CD696B9CA3",
+	"ParentNodeId":"3EFA1E96-A067-4C9E-AC1E-1B86ECDFF81B",
+	"Order":9,
+	"Title":"Tallas",
+	"IconName":"flx-folder",
+	"Descrip":"Tallas",
+	"TypeId":"page",
+	"TargetId":"current",
+	"PageName":"CAT_Talla_List",
+	"BadgeRefresh":0,
+	"Enabled":true,
+	"Collapsible":false,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-13T16:30:00",
+	"flxUpdatedDate":"2026-10-13T16:30:00",
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
@@ -339,6 +380,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"VTA_Tarifa_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T09:35:00",
@@ -357,6 +399,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"VTA_Tarifa_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-28T01:13:00",
@@ -378,6 +421,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"ObjectWhere":"(Productos.IdProducto IN (SELECT IdProducto FROM Favoritos WHERE IdCliente=''{{currentReference}}''))",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T21:01:00",
@@ -399,6 +443,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"ObjectWhere":"(Clientes.IdCliente=''{{currentReference}}'')",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T10:07:00",
@@ -417,6 +462,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"COM_MisNotificaciones_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-22T09:56:00",
@@ -435,6 +481,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"VTA_Pedido_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T10:07:00",
@@ -453,6 +500,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"CAT_Marca_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:41:00",
@@ -471,6 +519,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"VTA_MisDocumentos_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-21T11:43:00",
@@ -489,10 +538,30 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"CAT_Producto_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:40:00",
 	"flxUpdatedDate":"2026-09-15T08:40:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"NodeId":"3126F9BE-CF5B-455D-A5AC-C002A03C0B70",
+	"ParentNodeId":"95CCFB38-0087-43DA-A5F8-6F4BFABE631A",
+	"Order":9,
+	"Title":"Ayuda",
+	"IconName":"info",
+	"Descrip":"Ayuda",
+	"TypeId":"help",
+	"TargetId":"current",
+	"HelpId":"Help_Indice_Administrador",
+	"BadgeRefresh":0,
+	"Enabled":true,
+	"Collapsible":false,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-26T17:04:00",
+	"flxUpdatedDate":"2026-10-26T17:04:00",
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
@@ -507,6 +576,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"HOME",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:40:00",
@@ -525,6 +595,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"VTA_Pedido_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:41:00",
@@ -543,6 +614,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"CAT_Producto_Cliente_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T10:07:00",
@@ -561,10 +633,30 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"CLI_Cliente_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:41:00",
 	"flxUpdatedDate":"2026-09-15T08:41:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"NodeId":"7BB6838D-24A5-42B2-B3F0-E970F1A8555F",
+	"ParentNodeId":"C0167E61-8539-4658-BAEB-7FB023D88F58",
+	"Order":9,
+	"Title":"Ayuda",
+	"IconName":"info",
+	"Descrip":"Ayuda",
+	"TypeId":"help",
+	"TargetId":"current",
+	"HelpId":"Help_Indice_Cliente",
+	"BadgeRefresh":0,
+	"Enabled":true,
+	"Collapsible":false,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-26T17:04:00",
+	"flxUpdatedDate":"2026-10-26T17:04:00",
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
@@ -579,6 +671,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"VTA_Incidencia_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-21T12:43:00",
@@ -597,6 +690,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"CAT_Producto_Cliente_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:41:00",
@@ -615,6 +709,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"VTA_EstadoDevolucion_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:58:00",
@@ -633,6 +728,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"PageName":"CAT_Familia_List",
 	"BadgeRefresh":0,
 	"Enabled":true,
+	"Collapsible":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:54:00",
@@ -677,6 +773,7 @@ SELECT * from OPENJSON(@DATA) WITH (
 ,[SQLEnabledDescrip] nvarchar(250) '$.SQLEnabledDescrip'
 ,[SQLEnabled] nvarchar(max) '$.SQLEnabled'
 ,[ConnStringId] nvarchar(50) '$.ConnStringId'
+,[Collapsible] bit '$.Collapsible'
 ,[flxInsertedBy] nvarchar(256) '$.flxInsertedBy'
 ,[flxUpdatedBy] nvarchar(256) '$.flxUpdatedBy'
 ,[flxInsertedDate] smalldatetime '$.flxInsertedDate'
@@ -684,7 +781,7 @@ SELECT * from OPENJSON(@DATA) WITH (
 ,[OriginAddonId] nvarchar(256) '$.OriginAddonId'
 ,[OriginId] int '$.OriginId'
 ) 
-) AS Source ([NodeId],[ParentNodeId],[Order],[Title],[IconName],[Descrip],[TypeId],[Params],[Url],[TargetId],[ProcessName],[PageTypeId],[PresetName],[PageName],[ReportName],[HelpId],[ReportWhere],[ObjectName],[ObjectWhere],[Defaults],[SQLSentence],[SQLConStringId],[WebComponent],[TableName],[BadgeClass],[BadgeSQL],[BadgeConStringId],[BadgeRefresh],[Enabled],[cssClass],[SQLEnabledDescrip],[SQLEnabled],[ConnStringId],[flxInsertedBy],[flxUpdatedBy],[flxInsertedDate],[flxUpdatedDate],[OriginAddonId],[OriginId])
+) AS Source ([NodeId],[ParentNodeId],[Order],[Title],[IconName],[Descrip],[TypeId],[Params],[Url],[TargetId],[ProcessName],[PageTypeId],[PresetName],[PageName],[ReportName],[HelpId],[ReportWhere],[ObjectName],[ObjectWhere],[Defaults],[SQLSentence],[SQLConStringId],[WebComponent],[TableName],[BadgeClass],[BadgeSQL],[BadgeConStringId],[BadgeRefresh],[Enabled],[cssClass],[SQLEnabledDescrip],[SQLEnabled],[ConnStringId],[Collapsible],[flxInsertedBy],[flxUpdatedBy],[flxInsertedDate],[flxUpdatedDate],[OriginAddonId],[OriginId])
 ON (Target.[NodeId] = Source.[NodeId])
 WHEN MATCHED AND (
 	NULLIF(Source.[ParentNodeId], Target.[ParentNodeId]) IS NOT NULL OR NULLIF(Target.[ParentNodeId], Source.[ParentNodeId]) IS NOT NULL OR 
@@ -719,6 +816,7 @@ WHEN MATCHED AND (
 	NULLIF(Source.[SQLEnabledDescrip], Target.[SQLEnabledDescrip]) IS NOT NULL OR NULLIF(Target.[SQLEnabledDescrip], Source.[SQLEnabledDescrip]) IS NOT NULL OR 
 	NULLIF(Source.[SQLEnabled], Target.[SQLEnabled]) IS NOT NULL OR NULLIF(Target.[SQLEnabled], Source.[SQLEnabled]) IS NOT NULL OR 
 	NULLIF(Source.[ConnStringId], Target.[ConnStringId]) IS NOT NULL OR NULLIF(Target.[ConnStringId], Source.[ConnStringId]) IS NOT NULL OR 
+	NULLIF(Source.[Collapsible], Target.[Collapsible]) IS NOT NULL OR NULLIF(Target.[Collapsible], Source.[Collapsible]) IS NOT NULL OR 
 	NULLIF(Source.[flxInsertedBy], Target.[flxInsertedBy]) IS NOT NULL OR NULLIF(Target.[flxInsertedBy], Source.[flxInsertedBy]) IS NOT NULL OR 
 	NULLIF(Source.[flxUpdatedBy], Target.[flxUpdatedBy]) IS NOT NULL OR NULLIF(Target.[flxUpdatedBy], Source.[flxUpdatedBy]) IS NOT NULL OR 
 	NULLIF(Source.[flxInsertedDate], Target.[flxInsertedDate]) IS NOT NULL OR NULLIF(Target.[flxInsertedDate], Source.[flxInsertedDate]) IS NOT NULL OR 
@@ -758,6 +856,7 @@ WHEN MATCHED AND (
   [SQLEnabledDescrip] = Source.[SQLEnabledDescrip], 
   [SQLEnabled] = Source.[SQLEnabled], 
   [ConnStringId] = Source.[ConnStringId], 
+  [Collapsible] = Source.[Collapsible], 
   [flxInsertedBy] = Source.[flxInsertedBy], 
   [flxUpdatedBy] = Source.[flxUpdatedBy], 
   [flxInsertedDate] = Source.[flxInsertedDate], 
@@ -765,8 +864,8 @@ WHEN MATCHED AND (
   [OriginAddonId] = Source.[OriginAddonId], 
   [OriginId] = Source.[OriginId]
 WHEN NOT MATCHED BY TARGET THEN
- INSERT([NodeId],[ParentNodeId],[Order],[Title],[IconName],[Descrip],[TypeId],[Params],[Url],[TargetId],[ProcessName],[PageTypeId],[PresetName],[PageName],[ReportName],[HelpId],[ReportWhere],[ObjectName],[ObjectWhere],[Defaults],[SQLSentence],[SQLConStringId],[WebComponent],[TableName],[BadgeClass],[BadgeSQL],[BadgeConStringId],[BadgeRefresh],[Enabled],[cssClass],[SQLEnabledDescrip],[SQLEnabled],[ConnStringId],[flxInsertedBy],[flxUpdatedBy],[flxInsertedDate],[flxUpdatedDate],[OriginAddonId],[OriginId])
- VALUES(Source.[NodeId],Source.[ParentNodeId],Source.[Order],Source.[Title],Source.[IconName],Source.[Descrip],Source.[TypeId],Source.[Params],Source.[Url],Source.[TargetId],Source.[ProcessName],Source.[PageTypeId],Source.[PresetName],Source.[PageName],Source.[ReportName],Source.[HelpId],Source.[ReportWhere],Source.[ObjectName],Source.[ObjectWhere],Source.[Defaults],Source.[SQLSentence],Source.[SQLConStringId],Source.[WebComponent],Source.[TableName],Source.[BadgeClass],Source.[BadgeSQL],Source.[BadgeConStringId],Source.[BadgeRefresh],Source.[Enabled],Source.[cssClass],Source.[SQLEnabledDescrip],Source.[SQLEnabled],Source.[ConnStringId],Source.[flxInsertedBy],Source.[flxUpdatedBy],Source.[flxInsertedDate],Source.[flxUpdatedDate],Source.[OriginAddonId],Source.[OriginId])
+ INSERT([NodeId],[ParentNodeId],[Order],[Title],[IconName],[Descrip],[TypeId],[Params],[Url],[TargetId],[ProcessName],[PageTypeId],[PresetName],[PageName],[ReportName],[HelpId],[ReportWhere],[ObjectName],[ObjectWhere],[Defaults],[SQLSentence],[SQLConStringId],[WebComponent],[TableName],[BadgeClass],[BadgeSQL],[BadgeConStringId],[BadgeRefresh],[Enabled],[cssClass],[SQLEnabledDescrip],[SQLEnabled],[ConnStringId],[Collapsible],[flxInsertedBy],[flxUpdatedBy],[flxInsertedDate],[flxUpdatedDate],[OriginAddonId],[OriginId])
+ VALUES(Source.[NodeId],Source.[ParentNodeId],Source.[Order],Source.[Title],Source.[IconName],Source.[Descrip],Source.[TypeId],Source.[Params],Source.[Url],Source.[TargetId],Source.[ProcessName],Source.[PageTypeId],Source.[PresetName],Source.[PageName],Source.[ReportName],Source.[HelpId],Source.[ReportWhere],Source.[ObjectName],Source.[ObjectWhere],Source.[Defaults],Source.[SQLSentence],Source.[SQLConStringId],Source.[WebComponent],Source.[TableName],Source.[BadgeClass],Source.[BadgeSQL],Source.[BadgeConStringId],Source.[BadgeRefresh],Source.[Enabled],Source.[cssClass],Source.[SQLEnabledDescrip],Source.[SQLEnabled],Source.[ConnStringId],Source.[Collapsible],Source.[flxInsertedBy],Source.[flxUpdatedBy],Source.[flxInsertedDate],Source.[flxUpdatedDate],Source.[OriginAddonId],Source.[OriginId])
 WHEN NOT MATCHED BY SOURCE AND TARGET.OriginId = 1 THEN 
  DELETE
 ;

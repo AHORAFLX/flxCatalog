@@ -1,0 +1,177 @@
+<template>
+  <style>
+#root { position: absolute; inset: 0; overflow: hidden; background: #eef1f4; font-family: Inter, sans-serif; color: #1c1b1d; }
+.fmt, .w { position: absolute; inset: 0; }
+.w * { box-sizing: border-box; }
+
+/* copy block: number, title, line */
+.copy { position: absolute; }
+.fmt-L .copy { left: 120px; top: 92px; width: 1100px; }
+.fmt-V .copy { left: 80px; top: 170px; width: 920px; }
+.fmt-S .copy { left: 64px; top: 60px; width: 952px; }
+.num { font-weight: 800; color: #148a84; letter-spacing: 0.06em; }
+.ttl { font-weight: 800; letter-spacing: -0.025em; line-height: 1.02; }
+.line { font-weight: 500; color: #5b5b63; line-height: 1.25; }
+.fmt-L .num { font-size: 30px; } .fmt-L .ttl { font-size: 84px; margin-top: 8px; } .fmt-L .line { font-size: 36px; margin-top: 14px; }
+.fmt-V .num { font-size: 36px; } .fmt-V .ttl { font-size: 100px; margin-top: 10px; } .fmt-V .line { font-size: 44px; margin-top: 20px; }
+.fmt-S .num { font-size: 28px; } .fmt-S .ttl { font-size: 68px; margin-top: 6px; } .fmt-S .line { font-size: 32px; margin-top: 12px; }
+
+/* stage: where the rebuilt UI lives */
+.stage { position: absolute; }
+.fmt-L .stage { left: 120px; right: 120px; top: 350px; bottom: 70px; }
+.fmt-V .stage { left: 64px; right: 64px; top: 560px; bottom: 140px; }
+.fmt-S .stage { left: 56px; right: 56px; top: 320px; bottom: 50px; }
+
+/* product UI primitives, drawn like the product (flexy2022 skin) */
+.card { position: absolute; background: #ffffff; border-radius: 18px; box-shadow: 0 18px 50px rgba(28, 27, 29, 0.10), 0 2px 6px rgba(28, 27, 29, 0.05); }
+.fmt-V .card { border-radius: 24px; }
+.mtitle { font-weight: 600; letter-spacing: -0.01em; }
+.muted { color: #71717a; }
+.btn { display: flex; align-items: center; justify-content: center; border-radius: 10px; font-weight: 600; white-space: nowrap; }
+.btn.teal { background: #2db7b0; color: #ffffff; }
+.btn.ghost { background: #ffffff; color: #1c1b1d; border: 2px solid #d4d4d8; }
+.btn.dark { background: #1c1b1d; color: #ffffff; }
+.pill { display: inline-flex; align-items: center; gap: 0.45em; border-radius: 999px; font-weight: 600; padding: 0.22em 0.75em; white-space: nowrap; }
+.pill::before { content: ""; width: 0.42em; height: 0.42em; border-radius: 50%; background: currentColor; }
+.pill.ok { background: #dcfce7; color: #166534; }
+.pill.warn { background: #fef3c7; color: #854d0e; }
+.pill.bad { background: #fee2e2; color: #991b1b; }
+.pill.info { background: #e0e7ff; color: #3730a3; }
+.pill.neu { background: #f4f4f5; color: #3f3f46; }
+.pill.new { background: #fde7ef; color: #9d174d; }
+.photo { background-size: cover; background-position: center; }
+.tab { font-variant-numeric: tabular-nums; }
+
+/* catalogue card, sized by its font-size (1em = 20px on the product's own card at 1x) */
+.pc { position: absolute; width: 13em; background: #ffffff; border-radius: 0.8em; overflow: hidden; box-shadow: 0 0.9em 2.4em rgba(28, 27, 29, 0.12); }
+.pc-ph { position: relative; height: 12.4em; }
+.pc-star { position: absolute; top: 0.55em; right: 0.55em; width: 1.7em; height: 1.7em; border-radius: 0.4em; background: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1em; color: #1c1b1d; }
+.pc-b { padding: 0.75em 0.85em 0.9em; }
+.pc-f { font-size: 0.6em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-n { font-size: 0.8em; font-weight: 600; margin-top: 0.3em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-p { font-size: 0.9em; font-weight: 700; margin-top: 0.4em; display: flex; align-items: center; justify-content: space-between; }
+.pc-p .pill { font-size: 0.62em; }
+.pc-btn { position: relative; margin-top: 0.75em; height: 2em; font-size: 0.72em; border-radius: 0.5em; }
+
+/* the one drawn object: a cursor */
+.cur { position: absolute; left: 0; top: 0; z-index: 50; }
+.fmt-L .cur { width: 46px; height: 62px; } .fmt-V .cur, .fmt-S .cur { width: 56px; height: 76px; }
+.press { position: absolute; inset: 0; border-radius: inherit; background: rgba(0, 0, 0, 0.18); opacity: 0; pointer-events: none; }
+.pc-star .s0, .pc-star .s1 { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.pc-star .s1 { color: #148a84; opacity: 0; font-size: 1.15em; }
+.cur svg { display: block; width: 100%; height: 100%; }
+
+
+#resenas-w .ph { position: absolute; overflow: hidden; }
+#resenas-w .ph .img { position: absolute; inset: 0; background-image: url('assets/photos/mallas-deportivas-1.jpg'); background-size: cover; background-position: center 45%; }
+#resenas-w .ph .lab { position: absolute; left: 0; right: 0; bottom: 0; background: #ffffff; padding: 0.6em 0.9em; }
+#resenas-w .ph .lab .n { font-weight: 700; }
+#resenas-w .ph .lab .r { font-size: 0.7em; }
+#resenas-w .rv { position: absolute; display: flex; flex-direction: column; gap: 0.6em; }
+#resenas-w .sum { display: flex; align-items: center; gap: 0.6em; padding: 0.8em 1em; }
+#resenas-w .sum .avg { font-size: 2.2em; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+#resenas-w .sum .h { font-weight: 600; }
+#resenas-w .stars { position: relative; display: inline-block; letter-spacing: 0.08em; color: #d4d4d8; white-space: nowrap; line-height: 1; }
+#resenas-w .stars .on { position: absolute; left: 0; top: 0; color: #f59e0b; white-space: nowrap; }
+#resenas-w .sum .cnt { font-size: 0.75em; }
+#resenas-w .it { position: relative; padding: 0.7em 1em; display: grid; grid-template-columns: 2em 1fr; column-gap: 0.7em; }
+#resenas-w .av { width: 2em; height: 2em; border-radius: 50%; background: #e4e4e7; color: #3f3f46; font-weight: 700; font-size: 0.8em; display: flex; align-items: center; justify-content: center; grid-row: span 2; }
+#resenas-w .it .nm { font-weight: 600; display: flex; align-items: center; gap: 0.6em; flex-wrap: wrap; }
+#resenas-w .it .nm .stars { font-size: 0.8em; }
+#resenas-w .it .tx { font-size: 0.82em; color: #3f3f46; margin-top: 0.2em; }
+#resenas-w .note { padding-left: 0.2em; font-size: 0.7em; }
+.fmt-S #resenas-w #resenas-i3 { display: none; }
+#resenas-w .sum, #resenas-w .it { position: relative; }
+.fmt-L #resenas-w .stage { font-size: 28px; }
+.fmt-L #resenas-w .ph { left: 0; top: 0; width: 520px; height: 650px; }
+.fmt-L #resenas-w .rv { left: 580px; right: 0; top: 0; bottom: 0; }
+.fmt-V #resenas-w .stage { font-size: 32px; }
+.fmt-V #resenas-w .ph { left: 0; top: 0; width: 952px; height: 380px; }
+.fmt-V #resenas-w .ph .img { background-position: center 62%; }
+.fmt-V #resenas-w .rv { left: 0; right: 0; top: 420px; bottom: 0; }
+.fmt-S #resenas-w .stage { font-size: 23px; }
+.fmt-S #resenas-w .ph { left: 0; top: 0; width: 330px; height: 690px; }
+.fmt-S #resenas-w .rv { left: 360px; right: 0; top: 0; bottom: 0; }
+
+  </style>
+  <div data-hf-id="hf-0nsj" id="root" data-composition-id="resenas" data-width="1080" data-height="1080">
+    <div data-hf-id="hf-m0pk" class="fmt fmt-S"><div data-hf-id="hf-8umk" class="w" id="resenas-w">
+<div data-hf-id="hf-bdx3" class="copy"><div data-hf-id="hf-q3cf" class="num">05</div><div data-hf-id="hf-hst2" class="ttl">Reseñas de clientes</div><div data-hf-id="hf-kvs9" class="line">Solo de quien lo ha comprado.</div></div>
+<div data-hf-id="hf-g9l6" class="stage" id="resenas-stage">
+  <div data-hf-id="hf-wmbq" class="card ph"><div data-hf-id="hf-xtxp" class="img"></div><div data-hf-id="hf-mnnx" class="lab"><div data-hf-id="hf-wn5q" class="n">Malla Deportiva Prime</div><div data-hf-id="hf-hml4" class="r muted tab">REF-2115 · 34,90 €</div></div></div>
+  <div data-hf-id="hf-pm72" class="rv" id="resenas-rv">
+    <div data-hf-id="hf-x356" class="card sum" id="resenas-sum">
+      <div data-hf-id="hf-3392" class="avg tab" id="resenas-avg">4,3</div>
+      <div data-hf-id="hf-yeow"><div data-hf-id="hf-4msq" class="h">Reseñas de clientes</div><div data-hf-id="hf-y7yw"><span data-hf-id="hf-wmgr" class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;<span data-hf-id="hf-ao76" class="on" id="resenas-on">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span> <span data-hf-id="hf-7vat" class="cnt muted">(3 reseñas)</span></div></div>
+    </div>
+    <div data-hf-id="hf-cptp" class="card it" id="resenas-i1"><div data-hf-id="hf-fn2m" class="av">NS</div><div data-hf-id="hf-6k3f" class="nm">Nacional Almacenes S.L.U. <span data-hf-id="hf-b1q3" class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;<span data-hf-id="hf-vfn2" class="on" style="clip-path: inset(0 20% 0 0)">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span></div><div data-hf-id="hf-2l40" class="tx">Correcto por el precio, sin ser excepcional. Cumple su función.</div></div>
+    <div data-hf-id="hf-gnxq" class="card it" id="resenas-i2"><div data-hf-id="hf-54kw" class="av">LS</div><div data-hf-id="hf-ppad" class="nm">Litoral Confección S.L.U. <span data-hf-id="hf-anf2" class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;<span data-hf-id="hf-gb4d" class="on" >&#9733;&#9733;&#9733;&#9733;&#9733;</span></span></div><div data-hf-id="hf-ma5c" class="tx">Perfecto para regalo, la presentación y la calidad están a la altura.</div></div>
+    <div data-hf-id="hf-km1r" class="card it" id="resenas-i3"><div data-hf-id="hf-zwya" class="av">NS</div><div data-hf-id="hf-oacd" class="nm">Norte Distribución S.L. <span data-hf-id="hf-a941" class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;<span data-hf-id="hf-f8j6" class="on" style="clip-path: inset(0 20% 0 0)">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span></div><div data-hf-id="hf-qp20" class="tx">Correcto por el precio, sin ser excepcional. Cumple su función.</div></div>
+    <div data-hf-id="hf-i6yq" class="note muted" id="resenas-note">Solo puedes escribir una reseña de un producto que hayas comprado.</div>
+  </div>
+</div>
+    </div></div>
+  </div>
+  <script>
+    document.fonts.ready.then(() => {
+  const ID = "resenas";
+  const FMT = "S";
+  const W = document.getElementById(ID + "-w");
+  const $ = (s) => W.querySelector(s);
+  const $$ = (s) => Array.from(W.querySelectorAll(s));
+  // Offset of an element inside the scene, measured once before building tweens.
+  // A scene is display:none until its slot: measure with its hidden ancestors shown for the instant of the read.
+  const withLayout = (fn) => {
+    const hid = [];
+    for (let e = W; e && e !== document.documentElement; e = e.parentElement) {
+      if (getComputedStyle(e).display === "none") { hid.push([e, e.style.getPropertyValue("display"), e.style.getPropertyPriority("display")]); e.style.setProperty("display", "block", "important"); }
+    }
+    try { return fn(); } finally { hid.reverse().forEach(([e, v, p]) => (v ? e.style.setProperty("display", v, p) : e.style.removeProperty("display"))); }
+  };
+  const off = (el) => { let x = 0, y = 0; while (el && el !== W) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return { x, y }; };
+  const pt = (sel, fx = 0.5, fy = 0.5) => withLayout(() => { const el = typeof sel === "string" ? $(sel) : sel; const o = off(el); return { x: o.x + el.offsetWidth * fx, y: o.y + el.offsetHeight * fy }; });
+  const tl = gsap.timeline({ paused: true });
+  const pick = (L, V, S) => (FMT === "L" ? L : FMT === "V" ? V : S);
+  // Scene entry: copy slides in from the left, the stage rises.
+  const enter = (t = 0.05) => {
+    tl.fromTo($(".copy"), { x: -70, opacity: 0 }, { x: 0, opacity: 1, duration: 0.42, ease: "expo.out" }, t);
+    tl.fromTo($(".stage"), { y: 90, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "expo.out" }, t + 0.1);
+  };
+  const exit = (t) => {
+    tl.to($(".copy"), { x: -50, opacity: 0, duration: 0.24, ease: "power3.in" }, t);
+    tl.to($(".stage"), { y: -40, opacity: 0, duration: 0.26, ease: "power3.in" }, t);
+    if ($(".cur")) tl.to($(".cur"), { opacity: 0, duration: 0.15 }, t);
+  };
+  // Cursor: travel to a target, then click it (the press lands on the click frame).
+  const cur = () => $(".cur");
+  const curFrom = (x, y, t = 0) => tl.fromTo(cur(), { x, y, scale: 1, opacity: 1 }, { x, y, duration: 0.01 }, t);
+  const moveTo = (sel, t, d = 0.45, fx = 0.5, fy = 0.55) => { const p = pt(sel, fx, fy); tl.to(cur(), { x: p.x - 6, y: p.y - 4, duration: d, ease: "power2.inOut" }, t); };
+  const click = (sel, t) => {
+    tl.to(cur(), { scale: 0.84, duration: 0.06, ease: "power2.in", transformOrigin: "6px 4px" }, t);
+    tl.to(cur(), { scale: 1, duration: 0.1, ease: "power2.out", transformOrigin: "6px 4px" }, t + 0.06);
+    const pr = sel && $(sel + " .press");
+    if (pr) { tl.fromTo(pr, { opacity: 0 }, { opacity: 1, duration: 0.05 }, t); tl.to(pr, { opacity: 0, duration: 0.18 }, t + 0.1); }
+  };
+  // Count a number into an element (es-ES formatting), measured by the timeline, not the clock.
+  const nf = (dec) => new Intl.NumberFormat("es-ES", { minimumFractionDigits: dec, maximumFractionDigits: dec, useGrouping: "always" });
+  const count = (sel, from, to, t, d, dec = 0, suffix = "") => {
+    const el = typeof sel === "string" ? $(sel) : sel; const f = nf(dec); const o = { v: from };
+    el.textContent = f.format(from) + suffix;
+    tl.to(o, { v: to, duration: d, ease: "power2.out", onUpdate: () => { el.textContent = f.format(o.v) + suffix; } }, t);
+  };
+  // Items arriving one by one.
+  const seq = (els, t, gap, from = { y: 40, opacity: 0 }, d = 0.45) => els.forEach((el, i) => tl.fromTo(el, from, { x: 0, y: 0, opacity: 1, scale: 1, duration: d, ease: "power3.out" }, t + i * gap));
+
+
+  enter();
+  const items = ["#resenas-i1", "#resenas-i2", "#resenas-i3"].map($).filter((el) => getComputedStyle(el).display !== "none");
+  tl.fromTo("#resenas-on", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 14% 0 0)", duration: 0.8, ease: "power2.out" }, 0.45);
+  count("#resenas-avg", 0, 4.3, 0.45, 0.8, 1);
+  seq(items, 0.9, 0.3, { x: 70, opacity: 0 }, 0.45);
+  tl.fromTo("#resenas-note", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.9);
+  exit(2.74);
+
+      window.__timelines["resenas"] = tl;
+    });
+  </script>
+</template>

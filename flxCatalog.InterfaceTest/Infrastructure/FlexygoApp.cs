@@ -36,6 +36,34 @@ public sealed class FlexygoApp(IPage page, TestSettings settings)
         await Page.Locator("main.realMain.pageContainer[pagename]").WaitForAsync(new() { State = WaitForSelectorState.Attached });
         await Page.EvaluateAsync("() => { flexygo.utils.animationTime = 0; flexygo.utils.testMode = true; }");
         await WaitForAjaxAsync();
+        await AcceptPrivacyNoticeAsync();
+        await DeclineTourInvitationAsync();
+    }
+
+    /// <summary>
+    /// The welcome tours of the administrator and the client invite on their own the first time, and
+    /// every test starts a clean browser, so the invitation's overlay would sit over every click.
+    /// </summary>
+    private async Task DeclineTourInvitationAsync()
+    {
+        var notNow = Page.Locator(".driver-popover:visible button:has-text(\"Ahora no\")").First;
+        try { await notNow.WaitForAsync(new() { State = WaitForSelectorState.Visible, Timeout = 3000 }); }
+        catch (TimeoutException) { return; }
+        await notNow.ClickAsync();
+        await Page.Locator(".driver-overlay").WaitForAsync(new() { State = WaitForSelectorState.Detached });
+    }
+
+    /// <summary>
+    /// Since 10.0.0-beta.137 the platform asks every user, once, to accept its data-collection
+    /// notice in a modal that blocks every click behind it until it is accepted.
+    /// </summary>
+    private async Task AcceptPrivacyNoticeAsync()
+    {
+        var accept = Page.Locator(".lobibox:visible button:has-text(\"Aceptar\")").First;
+        try { await accept.WaitForAsync(new() { State = WaitForSelectorState.Visible, Timeout = 3000 }); }
+        catch (TimeoutException) { return; }
+        await accept.ClickAsync();
+        await Page.Locator(".lobibox-backdrop").WaitForAsync(new() { State = WaitForSelectorState.Detached });
     }
 
     /// <summary>Flexygo loads everything through jQuery; the page is settled when nothing is in flight twice in a row.</summary>
@@ -53,7 +81,10 @@ public sealed class FlexygoApp(IPage page, TestSettings settings)
     /// <summary>Clicks a node of the side menu, opening its group first if it is nested and collapsed.</summary>
     public async Task OpenMenuAsync(string title, string? expectedPage = null)
     {
-        var node = Page.Locator($"#mainNav li[title=\"{title}\"]").First;
+        // The same entry can hang from the side menu and the top bar ("Mi carrito"): take the one on screen.
+        var nodes = Page.Locator($"#mainNav li[title=\"{title}\"]");
+        var visible = nodes.Filter(new() { Visible = true });
+        var node = await visible.CountAsync() > 0 ? visible.First : nodes.First;
         if (!await node.IsVisibleAsync())
         {
             var groups = await node.EvaluateAsync<string[]>(
@@ -301,7 +332,12 @@ public sealed class FlexygoApp(IPage page, TestSettings settings)
     {
         await Page.Locator("#mainMenu li[title=\"Buscar\"]").First.ClickAsync();
         var box = Page.Locator("#flx-search-form input.search-box").First;
+        // The palette opens with an animation: typed too early, the text is lost and Enter picks
+        // the first scope ("Buscar en Producto…") instead of searching.
+        await box.WaitForAsync();
+        await Page.WaitForTimeoutAsync(500);
         await box.FillAsync(text);
+        await Assertions.Expect(box).ToHaveValueAsync(text);
         await box.PressAsync("Enter");
         await WaitForAjaxAsync();
         var rows = Page.Locator(".flx-palette .flx-pal-row").Filter(new() { HasText = rowText ?? text });

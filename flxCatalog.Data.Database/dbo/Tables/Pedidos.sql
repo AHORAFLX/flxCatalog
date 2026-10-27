@@ -13,6 +13,7 @@
 	[FechaEntregaEstimada] [datetime2](7) NULL,
 	[UltimoEstadoNotificado] [nvarchar](50) NULL,
 	[UltimoEstadoEmailEnviado] [nvarchar](50) NULL,
+	[Activo] [bit] NOT NULL CONSTRAINT [DF_Pedidos_Activo] DEFAULT ((1)),
  CONSTRAINT [PK_Pedidos] PRIMARY KEY CLUSTERED 
 (
 	[IdPedido] ASC

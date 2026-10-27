@@ -1,0 +1,26 @@
+{
+  "title": "T-17: VTA_Pedido_List opens from its menu and paints its modules",
+  "page": "VTA_Pedido_List",
+  "data": "demo",
+  "steps": [
+    {
+      "menu": "Pedidos"
+    },
+    {
+      "module": "mod-vta-pedido-list"
+    },
+    {
+      "shot": {
+        "name": "screen",
+        "maxDiff": 0.02
+      }
+    }
+  ],
+  "expect": [
+    "mod-vta-pedido-list declares NO order (view VTA_PedidoDefaultList): its rows come as the table stores them. Check they read in an order a user expects; if not, it fails"
+  ],
+  "volatile": [
+    "^hace (un|una|unos|\\d+) (momento|segundos?|minutos?|horas?|días?|semanas?|mes|meses|años?)$",
+    "CARR-\\d{14}"
+  ]
+}

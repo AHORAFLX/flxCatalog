@@ -295,9 +295,9 @@ BEGIN
   DECLARE @TarifasDescuento TABLE (IdTarifa NVARCHAR(50), Factor DECIMAL(4,2));
   INSERT INTO @TarifasDescuento (IdTarifa, Factor)
   SELECT IdTarifa,
-         CASE Nombre WHEN N'Mayorista' THEN 0.85 WHEN N'Distribuidor' THEN 0.90 WHEN N'Profesional' THEN 0.95 END
+ CASE Nombre WHEN N'VIP' THEN 0.80 WHEN N'Mayorista' THEN 0.85 WHEN N'Distribuidor' THEN 0.90 WHEN N'Profesional' THEN 0.95 END
   FROM dbo.Tarifas
-  WHERE Nombre IN (N'Mayorista', N'Distribuidor', N'Profesional');
+ WHERE Nombre IN (N'VIP', N'Mayorista', N'Distribuidor', N'Profesional');
 
   INSERT INTO dbo.Tarifas_Precios (IdPrecio, IdTarifa, IdProducto, Precio)
   SELECT NEWID(), td.IdTarifa, p.IdProducto, CAST(ROUND(p.PrecioBase * td.Factor, 2) AS DECIMAL(18,2))
@@ -452,6 +452,9 @@ BEGIN
   SELECT IdCliente, CodigoCliente, RazonSocial, NombreComercial, CifNif, DireccionFiscal, Email, Telefono, IdTarifa, Comercial, Activo,
          N'admin', SYSDATETIME(), N'admin', SYSDATETIME()
   FROM @ClientesGenerados;
+ UPDATE dbo.Clientes
+ SET RazonSocial = N'Marta Rodríguez Díaz', Email = N'marta.rodriguez@outlook.es', Activo = 1
+ WHERE IdCliente = N'E391566D-5E36-4C0E-A74D-CF48EDB2C09F';
 
   ---------------------------------------------------------------------------
   -- PEDIDOS: todo cliente con al menos 1 pedido (>=120 en total)
@@ -467,6 +470,11 @@ BEGIN
 
   INSERT INTO @PedidoSeed (IdCliente, DireccionFiscal)
   SELECT TOP (10) IdCliente, DireccionFiscal FROM dbo.Clientes ORDER BY NEWID();
+ INSERT INTO @PedidoSeed (IdCliente, DireccionFiscal)
+ SELECT c.IdCliente, c.DireccionFiscal
+ FROM dbo.Clientes c
+ CROSS JOIN (VALUES (1),(2),(3),(4),(5),(6),(7)) AS v(n)
+ WHERE c.IdCliente = N'E391566D-5E36-4C0E-A74D-CF48EDB2C09F';
 
   DECLARE @FormasPago TABLE (Forma NVARCHAR(50));
   INSERT INTO @FormasPago VALUES (N'Transferencia'), (N'Tarjeta'), (N'Contrareembolso'), (N'Domiciliación bancaria');
@@ -577,6 +585,20 @@ BEGIN
   INNER JOIN (
     SELECT IdPedido, SUM(Subtotal) AS Base FROM dbo.Pedidos_Lineas GROUP BY IdPedido
   ) t ON t.IdPedido = p.IdPedido;
+ UPDATE p SET
+ p.Transportista = t.Nombre,
+ p.NumeroSeguimiento = t.Prefijo + RIGHT(N'000000000' + CAST(ABS(CHECKSUM(p.IdPedido)) % 1000000000 AS NVARCHAR(10)), 9),
+ p.UrlSeguimiento = t.Url + t.Prefijo + RIGHT(N'000000000' + CAST(ABS(CHECKSUM(p.IdPedido)) % 1000000000 AS NVARCHAR(10)), 9),
+ p.FechaEntregaEstimada = DATEADD(DAY, 3, p.Fecha)
+ FROM dbo.Pedidos p
+ JOIN dbo.Pedidos_Estados e ON e.IdEstado = p.IdEstado
+ CROSS APPLY (SELECT TOP 1 v.Nombre, v.Prefijo, v.Url FROM (VALUES
+ (N'SEUR', N'SE', N'https://www.seur.com/livetracking/?segOnlineIdentificador='),
+ (N'MRW', N'MR', N'https://www.mrw.es/seguimiento_envios/?numero='),
+ (N'Correos Express', N'CX', N'https://s.correosexpress.com/search?shippingNumber='),
+ (N'GLS', N'GL', N'https://gls-group.com/ES/es/seguimiento-envio?match=')
+ ) AS v(Nombre, Prefijo, Url) ORDER BY CHECKSUM(p.IdPedido, v.Nombre)) t
+ WHERE e.Nombre IN (N'Enviado', N'Entregado');
 
   ---------------------------------------------------------------------------
   -- DEVOLUCIONES: sobre líneas de pedido reales, motivo y estado variados.
@@ -660,6 +682,16 @@ BEGIN
   JOIN @IncTipos it ON it.seq = ((p.rn - 1) % (SELECT COUNT(*) FROM @IncTipos)) + 1
   JOIN @IncEstados ie ON ie.seq = (CASE (p.rn - 1) % 5 WHEN 0 THEN 1 WHEN 1 THEN 1 WHEN 2 THEN 2 WHEN 3 THEN 2 ELSE 3 END)
   WHERE p.rn <= 12;
+ INSERT INTO dbo.Incidencias (IdIncidencia, IdPedido, IdTipo, IdEstado, Descripcion, FechaAlta, Activo)
+ SELECT TOP 1 NEWID(), p.IdPedido,
+ (SELECT IdTipo FROM dbo.Incidencias_Tipos WHERE Nombre = N'Problema de entrega'),
+ (SELECT IdEstado FROM dbo.Incidencias_Estados WHERE Nombre = N'Cerrada'),
+ N'El repartidor dejó el paquete en conserjería sin avisar; ya está recogido.',
+ DATEADD(DAY, 2, p.Fecha), 1
+ FROM dbo.Pedidos p
+ JOIN dbo.Pedidos_Estados e ON e.IdEstado = p.IdEstado
+ WHERE p.IdCliente = N'E391566D-5E36-4C0E-A74D-CF48EDB2C09F' AND e.Nombre = N'Entregado'
+ ORDER BY p.Fecha ASC;
 
   ---------------------------------------------------------------------------
   -- FAVORITOS: unos pocos productos marcados como favoritos por clientes reales.
@@ -679,6 +711,14 @@ BEGIN
   FROM ClientesNum c
   JOIN ProductosNum p ON p.rn = ((c.rn - 1) % 20) + 1
   WHERE c.rn <= 15;
+ INSERT INTO dbo.Favoritos (IdFavorito, IdCliente, IdProducto, FechaAlta)
+ SELECT TOP (6) NEWID(), N'E391566D-5E36-4C0E-A74D-CF48EDB2C09F', p.IdProducto,
+ DATEADD(DAY, -(ABS(CHECKSUM(NEWID(), p.IdProducto, N'favdemo')) % 30), SYSDATETIME())
+ FROM dbo.Productos p
+ WHERE p.Activo = 1
+ AND NOT EXISTS (SELECT 1 FROM dbo.Favoritos f
+ WHERE f.IdCliente = N'E391566D-5E36-4C0E-A74D-CF48EDB2C09F' AND f.IdProducto = p.IdProducto)
+ ORDER BY CHECKSUM(NEWID(), p.IdProducto, N'favdemo');
 
   ---------------------------------------------------------------------------
   -- COMENTARIOS (reseñas de producto): solo sobre combinaciones (cliente,
@@ -753,4 +793,3 @@ BEGIN
 
   RETURN 1;
 END
-GO

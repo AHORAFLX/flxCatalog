@@ -1,0 +1,44 @@
+{
+  "title": "T-16: CLI_Cliente_View opens from its menu and paints its modules",
+  "page": "CLI_Cliente_View",
+  "data": "demo",
+  "steps": [
+    {
+      "menu": "Clientes"
+    },
+    {
+      "click": "flx-module[modulename='mod-cli-cliente-list'] .row-line.clickable .col-3.bold >> visible=true"
+    },
+    {
+      "module": "mod-cli-cliente-back-html"
+    },
+    {
+      "module": "mod-cli-cliente-view"
+    },
+    {
+      "module": "mod-cli-cliente-top-productos-echart"
+    },
+    {
+      "module": "mod-vta-pedido-list-cliente"
+    },
+    {
+      "module": "mod-com-comentario-list-cliente"
+    },
+    {
+      "wait": 1500
+    },
+    {
+      "shot": {
+        "name": "screen",
+        "maxDiff": 0.02
+      }
+    }
+  ],
+  "expect": [
+    "mod-com-comentario-list-cliente declares NO order (view COM_ComentarioList): its rows come as the table stores them. Check they read in an order a user expects; if not, it fails",
+    "mod-vta-pedido-list-cliente declares NO order (view VTA_PedidoDefaultList): its rows come as the table stores them. Check they read in an order a user expects; if not, it fails"
+  ],
+  "volatile": [
+    "^hace (un|una|unos|\\d+) (momento|segundos?|minutos?|horas?|días?|semanas?|mes|meses|años?)$"
+  ]
+}

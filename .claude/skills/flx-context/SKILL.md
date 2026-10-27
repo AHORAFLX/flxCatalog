@@ -10,6 +10,14 @@ The user has given context about their project in the command argument.
 **You must record it by calling `flexygo_context_capture`.** Do not write files by hand:
 `.flexygo/` is written only by this MCP's tools, and the later phases read from there.
 
+## Before Step 0: a project that already has context
+
+⛔ **Read the previous answers first** (`flexygo_recall_decisions`). When they already carry this
+project's context — origin, data model, offline app, who uses it, access from outside — pass every
+one of them to the capture **as it stands**, skip the origin confirmation of Step 0 and every gate
+already answered, and ask only what is missing — never again what is already recorded. The steps
+below apply only to what is missing; a project with no context goes through all of them.
+
 ## Step 0: confirm the origin this lands on
 
 ⛔ **This one is CONFIRMED, not asked again.** `/flx-setup` asked it, in its last step, with the
@@ -184,12 +192,39 @@ What the answer changes, and it changes an entire block of the build:
   `flexygo_register_deployment_script`, because a registered script is the one thing that **runs
   itself** on every installation and leaves a mark saying it ran.
   `flexygo_list_deployment_scripts` reads that mark back.
-  ⛔ **No exception, not even on the user's own request: the write tools refuse an ERP database on
-  their own** (`flexygo_execute_ddl`, `flexygo_execute_dml`, `flexygo_alter_column_type`,
-  `flexygo_rename_column`, `flexygo_script_data_structure`) — a hard refusal that does not depend on
-  the agent remembering to withhold it. When the user wants to try something on that database
-  directly, the route is theirs to take, not this server's: start the application and let its own
-  script jobs create it, then work with what they created. Nothing here writes it by hand.
+  ⛔ **The write tools refuse an ERP database on their own** (`flexygo_execute_ddl`,
+  `flexygo_execute_dml`, `flexygo_alter_column_type`, `flexygo_rename_column`,
+  `flexygo_script_data_structure`) — a hard refusal that does not depend on the agent remembering
+  to withhold it — **with one toll, not an exception**: a statement whose every touched object
+  carries **the prefix the project declared below** (`Pers_` when none was declared; at the start of
+  the name or after a first word, as in `vPers_` or `pFRUTI_` — what it creates, alters, drops or
+  writes, puts an index or a trigger on, or points a foreign key at; reads may name any ERP table),
+  or only adds, changes or drops columns carrying it in one of the ERP's own `Conf_` tables, runs,
+  during development, and its acknowledgement says where the result has to end up: whatever those
+  objects end up as ships through `flexygo_register_deployment_script`, idempotent. One ERP object
+  in the statement and the refusal names it and the two ways through. For anything else the user wants to try on
+  that database directly, the route is theirs to take, not this server's: start the application
+  and let its own script jobs create it, then work with what they created.
+  Whoever starts it stops it — see `/flx-verify`, "Whoever starts it stops it": measure the port
+  before starting, stop what you started when the phase ends, and say what was left running.
+
+### Only with the customer's model: which prefix does the project write with?
+
+⛔ **Asked only when the model is the customer's, and asked — never filled in.** Inside an ERP, what
+this project creates carries a prefix, and the write tools only let through what carries it:
+
+> What prefix do the tables, views and procedures this project creates inside the ERP carry? For
+> one customer's own implementation it is usually `Pers_`; a product sold to several customers
+> carries its own, such as `FRUTI_`.
+
+⛔ **A product never writes with `Pers_`.** `Pers_` is the ERP's prefix for ONE customer's own
+customizations, and a product installed in many ERPs must not touch them — its prefix replaces
+`Pers_`, it does not add to it. Measured on a real product: with `Pers_` as the only prefix the
+implanter could not write its own objects and went around this server with another connector, and
+its scripts lost track of where they had run.
+
+The answer is a letter, two to nine more letters or digits, and the underscore: `Pers_`, `FRUTI_`.
+It is recorded as the `erpPrefix` of the call below; with the project's own model there is none.
 
 ⚠️ **Why `/flx-setup` asks it and this phase only confirms it.** Measured on a real pass: the
 question lived here, well worded, and it was reached minutes **after** both databases had already
@@ -202,22 +237,68 @@ step and what is left here is the confirmation, which is the part that has to su
 are built the same way on either answer. What the answer decides is how the schema — and only the
 schema — gets to the customer.
 
+## The third gate: who uses it?
+
+⛔ **Asked once per project, like the offline app, and STOP until it is answered.** Security in
+Flexygo is written to TAKE AWAY: a role with no row sees and does everything, and no screen says so.
+So the plan has to know who uses the application before it builds anything, or every new page ships
+open to everybody. Measured on a real ERP project: no role of its own, and no phase of the flow had
+ever asked.
+
+⛔ **ONE question at a time**, in the user's language and in their words:
+
+1. **Does everybody who signs in see and do the same, or are there kinds of users with different
+   access?** — for example the sales team and the warehouse, or the office and the field.
+2. **Only if there are several — for each one: what is it called, and what does it see and do?** One
+   line per kind of user, in the user's own words: *Sales: sees the orders and the customers, and
+   edits the customers*. Two or more; one alone is the first answer, not this one.
+3. **Is there any screen that opens without signing in?** — a public page, a form anyone can fill.
+4. **Will anyone use it from outside — an AI assistant, another system?** With a yes, the flow does
+   not end at `/flx-quality`: `/flx-api` comes after it, and proposes what of the built goes out and
+   for whom. With a no, nothing is exposed and that phase never runs.
+
+⛔ **Asked, never inferred.** Not from the domain, and **not from the roles the platform lists**:
+every Flexygo project ships its own roles, so counting them says nothing about who will use THIS
+application.
+
+⚠️ **Say back what the answer changes**, or it reads as decoration: with several kinds of users,
+every plan that builds something carries who sees what, and `/flx-verify` signs in with **one test
+user per role** — each one takes a seat of the licence, and that is asked when the time comes, never
+worked around. With screens that open without signing in, the plan carries that too: a public screen
+is granted on four levels at once, and the one left out paints it half open with no error.
+
+⚠️ **A project that already has context and never answered this** — the plan refuses until the
+roles are recorded, and the status sends a finished development back here for the fourth question.
+The rule before Step 0 applies: the previous answers pass as they stand, and this is the only
+question asked.
+
 Steps:
 
-1. Call `flexygo_context_capture` with **three** arguments: `description` (the text the user gave,
-   carrying every detail of both answers — which mobile original, which sections, now or later,
-   any customer conventions), plus `dataModel` and `offlineApp`, the closed-vocabulary answers to
-   the two gates above. `dataModel` is `own` or `existing`; `offlineApp` is `yes` (being built
-   now), `planned` (foreseen, nothing of it built yet) or `no`. Both are REQUIRED parameters —
-   there is no default and no "not sure" value, on purpose: neither answer can be inferred, only
-   asked.
-2. **The gate is enforced by the tool's own schema, not by your memory.** `flexygo_context_capture`
-   cannot be called at all without `dataModel` and `offlineApp` — the call is rejected before it
-   reaches the file, and a value outside the vocabulary is rejected too, with a message naming the
-   valid ones and saying why it cannot be deduced. The answer is written into `project.md` as
-   two labelled lines (`**Data model:** …`, `**Offline app:** …`), above the free-text description,
-   so this is not one paragraph among others: the later phases read the label back directly instead
-   of parsing prose.
+1. Call `flexygo_context_capture` with **six** arguments: `description` (the text the user gave,
+   carrying every detail of the answers — which mobile original, which sections, now or later,
+   any customer conventions), plus `dataModel`, `offlineApp`, `roles`, `publicScreens` and
+   `externalAccess`, the closed-vocabulary answers to the three gates above. `dataModel` is `own`
+   or `existing`; `offlineApp` is `yes` (being built now),
+   `planned` (foreseen, nothing of it built yet) or `no`; `roles` is `single`, or one line
+   `Name: what they see and do` per kind of user, two or more; `publicScreens` and
+   `externalAccess` are `yes` or `no`. All are REQUIRED parameters —
+   there is no default and no "not sure" value, on purpose: none of the answers can be inferred,
+   only asked. For example, for one kind of user, no public screen and nobody from outside:
+   `flexygo_context_capture(description: '…', dataModel: 'own', offlineApp: 'no', roles: 'single', publicScreens: 'no', externalAccess: 'no')`.
+   With several, `roles` carries one line per role instead of `single`, each one *Name, colon, what
+   they see and do*. **With `dataModel: 'existing'` a seventh argument is REQUIRED**, `erpPrefix`,
+   the prefix asked above:
+   `flexygo_context_capture(description: '…', dataModel: 'existing', erpPrefix: 'FRUTI_', offlineApp: 'no', roles: 'single', publicScreens: 'no', externalAccess: 'no')`.
+   With `own` it is left out, and passing it is refused. If the user writes in English, add
+   `language: 'en'`; Spanish is the default. The server writes `ONBOARDING.md` in that language.
+2. **The gates are enforced by the tool's own schema, not by your memory.** `flexygo_context_capture`
+   cannot be called at all without them — the call is rejected before it reaches the file, and a
+   value outside the vocabulary is rejected too, with a message naming the valid ones and saying why
+   it cannot be deduced. The answers are written into `project.md` as labelled lines
+   (`**Data model:** …`, `**ERP prefix:** …` with the customer's model, `**Offline app:** …`,
+   `**Roles:** …`, `**Public screens:** …`, `**External access:** …`), above the
+   free-text description, so this is not one paragraph among others: the later phases
+   read the label back directly instead of parsing prose.
 3. Sum up for the user what has been recorded — **naming the origin it will all land on**.
 4. **Then offer to design, before sending anyone to `/flx-plan`.** See below; it is not optional.
 
@@ -300,10 +381,19 @@ surface's answer arrives months later. A required parameter cannot carry an answ
 exist yet. `flexygo_recall_decisions` reads the entries back, which is how the session that
 finally takes on the app learns what the web half was built from.
 
+⛔ **The first answer for a surface is the project's, wherever it is given** — one entry per
+surface, reused by every development that opens afterwards. That covers `/flx-new-development` §4
+too, on a project that already runs: a development is open there already, and the answer still
+lands here because the project has not answered for this surface yet. Only a SECOND answer for the
+same surface, given while a development is active, becomes THAT development's own (typically
+`installed`, when it adds no new screen), in its own `developments/{slug}/design.md` — and that
+answer never reaches back here or governs a sibling development — see `/flx-plan`'s own paragraph
+on this.
+
 ⛔ **On a virgin project this offer is here because nothing else makes it.** Measured 7-Sep-2026 on
-one: `flexygo_get_project_status` announces «Phase (1/7) context → /flx-context» and the seven
-phases are context, plan, discuss, execute, review, verify, quality — **`/flx-design` is none of
-them**, and `/flx-plan` does not name it either. An entire application was built that way — 16
+one: `flexygo_get_project_status` announces «Phase (1/10) context → /flx-context» (then «1/7», later «1/8» and «1/9») and
+the ten phases are context, plan, discuss, execute, review, verify, test, quality, help and — for a product
+used from outside — api: **`/flx-design` is none of them**, and `/flx-plan` does not name it either. An entire application was built that way — 16
 entities, ~115 calls, the whole lane walked to `/flx-quality` — **without anybody offering to design
 anything**, and the root `DESIGN.md` the template ships (24.262 characters, written to feed exactly
 that phase) was never opened.
@@ -319,8 +409,8 @@ well as the next one can.
 ⚠️ **And the server's block does not always say «Next step: /flx-plan» — it asks the database, and
 either answer is right.** With an empty active origin it says `/flx-plan`; with objects in it,
 `/flx-new-development`, because that is «a new commission inside a project that already runs, so
-what comes first is looking at what is there». Design is not one of the seven phases on either
-answer and the count stays at seven: it is the step before planning for whoever wants their screens
+what comes first is looking at what is there». Design is not one of the ten phases on either
+answer and the count stays at ten: it is the step before planning for whoever wants their screens
 drawn. Say that plainly if the user asks.
 
 ⚠️ **And if the project has a `DESIGN.md` at its root, say so when you offer.** It is the brief the
@@ -341,3 +431,13 @@ contradict each other, the most recent one wins. If the answer tells you there a
 already, look at it: it may be filling up with commissions.
 
 Do not propose a data model, entities or modules. This phase only records.
+
+## The newcomer's page: how the business flows
+
+Recording the context creates `ONBOARDING.md` at the project's root: the page whoever joins the
+project reads first. The server keeps the block between its two `flexygo:generated` markers and
+never touches anything else; the rest is written by people. Fill **How the business flows** now,
+with the user and in their words: the steps of the business in order (receive, produce, ship…), the
+process that moves each step on, and who does it, plus the Mermaid `flowchart` that draws it. It
+cannot be deduced from the tables, which is why it is asked. Write only outside the markers. **The
+main screens** and **Where to start** wait until there is something built to point at.

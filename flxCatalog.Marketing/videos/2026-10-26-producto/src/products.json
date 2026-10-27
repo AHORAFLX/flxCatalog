@@ -1,0 +1,16 @@
+{
+  "malla": { "name": "Malla Deportiva Prime", "fam": "Mallas Deportivas · Urbana Co.", "price": "34,90 €", "img": "mallas-deportivas-1" },
+  "cargo": { "name": "Pantalón Cargo Nova", "fam": "Pantalones · Ferric", "price": "69,90 €", "img": "pantalones-1" },
+  "gorra": { "name": "Gorra Wild", "fam": "Gorras · Bruma", "price": "49,90 €", "img": "gorras-1" },
+  "interior": { "name": "Pack Ropa Interior Basic", "fam": "Ropa Interior Masculina · Vestiga", "price": "43,90 €", "img": "ropa-interior-masculina-1", "new": true },
+  "bota": { "name": "Bota Nova", "fam": "Botas · Trailmark", "price": "71,90 €", "img": "botas-1" },
+  "falda": { "name": "Falda Basic", "fam": "Faldas · Cursa", "price": "40,90 €", "img": "faldas-1", "new": true },
+  "running": { "name": "Zapatilla Running Nova", "fam": "Deportivo · Urbana Co.", "price": "115,90 €", "img": "deportivo-1" },
+  "mochila": { "name": "Mochila Vintage", "fam": "Mochilas · Rivera", "price": "59,90 €", "img": "mochilas-1" },
+  "free": { "name": "Pantalón Deportivo Free", "fam": "Pantalones Deportivos · Urbana Co.", "price": "77,90 €", "img": "pantalones-deportivos-1" },
+  "msport": { "name": "Mochila Sport", "fam": "Mochilas · Lienzo", "price": "18,90 €", "img": "mochilas-2" },
+  "chaqueta": { "name": "Chaqueta Cortavientos Ultra", "fam": "Chaquetas · Ferric", "price": "16,90 €", "img": "chaquetas-1" },
+  "nino": { "name": "Camiseta Niño Free", "fam": "Camisetas Niño · Solvane", "price": "23,90 €", "img": "camisetas-nino-1" },
+  "vestido": { "name": "Vestido Line", "fam": "Vestidos · Alara", "price": "38,90 €", "img": "vestidos-3" },
+  "dsport": { "name": "Pantalón Deportivo Sport", "fam": "Pantalones Deportivos · Bruma", "price": "85,90 €", "img": "pantalones-deportivos-3", "new": true }
+}

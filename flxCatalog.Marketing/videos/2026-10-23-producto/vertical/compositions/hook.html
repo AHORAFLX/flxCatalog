@@ -1,0 +1,68 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      background: #eef1f4;
+      font-family: Inter, sans-serif;
+      overflow: hidden;
+    }
+    #hook-title {
+      position: absolute;
+      left: 70px;
+      top: 196px;
+      color: #1c1b1d;
+      font-size: 112px;
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+    }
+    #hook-title span {
+      display: block;
+    }
+    #hook-cam {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1080px;
+      height: 1920px;
+    }
+    /* Two catalogue cards of the phone layout, at 0.98. */
+    .hook-card {
+      position: absolute;
+      top: 460px;
+      width: 437px;
+      height: 861px;
+      border-radius: 18px;
+      background-image: url("assets/screens/phone-01-catalogo.png");
+      background-size: 1060px 2354px;
+      background-repeat: no-repeat;
+    }
+    #hook-c1 {
+      left: 85px;
+      background-position: -75px -319px;
+    }
+    #hook-c2 {
+      left: 556px;
+      background-position: -546px -319px;
+    }
+  </style>
+  <div id="root" data-composition-id="hook" data-width="1080" data-height="1920">
+    <h1 id="hook-title"><span>Tu catálogo.</span><span>Sus pedidos.</span></h1>
+    <div id="hook-cam">
+      <div id="hook-c1" class="hook-card"></div>
+      <div id="hook-c2" class="hook-card"></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#hook-c1", { opacity: 0, scale: 0.92, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0.05);
+    tl.fromTo("#hook-c2", { opacity: 0, scale: 0.92, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0.14);
+    // Zoom through card 1: it lands at 1.15x at (284, 200), where the next scene picks it up.
+    tl.to("#hook-title", { opacity: 0, filter: "blur(8px)", duration: 0.22, ease: "power3.in" }, 2.4);
+    tl.to("#hook-c2", { opacity: 0, filter: "blur(14px)", duration: 0.3, ease: "power3.in" }, 2.42);
+    tl.fromTo("#hook-cam", { x: 0, y: 0, scale: 1, transformOrigin: "0px 0px" }, { x: 284 - 85 * 1.1735, y: 200 - 460 * 1.1735, scale: 1.1735, transformOrigin: "0px 0px", duration: 0.6, ease: "power2.inOut" }, 2.4);
+    window.__timelines["hook"] = tl;
+  </script>
+</template>

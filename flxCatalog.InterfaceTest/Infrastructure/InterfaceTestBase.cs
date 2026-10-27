@@ -113,6 +113,23 @@ public abstract class InterfaceTestBase
     protected Task AsAdminAsync(Func<FlexygoApp, Task> action) => AsAsync(Settings.Admin, action);
     protected Task AsClienteAsync(Func<FlexygoApp, Task> action) => AsAsync(Settings.Cliente, action);
 
+    private static readonly string CapturesDir = Path.GetFullPath(
+        Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", ".playwright-mcp"));
+
+    /// <summary>
+    /// Leaves a capture of the whole screen under .playwright-mcp/ for the verification record.
+    /// The page scrolls inside #mainContent, so a "full page" shot is only the viewport: grow it first.
+    /// </summary>
+    protected async Task CaptureScreenAsync(string name)
+    {
+        await Page.WaitForTimeoutAsync(800); // the skin and the charts paint after the last ajax call
+        var height = await Page.EvaluateAsync<int>("() => (document.querySelector('#mainContent')?.scrollHeight ?? 1200) + 60");
+        await Page.SetViewportSizeAsync(1600, Math.Clamp(height, 900, 6000));
+        Directory.CreateDirectory(CapturesDir);
+        await Page.ScreenshotAsync(new() { Path = Path.Combine(CapturesDir, $"{name}.png") });
+        await Page.SetViewportSizeAsync(1600, 1300);
+    }
+
     /// <summary>Declares an error the test provokes on purpose (a refused action, a denied page).</summary>
     protected void ExpectError(string pattern) => _expected.Add(new Regex(pattern, RegexOptions.IgnoreCase));
 

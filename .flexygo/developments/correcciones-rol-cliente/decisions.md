@@ -65,3 +65,47 @@
 **Question:** T-11: ¿desde qué pantalla se dispara "Solicitar devolución" — un botón en el pedido del cliente, o desde 'Mis devoluciones'?
 
 **User answer:** Ninguna de las dos: se reutiliza el botón "Solicitar devolución" que ya existía por línea de pedido, en la plantilla flx-vta-lineapedido-detalle-list (objeto VTA_LineaPedido, dentro de VTA_Pedido_Cliente_View), que antes abría un alta directa. Es el punto de entrada correcto porque una devolución es sobre una línea concreta, no sobre el pedido entero. Ya construido, cableado a pVTA_SolicitarDevolucion y verificado en pantalla. Confirmado sin añadir un punto de entrada adicional a nivel de pedido.
+
+## 2026-10-26 · affects development
+
+**Question:** En la comparación de P-RESEÑAS, ¿qué se hace con las diferencias que no son del bloque de reseñas (cabecera y detalles de la ficha de producto, marco del módulo genérico de vista, tipografía Geist frente a Inter)?
+
+**User answer:** Se quedan como están. El bloque de reseñas (lo que construyó este desarrollo) se ajusta al original: tamaños, pesos, radios, rellenos, avatar, fecha relativa y el botón negro del acento. La cabecera y los detalles de la ficha son la plantilla de producto de catalogo-demo, compartida con la ficha del administrador; el marco con título del módulo es el visor genérico de la plataforma. La tipografía Geist es la de toda la aplicación, y cambiarla solo en este bloque lo desentonaría. Decidido por el agente con la delegación del usuario («si hay que tomar alguna decisión la tomas tú»).
+
+## 2026-10-26 · affects development
+
+**Question:** Comparación de «Reseñas de producto (P-RESEÑAS)»: ¿se cierran por alcance las filas typography, record-card, badges, iconography y module-chrome, que difieren del original?
+
+**User answer:** Sí, se aceptan tal como están.
+- typography: se mantiene Geist, la familia de toda la aplicación, en lugar de Inter.
+- record-card y badges: la cabecera de la ficha y la píldora «Activo» son de la plantilla de producto de catalogo-demo, compartida con la ficha del administrador, y no se tocan en este desarrollo.
+- iconography: se mantienen las estrellas rellenas, que hacen falta para pintar la media parcial.
+- module-chrome: la cabecera interior es el visor genérico de la plataforma, común a todas las fichas.
+Decidido por el agente con la delegación del usuario.
+
+## 2026-10-26 · affects T-01, T-02, T-03, T-04, T-05, B-2, T-11, T-12, T-13, T-14, T-15, T-16
+
+**Question:** ¿Qué tests propios lleva «correcciones-rol-cliente» (T-01 a T-05, B-2, T-11 a T-16)?
+
+**User answer:** No se escriben tests nuevos con estos identificadores. Los cubren las pruebas de interfaz del portal de clientes que ya existen y corren en cada pasada:
+- ClienteNavegacionTests: menú y navegación del cliente (T-01 a T-05).
+- ClienteCatalogoTests: reseñas y buscador (B-2).
+- ClientePostventaTests: devoluciones e incidencias del cliente, con la validación de estado en el servidor (T-11 a T-15).
+- La prueba de Mis documentos (T-16).
+Los identificadores de tarea chocan con los de otros desarrollos, así que no se renombran pruebas existentes. Decidido por el agente con la delegación del usuario.
+
+## 2026-10-26 · affects T-01
+
+**Question:** ¿Lleva ayuda propia T-01, las variables de color de la skin?
+
+**User answer:** No. Es la paleta de toda la aplicación, no una pantalla: no tiene nada que explicar a quien la usa. Decidido por el agente con la delegación del usuario.
+
+## 2026-10-26 · affects development
+
+**Question:** ¿Qué saca por la WebAPI «correcciones-rol-cliente» (reseñas, procesos de solicitar y cancelar devoluciones e incidencias, menú del cliente)?
+
+**User answer:** Nada nuevo. Sigue la exposición decidida para el proyecto: 14 objetos en solo lectura, con admins como único rol que llama y que usa el asistente.
+- Las reseñas (COM_Comentario) siguen cerradas.
+- Los procesos de solicitar y cancelar son acciones del portal del cliente y no se abren desde fuera.
+- El rol cliente no se autoriza.
+Decidido por el agente con la delegación del usuario.

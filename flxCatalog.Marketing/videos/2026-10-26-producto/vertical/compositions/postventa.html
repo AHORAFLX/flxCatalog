@@ -1,0 +1,180 @@
+<template>
+  <style>
+#root { position: absolute; inset: 0; overflow: hidden; background: #eef1f4; font-family: Inter, sans-serif; color: #1c1b1d; }
+.fmt, .w { position: absolute; inset: 0; }
+.w * { box-sizing: border-box; }
+
+/* copy block: number, title, line */
+.copy { position: absolute; }
+.fmt-L .copy { left: 120px; top: 92px; width: 1100px; }
+.fmt-V .copy { left: 80px; top: 170px; width: 920px; }
+.fmt-S .copy { left: 64px; top: 60px; width: 952px; }
+.num { font-weight: 800; color: #148a84; letter-spacing: 0.06em; }
+.ttl { font-weight: 800; letter-spacing: -0.025em; line-height: 1.02; }
+.line { font-weight: 500; color: #5b5b63; line-height: 1.25; }
+.fmt-L .num { font-size: 30px; } .fmt-L .ttl { font-size: 84px; margin-top: 8px; } .fmt-L .line { font-size: 36px; margin-top: 14px; }
+.fmt-V .num { font-size: 36px; } .fmt-V .ttl { font-size: 100px; margin-top: 10px; } .fmt-V .line { font-size: 44px; margin-top: 20px; }
+.fmt-S .num { font-size: 28px; } .fmt-S .ttl { font-size: 68px; margin-top: 6px; } .fmt-S .line { font-size: 32px; margin-top: 12px; }
+
+/* stage: where the rebuilt UI lives */
+.stage { position: absolute; }
+.fmt-L .stage { left: 120px; right: 120px; top: 350px; bottom: 70px; }
+.fmt-V .stage { left: 64px; right: 64px; top: 560px; bottom: 140px; }
+.fmt-S .stage { left: 56px; right: 56px; top: 320px; bottom: 50px; }
+
+/* product UI primitives, drawn like the product (flexy2022 skin) */
+.card { position: absolute; background: #ffffff; border-radius: 18px; box-shadow: 0 18px 50px rgba(28, 27, 29, 0.10), 0 2px 6px rgba(28, 27, 29, 0.05); }
+.fmt-V .card { border-radius: 24px; }
+.mtitle { font-weight: 600; letter-spacing: -0.01em; }
+.muted { color: #71717a; }
+.btn { display: flex; align-items: center; justify-content: center; border-radius: 10px; font-weight: 600; white-space: nowrap; }
+.btn.teal { background: #2db7b0; color: #ffffff; }
+.btn.ghost { background: #ffffff; color: #1c1b1d; border: 2px solid #d4d4d8; }
+.btn.dark { background: #1c1b1d; color: #ffffff; }
+.pill { display: inline-flex; align-items: center; gap: 0.45em; border-radius: 999px; font-weight: 600; padding: 0.22em 0.75em; white-space: nowrap; }
+.pill::before { content: ""; width: 0.42em; height: 0.42em; border-radius: 50%; background: currentColor; }
+.pill.ok { background: #dcfce7; color: #166534; }
+.pill.warn { background: #fef3c7; color: #854d0e; }
+.pill.bad { background: #fee2e2; color: #991b1b; }
+.pill.info { background: #e0e7ff; color: #3730a3; }
+.pill.neu { background: #f4f4f5; color: #3f3f46; }
+.pill.new { background: #fde7ef; color: #9d174d; }
+.photo { background-size: cover; background-position: center; }
+.tab { font-variant-numeric: tabular-nums; }
+
+/* catalogue card, sized by its font-size (1em = 20px on the product's own card at 1x) */
+.pc { position: absolute; width: 13em; background: #ffffff; border-radius: 0.8em; overflow: hidden; box-shadow: 0 0.9em 2.4em rgba(28, 27, 29, 0.12); }
+.pc-ph { position: relative; height: 12.4em; }
+.pc-star { position: absolute; top: 0.55em; right: 0.55em; width: 1.7em; height: 1.7em; border-radius: 0.4em; background: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1em; color: #1c1b1d; }
+.pc-b { padding: 0.75em 0.85em 0.9em; }
+.pc-f { font-size: 0.6em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-n { font-size: 0.8em; font-weight: 600; margin-top: 0.3em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-p { font-size: 0.9em; font-weight: 700; margin-top: 0.4em; display: flex; align-items: center; justify-content: space-between; }
+.pc-p .pill { font-size: 0.62em; }
+.pc-btn { position: relative; margin-top: 0.75em; height: 2em; font-size: 0.72em; border-radius: 0.5em; }
+
+/* the one drawn object: a cursor */
+.cur { position: absolute; left: 0; top: 0; z-index: 50; }
+.fmt-L .cur { width: 46px; height: 62px; } .fmt-V .cur, .fmt-S .cur { width: 56px; height: 76px; }
+.press { position: absolute; inset: 0; border-radius: inherit; background: rgba(0, 0, 0, 0.18); opacity: 0; pointer-events: none; }
+.pc-star .s0, .pc-star .s1 { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.pc-star .s1 { color: #148a84; opacity: 0; font-size: 1.15em; }
+.cur svg { display: block; width: 100%; height: 100%; }
+
+
+#postventa-w .tb { position: absolute; padding: 0.75em 1em 0.6em; }
+#postventa-w .tb .mt { font-weight: 600; font-size: 1.08em; margin-bottom: 0.45em; }
+#postventa-w .r { display: grid; align-items: center; column-gap: 0.7em; padding: 0.42em 0; border-top: 1px solid #e4e4e7; }
+#postventa-w .r.h { font-weight: 700; font-size: 0.72em; border-top: 0; padding: 0.2em 0 0.4em; }
+#postventa-w .r b { font-weight: 700; }
+#postventa-w .r .m { color: #5b6b8c; font-size: 0.9em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#postventa-w .r > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#postventa-w .ps { position: relative; height: 1.4em; }
+#postventa-w .ps .pill { position: absolute; left: 0; top: 0; font-size: 0.78em; }
+#postventa-w .pill.rev { background: #fde7ef; color: #9d174d; }
+#postventa-w .dv .r { grid-template-columns: 5.4em 1fr 4.4em 7em 6.4em; }
+#postventa-w .in .r { grid-template-columns: 5.4em 1fr 5.6em; }
+.fmt-L #postventa-w .stage { font-size: 26px; }
+.fmt-L #postventa-w .dv { left: 0; top: 0; width: 1040px; }
+.fmt-L #postventa-w .in { left: 1080px; top: 0; right: 0; }
+.fmt-V #postventa-w .stage { font-size: 37px; }
+.fmt-V #postventa-w .stage, .fmt-S #postventa-w .stage { display: flex; flex-direction: column; gap: 36px; }
+.fmt-V #postventa-w .tb, .fmt-S #postventa-w .tb { position: relative; left: auto; top: auto; right: auto; }
+.fmt-V #postventa-w .dv { left: 0; right: 0; top: 0; }
+.fmt-V #postventa-w .dv .r { grid-template-columns: 5.4em 1fr 6.4em; }
+.fmt-V #postventa-w .dv .c3, .fmt-V #postventa-w .dv .c4 { display: none; }
+.fmt-S #postventa-w .stage { font-size: 23px; }
+.fmt-S #postventa-w .dv { left: 0; right: 0; top: 0; }
+.fmt-S #postventa-w .dv .r { grid-template-columns: 5.4em 1fr 4.4em 6.4em; }
+.fmt-S #postventa-w .dv .c4 { display: none; }
+.fmt-S #postventa-w .x4 { display: none; }
+
+  </style>
+  <div data-hf-id="hf-b5y5" id="root" data-composition-id="postventa" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-a6dh" class="fmt fmt-V"><div data-hf-id="hf-xvh3" class="w" id="postventa-w">
+<div data-hf-id="hf-bdx3" class="copy"><div data-hf-id="hf-pp1e" class="num">06</div><div data-hf-id="hf-ynwz" class="ttl">Devoluciones e incidencias</div><div data-hf-id="hf-1rlt" class="line">La postventa, dentro del mismo portal.</div></div>
+<div data-hf-id="hf-nuk9" class="stage" id="postventa-stage">
+  <div data-hf-id="hf-vfs7" class="card tb dv" id="postventa-dv">
+    <div data-hf-id="hf-kb29" class="mt">Devoluciones</div>
+    <div data-hf-id="hf-hywa" class="r h"><span data-hf-id="hf-svcw">Pedido</span><span data-hf-id="hf-gjl9">Producto</span><span data-hf-id="hf-akxl" class="c3">Cant.</span><span data-hf-id="hf-hpjg" class="c4">Motivo</span><span data-hf-id="hf-jnsz">Estado</span></div>
+    <div data-hf-id="hf-rwbk" class="r" id="postventa-d1"><b data-hf-id="hf-kbub" class="tab">PED-1022</b><span data-hf-id="hf-xkfe">Sandalia Sport</span><span data-hf-id="hf-2xvj" class="c3 tab">7</span><span data-hf-id="hf-kla0" class="c4 m">Producto defectuoso</span><div data-hf-id="hf-glq3" class="ps"><span data-hf-id="hf-ms9i" class="pill warn" id="postventa-s1">Solicitada</span><span data-hf-id="hf-wmuk" class="pill neu" id="postventa-s2" style="opacity:0">Aceptada</span></div></div>
+    <div data-hf-id="hf-2rt7" class="r" id="postventa-d2"><b data-hf-id="hf-rtqe" class="tab">PED-1124</b><span data-hf-id="hf-p1em">Pantalón Deportivo Sport</span><span data-hf-id="hf-2jki" class="c3 tab">4</span><span data-hf-id="hf-rts1" class="c4 m">Talla incorrecta</span><div data-hf-id="hf-bc8r" class="ps"><span data-hf-id="hf-ehul" class="pill rev">En revisión</span></div></div>
+    <div data-hf-id="hf-ytp6" class="r" id="postventa-d3"><b data-hf-id="hf-r063" class="tab">PED-1130</b><span data-hf-id="hf-t6ov">Chaleco Deportivo Elite</span><span data-hf-id="hf-0yce" class="c3 tab">8</span><span data-hf-id="hf-0q9k" class="c4 m">Color distinto al pe...</span><div data-hf-id="hf-axxq" class="ps"><span data-hf-id="hf-2tcg" class="pill ok">Abonada</span></div></div>
+    <div data-hf-id="hf-qjw5" class="r x4" id="postventa-d4"><b data-hf-id="hf-3bc1" class="tab">PED-1077</b><span data-hf-id="hf-mf4m">Zapatilla Casual Vintage</span><span data-hf-id="hf-4j3n" class="c3 tab">3</span><span data-hf-id="hf-7h5h" class="c4 m">Talla incorrecta</span><div data-hf-id="hf-ajmp" class="ps"><span data-hf-id="hf-j79h" class="pill bad">Cancelada</span></div></div>
+  </div>
+  <div data-hf-id="hf-rl3j" class="card tb in" id="postventa-in">
+    <div data-hf-id="hf-zwb4" class="mt">Listado de incidencias</div>
+    <div data-hf-id="hf-6f8u" class="r h"><span data-hf-id="hf-juew">Pedido</span><span data-hf-id="hf-cy3v">Tipo</span><span data-hf-id="hf-qx1f">Estado</span></div>
+    <div data-hf-id="hf-xjcj" class="r" id="postventa-i1"><b data-hf-id="hf-q7k1" class="tab">PED-1132</b><span data-hf-id="hf-7llo">Producto defectuoso</span><div data-hf-id="hf-a5bo" class="ps"><span data-hf-id="hf-7xqq" class="pill warn">Abierta</span></div></div>
+    <div data-hf-id="hf-mnuw" class="r" id="postventa-i2"><b data-hf-id="hf-dzpa" class="tab">PED-1058</b><span data-hf-id="hf-u9gg">Falta material</span><div data-hf-id="hf-9r0n" class="ps"><span data-hf-id="hf-jxji" class="pill ok">Cerrada</span></div></div>
+    <div data-hf-id="hf-srqh" class="r x4" id="postventa-i3"><b data-hf-id="hf-onb4" class="tab">PED-1009</b><span data-hf-id="hf-5xbe">Facturación</span><div data-hf-id="hf-9cpm" class="ps"><span data-hf-id="hf-gsm1" class="pill bad">Cancelada</span></div></div>
+  </div>
+</div>
+    </div></div>
+  </div>
+  <script>
+    document.fonts.ready.then(() => {
+  const ID = "postventa";
+  const FMT = "V";
+  const W = document.getElementById(ID + "-w");
+  const $ = (s) => W.querySelector(s);
+  const $$ = (s) => Array.from(W.querySelectorAll(s));
+  // Offset of an element inside the scene, measured once before building tweens.
+  // A scene is display:none until its slot: measure with its hidden ancestors shown for the instant of the read.
+  const withLayout = (fn) => {
+    const hid = [];
+    for (let e = W; e && e !== document.documentElement; e = e.parentElement) {
+      if (getComputedStyle(e).display === "none") { hid.push([e, e.style.getPropertyValue("display"), e.style.getPropertyPriority("display")]); e.style.setProperty("display", "block", "important"); }
+    }
+    try { return fn(); } finally { hid.reverse().forEach(([e, v, p]) => (v ? e.style.setProperty("display", v, p) : e.style.removeProperty("display"))); }
+  };
+  const off = (el) => { let x = 0, y = 0; while (el && el !== W) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return { x, y }; };
+  const pt = (sel, fx = 0.5, fy = 0.5) => withLayout(() => { const el = typeof sel === "string" ? $(sel) : sel; const o = off(el); return { x: o.x + el.offsetWidth * fx, y: o.y + el.offsetHeight * fy }; });
+  const tl = gsap.timeline({ paused: true });
+  const pick = (L, V, S) => (FMT === "L" ? L : FMT === "V" ? V : S);
+  // Scene entry: copy slides in from the left, the stage rises.
+  const enter = (t = 0.05) => {
+    tl.fromTo($(".copy"), { x: -70, opacity: 0 }, { x: 0, opacity: 1, duration: 0.42, ease: "expo.out" }, t);
+    tl.fromTo($(".stage"), { y: 90, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "expo.out" }, t + 0.1);
+  };
+  const exit = (t) => {
+    tl.to($(".copy"), { x: -50, opacity: 0, duration: 0.24, ease: "power3.in" }, t);
+    tl.to($(".stage"), { y: -40, opacity: 0, duration: 0.26, ease: "power3.in" }, t);
+    if ($(".cur")) tl.to($(".cur"), { opacity: 0, duration: 0.15 }, t);
+  };
+  // Cursor: travel to a target, then click it (the press lands on the click frame).
+  const cur = () => $(".cur");
+  const curFrom = (x, y, t = 0) => tl.fromTo(cur(), { x, y, scale: 1, opacity: 1 }, { x, y, duration: 0.01 }, t);
+  const moveTo = (sel, t, d = 0.45, fx = 0.5, fy = 0.55) => { const p = pt(sel, fx, fy); tl.to(cur(), { x: p.x - 6, y: p.y - 4, duration: d, ease: "power2.inOut" }, t); };
+  const click = (sel, t) => {
+    tl.to(cur(), { scale: 0.84, duration: 0.06, ease: "power2.in", transformOrigin: "6px 4px" }, t);
+    tl.to(cur(), { scale: 1, duration: 0.1, ease: "power2.out", transformOrigin: "6px 4px" }, t + 0.06);
+    const pr = sel && $(sel + " .press");
+    if (pr) { tl.fromTo(pr, { opacity: 0 }, { opacity: 1, duration: 0.05 }, t); tl.to(pr, { opacity: 0, duration: 0.18 }, t + 0.1); }
+  };
+  // Count a number into an element (es-ES formatting), measured by the timeline, not the clock.
+  const nf = (dec) => new Intl.NumberFormat("es-ES", { minimumFractionDigits: dec, maximumFractionDigits: dec, useGrouping: "always" });
+  const count = (sel, from, to, t, d, dec = 0, suffix = "") => {
+    const el = typeof sel === "string" ? $(sel) : sel; const f = nf(dec); const o = { v: from };
+    el.textContent = f.format(from) + suffix;
+    tl.to(o, { v: to, duration: d, ease: "power2.out", onUpdate: () => { el.textContent = f.format(o.v) + suffix; } }, t);
+  };
+  // Items arriving one by one.
+  const seq = (els, t, gap, from = { y: 40, opacity: 0 }, d = 0.45) => els.forEach((el, i) => tl.fromTo(el, from, { x: 0, y: 0, opacity: 1, scale: 1, duration: d, ease: "power3.out" }, t + i * gap));
+
+
+  enter();
+  tl.fromTo("#postventa-in", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "expo.out" }, 0.35);
+  seq($$("#postventa-dv .r:not(.h)"), 0.35, 0.1, { x: 40, opacity: 0 }, 0.35);
+  seq($$("#postventa-in .r:not(.h)"), 0.55, 0.1, { x: 40, opacity: 0 }, 0.35);
+  // A return moves on: Solicitada -> Aceptada.
+  tl.to("#postventa-d1", { backgroundColor: "#f0fdfa", duration: 0.2 }, 1.45);
+  tl.to("#postventa-s1", { opacity: 0, duration: 0.1 }, 1.6);
+  tl.fromTo("#postventa-s2", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.5)", transformOrigin: "0% 50%" }, 1.6);
+  tl.to("#postventa-d1", { backgroundColor: "rgba(240,253,250,0)", duration: 0.4 }, 2.1);
+  exit(2.74);
+
+      window.__timelines["postventa"] = tl;
+    });
+  </script>
+</template>

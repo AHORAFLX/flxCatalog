@@ -1,0 +1,27 @@
+<style>
+#catalogo-w .grid { display: grid; justify-content: center; }
+#catalogo-w .grid .pc { position: relative; }
+.fmt-L #catalogo-w .grid { font-size: 30px; grid-template-columns: repeat(3, 13em); gap: 1.7em; }
+.fmt-V #catalogo-w .grid { font-size: 29px; grid-template-columns: repeat(2, 13em); gap: 1.4em; }
+.fmt-S #catalogo-w .grid { font-size: 23px; grid-template-columns: repeat(3, 13em); gap: 1.4em; }
+.fmt-L #catalogo-w #catalogo-pc-gorra, .fmt-S #catalogo-w #catalogo-pc-gorra { display: none; }
+</style>
+<div class="copy"><div class="num">01</div><div class="ttl">Catálogo con fotos</div><div class="line">Familias, marcas, novedades y favoritos.</div></div>
+<div class="stage" id="catalogo-stage"><div class="grid" id="catalogo-grid">
+__CARDS:malla,interior,falda,gorra__
+</div></div>
+__CURSOR__
+<script>
+  enter();
+  seq($$("#catalogo-grid .pc"), 0.25, 0.14, { y: 70, opacity: 0, scale: 0.94 }, 0.5);
+  // The buyer marks the first one as a favourite, then adds it to the cart.
+  const start = pick({ x: 1900, y: 1100 }, { x: 1100, y: 1950 }, { x: 1100, y: 1100 });
+  curFrom(start.x, start.y, 0);
+  moveTo("#catalogo-star-malla", 1.0, 0.5);
+  click(null, 1.55);
+  tl.fromTo("#catalogo-on-malla", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, 1.56);
+  tl.to("#catalogo-star-malla .s0", { opacity: 0, duration: 0.05 }, 1.56);
+  moveTo("#catalogo-add-malla", 1.8, 0.4);
+  click("#catalogo-add-malla", 2.3);
+  exit(2.74);
+</script>

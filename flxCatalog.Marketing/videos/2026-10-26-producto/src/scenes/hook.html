@@ -1,0 +1,53 @@
+<style>
+#hook-w .wall { position: absolute; transform: rotate(-9deg); transform-origin: 50% 50%; }
+#hook-w .wall-in { display: grid; gap: 1.3em; }
+#hook-w .wall .pc { position: relative; }
+.fmt-L #hook-w .wall { left: 900px; top: -250px; font-size: 25px; }
+.fmt-L #hook-w .wall-in { grid-template-columns: repeat(4, 13em); }
+.fmt-V #hook-w .wall { left: -80px; top: 880px; font-size: 25px; }
+.fmt-V #hook-w .wall-in { grid-template-columns: repeat(4, 13em); }
+.fmt-S #hook-w .wall { left: 620px; top: -200px; font-size: 19px; }
+.fmt-S #hook-w .wall-in { grid-template-columns: repeat(3, 13em); }
+#hook-w .hc { position: absolute; z-index: 5; }
+.fmt-L #hook-w .hc { left: 120px; top: 290px; width: 760px; }
+.fmt-V #hook-w .hc { left: 80px; top: 190px; width: 920px; }
+.fmt-S #hook-w .hc { left: 64px; top: 250px; width: 500px; }
+#hook-w .h1 { font-weight: 800; letter-spacing: -0.035em; line-height: 0.95; }
+.fmt-L #hook-w .h1 { font-size: 132px; } .fmt-V #hook-w .h1 { font-size: 150px; } .fmt-S #hook-w .h1 { font-size: 92px; }
+#hook-w .h1 b { color: #148a84; font-weight: 800; }
+#hook-w .h2 { font-weight: 500; color: #3f3f46; line-height: 1.22; }
+.fmt-L #hook-w .h2 { font-size: 40px; margin-top: 30px; } .fmt-V #hook-w .h2 { font-size: 48px; margin-top: 34px; } .fmt-S #hook-w .h2 { font-size: 28px; margin-top: 22px; }
+#hook-w .chips { display: flex; flex-wrap: wrap; gap: 0.5em; }
+.fmt-L #hook-w .chips { font-size: 28px; margin-top: 40px; } .fmt-V #hook-w .chips { font-size: 34px; margin-top: 44px; } .fmt-S #hook-w .chips { font-size: 22px; margin-top: 28px; }
+#hook-w .chip { background: #ffffff; border-radius: 999px; padding: 0.35em 0.85em; font-weight: 500; box-shadow: 0 6px 18px rgba(28, 27, 29, 0.08); white-space: nowrap; }
+#hook-w .chip b { font-weight: 800; }
+#hook-w .fade { position: absolute; z-index: 3; pointer-events: none; }
+.fmt-L #hook-w .fade { left: 0; top: 0; bottom: 0; width: 980px; background: linear-gradient(90deg, #eef1f4 78%, rgba(238, 241, 244, 0)); }
+.fmt-V #hook-w .fade { left: 0; right: 0; top: 0; height: 960px; background: linear-gradient(180deg, #eef1f4 86%, rgba(238, 241, 244, 0)); }
+.fmt-S #hook-w .fade { left: 0; top: 0; bottom: 0; width: 640px; background: linear-gradient(90deg, #eef1f4 82%, rgba(238, 241, 244, 0)); }
+</style>
+<div class="wall" data-layout-allow-overflow data-layout-ignore><div class="wall-in" id="hook-wall">
+__CARDS:malla,cargo,gorra,falda,running,bota,mochila,free,vestido,chaqueta,nino,dsport__
+</div></div>
+<div class="fade" data-layout-ignore></div>
+<div class="hc" id="hook-hc">
+  <div class="h1" id="hook-h1">Catálogo<br><b>Flexygo</b></div>
+  <div class="h2" id="hook-h2">Catálogo, pedidos y postventa en una sola aplicación.</div>
+  <div class="chips" id="hook-chips"><span class="chip"><b class="tab" id="hook-n1">140</b> productos</span><span class="chip"><b class="tab" id="hook-n2">624</b> variantes</span><span class="chip"><b class="tab" id="hook-n3">110</b> clientes</span></div>
+</div>
+<script>
+  // Cards rain in along the diagonal, then the wall drifts.
+  const cards = $$("#hook-wall .pc");
+  seq(cards, 0.0, 0.045, { y: 140, opacity: 0, scale: 0.9 }, 0.5);
+  tl.fromTo("#hook-wall", { y: 0 }, { y: pick(-90, -140, -70), duration: 3, ease: "none" }, 0);
+  // Title on frame 0-0.3 so the first frames already read.
+  // The title is already on frame 0 (the thumbnail); it only settles.
+  tl.fromTo("#hook-h1", { scale: 1.04, transformOrigin: "0% 50%" }, { scale: 1, duration: 0.6, ease: "power3.out" }, 0.0);
+  tl.fromTo("#hook-h2", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 0.1);
+  seq($$("#hook-chips .chip"), 0.75, 0.12, { y: 24, opacity: 0, scale: 0.9 }, 0.4);
+  count("#hook-n1", 0, 140, 0.75, 1.1);
+  count("#hook-n2", 0, 624, 0.87, 1.1);
+  count("#hook-n3", 0, 110, 0.99, 1.1);
+  // Out: the whole frame pushes left into the first feature.
+  tl.to(["#hook-wall", "#hook-hc"], { x: pick(-260, -200, -160), opacity: 0, duration: 0.24, ease: "power3.in" }, 2.76);
+</script>

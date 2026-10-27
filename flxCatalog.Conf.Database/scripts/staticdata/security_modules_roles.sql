@@ -34,6 +34,46 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"ModuleName":"mod-com-comentario-list-cliente",
+	"RoleId":"cliente",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-13T17:16:00",
+	"flxUpdatedDate":"2026-10-13T17:16:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-com-comentario-list-incidencia",
+	"RoleId":"cliente",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-13T17:16:00",
+	"flxUpdatedDate":"2026-10-13T17:16:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-com-comentario-list-pedido",
+	"RoleId":"cliente",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-13T17:16:00",
+	"flxUpdatedDate":"2026-10-13T17:16:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-com-comentario-list-producto",
+	"RoleId":"cliente",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-13T17:16:00",
+	"flxUpdatedDate":"2026-10-13T17:16:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"ModuleName":"mod-dash-clientes-problemas-chart",
 	"RoleId":"allUsers",
 	"CanView":false,
@@ -84,6 +124,86 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"ModuleName":"mod-tour-tour-devoluciones",
+	"RoleId":"cliente",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-26T19:34:00",
+	"flxUpdatedDate":"2026-10-26T19:34:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-tour-tour-incidencias",
+	"RoleId":"cliente",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-26T19:34:00",
+	"flxUpdatedDate":"2026-10-26T19:34:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-tour-tour-mis-devoluciones",
+	"RoleId":"admins",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-26T19:34:00",
+	"flxUpdatedDate":"2026-10-26T19:34:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-tour-tour-mis-incidencias",
+	"RoleId":"admins",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-26T19:34:00",
+	"flxUpdatedDate":"2026-10-26T19:34:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-tour-tour-mis-pedidos",
+	"RoleId":"admins",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-26T19:34:00",
+	"flxUpdatedDate":"2026-10-26T19:34:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-tour-tour-pedidos",
+	"RoleId":"cliente",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-26T19:29:00",
+	"flxUpdatedDate":"2026-10-26T19:29:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-tour-tour-welcome-admin",
+	"RoleId":"cliente",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-26T17:05:00",
+	"flxUpdatedDate":"2026-10-26T17:05:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-tour-tour-welcome-cliente",
+	"RoleId":"admins",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-26T17:05:00",
+	"flxUpdatedDate":"2026-10-26T17:05:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"ModuleName":"mod-vta-mesa-devoluciones-kanban",
 	"RoleId":"allUsers",
 	"CanView":false,
@@ -131,6 +251,16 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"flxUpdatedBy":"unknown",
 	"flxInsertedDate":"2026-09-17T09:51:00",
 	"flxUpdatedDate":"2026-09-17T09:51:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ModuleName":"mod-vta-tarifa-back-html",
+	"RoleId":"cliente",
+	"CanView":false,
+	"flxInsertedBy":"unknown",
+	"flxUpdatedBy":"unknown",
+	"flxInsertedDate":"2026-10-26T18:39:00",
+	"flxUpdatedDate":"2026-10-26T18:39:00",
 	"OriginAddonId":"Main",
 	"OriginId":1}]')
 

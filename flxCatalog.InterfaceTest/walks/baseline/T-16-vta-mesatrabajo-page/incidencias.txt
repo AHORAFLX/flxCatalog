@@ -1,0 +1,57 @@
+# mod-tour-tour-mesa-trabajo
+Cómo leer los tableros y cambiar el estado de una tarjeta.
+
+Hacer el recorrido
+Editar pasos
+# mod-vta-mesa-trabajo-tabs
+Mesa de trabajo
+Nuevo
+Incidencias
+Pedidos
+Devoluciones
+Mesa de trabajo
+ABIERTA
+Consulta general sobre el estado del pedido.
+PED-1075
+Producto incorrecto
+El cliente solicita revisión de la factura emitida.
+PED-1099
+Consulta general
+El paquete llegó con la caja abierta y falta uno de los artículos.
+PED-1046
+Facturación
+Consulta general sobre el estado del pedido.
+PED-1013
+Producto incorrecto
+El cliente solicita revisión de la factura emitida.
+PED-1092
+Consulta general
+Falta uno de los artículos del pedido en el envío recibido.
+PED-1017
+Producto defectuoso
+Añadir nueva...
+CERRADA
+Retraso en la entrega respecto a la fecha estimada.
+PED-1119
+Falta material
+El cliente reporta un desperfecto en el artículo recibido.
+PED-1096
+Problema de entrega
+Falta uno de los artículos del pedido en el envío recibido.
+PED-1054
+Producto defectuoso
+Retraso en la entrega respecto a la fecha estimada.
+PED-1074
+Falta material
+El repartidor dejó el paquete en conserjería sin avisar; ya está recogido.
+PED-1147
+Problema de entrega
+Añadir nueva...
+CANCELADA
+El paquete llegó con la caja abierta y falta uno de los artículos.
+PED-1055
+Facturación
+El cliente reporta un desperfecto en el artículo recibido.
+PED-1051
+Problema de entrega
+Añadir nueva...

@@ -131,7 +131,10 @@ nothing is ever created in it, and the changes travel as scripts the application
 - **Existing (ERP)** (`existing`) — ⛔ **the Data database is NOT published at all**, and its
   connection string points at the customer's. Nothing is ever created there directly: not a table,
   not a column, not a row of seed data. The only route is `flexygo_register_deployment_script`, and
-  the write tools refuse that database on their own.
+  the write tools refuse that database on their own — with one toll: the objects that carry the
+  project's own prefix inside it (`Pers_` for one customer, the product's own for a product, asked in
+  `/flx-context`) may be worked on directly during development, and the acknowledgement then
+  demands the script.
 
 ⚠️ **Why it is here and not later.** It was measured on a real pass: this question exists, it is
 well worded, and it was being asked inside `/flx-context` — minutes **after** both databases had
@@ -176,6 +179,11 @@ each other about one fact.
 started by the extension host once per **window**: `Ctrl+Shift+P` → *Developer: Reload Window*.
 Changing the server **binary** is a different rule and is picked up by killing its process.
 
+The sync (`flexygo_sync_skills`) also wires into the same `.mcp.json` the `playwright` browser
+server that `/flx-verify` runs — it needs **Node.js** (which ships `npx`) and **Google Chrome** on
+the machine, and the sync's report says which one is missing and where to get it. A `.mcp.json`
+changed this way needs the same *Developer: Reload Window*.
+
 ## 7 · Ask which origin this lands on
 
 `flexygo_get_active_origin` first. It returns the catalogue with the object count of each one and a
@@ -218,6 +226,30 @@ up, and for the same reason: the same question asked in two places admits two an
 contradict each other about one fact.
 
 Never write `.flexygo/` by hand: the tools write it, and the later phases read its shape.
+
+## 8 · Offer the Flexygo panel
+
+The sync's report (the startup notice, or `flexygo_sync_skills`) says whether this machine already
+knows the Flexygo panel — a pane beside the chat with the phase, the next command, what blocks
+closing and what each command cost. When it does not, the report names the exact command that turns
+it on.
+
+⛔ **Ask first, in one sentence**: what the panel shows, and that the command adds ONE entry to the
+user's own `~/.claude/settings.json`. Run that command in the terminal only on a yes; it shows from
+the next session. On a no, nothing changes, and it can be done any day later. When the report says
+`disableAllHooks` is set somewhere, say so too: neither the panel nor the status line runs while it
+stays.
+
+The panel is a Claude Code mod: a band over the chat in the desktop app and VS Code, a pane in the
+terminal, nothing elsewhere. Its Board button, or `flexygo-mcp --board` in the project's folder,
+opens the developer's board in the browser, with or without the panel.
+
+## 9 · Tell the user what this server sends
+
+Once, here and never again, **as information and not as a question**, in the user's language: this
+server sends its errors and their context — never passwords nor their customers' data — to improve
+the product, and setting `FLEXYGO_MCP_ERROR_TELEMETRY` to `off` in the server's `env` in `.mcp.json`
+turns it off.
 
 ## What comes next
 

@@ -1,0 +1,31 @@
+{
+  "title": "T-15: CLI_Cliente_List opens from its menu and paints its modules",
+  "page": "CLI_Cliente_List",
+  "data": "demo",
+  "steps": [
+    {
+      "menu": "Clientes"
+    },
+    {
+      "module": "mod-cli-cliente-list"
+    },
+    {
+      "count": {
+        "selector": "flx-module[modulename='mod-cli-cliente-list'] .row-line.clickable",
+        "min": 5
+      }
+    },
+    {
+      "order": {
+        "items": "flx-module[modulename='mod-cli-cliente-list'] .row-line.clickable .col-3.bold",
+        "by": "asc"
+      }
+    },
+    {
+      "shot": "screen"
+    }
+  ],
+  "expect": [
+    "mod-cli-cliente-list sale ordenado por razón social (orderBy de CLI_ClienteDefaultList); el paso order lo comprueba"
+  ]
+}

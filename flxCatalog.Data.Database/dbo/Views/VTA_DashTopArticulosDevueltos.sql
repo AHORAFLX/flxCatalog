@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dbo].[VTA_DashTopArticulosDevueltos]
+﻿CREATE   VIEW [dbo].[VTA_DashTopArticulosDevueltos]
 AS
 SELECT TOP (8)
     N'Unidades devueltas' AS serie,

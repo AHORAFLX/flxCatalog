@@ -10,7 +10,6 @@ PRINT N'config.sql...'
 :r .\config.sql
 :r .\staticdata\aspnetprofiles.sql
 :r .\staticdata\aspnetroles.sql
-:r .\staticdata\aspnetusers.sql
 :r .\staticdata\contextvars.sql
 :r .\staticdata\documents_objects_config.sql
 :r .\staticdata\help.sql
@@ -42,11 +41,16 @@ PRINT N'config.sql...'
 :r .\staticdata\security_modules_roles.sql
 :r .\staticdata\security_navigation_nodes_roles.sql
 :r .\staticdata\security_objects_processes_roles.sql
-:r .\staticdata\security_objects_properties_roles.sql
 :r .\staticdata\security_objects_roles.sql
 :r .\staticdata\security_pages_roles.sql
 :r .\staticdata\toolbars_buttons.sql
 :r .\staticdata\toolbars.sql
+:r .\staticdata\webapi_objects.sql
+:r .\staticdata\2026-10-26_201805_origin_0_system_customizations.sql
+:r .\staticdata\kanban_settings_orders.sql
+:r .\staticdata\tours.sql
+:r .\staticdata\tours_steps.sql
+:r .\staticdata\webapi_roles.sql
 
 
 

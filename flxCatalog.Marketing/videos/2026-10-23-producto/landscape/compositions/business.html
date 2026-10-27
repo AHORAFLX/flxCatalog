@@ -1,0 +1,72 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      background: #eef1f4;
+      font-family: Inter, sans-serif;
+      overflow: hidden;
+    }
+    #business-title {
+      position: absolute;
+      left: 110px;
+      top: 110px;
+      color: #1c1b1d;
+      font-size: 84px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      white-space: nowrap;
+    }
+    #business-title span {
+      display: inline-block;
+      margin-right: 0.24em;
+    }
+    .business-crop {
+      position: absolute;
+      border-radius: 18px;
+      border: 1px solid #dce1e6;
+      background-color: #ffffff;
+      background-repeat: no-repeat;
+    }
+    /* "Ventas del año 162.849,58 €", from "Indicadores clave", at 2.2x. */
+    #business-kpi {
+      left: 110px;
+      top: 240px;
+      width: 678px;
+      height: 176px;
+      background-image: url("assets/screens/land-07-dashboard.png");
+      background-size: 4224px 2376px;
+      background-position: -561px -231px;
+    }
+    /* "Artículos más vendidos" and "Artículos más devueltos", the dashboard's own charts. */
+    #business-charts {
+      left: 47px;
+      top: 456px;
+      width: 1826px;
+      height: 480px;
+      background-color: transparent;
+      border: 0;
+      background-image: url("assets/screens/land-07-dashboard.png");
+      background-size: 2150px 1210px;
+      background-position: -278px -233px;
+    }
+  </style>
+  <div data-hf-id="hf-1sl9" id="root" data-composition-id="business" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-3jcu" id="business-stage">
+      <h2 data-hf-id="hf-cypv" id="business-title"><span data-hf-id="hf-no1l">Todo</span><span data-hf-id="hf-gppc">el</span><span data-hf-id="hf-xu0h">negocio,</span><span data-hf-id="hf-1zf2">de</span><span data-hf-id="hf-m2hi">un</span><span data-hf-id="hf-c03l">vistazo</span></h2>
+      <div data-hf-id="hf-tgvp" id="business-charts" class="business-crop"></div>
+      <div data-hf-id="hf-cdyg" id="business-kpi" class="business-crop"></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    gsap.utils.toArray("#business-title span").forEach((el, i) => {
+      tl.fromTo(el, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, ease: "power2.out" }, 0.05 + i * 0.067);
+    });
+    tl.fromTo("#business-kpi", { opacity: 0, scale: 0.94, filter: "blur(10px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out", transformOrigin: "0px 0px" }, 0.2);
+    // Under the number, what it is made of.
+    tl.fromTo("#business-charts", { opacity: 0, y: 160, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55, ease: "expo.out" }, 0.9);
+    tl.to("#business-stage", { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power3.in" }, 2.78);
+    window.__timelines["business"] = tl;
+  </script>
+</template>

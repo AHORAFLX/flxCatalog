@@ -1,0 +1,84 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      background: #eef1f4;
+      overflow: hidden;
+    }
+    .cart-crop {
+      position: absolute;
+      border-radius: 18px;
+      border: 1px solid #dce1e6;
+      background-image: url("assets/screens/land-03-carrito.png");
+      background-size: 3840px 2160px;
+      background-repeat: no-repeat;
+    }
+    /* "Mi carrito": number, state, dates and Total pedido, at 2x. */
+    #cart-summary {
+      left: 48px;
+      top: 150px;
+      width: 1824px;
+      height: 426px;
+      background-size: 3648px 2052px;
+      background-position: -498px -243px;
+    }
+    /* The two lines with their photos. */
+    #cart-lines {
+      left: 50px;
+      top: 640px;
+      width: 876px;
+      height: 300px;
+      background-position: -524px -890px;
+    }
+    /* Quantities and prices of those lines. */
+    #cart-prices {
+      left: 1430px;
+      top: 640px;
+      width: 440px;
+      height: 300px;
+      background-position: -3280px -890px;
+    }
+    /* "Total pedido 139,70 €", the same pixels lifted off the summary so it can travel into the next shot. */
+    #cart-total {
+      left: 1576px;
+      top: 486px;
+      width: 217px;
+      height: 82px;
+      border: 0;
+      border-radius: 6px;
+      background-color: #ffffff;
+      background-size: 3648px 2052px;
+      background-position: -2025px -580px;
+    }
+    #cart-underline {
+      position: absolute;
+      left: 1583px;
+      top: 568px;
+      width: 106px;
+      height: 4px;
+      background: #1c1b1d;
+      transform-origin: 0 50%;
+    }
+  </style>
+  <div data-hf-id="hf-m5qx" id="root" data-composition-id="cart" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-g7lm" id="cart-summary" class="cart-crop"></div>
+    <div data-hf-id="hf-i9w0" id="cart-prices" class="cart-crop"></div>
+    <div data-hf-id="hf-ul43" id="cart-lines" class="cart-crop"></div>
+    <div data-hf-id="hf-ohek" id="cart-total" class="cart-crop"></div>
+    <div data-hf-id="hf-remw" id="cart-underline"></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // Arrive from the right, the way the whip left the dialog.
+    tl.fromTo(["#cart-summary", "#cart-total"], { x: 420, opacity: 0, filter: "blur(16px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0);
+    tl.fromTo("#cart-lines", { x: 420, opacity: 0, filter: "blur(16px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0.1);
+    tl.fromTo("#cart-prices", { x: 420, opacity: 0, filter: "blur(16px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0.16);
+    tl.fromTo("#cart-underline", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "expo.out" }, 1.4);
+    // Carry across: the lines and the total travel to the left half of the next shot.
+    tl.to(["#cart-summary", "#cart-prices", "#cart-underline"], { opacity: 0, filter: "blur(10px)", duration: 0.25, ease: "power3.in" }, 2.5);
+    tl.to("#cart-lines", { x: 80, y: -310, scale: 0.8, transformOrigin: "0px 0px", duration: 0.5, ease: "power2.inOut" }, 2.5);
+    tl.to("#cart-total", { x: 130 - 1576, y: 600 - 486, duration: 0.5, ease: "power2.inOut" }, 2.5);
+    window.__timelines["cart"] = tl;
+  </script>
+</template>

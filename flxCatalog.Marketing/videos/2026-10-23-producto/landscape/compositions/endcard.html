@@ -1,0 +1,70 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      background: #eef1f4;
+      font-family: Inter, sans-serif;
+      overflow: hidden;
+    }
+    #endcard-name {
+      position: absolute;
+      left: 0;
+      top: 330px;
+      width: 1920px;
+      text-align: center;
+      color: #1c1b1d;
+      font-size: 184px;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1;
+    }
+    #endcard-name span {
+      display: inline-block;
+    }
+    #endcard-claim {
+      position: absolute;
+      left: 0;
+      top: 560px;
+      width: 1920px;
+      text-align: center;
+      color: rgba(28, 27, 29, 0.66);
+      font-size: 48px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    #endcard-made {
+      position: absolute;
+      left: 0;
+      top: 690px;
+      width: 1920px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      color: rgba(28, 27, 29, 0.66);
+      font-size: 34px;
+      font-weight: 500;
+    }
+    #endcard-logo {
+      height: 62px;
+      width: auto;
+    }
+  </style>
+  <div data-hf-id="hf-32ii" id="root" data-composition-id="endcard" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-pf9m" id="endcard-name"><span data-hf-id="hf-wptx">f</span><span data-hf-id="hf-ubzr">l</span><span data-hf-id="hf-pkbf">x</span><span data-hf-id="hf-lzk6">C</span><span data-hf-id="hf-zhz4">a</span><span data-hf-id="hf-r5jj">t</span><span data-hf-id="hf-wqew">a</span><span data-hf-id="hf-jm0n">l</span><span data-hf-id="hf-txoq">o</span><span data-hf-id="hf-x44y">g</span></div>
+    <div data-hf-id="hf-u3zq" id="endcard-claim">Catálogo, pedidos y postventa</div>
+    <div data-hf-id="hf-vt08" id="endcard-made"><span data-hf-id="hf-h862">Hecho con</span><img data-hf-id="hf-q6vx" id="endcard-logo" src="assets/brand/flexygo-logo.svg" alt="Flexygo" /></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // The name types itself in and lands on the strong beat at 20.0 s (local 1.0).
+    gsap.utils.toArray("#endcard-name span").forEach((el, i) => {
+      tl.fromTo(el, { opacity: 0.0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.12, ease: "power2.out" }, 0.5 + i * 0.05);
+    });
+    tl.fromTo("#endcard-name", { scale: 1.04 }, { scale: 1, duration: 0.35, ease: "expo.out", transformOrigin: "50% 50%" }, 1.0);
+    tl.fromTo("#endcard-claim", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power2.out" }, 1.2);
+    tl.fromTo("#endcard-made", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power2.out" }, 1.4);
+    window.__timelines["endcard"] = tl;
+  </script>
+</template>

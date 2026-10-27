@@ -1,0 +1,63 @@
+# mod-tour-tour-mesa-trabajo
+Cómo leer los tableros y cambiar el estado de una tarjeta.
+
+Hacer el recorrido
+Editar pasos
+# mod-vta-mesa-trabajo-tabs
+Mesa de trabajo
+Nuevo
+Incidencias
+Pedidos
+Devoluciones
+Mesa de trabajo
+SOLICITADA
+Sandalia Deluxe
+PED-1101
+Llegó dañado
+Sudadera con Capucha Urban
+PED-1113
+Llegó dañado
+Vestido Premium
+PED-1127
+Color distinto al pedido
+Zapatilla Trail Urban
+PED-1103
+Producto defectuoso
+Mocasín Sport
+PED-1117
+No corresponde con la descripción
+Zapatilla Running Prime
+PED-1008
+Talla incorrecta
+Añadir nueva...
+EN REVISIÓN
+Pack de Calcetines Light
+PED-1056
+Talla incorrecta
+Chaqueta Cortavientos Trail
+PED-1131
+Producto defectuoso
+Cinturón Nova
+PED-1020
+No corresponde con la descripción
+Camiseta Técnica Prime
+PED-1021
+Talla incorrecta, necesito una talla más grande
+Añadir nueva...
+ACEPTADA
+Zapatilla Trail Vintage
+PED-1037
+Talla incorrecta, necesito una talla más grande
+Añadir nueva...
+RECHAZADA
+Añadir nueva...
+ABONADA
+Botín Ultra
+PED-1149
+Color distinto al pedido
+Añadir nueva...
+CANCELADA
+Mocasín Ultra
+PED-1004
+Talla incorrecta
+Añadir nueva...

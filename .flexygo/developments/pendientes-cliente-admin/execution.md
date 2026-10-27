@@ -195,3 +195,63 @@
 **Tool:** `flexygo_create_default_view`
 
 **Result:** Corrección de los 6 maestros tras el fallo de verify_object (sin tareas nuevas en el plan). Por objeto (CAT_Color, CAT_Talla, VTA_EstadoPedido, VTA_EstadoDevolucion, VTA_EstadoIncidencia, VTA_TipoIncidencia): vista de detalle con descriptores {Objeto}DefaultView (flexygo_create_default_view), filtro de texto por Nombre, módulo de ficha mod-*-view (reutiliza la DefaultView), módulo HTML de «volver» mod-*-back-html, página de ficha *_View (back en TopPosition -1, ficha en 0) con seguridad allUsers canView=false como las listas, y plantilla de lista actualizada para que la fila abra la ficha (flx-navbutton pagetypeid=view). verify_object tras el cambio: PASS en los seis (8 pasados, 0 fallos, 1 aviso opcional de traducción en cada uno). Sin tocar el nodo «Tallas» (denegado por el clasificador, pendiente). Caché sin recargar (Backend parado) y sin verificar en pantalla.
+
+## 2026-10-13 · T-08 · UNDONE
+
+**Reason:** It did not pass verification: NO funciona. POST /api/Kanban/GetKanban responde 500 y la página muestra «VTA_MESATRABAJO Error Reading related Objects»: KeyNotFoundException en _buildRelatedObjectsWhere. En beta.137 los dos lados de la relación tienen que ser campos reales, y la relación constante '1=1' entre el tablero y las tarjetas ya no vale. Hace falta un campo compartido; por ejemplo, una columna Activo en MesasTrabajo y en Pedidos, con relación Activo=Activo. Esa DDL en tablas de negocio queda pendiente de la decisión del usuario.
+
+## 2026-10-13 · T-09 · UNDONE
+
+**Reason:** It did not pass verification: NO funciona. POST /api/Kanban/GetKanban responde 500 y la página muestra «VTA_MESATRABAJO Error Reading related Objects»: KeyNotFoundException en _buildRelatedObjectsWhere. En beta.137 los dos lados de la relación tienen que ser campos reales, y la relación constante '1=1' entre el tablero y las tarjetas ya no vale. Hace falta un campo compartido; por ejemplo, una columna Activo en MesasTrabajo y en Pedidos, con relación Activo=Activo. Esa DDL en tablas de negocio queda pendiente de la decisión del usuario.
+
+## 2026-10-13 · T-10 · UNDONE
+
+**Reason:** It did not pass verification: NO funciona. POST /api/Kanban/GetKanban responde 500 y la página muestra «VTA_MESATRABAJO Error Reading related Objects»: KeyNotFoundException en _buildRelatedObjectsWhere. En beta.137 los dos lados de la relación tienen que ser campos reales, y la relación constante '1=1' entre el tablero y las tarjetas ya no vale. Hace falta un campo compartido; por ejemplo, una columna Activo en MesasTrabajo y en Pedidos, con relación Activo=Activo. Esa DDL en tablas de negocio queda pendiente de la decisión del usuario.
+
+## 2026-10-13 · T-11 · UNDONE
+
+**Reason:** It did not pass verification: NO funciona. POST /api/Kanban/GetKanban responde 500 y la página muestra «VTA_MESATRABAJO Error Reading related Objects»: KeyNotFoundException en _buildRelatedObjectsWhere. En beta.137 los dos lados de la relación tienen que ser campos reales, y la relación constante '1=1' entre el tablero y las tarjetas ya no vale. Hace falta un campo compartido; por ejemplo, una columna Activo en MesasTrabajo y en Pedidos, con relación Activo=Activo. Esa DDL en tablas de negocio queda pendiente de la decisión del usuario.
+
+## 2026-10-13 · T-08 · OK
+
+**Tool:** `flexygo_execute_ddl, flexygo_create_properties, flexygo_update_relation`
+
+**Result:** Kanban de incidencias reparado para beta.137 (decisión D-9). La relación constante 1=1 entre VTA_MesaTrabajo y las tarjetas daba KeyNotFoundException en _buildRelatedObjectsWhere (500 en /api/Kanban/GetKanban). Se añadió Activo bit NOT NULL DEFAULT 1 a MesasTrabajo y Pedidos (DDL y ficheros .sql del proyecto Data), con su propiedad switch en VTA_MesaTrabajo y VTA_Pedido, y las tres relaciones pasan a Activo=Activo (objectDefaults vaciados). Incidencias ya tenía Activo. Visto en pantalla: 6, 4 y 3 tarjetas en Abierta, Cerrada y Cancelada, igual que en la base de datos. Efecto: los registros con Activo=0 ya no aparecen en la mesa.
+
+## 2026-10-13 · T-09 · OK
+
+**Tool:** `flexygo_update_relation, flexygo_update_kanban_module`
+
+**Result:** Kanban de pedidos reparado con la relación Activo=Activo (Pedidos.Activo nueva, por defecto 1). Visto en pantalla con sus columnas por estado. La plantilla de la tarjeta cortaba el importe en una tercera línea: ahora el número y el importe (decimal:2 €) van en la primera línea y el cliente en la segunda.
+
+## 2026-10-13 · T-10 · OK
+
+**Tool:** `flexygo_update_relation`
+
+**Result:** Kanban de devoluciones reparado con la relación Activo=Activo (Devoluciones ya tenía Activo). Visto en pantalla: 6, 4, 1, 0 y 1 tarjetas en Solicitada, En revisión, Aceptada, Rechazada y Abonada, igual que en la base de datos. El test AdminMesaTrabajoTests.ArrastrarUnaDevolucion_GuardaSuNuevoEstado arrastra una tarjeta a En revisión, recarga, la encuentra en el carril nuevo y la devuelve; la base de datos queda igual.
+
+## 2026-10-13 · T-11 · OK
+
+**Tool:** `flexygo_update_relation`
+
+**Result:** Página «Mesa de trabajo» con sus tres pestañas cargando sin error tras reparar las relaciones. Comprobado por los tests MenuAdministrador_AbreSuPantalla(Mesa de trabajo), Pantalla_SeAbreConSusModulos(VTA_MesaTrabajo_Page) y MesaDeTrabajo_CadaPestañaPintaSusTarjetas (las tres pestañas).
+
+## 2026-10-26 · T-16 · UNDONE
+
+**Reason:** It did not pass verification: Fails at step 3 (module): Timeout 20000ms exceeded..
+
+## 2026-10-26 · T-16 · OK
+
+**Tool:** `flexygo_get_navigation_nodes`
+
+**Result:** Lectura rehecha el 26-oct tras reabrirse la tarea por el timeout del recorrido T-16-vta-mesatrabajo-page (paso 3, módulo). Ese recorrido tiene después una línea base aceptada a las 15:52 con las tres pestañas pintadas, así que el timeout fue puntual y no hay defecto en el menú. Raíz «Barra lateral 2026» con 45 nodos: Dashboard, Mesa de trabajo, Pedidos, Clientes, Incidencias, Devoluciones, Productos, Tarifas, Default Objects, Maestros (Familias, Marcas, Colores, Estados de pedido, Estados de devolución, Estados de incidencia, Tipos de incidencia, Tallas, que ya existe), Ayuda, Administración (develop-only) y Develop Mode. Las páginas que cuelgan también de Work Area (webdefault) y de Menú Cliente se dejan así a propósito, como dice el plan. El aviso de «Mi ficha» (objeto en singular CLI_Cliente) no se toca: su filtro por el cliente actual devuelve una sola fila.
+
+## 2026-10-26 · T-18 · UNDONE
+
+**Reason:** It did not pass verification: Fails at step 2 (module): Timeout 20000ms exceeded..
+
+## 2026-10-26 · T-18 · OK
+
+**Tool:** `flexygo_run_tests`
+
+**Result:** Sin cambios de configuración en la tarea. Se reabrió porque el recorrido T-18-cat-producto-list dio timeout en el paso 2: era la primera carga justo después de recargar la caché (el menú marcó Productos pero la página tardó más de 20 s). Repetido, pasa: el menú lateral sigue siendo el árbol propio y Productos abre su listado. Línea base aceptada. Aprovechando, se arregló el defecto fuera del bloque que estaba anotado: el listado de productos (vista CAT_ProductoDefaultList) se ordena por Nombre y los pedidos del inicio del cliente (VTA_PedidoHomeList) por Fecha descendente. A esta última se le quitó el TOP 5, que escogía 5 filas cualquiera; el módulo ya pinta 5 por página.
