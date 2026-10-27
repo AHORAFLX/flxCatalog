@@ -1,0 +1,208 @@
+<template>
+  <style>
+#root { position: absolute; inset: 0; overflow: hidden; background: #eef1f4; font-family: Inter, sans-serif; color: #1c1b1d; }
+.fmt, .w { position: absolute; inset: 0; }
+.w * { box-sizing: border-box; }
+
+/* copy block: number, title, line */
+.copy { position: absolute; }
+.fmt-L .copy { left: 120px; top: 92px; width: 1100px; }
+.fmt-V .copy { left: 80px; top: 170px; width: 920px; }
+.fmt-S .copy { left: 64px; top: 60px; width: 952px; }
+.num { font-weight: 800; color: #148a84; letter-spacing: 0.06em; }
+.ttl { font-weight: 800; letter-spacing: -0.025em; line-height: 1.02; }
+.line { font-weight: 500; color: #5b5b63; line-height: 1.25; }
+.fmt-L .num { font-size: 30px; } .fmt-L .ttl { font-size: 84px; margin-top: 8px; } .fmt-L .line { font-size: 36px; margin-top: 14px; }
+.fmt-V .num { font-size: 36px; } .fmt-V .ttl { font-size: 100px; margin-top: 10px; } .fmt-V .line { font-size: 44px; margin-top: 20px; }
+.fmt-S .num { font-size: 28px; } .fmt-S .ttl { font-size: 68px; margin-top: 6px; } .fmt-S .line { font-size: 32px; margin-top: 12px; }
+
+/* stage: where the rebuilt UI lives */
+.stage { position: absolute; }
+.fmt-L .stage { left: 120px; right: 120px; top: 350px; bottom: 70px; }
+.fmt-V .stage { left: 64px; right: 64px; top: 560px; bottom: 140px; }
+.fmt-S .stage { left: 56px; right: 56px; top: 320px; bottom: 50px; }
+
+/* product UI primitives, drawn like the product (flexy2022 skin) */
+.card { position: absolute; background: #ffffff; border-radius: 18px; box-shadow: 0 18px 50px rgba(28, 27, 29, 0.10), 0 2px 6px rgba(28, 27, 29, 0.05); }
+.fmt-V .card { border-radius: 24px; }
+.mtitle { font-weight: 600; letter-spacing: -0.01em; }
+.muted { color: #71717a; }
+.btn { display: flex; align-items: center; justify-content: center; border-radius: 10px; font-weight: 600; white-space: nowrap; }
+.btn.teal { background: #2db7b0; color: #ffffff; }
+.btn.ghost { background: #ffffff; color: #1c1b1d; border: 2px solid #d4d4d8; }
+.btn.dark { background: #1c1b1d; color: #ffffff; }
+.pill { display: inline-flex; align-items: center; gap: 0.45em; border-radius: 999px; font-weight: 600; padding: 0.22em 0.75em; white-space: nowrap; }
+.pill::before { content: ""; width: 0.42em; height: 0.42em; border-radius: 50%; background: currentColor; }
+.pill.ok { background: #dcfce7; color: #166534; }
+.pill.warn { background: #fef3c7; color: #854d0e; }
+.pill.bad { background: #fee2e2; color: #991b1b; }
+.pill.info { background: #e0e7ff; color: #3730a3; }
+.pill.neu { background: #f4f4f5; color: #3f3f46; }
+.pill.new { background: #fde7ef; color: #9d174d; }
+.photo { background-size: cover; background-position: center; }
+.tab { font-variant-numeric: tabular-nums; }
+
+/* catalogue card, sized by its font-size (1em = 20px on the product's own card at 1x) */
+.pc { position: absolute; width: 13em; background: #ffffff; border-radius: 0.8em; overflow: hidden; box-shadow: 0 0.9em 2.4em rgba(28, 27, 29, 0.12); }
+.pc-ph { position: relative; height: 12.4em; }
+.pc-star { position: absolute; top: 0.55em; right: 0.55em; width: 1.7em; height: 1.7em; border-radius: 0.4em; background: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1em; color: #1c1b1d; }
+.pc-b { padding: 0.75em 0.85em 0.9em; }
+.pc-f { font-size: 0.6em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-n { font-size: 0.8em; font-weight: 600; margin-top: 0.3em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-p { font-size: 0.9em; font-weight: 700; margin-top: 0.4em; display: flex; align-items: center; justify-content: space-between; }
+.pc-p .pill { font-size: 0.62em; }
+.pc-btn { position: relative; margin-top: 0.75em; height: 2em; font-size: 0.72em; border-radius: 0.5em; }
+
+/* the one drawn object: a cursor */
+.cur { position: absolute; left: 0; top: 0; z-index: 50; }
+.fmt-L .cur { width: 46px; height: 62px; } .fmt-V .cur, .fmt-S .cur { width: 56px; height: 76px; }
+.press { position: absolute; inset: 0; border-radius: inherit; background: rgba(0, 0, 0, 0.18); opacity: 0; pointer-events: none; }
+.pc-star .s0, .pc-star .s1 { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.pc-star .s1 { color: #148a84; opacity: 0; font-size: 1.15em; }
+.cur svg { display: block; width: 100%; height: 100%; }
+
+
+#mesa-w .bd { position: absolute; left: 0; right: 0; top: 0; bottom: 0; padding: 0.7em 1em; overflow: hidden; }
+#mesa-w .tabs { display: flex; gap: 0.4em; background: #f4f4f5; border-radius: 0.4em; padding: 0.3em; font-size: 0.85em; }
+#mesa-w .tabs span { padding: 0.25em 0.8em; border-radius: 0.3em; color: #52525b; }
+#mesa-w .tabs span.on { background: #ffffff; color: #1c1b1d; font-weight: 600; box-shadow: 0 0 0 2px #1c1b1d; }
+#mesa-w .cols { display: grid; gap: 0.8em; margin-top: 0.8em; }
+#mesa-w .ch { display: flex; justify-content: space-between; font-size: 0.72em; font-weight: 700; color: #52525b; letter-spacing: 0.04em; border-bottom: 2px solid #e4e4e7; padding-bottom: 0.35em; margin-bottom: 0.45em; }
+#mesa-w .ch .n { position: relative; display: inline-block; min-width: 1.4em; text-align: right; }
+#mesa-w .ch .n i { font-style: normal; position: absolute; right: 0; top: 0; }
+#mesa-w .kc { height: 2.5em; background: #f4f4f5; border-radius: 0.4em; padding: 0.35em 0.6em; margin-bottom: 0.45em; }
+#mesa-w .kc .a { display: flex; justify-content: space-between; font-weight: 700; }
+#mesa-w .kc .a span { font-weight: 500; font-size: 0.85em; }
+#mesa-w .kc .c { font-size: 0.68em; color: #52525b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#mesa-w .slot { position: relative; height: 2.5em; margin-bottom: 0.45em; }
+#mesa-w .col { position: relative; }
+#mesa-w .mv { position: absolute; left: 0; right: 0; top: 0; z-index: 10; height: 2.5em; background: #ffffff; border-radius: 0.4em; padding: 0.35em 0.6em; box-shadow: 0 0.3em 1em rgba(28, 27, 29, 0.12); border: 2px solid #2db7b0; }
+.fmt-L #mesa-w .stage { font-size: 27px; }
+.fmt-L #mesa-w .bd, .fmt-S #mesa-w .bd { bottom: auto; }
+.fmt-L #mesa-w .cols { grid-template-columns: repeat(4, 1fr); }
+.fmt-V #mesa-w .stage { font-size: 34px; }
+.fmt-V #mesa-w .bd { bottom: auto; }
+.fmt-V #mesa-w .cols { grid-template-columns: repeat(2, 1fr); }
+.fmt-V #mesa-w .k1, .fmt-V #mesa-w .k4 { display: none; }
+.fmt-S #mesa-w .stage { font-size: 25px; }
+.fmt-S #mesa-w .cols { grid-template-columns: repeat(3, 1fr); }
+.fmt-S #mesa-w .k1 { display: none; }
+
+  </style>
+  <div data-hf-id="hf-jkl6" id="root" data-composition-id="mesa" data-width="1080" data-height="1080">
+    <div data-hf-id="hf-m0pk" class="fmt fmt-S"><div data-hf-id="hf-f30j" class="w" id="mesa-w">
+<div data-hf-id="hf-bdx3" class="copy"><div data-hf-id="hf-paqd" class="num">07</div><div data-hf-id="hf-2iwe" class="ttl">Mesa de trabajo</div><div data-hf-id="hf-fe0o" class="line">Pedidos, incidencias y devoluciones, en un tablero.</div></div>
+<div data-hf-id="hf-tv2n" class="stage" id="mesa-stage">
+  <div data-hf-id="hf-agj0" class="card bd">
+    <div data-hf-id="hf-5rmk" class="tabs"><span data-hf-id="hf-8wgh">Incidencias</span><span data-hf-id="hf-azl4" class="on">Pedidos</span><span data-hf-id="hf-fgfr">Devoluciones</span></div>
+    <div data-hf-id="hf-mgq3" class="cols" id="mesa-cols">
+      <div data-hf-id="hf-p3ke" class="col k1"><div data-hf-id="hf-dwy1" class="ch"><span data-hf-id="hf-2uqa">BORRADOR</span><span data-hf-id="hf-q1be" class="n tab">15</span></div>
+        <div data-hf-id="hf-autm" class="kc"><div data-hf-id="hf-lqx1" class="a tab">PED-1079<span data-hf-id="hf-0t87">530,20 €</span></div><div data-hf-id="hf-3bln" class="c">Global Distribución S.L.U.</div></div>
+        <div data-hf-id="hf-98we" class="kc"><div data-hf-id="hf-roj9" class="a tab">PED-1109<span data-hf-id="hf-86ym">598,18 €</span></div><div data-hf-id="hf-xcpy" class="c">Levante Textil S.A.</div></div>
+        <div data-hf-id="hf-9n7f" class="kc"><div data-hf-id="hf-3qyx" class="a tab">PED-1039<span data-hf-id="hf-qizb">1.404,50 €</span></div><div data-hf-id="hf-epqk" class="c">Pedro Díaz Navarro</div></div>
+        <div data-hf-id="hf-a1ig" class="kc"><div data-hf-id="hf-lrva" class="a tab">PED-1049<span data-hf-id="hf-lb14">1.219,20 €</span></div><div data-hf-id="hf-bae4" class="c">Sara Domínguez Ruiz</div></div>
+      </div>
+      <div data-hf-id="hf-l5gd" class="col k2"><div data-hf-id="hf-cf7h" class="ch"><span data-hf-id="hf-uku3">CONFIRMADO</span><span data-hf-id="hf-bdwo" class="n tab"><i data-hf-id="hf-q69l" id="mesa-c29">29</i><i data-hf-id="hf-tjo6" id="mesa-c28" style="opacity:0">28</i></span></div>
+        <div data-hf-id="hf-73lp" class="slot" id="mesa-from"><div data-hf-id="hf-vl4r" class="mv" id="mesa-mv" data-layout-allow-overlap><div data-hf-id="hf-0mt2" class="a tab" style="display:flex;justify-content:space-between;font-weight:700">PED-1031<span data-hf-id="hf-ha86" style="font-weight:500;font-size:0.85em">607,16 €</span></div><div data-hf-id="hf-la9u" class="c" style="font-size:0.68em;color:#52525b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Alejandro Gutiérrez González</div></div></div>
+        <div data-hf-id="hf-pp7z" class="kc fc"><div data-hf-id="hf-hfg8" class="a tab">PED-1050<span data-hf-id="hf-gwbk">1.599,61 €</span></div><div data-hf-id="hf-f7hz" class="c">Cantábrica Boutique S.A.</div></div>
+        <div data-hf-id="hf-l72n" class="kc fc"><div data-hf-id="hf-jinm" class="a tab">PED-1001<span data-hf-id="hf-owrg">928,20 €</span></div><div data-hf-id="hf-fa19" class="c">Central Boutique S.L.</div></div>
+        <div data-hf-id="hf-ksrm" class="kc fc"><div data-hf-id="hf-nwy8" class="a tab">PED-1111<span data-hf-id="hf-1at5">801,90 €</span></div><div data-hf-id="hf-cstc" class="c">Meridional Distribución S.L.U.</div></div>
+      </div>
+      <div data-hf-id="hf-kdsk" class="col k3"><div data-hf-id="hf-dm4k" class="ch"><span data-hf-id="hf-nz17">EN PROCESO</span><span data-hf-id="hf-n0gw" class="n tab"><i data-hf-id="hf-830p" id="mesa-c30">30</i><i data-hf-id="hf-rkuu" id="mesa-c31" style="opacity:0">31</i></span></div>
+        <div data-hf-id="hf-b33x" class="kc tc" id="mesa-to"><div data-hf-id="hf-pbnc" class="a tab">PED-1133<span data-hf-id="hf-8dut">1.786,60 €</span></div><div data-hf-id="hf-0q5s" class="c">Urbana Distribución S.L.</div></div>
+        <div data-hf-id="hf-zto9" class="kc tc"><div data-hf-id="hf-0xvh" class="a tab">PED-1022<span data-hf-id="hf-15lj">1.894,59 €</span></div><div data-hf-id="hf-nvp9" class="c">Marta Sánchez Álvarez</div></div>
+        <div data-hf-id="hf-s5al" class="kc tc"><div data-hf-id="hf-h5rp" class="a tab">PED-1013<span data-hf-id="hf-bm7k">1.133,76 €</span></div><div data-hf-id="hf-kgbn" class="c">Urbana Retail S.A.</div></div>
+        <div data-hf-id="hf-tc7o" class="kc tc"><div data-hf-id="hf-gsex" class="a tab">PED-1062<span data-hf-id="hf-y2t4">1.356,35 €</span></div><div data-hf-id="hf-inar" class="c">Atlántica Comercio S.L.U.</div></div>
+      </div>
+      <div data-hf-id="hf-7va3" class="col k4"><div data-hf-id="hf-d7tj" class="ch"><span data-hf-id="hf-03vn">ENVIADO</span><span data-hf-id="hf-qm5f" class="n tab">30</span></div>
+        <div data-hf-id="hf-79d9" class="kc"><div data-hf-id="hf-lruc" class="a tab">PED-1124<span data-hf-id="hf-tvlb">1.026,50 €</span></div><div data-hf-id="hf-9g4q" class="c">Laura Vázquez López</div></div>
+        <div data-hf-id="hf-7noa" class="kc"><div data-hf-id="hf-zdlm" class="a tab">PED-1034<span data-hf-id="hf-jk9s">456,57 €</span></div><div data-hf-id="hf-7vna" class="c">Atlántica Importación S.L.</div></div>
+        <div data-hf-id="hf-81zb" class="kc"><div data-hf-id="hf-h06y" class="a tab">PED-1045<span data-hf-id="hf-ra6y">1.937,52 €</span></div><div data-hf-id="hf-lwd9" class="c">Sur Boutique S.L.U.</div></div>
+        <div data-hf-id="hf-8gac" class="kc"><div data-hf-id="hf-q3b5" class="a tab">PED-1105<span data-hf-id="hf-xp0p">1.407,80 €</span></div><div data-hf-id="hf-bpdy" class="c">Isabel García Pérez</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div data-hf-id="hf-68cm" class="cur" id="mesa-cur" data-layout-ignore><svg data-hf-id="hf-zit5" viewBox="0 0 22 30" aria-hidden="true"><path data-hf-id="hf-few4" d="M2 2 L2 24 L8 18.5 L12.5 28 L16.5 26.2 L12 17 L20 17 Z" fill="#1c1b1d" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+    </div></div>
+  </div>
+  <script>
+    document.fonts.ready.then(() => {
+  const ID = "mesa";
+  const FMT = "S";
+  const W = document.getElementById(ID + "-w");
+  const $ = (s) => W.querySelector(s);
+  const $$ = (s) => Array.from(W.querySelectorAll(s));
+  // Offset of an element inside the scene, measured once before building tweens.
+  // A scene is display:none until its slot: measure with its hidden ancestors shown for the instant of the read.
+  const withLayout = (fn) => {
+    const hid = [];
+    for (let e = W; e && e !== document.documentElement; e = e.parentElement) {
+      if (getComputedStyle(e).display === "none") { hid.push([e, e.style.getPropertyValue("display"), e.style.getPropertyPriority("display")]); e.style.setProperty("display", "block", "important"); }
+    }
+    try { return fn(); } finally { hid.reverse().forEach(([e, v, p]) => (v ? e.style.setProperty("display", v, p) : e.style.removeProperty("display"))); }
+  };
+  const off = (el) => { let x = 0, y = 0; while (el && el !== W) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return { x, y }; };
+  const pt = (sel, fx = 0.5, fy = 0.5) => withLayout(() => { const el = typeof sel === "string" ? $(sel) : sel; const o = off(el); return { x: o.x + el.offsetWidth * fx, y: o.y + el.offsetHeight * fy }; });
+  const tl = gsap.timeline({ paused: true });
+  const pick = (L, V, S) => (FMT === "L" ? L : FMT === "V" ? V : S);
+  // Scene entry: copy slides in from the left, the stage rises.
+  const enter = (t = 0.05) => {
+    tl.fromTo($(".copy"), { x: -70, opacity: 0 }, { x: 0, opacity: 1, duration: 0.42, ease: "expo.out" }, t);
+    tl.fromTo($(".stage"), { y: 90, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "expo.out" }, t + 0.1);
+  };
+  const exit = (t) => {
+    tl.to($(".copy"), { x: -50, opacity: 0, duration: 0.24, ease: "power3.in" }, t);
+    tl.to($(".stage"), { y: -40, opacity: 0, duration: 0.26, ease: "power3.in" }, t);
+    if ($(".cur")) tl.to($(".cur"), { opacity: 0, duration: 0.15 }, t);
+  };
+  // Cursor: travel to a target, then click it (the press lands on the click frame).
+  const cur = () => $(".cur");
+  const curFrom = (x, y, t = 0) => tl.fromTo(cur(), { x, y, scale: 1, opacity: 1 }, { x, y, duration: 0.01 }, t);
+  const moveTo = (sel, t, d = 0.45, fx = 0.5, fy = 0.55) => { const p = pt(sel, fx, fy); tl.to(cur(), { x: p.x - 6, y: p.y - 4, duration: d, ease: "power2.inOut" }, t); };
+  const click = (sel, t) => {
+    tl.to(cur(), { scale: 0.84, duration: 0.06, ease: "power2.in", transformOrigin: "6px 4px" }, t);
+    tl.to(cur(), { scale: 1, duration: 0.1, ease: "power2.out", transformOrigin: "6px 4px" }, t + 0.06);
+    const pr = sel && $(sel + " .press");
+    if (pr) { tl.fromTo(pr, { opacity: 0 }, { opacity: 1, duration: 0.05 }, t); tl.to(pr, { opacity: 0, duration: 0.18 }, t + 0.1); }
+  };
+  // Count a number into an element (es-ES formatting), measured by the timeline, not the clock.
+  const nf = (dec) => new Intl.NumberFormat("es-ES", { minimumFractionDigits: dec, maximumFractionDigits: dec, useGrouping: "always" });
+  const count = (sel, from, to, t, d, dec = 0, suffix = "") => {
+    const el = typeof sel === "string" ? $(sel) : sel; const f = nf(dec); const o = { v: from };
+    el.textContent = f.format(from) + suffix;
+    tl.to(o, { v: to, duration: d, ease: "power2.out", onUpdate: () => { el.textContent = f.format(o.v) + suffix; } }, t);
+  };
+  // Items arriving one by one.
+  const seq = (els, t, gap, from = { y: 40, opacity: 0 }, d = 0.45) => els.forEach((el, i) => tl.fromTo(el, from, { x: 0, y: 0, opacity: 1, scale: 1, duration: d, ease: "power3.out" }, t + i * gap));
+
+
+  enter();
+  // PED-1031 is dragged from Confirmado to the top of En proceso: one column to the right, same height.
+  const fs = pick(27, 34, 25);
+  const colStep = withLayout(() => $("#mesa-mv").offsetWidth) + 0.8 * fs;
+  const cardStep = 2.95 * fs;
+  seq($$("#mesa-cols .col"), 0.3, 0.08, { y: 30, opacity: 0 }, 0.4);
+  const start = pick({ x: 1900, y: 1050 }, { x: 1100, y: 1900 }, { x: 1100, y: 1050 });
+  curFrom(start.x, start.y, 0);
+  moveTo("#mesa-mv", 0.75, 0.4, 0.3, 0.5);
+  click(null, 1.15);
+  tl.fromTo("#mesa-mv", { scale: 1, rotation: 0 }, { scale: 1.05, rotation: 2, boxShadow: "0 1.2em 2.4em rgba(28,27,29,0.22)", duration: 0.15, ease: "power2.out" }, 1.18);
+  tl.fromTo("#mesa-mv", { x: 0 }, { x: colStep, duration: 0.55, ease: "power2.inOut", immediateRender: false }, 1.3);
+  tl.to(cur(), { x: "+=" + colStep, duration: 0.55, ease: "power2.inOut" }, 1.3);
+  tl.to($$("#mesa-cols .tc"), { y: cardStep, duration: 0.4, ease: "power2.inOut" }, 1.45);
+  const tcs = $$("#mesa-cols .tc");
+  tl.to(tcs[tcs.length - 1], { opacity: 0, duration: 0.3 }, 1.45);
+  tl.to($$("#mesa-cols .fc"), { y: -cardStep, duration: 0.4, ease: "power2.inOut" }, 1.55);
+  tl.to("#mesa-mv", { scale: 1, rotation: 0, boxShadow: "0 0.3em 1em rgba(28,27,29,0.12)", duration: 0.2, ease: "power2.out" }, 1.85);
+  // The column counts follow.
+  tl.to("#mesa-c29", { opacity: 0, y: -8, duration: 0.15 }, 1.9);
+  tl.fromTo("#mesa-c28", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.2 }, 1.92);
+  tl.to("#mesa-c30", { opacity: 0, y: -8, duration: 0.15 }, 1.9);
+  tl.fromTo("#mesa-c31", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.2 }, 1.92);
+  exit(2.74);
+
+      window.__timelines["mesa"] = tl;
+    });
+  </script>
+</template>

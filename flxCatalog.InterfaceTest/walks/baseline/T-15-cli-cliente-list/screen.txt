@@ -1,0 +1,324 @@
+# mod-cli-cliente-list
+Listado de clientes
+Nuevo
+Código
+Razón social
+CIF
+Tarifa
+Comercial
+Estado
+Acciones
+CLI-2134
+Alejandro Moreno García
+47642764Z
+Distribuidor
+Laura Gómez
+Activo
+CLI-2110
+Ana Díaz Díaz
+94823867Z
+Profesional
+Ana Martín
+Activo
+CLI-2124
+Ana Moreno López
+36446127Z
+Distribuidor
+Pedro Ruiz
+Activo
+CLI-2122
+Antonio Díaz Álvarez
+59778910Z
+Mayorista
+Laura Gómez
+Activo
+CLI-2135
+Antonio Sánchez Alonso
+74281600Z
+Profesional
+Elena Torres
+Activo
+CLI-2106
+Antonio Torres Ruiz
+63625823Z
+VIP
+Javier López
+Activo
+CLI-2001
+Atlántica Almacenes S.L.U.
+B10000001
+VIP
+Carlos Sánchez
+Activo
+CLI-2058
+Atlántica Boutique S.A.
+B10000058
+Público
+Laura Gómez
+Activo
+CLI-2026
+Atlántica Boutique S.L.U.
+B10000026
+VIP
+Elena Torres
+Activo
+CLI-2004
+Atlántica Comercial S.L.U.
+B10000004
+Distribuidor
+Carlos Sánchez
+Activo
+CLI-2005
+Atlántica Comercio S.A.
+B10000005
+Profesional
+Ana Martín
+Bloqueado
+CLI-2063
+Atlántica Distribución S.A.
+B10000063
+Público
+Laura Gómez
+Activo
+CLI-2047
+Atlántica Importación S.L.U.
+B10000047
+Mayorista
+Carlos Sánchez
+Activo
+CLI-2010
+Cantábrica Almacenes S.L.
+B10000010
+Profesional
+—
+Activo
+CLI-2070
+Cantábrica Distribución S.L.U.
+B10000070
+Profesional
+Elena Torres
+Activo
+CLI-2049
+Cantábrica Moda S.L.
+B10000049
+Distribuidor
+—
+Activo
+CLI-2114
+Carlos Díaz López
+91951112Z
+Distribuidor
+Elena Torres
+Activo
+CLI-2105
+Carlos González Alonso
+74874319Z
+Profesional
+Laura Gómez
+Activo
+CLI-2125
+Carlos Rodríguez Pérez
+86922693Z
+Profesional
+Ana Martín
+Bloqueado
+CLI-2128
+Carmen Ruiz González
+24577184Z
+Público
+Javier López
+Activo
+CLI-2050
+Central Boutique S.A.
+B10000050
+Profesional
+Carlos Sánchez
+Activo
+CLI-2046
+Central Comercio S.L.U.
+B10000046
+VIP
+Javier López
+Activo
+CLI-2032
+Central Confección S.A.
+B10000032
+Mayorista
+Pedro Ruiz
+Activo
+CLI-2056
+Central Moda S.L.
+B10000056
+VIP
+Ana Martín
+Activo
+CLI-2067
+Central Retail S.A.
+B10000067
+Mayorista
+Ana Martín
+Activo
+CLI-2012
+Central Retail S.L.U.
+B10000012
+Mayorista
+Ana Martín
+Activo
+CLI-2126
+David Gutiérrez García
+30661362Z
+VIP
+Carlos Sánchez
+Bloqueado
+CLI-2103
+David Rodríguez Navarro
+72594793Z
+Público
+Elena Torres
+Activo
+CLI-2119
+David Romero Moreno
+57997346Z
+Distribuidor
+Pedro Ruiz
+Activo
+CLI-2031
+Global Comercio S.L.U.
+B10000031
+VIP
+—
+Activo
+CLI-2044
+Global Confección S.L.
+B10000044
+Distribuidor
+Javier López
+Activo
+CLI-2069
+Global Moda S.L.U.
+B10000069
+Distribuidor
+Laura Gómez
+Activo
+CLI-2055
+Hispana Boutique S.L.U.
+B10000055
+Profesional
+Ana Martín
+Activo
+CLI-2052
+Hispana Comercial S.L.U.
+B10000052
+Mayorista
+Ana Martín
+Activo
+CLI-2008
+Hispana Comercio S.A.
+B10000008
+Público
+Pedro Ruiz
+Activo
+CLI-2018
+Hispana Distribución S.L.
+B10000018
+Público
+Laura Gómez
+Activo
+CLI-2013
+Hispana Moda S.A.
+B10000013
+Público
+Ana Martín
+Activo
+CLI-2041
+Ibérica Almacenes S.L.U.
+B10000041
+VIP
+Pedro Ruiz
+Activo
+CLI-2025
+Ibérica Boutique S.L.U.
+B10000025
+Profesional
+Laura Gómez
+Activo
+CLI-2039
+Ibérica Comercio S.A.
+B10000039
+Distribuidor
+Pedro Ruiz
+Activo
+CLI-2072
+Ibérica Comercio S.L.
+B10000072
+Mayorista
+Ana Martín
+Activo
+CLI-2023
+Ibérica Distribución S.L.U.
+B10000023
+Público
+Pedro Ruiz
+Activo
+CLI-2021
+Ibérica Importación S.A.
+B10000021
+VIP
+Carlos Sánchez
+Activo
+CLI-2118
+Isabel Muñoz García
+91294746Z
+Público
+—
+Activo
+CLI-2123
+Isabel Torres Álvarez
+89149738Z
+Público
+Carlos Sánchez
+Activo
+CLI-2112
+Javier López Domínguez
+33317657Z
+Mayorista
+Carlos Sánchez
+Activo
+CLI-2113
+José Fernández Ruiz
+38254951Z
+Público
+Pedro Ruiz
+Activo
+CLI-2107
+José Ruiz Torres
+32187228Z
+Mayorista
+Carlos Sánchez
+Activo
+CLI-2129
+José Vázquez Torres
+35943493Z
+Distribuidor
+Ana Martín
+Activo
+CLI-2130
+Laura Sánchez López
+21297974Z
+Profesional
+Elena Torres
+Activo
+1
+2
+3
+Página
+1
+de
+3
+Total:
+110
+# mod-tour-tour-clientes
+Cómo encontrar un cliente, ver su ficha y dar de alta uno nuevo.
+
+Hacer el recorrido
+Editar pasos

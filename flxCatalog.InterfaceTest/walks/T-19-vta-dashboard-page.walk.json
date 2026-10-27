@@ -1,0 +1,31 @@
+{
+  "title": "T-19: el administrador abre el Dashboard desde su menú lateral, que ya no tiene Solicitudes de contacto",
+  "page": "VTA_Dashboard_Page",
+  "data": "demo",
+  "steps": [
+    {
+      "menu": "Dashboard"
+    },
+    {
+      "module": "mod-dash-top-clientes-echart"
+    },
+    {
+      "module": "mod-dash-clientes-problemas-echart"
+    },
+    {
+      "module": "mod-dash-top-vendidos-echart"
+    },
+    {
+      "module": "mod-dash-top-devueltos-echart"
+    },
+    {
+      "module": "mod-dash-kpis-easyinfo"
+    },
+    {
+      "noText": "Solicitudes de contacto"
+    },
+    {
+      "shot": "screen"
+    }
+  ]
+}

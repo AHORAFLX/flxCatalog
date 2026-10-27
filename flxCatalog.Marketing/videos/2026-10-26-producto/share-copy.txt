@@ -1,0 +1,1 @@
+Catálogo Flexygo: catálogo con fotos, tallas y colores, carrito, seguimiento del pedido, reseñas, devoluciones, tablero y dashboard. Todo en una sola aplicación, hecha con Flexygo.

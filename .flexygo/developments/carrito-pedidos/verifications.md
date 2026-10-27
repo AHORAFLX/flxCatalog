@@ -69,3 +69,145 @@
 **Verdict:** passes
 
 **Result:** Correcto: la barra mostró "2 productos seleccionados", y al pulsar Comparar la página mostró ambos productos en columnas con Precio, Familia, Marca y Stock correctos, sin errores de consola. Durante esta prueba se detectó y corrigió un fallo real: cliCompareSelected (variable JS global del plugin) no se reiniciaba entre visitas a Mi catálogo, así que una selección de una prueba anterior (con la página ya recargada y las casillas visualmente desmarcadas) seguía contando para el límite de 3 productos. Corregido añadiendo un MutationObserver que reinicia cliCompareSelected cada vez que el listado de Mi catálogo (identificado por la reaparición de #cli-compare-bar) se renderiza de nuevo. Reverificado tras el fix: selección limpia, sin avisos falsos.
+
+## 2026-10-13 · affects B-4
+
+**Checked:** VTA_Pedido_MiCarrito_View (Mi carrito): líneas editables, cambio de cantidad, quitar y estado vacío.
+
+**Against what data:** Usuario Cliente, tests Carrito_AñadirConVariante_CambiarCantidad_YQuitar y Pedido_ElClienteConfirmaSuCarrito_YElAdministradorLoCancela; captura con el carrito vacío.
+
+**Verdict:** passes
+
+**Result:** OK: se añade con variante, se cambia la cantidad (2 a 3), se quita la línea y se confirma el pedido; con el carrito vacío dice «Tu carrito está vacío». Corregido hoy el botón «Quitar», que pintaba «?» (ahora ✕).
+
+**Screenshot:** `screenshots/verify/2026-10-13-b-4-1-verify-cliente-micarrito.png`
+
+## 2026-10-13 · affects B-5
+
+**Checked:** CAT_Producto_Comparador_List: compara los productos marcados en el catálogo.
+
+**Against what data:** Usuario Cliente, los dos primeros productos del catálogo, test Comparador_ComparaLosProductosSeleccionados.
+
+**Verdict:** passes
+
+**Result:** OK: 2 columnas con foto, precio, familia, marca y stock de los productos elegidos.
+
+**Screenshot:** `screenshots/verify/2026-10-13-b-5-2-verify-cliente-comparador.png`
+
+## 2026-10-13 · affects B-2
+
+**Checked:** Mis favoritos: el nodo abre el catálogo filtrado a los favoritos del cliente; marcar y desmarcar desde la tarjeta.
+
+**Against what data:** Usuario Cliente, test Favoritos_SeMarcanDesdeElCatalogoYSeQuitanDesdeMisFavoritos (marca y desmarca uno); captura tras el test, sin favoritos.
+
+**Verdict:** passes
+
+**Result:** OK: se marca desde el catálogo, aparece en «Mis favoritos» y se quita. Sin favoritos, la pantalla dice «Todavía no hay productos en tu catálogo» con el título «Catálogo»: es el catálogo filtrado que pidió el usuario («sin módulo nuevo»), aunque el texto no menciona los favoritos.
+
+**Screenshot:** `screenshots/verify/2026-10-13-b-2-3-verify-cliente-favoritos.png`
+
+## 2026-10-13 · affects B-2
+
+**Checked:** Ficha de producto del cliente (CAT_Producto_View en ventana) con sus reseñas.
+
+**Against what data:** Usuario Cliente, primer producto del catálogo, tests FichaDeProducto_SeAbreEnVentanaConSusReseñas y Reseña_ProductoComprado_SePublicaYApareceEnLaLista.
+
+**Verdict:** passes
+
+**Result:** OK: la ficha se abre en ventana con la valoración, las últimas reseñas y el formulario. Una reseña de un producto comprado se publica y aparece en la lista; el test la borra después como administrador.
+
+**Screenshot:** `screenshots/verify/2026-10-13-b-2-4-verify-cliente-fichaproducto.png`
+
+## 2026-10-26 · affects T-01, T-02
+
+**Checked:** Confirmar y cancelar pedido comprueban que el pedido es del cliente que lo pide
+
+**Against what data:** flexygo_execute_procedure el 26-oct sobre PED-1009 (Borrador, de Central Retail S.L.) con @CurrentRole='cliente' y @CurrentReference = la clienta demo Marta Rodríguez Díaz
+
+**Verdict:** passes
+
+**Result:** OK: pVTA_ConfirmarPedido y pVTA_CancelarPedido responden los dos «No tienes permiso sobre este pedido.» y PED-1009 sigue en Borrador. Con su propio carrito, el test Pedido_ElClienteConfirmaSuCarrito_YElAdministradorLoCancela (en verde hoy) confirma como cliente y cancela como administrador.
+
+## 2026-10-26 · affects T-03
+
+**Checked:** Desde el backoffice, el administrador sigue pudiendo confirmar y cancelar pedidos
+
+**Against what data:** Test Pedido_ElClienteConfirmaSuCarrito_YElAdministradorLoCancela y AdminVentasTests.Pedido_FichaConLineasInformacionFiscalYProcesos, en verde el 26-oct; ficha de pedido del admin capturada por la batería
+
+**Verdict:** passes
+
+**Result:** OK: la ficha de pedido del administrador ofrece Confirmar, Cancelar y Generar PDF y el test cancela como admin un pedido que el cliente acaba de confirmar.
+
+**Screenshot:** `screenshots/verify/2026-10-26-t-03-5-cp-admin-pedido.png`
+
+## 2026-10-26 · affects T-04, T-05, T-06, T-07, T-08
+
+**Checked:** Los favoritos se marcan desde el catálogo y se ven en «Mis favoritos»
+
+**Against what data:** Clienta demo Marta Rodríguez Díaz con 7 favoritos del reinicio del 26-oct; test ClienteCatalogoTests.Favoritos_SeMarcanDesdeElCatalogoYSeQuitanDesdeMisFavoritos en verde hoy
+
+**Verdict:** passes
+
+**Result:** OK: «Mis favoritos» abre el catálogo filtrado con sus 7 productos, cada uno con la estrella roja marcada; el test marca uno desde el catálogo (pCAT_ToggleFavorito), lo ve aparecer y lo quita. La tabla Favoritos tiene su índice único por cliente y producto.
+
+**Screenshot:** `screenshots/verify/2026-10-26-t-04-t-05-t-06-t-07-t-08-6-cp-favoritos.png`
+
+## 2026-10-26 · affects T-09, T-10, T-11, T-12, T-14, T-17
+
+**Checked:** Añadir al carrito con y sin variante, cambiar cantidad, quitar y ver «Mi carrito»
+
+**Against what data:** Clienta demo; test ClienteCarritoPedidosTests.Carrito_AñadirConVariante_CambiarCantidad_YQuitar en verde el 26-oct; captura de Mi carrito con el carrito CARR-20261026184134
+
+**Verdict:** passes
+
+**Result:** OK: Mi carrito (entrada de menú con contador 26) muestra 5 líneas con foto, talla y color legibles, cantidad editable, subtotal y la X para quitar, más Base imponible y Total 1.799,81 € y el botón «Confirmar pedido». El test añade un producto con variante (ventana de talla/color) y otro sin variante (un clic), cambia la cantidad y quita una línea.
+
+**Screenshot:** `screenshots/verify/2026-10-26-t-09-t-10-t-11-t-12-t-14-t-17-7-cp-micarrito.png`
+
+## 2026-10-26 · affects T-18, T-19
+
+**Checked:** Marcar dos productos en el catálogo y compararlos
+
+**Against what data:** Clienta demo; test ClienteCatalogoTests.Comparador_ComparaLosProductosSeleccionados en verde el 26-oct; comparación de Abrigo Niño Deluxe y Pantalón Niño Pro
+
+**Verdict:** passes
+
+**Result:** OK: con dos casillas marcadas, «Comparar» abre CAT_Producto_Comparador_List (página genérica desde hoy) con dos columnas: foto, precio de su tarifa (79,71 € y 34,11 €), familia, marca y stock.
+
+**Screenshot:** `screenshots/verify/2026-10-26-t-18-t-19-8-cp-comparador.png`
+
+## 2026-10-26 · affects T-01, T-02, T-03, T-05, T-06, T-07, T-09, T-11, T-12, T-16, T-19
+
+**Kind:** tests
+
+**Checked:** Tests de interfaz de la batería que ejecutan estos procesos y pantallas
+
+**Against what data:** flxCatalog.InterfaceTest, pasada del 26-oct
+
+**Verdict:** not verified — waived by D-4
+
+**Result:** Cubiertas según D-4.
+
+## 2026-10-26 · affects T-16
+
+**Kind:** help
+
+**Checked:** tour: tour-mi-carrito · page: VTA_Pedido_MiCarrito_View · help: Help_Flujo_HacerPedido
+
+**Against what data:** Recorrido hecho como cliente el 26-oct (2 pasos sin saltos)
+
+**Verdict:** passes
+
+**Result:** OK: Mi carrito ofrece su recorrido y el botón Ayuda de «Mis productos» abre «Hacer un pedido».
+
+## 2026-10-26 · affects T-07, T-19
+
+**Kind:** help
+
+**Checked:** tour: tour-catalogo-cliente · page: CAT_Producto_Cliente_List · help: Help_Flujo_HacerPedido
+
+**Against what data:** Recorrido hecho como cliente el 26-oct (4 pasos, uno de ellos «Favoritos y comparar»)
+
+**Verdict:** passes
+
+**Result:** OK: «Mis favoritos» abre el catálogo filtrado y el comparador se lanza desde el catálogo; los dos se explican en el recorrido del catálogo, y su botón Ayuda abre «Hacer un pedido».

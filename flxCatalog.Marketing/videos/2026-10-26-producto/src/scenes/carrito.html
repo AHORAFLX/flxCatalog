@@ -1,0 +1,79 @@
+<style>
+#carrito-w .hd { position: absolute; left: 0; right: 0; top: 0; padding: 0.9em 1.1em; display: grid; align-items: end; }
+#carrito-w .hd .mt { display: flex; align-items: center; gap: 0.5em; }
+#carrito-w .hd .mt .t { font-weight: 700; font-size: 1.15em; }
+#carrito-w .ref { font-size: 0.72em; }
+#carrito-w .pills { position: relative; height: 1.5em; margin-top: 0.35em; }
+#carrito-w .pills .pill { position: absolute; left: 0; top: 0; font-size: 0.8em; }
+#carrito-w .k { font-size: 0.72em; }
+#carrito-w .v { margin-top: 0.15em; }
+#carrito-w .tot { font-size: 1.9em; font-weight: 800; letter-spacing: -0.02em; }
+#carrito-w .conf { position: relative; height: 1.9em; padding: 0 0.9em; font-size: 0.85em; gap: 0.5em; border-radius: 0.35em; }
+#carrito-w .ln { position: absolute; left: 0; right: 0; padding: 0.7em 1.1em; }
+#carrito-w .ln .mt2 { font-weight: 600; font-size: 1.05em; margin-bottom: 0.4em; }
+#carrito-w .row { display: flex; align-items: center; gap: 0.8em; padding: 0.55em 0; border-top: 1px solid #e4e4e7; }
+#carrito-w .row .th { width: 2.6em; height: 2.6em; border-radius: 0.3em; flex: none; }
+#carrito-w .row .nm { flex: 1; min-width: 0; }
+#carrito-w .row .nm b { font-weight: 600; display: block; }
+#carrito-w .row .nm span { font-size: 0.72em; }
+#carrito-w .row .q { width: 2.4em; height: 1.6em; border: 2px solid #d4d4d8; border-radius: 0.3em; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.4em; }
+#carrito-w .row .pr { width: 4.6em; text-align: right; font-weight: 600; }
+#carrito-w .row .x { color: #dc2626; width: 1em; text-align: center; }
+#carrito-w .veil { position: absolute; inset: -40px; background: rgba(28, 27, 29, 0.35); border-radius: 24px; opacity: 0; }
+#carrito-w .ask { position: absolute; padding: 1em 1.2em 1em; opacity: 0; }
+#carrito-w .ask .q2 { font-weight: 600; font-size: 1.05em; }
+#carrito-w .ask .bb { display: flex; justify-content: flex-end; gap: 0.4em; margin-top: 1em; border-top: 1px solid #e4e4e7; padding-top: 0.8em; }
+#carrito-w .ask .btn { position: relative; height: 1.8em; padding: 0 0.9em; border-radius: 0.3em; }
+.fmt-L #carrito-w .stage { font-size: 30px; }
+.fmt-L #carrito-w .hd { height: 250px; grid-template-columns: 1.3fr 0.8fr 1fr auto; column-gap: 1em; }
+.fmt-L #carrito-w .ln { top: 280px; }
+.fmt-L #carrito-w .ask { left: 470px; top: 200px; width: 740px; }
+.fmt-V #carrito-w .stage { font-size: 40px; }
+.fmt-V #carrito-w .hd { height: 520px; grid-template-columns: 1fr auto; grid-template-areas: "a d" "b c"; row-gap: 1em; align-items: start; }
+#carrito-w .ca { grid-area: a; } #carrito-w .cb { grid-area: b; } #carrito-w .cc { grid-area: c; } #carrito-w .cd { grid-area: d; }
+.fmt-L #carrito-w .ca, .fmt-L #carrito-w .cb, .fmt-L #carrito-w .cc, .fmt-L #carrito-w .cd { grid-area: auto; }
+.fmt-V #carrito-w .cc, .fmt-S #carrito-w .cc { text-align: right; } .fmt-V #carrito-w .cb, .fmt-S #carrito-w .cb { align-self: end; }
+.fmt-V #carrito-w .ln { top: 560px; }
+.fmt-V #carrito-w .ask { left: 40px; top: 300px; width: 872px; }
+.fmt-S #carrito-w .stage { font-size: 25px; }
+.fmt-S #carrito-w .hd { height: 300px; grid-template-columns: 1fr auto; grid-template-areas: "a d" "b c"; row-gap: 0.6em; align-items: start; }
+.fmt-S #carrito-w .ln { top: 330px; }
+.fmt-S #carrito-w .ask { left: 160px; top: 200px; width: 650px; }
+</style>
+<div class="copy"><div class="num">03</div><div class="ttl">Carrito y pedido</div><div class="line">Del catálogo al pedido en dos clics.</div></div>
+<div class="stage" id="carrito-stage">
+  <div class="card hd" id="carrito-hd">
+    <div class="ca"><div class="ref muted tab">CARR-20261013180858</div><div class="mt"><span class="t">Mi carrito</span></div>
+      <div class="pills"><span class="pill neu" id="carrito-p1">Borrador</span><span class="pill info" id="carrito-p2" style="opacity:0">Confirmado</span></div></div>
+    <div class="cb"><div class="k muted">Fecha</div><div class="v tab">13/10/2026</div></div>
+    <div class="cc"><div class="k muted">Total pedido</div><div class="tot tab" id="carrito-tot">139,70 €</div></div>
+    <div class="btn ghost conf cd" id="carrito-conf"><span>&#10003;</span> Confirmar pedido<span class="press"></span></div>
+  </div>
+  <div class="card ln" id="carrito-ln">
+    <div class="mt2">Mis productos</div>
+    <div class="row" id="carrito-r1"><div class="th photo" style="background-image:url('assets/photos/pantalones-1.jpg')"></div><div class="nm"><b>Pantalón Cargo Nova</b><span class="muted">Blanco XXL</span></div><div class="q tab">1</div><div class="pr tab">69,90 €</div><div class="x">&#10005;</div></div>
+    <div class="row" id="carrito-r2"><div class="th photo" style="background-image:url('assets/photos/mallas-deportivas-1.jpg')"></div><div class="nm"><b>Malla Deportiva Prime</b><span class="muted">Rosa XL</span></div><div class="q tab">2</div><div class="pr tab">69,80 €</div><div class="x">&#10005;</div></div>
+  </div>
+  <div class="veil" id="carrito-veil" data-layout-ignore></div>
+  <div class="card ask" id="carrito-ask"><div class="q2">¿Confirmar este pedido?</div><div class="bb"><div class="btn teal" id="carrito-si">Sí<span class="press"></span></div><div class="btn ghost">No</div></div></div>
+</div>
+__CURSOR__
+<script>
+  enter();
+  seq(["#carrito-r1", "#carrito-r2"].map($), 0.45, 0.16, { x: 60, opacity: 0 }, 0.4);
+  count("#carrito-tot", 0, 139.7, 0.5, 1.0, 2, " €");
+  const start = pick({ x: 1900, y: 1050 }, { x: 1100, y: 1900 }, { x: 1100, y: 1050 });
+  curFrom(start.x, start.y, 0);
+  moveTo("#carrito-conf", 0.82, 0.4);
+  click("#carrito-conf", 1.25);
+  tl.to("#carrito-veil", { opacity: 1, duration: 0.18 }, 1.28);
+  tl.fromTo("#carrito-ask", { opacity: 0, y: 24, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.25, ease: "back.out(1.6)" }, 1.3);
+  moveTo("#carrito-si", 1.55, 0.3);
+  click("#carrito-si", 1.95);
+  tl.to("#carrito-ask", { opacity: 0, scale: 0.97, duration: 0.15, ease: "power2.in" }, 2.0);
+  tl.to("#carrito-veil", { opacity: 0, duration: 0.18 }, 2.02);
+  // The cart is now an order.
+  tl.to("#carrito-p1", { opacity: 0, duration: 0.1 }, 2.05);
+  tl.fromTo("#carrito-p2", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.5)", transformOrigin: "0% 50%" }, 2.05);
+  exit(2.74);
+</script>

@@ -6,17 +6,34 @@ description: Builds a whole Flexygo application — schema, entities, modules, n
 # Build a whole product
 
 This is **not a separate flow**. It is the usual flow —`/flx-context`, `/flx-plan`, `/flx-discuss`,
-`/flx-execute` block by block, `/flx-review`, `/flx-verify`, `/flx-quality`— with a plan wide enough to cover a
+`/flx-execute` block by block, `/flx-review`, `/flx-verify`, `/flx-test`, `/flx-quality`, `/flx-help`, and `/flx-api` when the
+application is used from outside— with a plan wide enough to cover a
 complete application. Do not write plan files yourself, do not classify the request into modes, and do not
 split the work into batches of subagents: the tools and the MCP's requirements already do that.
 
 What this skill adds is the **ambition**: which blocks are needed for what gets built to be a usable
 application and not a pile of tables.
 
+## Before anything else · Gather the available sources
+
+At the start of a product built from scratch, first ask the user for **all information sources they
+can provide** before discussing the model, design or plan. Ask them to place the files in a
+`Resources/` folder at the project root; create that folder if it does not exist. Include anything
+potentially useful: requirements, business rules, existing process descriptions, sample data,
+spreadsheets, database schemas, API documentation, reports, screenshots, reference applications,
+branding and constraints. For material that cannot be copied locally, ask them to put its URL and
+relevant context in a text or Markdown file inside `Resources/`.
+
+Once the user says the folder is ready, inventory and review its contents, then summarize what is
+available and note important gaps. Do not start design, modeling or planning until this review is
+done. If the user has no sources, ask them to confirm that and continue with the existing flow; do
+not make the request a dead end. Then proceed to the approved-design question below.
+
 ## 0 · Is there an approved design already?
 
-**Ask before anything else.** Many people arrive here —"I want an application for…"— carrying
-screens **the client has already approved**. If that is the case, this is not designed: it is
+**After reviewing the available sources, ask this before anything else.** Many people arrive here —
+"I want an application for…"— carrying screens **the client has already approved**. If that is
+the case, this is not designed: it is
 implanted, and the work is judged by comparing it against that original.
 
 **Ask it as ONE question, not as a menu**, because the two things that matter are the same thing:
@@ -116,7 +133,7 @@ platform's own look, wearing the client's brand.
    HTML to invent a whole design screen by screen with nothing to hold it to — which is the thing
    this gate exists to prevent, and it is a different thing from writing the module a screen needs.
 4. Record the development as having **no original**. ⛔ **The row-by-row comparison is then not run at
-   all** — there is nothing to compare against, and answering twelve rows about a picture nobody drew
+   all** — there is nothing to compare against, and answering thirteen rows about a picture nobody drew
    is theatre. What replaces it is the part that still means something: checking the screens look
    right, and `flexygo_generate_interface_test_plan` to click through them, fill them and prove they
    work.
@@ -154,6 +171,15 @@ The model knows SQL; **it does not know Flexygo**. Before proposing anything, ca
 - `flexygo_get_process_and_dependency_guide` — what each entity needs beyond CRUD.
 - `flexygo_get_dotnet_process_guide` — only if some process carries C#: the contract the platform
   invokes your method with, and the recipes (PDF report, email with attachment, WebAPI).
+- `flexygo_get_reports_reference` — the moment a record needs a PDF, or an email needs one
+  attached: that is a REPORT (`flexygo_create_report`), never a process drawing bytes by hand. Who
+  renders each of the seven `Reports_Types`, why a record's download needs no process at all (the
+  toolbar's `Print` button), and the real security gate — `Security_Reports_Roles`/`Users`, not
+  `Objects.CanPrint`.
+- `flexygo_get_notifications_reference` — when a record has to email someone or raise an in-app
+  notice on its own: one `Notices_Sentences` row a system job reads every 5 minutes, the exact
+  columns each sentence must output, the recipients rule, and the Update sentence without which the
+  same rows are sent again and again.
 
 And before building the visible layer, when the time comes:
 
@@ -176,7 +202,9 @@ And before building the visible layer, when the time comes:
   the WebAPI and restart before the device sees a single row.
 - `flexygo_get_offline_screen_components_reference` — before writing a single mobile screen: which
   components the device carries and which attributes they really accept, which are not the online
-  ones. What gets written with the wrong names does not fail, it comes out blank.
+  ones. What gets written with the wrong names does not fail, it comes out blank. It also says how
+  to tell which shell the phones run, and carries the recipes for the new 2026 one — used only on
+  that shell, and only when the project has no design of its own.
 - `flexygo_get_offline_js_reference` — before writing a line of JavaScript for the device:
   `window.flexygo` there is not the web object of the same name, and the `jsAfterLoad` hook holds
   500 characters, is a synchronous eval and runs on every render, not once.
@@ -190,7 +218,9 @@ And before building the visible layer, when the time comes:
   only a preference — the resolver falls back to any page of the object ignoring that column — so
   `flexygo_set_page_security` is what actually keeps the page for the guest and off everybody
   else's screen.
-- `flexygo_get_security_reference` — before writing a single permission, and before promising a
+- `flexygo_get_security_reference` — **before planning, whenever `/flx-context` recorded several
+  roles or public screens** (the plan carries their block, B-6 below), before writing a single
+  permission, and before promising a
   customer that a role "will not see" something: a row is written to take away, absence means
   permitted, and for the guest role that rule is inverted — it starts from everything denied, so
   a public screen has to be granted at FOUR levels — the page, every module on it, the object
@@ -200,8 +230,9 @@ And before building the visible layer, when the time comes:
 - `flexygo_get_webapi_reference` — whenever anything reads this project from OUTSIDE it: a phone, a
   customer's system, or you checking your own work through the REST surface. Nothing there is open
   by default and nothing refuses in a way that looks like a refusal — the caller gate answers `401`
-  in the exact words of a wrong password, and the object gate answers **HTTP 200** carrying
-  `Unauthorized collection`. It also holds which of the two `/token` endpoints is the real one,
+  in the exact words of a wrong password, and the object gate answers `Unauthorized collection`:
+  as **HTTP 200** in the `Ajax` envelope from a Frontend before beta.83, as `401` or `403` from a
+  later one. It also holds which of the two `/token` endpoints is the real one,
   which is where a walk lost six probes.
 - `flexygo_get_erp_integration_reference` — only when the data model belongs to the customer, and
   then before the first block: the schema travels as deployment scripts because publishing the data
@@ -213,10 +244,17 @@ And before building the visible layer, when the time comes:
   than one table, which is the ERP shape: the standard table plus a parallel one holding the
   customer's own fields. Adding a field there already works with the tools that exist —  the
   platform deduces a property's table from where the column lives — so read it before going looking
-  for a tool that is not there, and before touching rows that already exist: the list JOINs INNER,
-  so a record with no matching row vanishes from every list without an error.
+  for a tool that is not there, and before touching rows that already exist: the list still paints
+  a record with no matching row (the platform's filter is a LEFT JOIN), but opening that record
+  fails until the row exists — the acknowledgement of `flexygo_add_additional_table` carries the
+  INSERT that fixes it.
+- `flexygo_get_help_reference` — once quality has swept a screen: its guided tour, the help of its
+  fields and its page of the application's help, with screenshots on the demo data, for whoever uses it.
+- `flexygo_get_testing_reference` — once the processes and screens are verified: the product's own
+  UnitTest and InterfaceTest, what the template ships broken, and a test per new process and screen
+  that creates its own data, goes red once on purpose, and runs in CI before every publication.
 - `flexygo_get_quality_reference` — after the block is verified, and before telling anyone it is
-  done: the closed catalogue of twelve things a copied screen is missing, each with the read that
+  done: the closed catalogue of fourteen things a copied screen is missing, each with the read that
   detects it and the mechanism that fixes it. A 100% faithful copy can still be a bad application,
   and no earlier gate can see an absence nobody wrote.
 
@@ -240,11 +278,13 @@ them into one: `/flx-execute` checks block by block, and that is what stops you 
 
 | Block | Contents |
 |---|---|
-| **B-1 · Schema** | Tables in order master → parents → children, and the test data **if the user authorises it** — but when the data model is not ours, read the fork below first: nothing is created in that database directly |
+| **B-1 · Schema** | Tables in order master → parents → children — but when the data model is not ours, read the fork below first: nothing is created in that database directly |
 | **B-2 · Entities** | Objects (one at a time), properties, list views, filters, record view, pages |
 | **B-3 · Relations and logic** | Relations last; then processes; then dependencies |
 | **B-4 · Modules and pages** | List and record modules, related lists and composition follow what the approved original shows, screen by screen; a document and image manager where the original shows one — an upload, a gallery, an attachments panel, on a screen or in the generated code; document or image properties the original does not show are a §4 question, never a silent build |
 | **B-5 · Navigation and startup** | Menu and startup page, wired to the navigation the approved original shows; a dashboard only if the original shows one — or the user commissioned it in `/flx-discuss` (extend the original first with `/flx-design` when possible) |
+| **B-6 · Who sees what** | When `/flx-context` recorded several roles or screens that open without signing in: roles and profiles first, then the security of objects, pages, modules, navigation and processes, each task saying what every role sees and does, by the names the project memory carries. `flexygo_write_plan` refuses a building plan without it, unless the user decided that every role sees everything (`securityWaivedBy`) |
+| **B-7 · Demo data** | Always the LAST block, behind every process and screen: one task that names `flexygo_demo_data` and says which states of each screen it covers, dates counted from today and the `DEMO` marker. `flexygo_write_plan` refuses a plan with screens without it, unless the user decided to go without demo data (`demoDataWaivedBy`) |
 
 The blocks are the **order** — platform truth, and what `/flx-execute` checks block by block. The
 **approved original is the list**. Only when there is no original at all (§0, the user declined to
@@ -267,11 +307,19 @@ never recorded, ask it now and record it before writing a line of DDL.
   now: the application executes it when it starts and marks it as done — **the only route that runs
   itself on every installation**, instead of living in the database you happen to point at. That is
   how the platform's own products ship theirs.
-  ⛔ **No exception, not even on the user's own request: `flexygo_execute_ddl` and
-  `flexygo_execute_dml` refuse an ERP database on their own**, a hard refusal that does not depend on
-  the agent remembering to withhold it. When the user wants something created on that database
-  directly, the route is theirs to take, not this server's: start the application and let its own
-  script jobs create it, then work with what they created.
+  ⛔ **`flexygo_execute_ddl` and `flexygo_execute_dml` refuse an ERP database on their own**, a
+  hard refusal that does not depend on the agent remembering to withhold it — **with one toll, not
+  an exception**: a statement whose every touched object carries the prefix the project declared in
+  `/flx-context` (`Pers_` for one customer's implementation, the product's own — `FRUTI_` — for a
+  product sold to several, which never writes with `Pers_`; at the start of the name or after a first
+  word, as in `vPers_`; reads may name any ERP table), or that only adds, changes or drops columns
+  carrying it in one of the ERP's own `Conf_` tables, runs, during development, and its acknowledgement says where the result
+  has to end up: through `flexygo_register_deployment_script`, idempotent, like everything else in
+  this block. For anything else the user wants created on that database directly, the route is
+  theirs to take, not this server's: start the application and let its own script jobs create it,
+  then work with what they created.
+  Whoever starts it stops it — see `/flx-verify`, "Whoever starts it stops it": measure the port
+  before starting, stop what you started when the phase ends, and say what was left running.
 
   Four things the block has to get right:
   - **Every script carries its idempotence guard**, naming the object it creates
@@ -282,6 +330,8 @@ never recorded, ask it now and record it before writing a line of DDL.
     the table another one creates.
   - **`flexygo_list_deployment_scripts` after the first startup**, always. It says pending, done, or
     failed with the error the application recorded — and that error sits in a column nobody looks at.
+    A wrong or failing one is removed with `flexygo_delete_deployment_script`; one that already ran
+    (state 'S') is refused, because the row is the record that it ran.
   - **The plan says so**: B-1's tasks are "register script X", not "create table X", and the
     assumption that the customer's database has the tables we hang off carries its `affects`.
   - ⛔ **And before the first row is written to one of THEIR tables, two silent things.** The
@@ -329,7 +379,7 @@ discovered halfway:
 |---|---|
 | **Category of the data**: master, transactional or a mix? | It decides the whole creation order and what carries history |
 | **Are the master tables** you propose created, and which? | Show them the concrete list. One master too many is a screen nobody uses; one too few is a free-text field where there should be a dropdown |
-| **Is example data seeded?** | Without data there is no way to look at whether a list works; with data in a database the user believed empty, they are rightly annoyed |
+| **What does the demo data show** — or does this go without it? | Without data there is no way to look at whether a list works. Ask which states each screen has to show, and name the target database: it is seeded there, and nowhere else. Going without is the user's decision, recorded and cited as `demoDataWaivedBy` |
 | **Is any entity missing?** | It is the question that pulls out the most entities, and the only open one of the four |
 
 **Two more decisions belong here too, before the visible layer (B-4/B-5) gets built** — later than
@@ -381,15 +431,37 @@ answering `flexygo_verify_object` and a review with no deviations still say noth
 list, a template painting a quoted CSS class, or a dashboard whose modules land on top of each
 other. Say it to the user in those words: what is built is one thing, and what is seen is another.
 
-## 8 · Then ask what it is MISSING
+## 8 · Then leave the tests in the product
 
-`/flx-quality`, block by block, is the seventh and last step. It reads
-`flexygo_get_quality_reference` and walks the block's modules against a closed catalogue of twelve
+`/flx-test` comes next: a unit test per new process and an interface walk per new screen, written
+in the product's own UnitTest and InterfaceTest, seen red once on purpose, and run green by
+`flexygo_run_tests`, which records the run itself. A product without them is verified today and
+unguarded tomorrow; the CI runs the unit tests before every publication.
+
+## 9 · Then ask what it is MISSING
+
+`/flx-quality`, block by block, comes after the tests. It reads
+`flexygo_get_quality_reference` and walks the block's modules against a closed catalogue of fourteen
 absences — no pager, no empty state, no way back, no security row — and records each one with
 `flexygo_record_quality_finding`, anchored to the module or the page and never to a task.
 
 **Nothing is fixed there on initiative.** The findings go to the user with what each one costs
 them, and what they decide is what gets recorded and built.
+
+## 10 · Then the help, for whoever uses it
+
+`/flx-help` comes after quality: each screen built gets its guided tour, the help of the fields that
+need it, and its page of the application's help by task, with screenshots taken on the demo data and a
+button on the screen that opens it. The server checks the three before it records each one. A product nobody can learn without
+asking is not finished.
+
+## 11 · And, if it is used from outside, what goes out
+
+When `/flx-context` recorded that someone uses the application from outside — an AI assistant,
+another system — the flow does not end at the help: `/flx-api` is the last step. It
+proposes what of the built goes out over the WebAPI, read only by default, and for which roles; the
+user decides; it is written, probed from outside with one user per role, and recorded with
+`flexygo_record_exposure`. Until that is recorded, the development is not complete.
 
 Never write `.flexygo/` by hand and never run SQL outside the MCP tools.
 Never generate or migrate data without the user's explicit permission.

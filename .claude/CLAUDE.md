@@ -1,28 +1,34 @@
 <!-- flexygo-mcp:begin — this block is installed and kept at its latest by the Flexygo MCP server (flexygo_sync_skills). Whatever you write INSIDE it is overwritten on the next sync; write yours below the end marker, where it stays. -->
 # Working with Claude on this Flexygo product
 
-## ⚠️ First: if there are no `/flx-` commands, reload the window
+## ⚠️ First: if a `/flx-` command or a tool is missing, open a new chat
 
 If `/flx-setup`, `/flx-context` or any other `/flx-` command answers `Unknown skill`, nothing is
 broken and nothing needs reinstalling. Those commands are installed by the `flexygo` MCP server
-when it starts, and **this window scanned for them before that happened**. Measured on a project
-created that morning, 7-Sep-2026: the fourteen commands had been on disk for 54 seconds when the
-session began, all fourteen byte-identical to the source, and the session could not see one of them
-— because the scan belongs to the **window**, not to the chat.
-**Opening a new chat does not repeat it.**
+when it starts. **Each new chat is a process of its own, with a `flexygo` server of its own, and it
+reads everything again**: the commands, this file and the server's tools. Measured 25-Sep-2026 with
+the VS Code extension 2.1.282, without reloading the window: a command written after the window
+opened reached a new chat, and a chat already open too; a tool published after the window opened
+reached a new chat, and **not** the chat already open, not even after `/clear`, which keeps the
+same server.
 
-- **VS Code**: `Ctrl+Shift+P` -> *Developer: Reload Window*.
-- **Claude Code CLI**: restart the session.
+- **A command or a tool is missing**: open a new chat. `/clear` does not bring a new tool.
+- **If the new chat does not bring it either**, as older clients did not: in VS Code,
+  `Ctrl+Shift+P` -> *Developer: Reload Window*; in the Claude Code CLI, restart the session.
 
 A tool answering that the commands are "already installed" does not contradict this. They are
-installed; this window cannot see them yet. And the reason this warning reaches you at all is that
-CLAUDE.md is read when the SESSION starts, which is late enough — one more thing the window's own
-scan is not.
+installed; this chat cannot see them yet. This file, though, is read when the chat starts: a chat
+that started before the server updated it holds the previous version, and the server names the stamp
+at the end of this block that tells the two apart.
 
 If there are no Flexygo tools at all, check that the `flexygo` MCP server is configured for this
 folder and actually connected. Without it there is nothing to build with: say so and stop, rather
-than improvising with raw SQL. Once it is there, `flexygo_sync_skills` installs the commands, the
-constructor agent and this block, and it is safe to run again whenever the server is newer.
+than improvising with raw SQL. Once it is there, `flexygo_sync_skills` installs the commands and
+this block, and it is safe to run again whenever the server is newer.
+
+**After the server is updated, commit what it changed under `.claude/`.** The commands and this
+block travel in the project's git: left uncommitted, the repository keeps the previous version, and
+a teammate who pulls gets it until their own server starts.
 
 ## Where you are
 
@@ -35,8 +41,8 @@ files, which is how a project gets damaged in a way nobody notices for weeks.
 |---|---|---|
 | The two connection strings | `*.Backend/conf/appsettings.Development.json` | `flexygo_set_connection_strings`, once, in `/flx-setup` |
 | Plan, decisions, execution, reviews, project memory | `.flexygo/` | the MCP tools, **never by hand** |
-| The commands, the constructor agent and this block of `.claude/CLAUDE.md` | `.claude/skills/`, `.claude/agents/`, `.claude/CLAUDE.md` | `flexygo_sync_skills`, always to the server's latest |
-| The design brief that travels to Stitch | `DESIGN.md` | the `design.md` standard: tokens plus prose, and a `Project identity` section. `flexygo_write_design_brief` writes the tokens and that section; Flexygo's own composition grammar is served, never copied in, by `flexygo_get_design_grammar` |
+| The commands and this block of `.claude/CLAUDE.md` | `.claude/skills/`, `.claude/CLAUDE.md` | `flexygo_sync_skills`, always to the server's latest |
+| The design brief that travels to Stitch | `DESIGN.md` | the `design.md` standard: tokens plus prose, and a `Project identity` section. `flexygo_write_design_brief` writes the tokens and that section |
 | C# processes | `*.Processes` | you |
 | Objects, pages, modules, templates, views, filters | the configuration database | the MCP tools |
 
@@ -68,7 +74,8 @@ this once found itself talking to a customer's live database instead of this pro
 
 **Then `/flx-context`**, and it will say what comes next. The commands are a chain and each one
 gates the one after it, so do not skip ahead; if it is not obvious which phase this project is in,
-ask for the status instead of guessing.
+ask for the status instead of guessing. The chain ends at `/flx-quality` — or at `/flx-api`, when
+the context said someone uses the application from outside (an AI assistant, another system).
 
 `DESIGN.md`, at the root, is this project's design brief. Its tokens are the normative values and
 travel to the design tool literally; the prose says how to apply them; and its last section,
@@ -76,37 +83,72 @@ travel to the design tool literally; the prose says how to apply them; and its l
 palette, typeface, rules. It outranks every guideline above it and every future development on this
 product keeps it. A new project is born with the palette declared undecided and that section
 declared empty; the server writes them in when the user decides, and touches nothing else in the
-file. It does **not** carry Flexygo's composition grammar — what a screen is assembled from, what
-each page shape costs, the hard limits — which the server serves fresh instead of copying in.
+file. It carries **no platform limit**, on purpose: the design tool draws better without them, and
+what each screen costs to build is read at build time (`flexygo_get_custom_screens_reference`).
 
-## Model routing: the main chat decides, the subagent builds
+## Four rules of work
 
-| Work | Where it runs |
-|---|---|
-| Deciding — context, plan, scope, the decisions before the schema, what a deviation means | The main chat |
-| Building a block that is already planned — tables, objects, properties, views, filters, templates, modules, pages | The `flexygo-constructor` subagent, which declares `model: sonnet` |
-| Looking at a screen — browser, screenshot, contrast, what a person will actually see | One subagent per page, as `/flx-verify` sets out |
-| Answering the user, and writing into `.flexygo/` | The main chat, in the user's language |
+Adapted from [andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md);
+each one already has a place in this flow, named here so they do not read as a second doctrine.
 
-**Why it is written down instead of assumed.** Measured over August 2026 across two large
-repositories: **~98% of the messages ran on the frontier model**, and a whole consumer project
-recorded **6 delegations** in the entire month. The building work was specified — there was a plan,
-a block and a list of tasks — and the chat that was supposed to be deciding did it anyway. That
-costs money, and it costs something scarcer: every table dump and every tool result a subagent
-reads would otherwise land in the conversation that has to keep the whole plan in its head.
+1. **Think before building — don't assume, don't hide confusion, surface tradeoffs.** State your
+   assumptions; if two readings exist, present both instead of picking one silently; if something
+   is unclear, stop, name it, ask. Here: read what exists before changing it (the `_full_config`
+   tools), and a decision the plan does not cover — scope, which entity is master, whether data gets
+   seeded — is the user's, recorded with `flexygo_record_decision`, never guessed.
+2. **Simplicity first — the minimum that solves the block, nothing speculative.** No screen, field
+   or module beyond what the plan asks for; no "flexibility" nobody requested. Here: the block is
+   the scope, and what the plan never asked for is `/flx-quality`'s question, not this pass's.
+3. **Surgical changes — touch only what you must, clean up only your own mess.** Match what is
+   already on the screen; mention what looks wrong nearby, don't "improve" it; leave the user's
+   data and the platform's files alone. Here: every artifact traces to a task of the block, and
+   `.flexygo/` is written by the tools, never by hand.
+4. **Goal-driven execution — define what "done" looks like, then loop until it is verified.** Here:
+   a task is done when `flexygo_record_execution` says so and the screen shows it; a claim carries
+   its measurement — the literal message of the tool that refused, the screenshot, the row — and
+   "it works" without one is not a result.
 
-## Delegating a block
+## How to build
 
-- `/flx-execute B-n` runs one block. The tasks marked `[P]` carry no dependency between them, and
-  those are the ones worth splitting between subagents.
-- Hand the subagent **the block id and the path of the plan, never the plan's contents**. It reads
-  what it needs; pasting it in spends the context twice.
-- The subagent calls `flexygo_record_execution` for each task it finishes. Without that call the
-  task does not count and the next block will not start.
-- What comes back is what got built and what did not — and, when something failed, **the literal
-  message of the tool that refused**, not a summary of it.
+Building runs **here, in this chat**, with whatever model the user chose — whether it comes from
+`/flx-execute` or from a request on its own. It is never handed to a subagent: one starts cold,
+reads again what this chat already has, and every delegation needs a review of its own. Looking at
+the screens is no exception: `/flx-verify` replays the recorded walks in one process and brings back
+only what failed or changed. When the conversation grows long, the state is on disk under
+`.flexygo/`, so a fresh chat picks it up where this one left it (see "Leaving the session").
 
-## Coming back to the main chat
+- **One thing at a time.** An object, its properties, its view, its module. A batch that fails
+  halfway leaves something nobody can diagnose.
+- **Read before you assert.** That something exists, that a relation is in place, that a table has
+  a column — you say it because a read tool told you so in this session
+  (`flexygo_get_object_full_config`, `flexygo_get_object_properties`,
+  `flexygo_get_object_relations`, `flexygo_get_page_modules`).
+- **Check where it lands.** `flexygo_get_active_origin` says which origin is being written to. If
+  the work that already exists is in another one, stop and say so: what you build will not join it.
+- **Every object gets its `tooltip` (= AIDescrip) with the business rules and their SQL condition,
+  every field with codes its `descriptionInApi`, every process a `processDescrip` the person who
+  runs it understands, and every fixed-list combo `showValuesInApi: true`** — at creation, never in
+  a later pass.
+- **The same call gives the same result.** Before repeating one that failed, look at what you are
+  going to change in it; if nothing, do not repeat it — what is missing is in its message.
+- **A refusal usually says what to do.** `flexygo_delete_page` refuses while a menu node holds the
+  page and gives you its `NodeId`; `flexygo_delete_object` names the module that references it. Do
+  what the message says.
+- **If you cannot find how to do something, say so.** SQL written by hand against the
+  configuration database to get round a tool is the one sure way to break something nobody will
+  know how to fix.
+- **What you do not do unless asked:** change the active origin, seed or delete data. And you do
+  not start or stop the application on your own — whoever starts it stops it (`/flx-verify`,
+  "Whoever starts it stops it").
+- **Yours and not the platform's:** the object menu is `{{objectmenu}}` in the template you write,
+  and the pager is one `flexygo_set_skin_css` rule. What is genuinely not yours is the inline filter
+  layout and the licence watermark.
+- **A task marked `[main]` stops for the user** — it asks them, grants or denies security, or
+  seeds data. `flexygo_write_plan` marks it and `/flx-execute` says why.
+- **When you finish, say what failed with the literal message of the tool that refused**, not a
+  summary of it.
+
+## Closing a block, and when to stop
 
 **A block closes with a summary in the terminal, not with a published artifact.** The verdict
 first, then what was built as a table, the expected failures named as expected, what was resolved
@@ -167,8 +209,8 @@ To look at a screen the application has to be **running**. To build or publish, 
 - **Some of the skin's own layout padding is declared `!important`** (module bodies, side-menu
   entries). A plugin rule for the same property needs `!important` too, or it loses outright — and it
   needs a tight scope as well, for example `main.pageContainer[pagename^="XXX_"]`, because a plugin
-  is global to the installation (the server's design grammar says so, and why) and an unscoped fix
-  reaches every other application on it, not just this one.
+  is global to the installation (`flexygo_get_module_styling_reference` says so, and why) and an
+  unscoped fix reaches every other application on it, not just this one.
 - **A module's CSS belongs in the registered project plugin, never in the module's `Header` field** —
   `Header` is markup, not a style sheet. Ask the server for its module-styling guidance and its
   template-syntax guidance; both explain this in detail.
@@ -203,6 +245,8 @@ Offer it whole, or it does not help. Three lines, then the prompt:
 
 Say it as an offer and not as an instruction. `/clear` throws the conversation away and only the
 user decides when. If they would rather carry on, carry on.
+
+Block stamp: k9bf53edc.
 <!-- flexygo-mcp:end -->
 
 ## Our conventions

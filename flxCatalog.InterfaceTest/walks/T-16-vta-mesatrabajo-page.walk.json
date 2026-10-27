@@ -1,0 +1,55 @@
+{
+  "title": "T-16: el administrador abre la Mesa de trabajo desde su menú lateral y recorre sus tres kanban",
+  "page": "VTA_MesaTrabajo_Page",
+  "data": "demo",
+  "steps": [
+    {
+      "menu": "Mesa de trabajo"
+    },
+    {
+      "module": "mod-vta-mesa-trabajo-tabs"
+    },
+    {
+      "text": "Abierta"
+    },
+    {
+      "text": "Cancelada"
+    },
+    {
+      "shot": "incidencias"
+    },
+    {
+      "click": "main.pageContainer >> text=Pedidos"
+    },
+    {
+      "wait": 1500
+    },
+    {
+      "text": "Confirmado"
+    },
+    {
+      "text": "En proceso"
+    },
+    {
+      "shot": "pedidos"
+    },
+    {
+      "click": "main.pageContainer >> text=Devoluciones"
+    },
+    {
+      "wait": 1500
+    },
+    {
+      "text": "Solicitada"
+    },
+    {
+      "text": "En revisión"
+    },
+    {
+      "shot": "devoluciones"
+    }
+  ],
+  "volatile": [
+    "CARR-\\d{14}"
+  ]
+}

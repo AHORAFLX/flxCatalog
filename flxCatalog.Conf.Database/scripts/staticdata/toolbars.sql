@@ -22,8 +22,26 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"ToolbarName":"tb-cat-producto-list",
+	"Descrip":"List toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"ToolbarName":"tb-cat-producto-view",
 	"Descrip":"View toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ToolbarName":"tb-cli-cliente-list",
+	"Descrip":"List toolbar",
 	"flxInsertedBy":"admin",
 	"flxUpdatedBy":"admin",
 	"flxInsertedDate":"2024-01-01T00:00:00",
@@ -49,6 +67,15 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"ToolbarName":"tb-com-misnotificaciones-list",
+	"Descrip":"List toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"ToolbarName":"tb-vta-devolucion-view",
 	"Descrip":"View toolbar",
 	"flxInsertedBy":"admin",
@@ -67,8 +94,44 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"ToolbarName":"tb-vta-lineapedido-carrito-list",
+	"Descrip":"List toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"ToolbarName":"tb-vta-lineapedido-detalle-list",
 	"Descrip":"List toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ToolbarName":"tb-vta-mesa-devoluciones-kanban",
+	"Descrip":"Kanban toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ToolbarName":"tb-vta-mesa-incidencias-kanban",
+	"Descrip":"Kanban toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ToolbarName":"tb-vta-mesa-pedidos-kanban",
+	"Descrip":"Kanban toolbar",
 	"flxInsertedBy":"admin",
 	"flxUpdatedBy":"admin",
 	"flxInsertedDate":"2024-01-01T00:00:00",
@@ -103,8 +166,35 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"OriginAddonId":"Main",
 	"OriginId":1
 },{
+	"ToolbarName":"tb-vta-pedido-list",
+	"Descrip":"List toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"ToolbarName":"tb-vta-pedido-view",
 	"Descrip":"View toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ToolbarName":"tb-vta-tarifa-list",
+	"Descrip":"List toolbar",
+	"flxInsertedBy":"admin",
+	"flxUpdatedBy":"admin",
+	"flxInsertedDate":"2024-01-01T00:00:00",
+	"flxUpdatedDate":"2024-01-01T00:00:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
+	"ToolbarName":"tb-vta-tarifa-list-documentos",
+	"Descrip":"List toolbar",
 	"flxInsertedBy":"admin",
 	"flxUpdatedBy":"admin",
 	"flxInsertedDate":"2024-01-01T00:00:00",

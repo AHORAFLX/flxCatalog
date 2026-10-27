@@ -131,3 +131,67 @@ POST /api/Entity/Insert => 200 OK (ambos casos). Fila creada en Marcas con IdMar
 **What was done:** Migradas las 23 columnas GUID (11 PK + 12 FK, en las 11 tablas) de varchar(36) a nvarchar(50); los 11 DEFAULT reescritos de CONVERT(varchar(36),NEWID()) a NEWID() sin CONVERT; ficheros de flxCatalog.Data.Database actualizados igual, con el DEFAULT declarado inline en la propia columna del CREATE TABLE (no en un ALTER TABLE aparte). Las 11 properties PK repositionadas como primer campo visible del formulario (width=12), sin required, sin valor por defecto propio, etiqueta "Código" (en CLI_Cliente la property CodigoCliente preexistente, que ya usaba esa etiqueta, se renombró antes a "Referencia Ext." para evitar duplicidad), locked intacto. Backend y Frontend reiniciados tras los cambios. Registros de prueba en Marcas y Familias verificados y eliminados.
 
 **What I concluded — a reading, not a measurement:** Al abrir el formulario de alta, Flexygo precalcula y muestra ya el valor real que tomará el DEFAULT de la columna (visible pero deshabilitado, gracias a locked=true) y ESE valor concreto es el que viaja en el Insert — por eso el round-trip de relectura posterior encuentra la fila: la clave que se guarda es la misma que el usuario vio en pantalla, no una vacía. La clave estaba en dejar que la property fuera visible (no hidden) y sin su propio valor por defecto a nivel de property, dejando que sea el DEFAULT de la tabla el que se refleje en el formulario. Los intentos previos de esta sesión (varchar(36) con CONVERT + trigger INSTEAD OF INSERT) fallaban precisamente porque la property seguía oculta: un campo hidden nunca refleja el DEFAULT de la tabla en el formulario, así que Flexygo enviaba un valor vacío de todos modos.
+
+## 2026-10-26 · pendientes-cliente-admin · testing · resolved
+
+**Trying to:** Ejecutar los tests de interfaz nuevos del administrador (T06, T11) y reproducir el recorrido T-16.
+
+**Came back, word for word:**
+
+```
+System.TimeoutException: Timeout 15000ms exceeded. … <svg … class="driver-overlay driver-overlay-animated">…</svg> subtree intercepts pointer events
+```
+
+**Said by:** Playwright (tests de interfaz)
+
+**What was done:** Resuelto en la infraestructura de los tests: FlexygoApp.LoginAsync pulsa «Ahora no» en la invitación si aparece (DeclineTourInvitationAsync). La aplicación no se toca.
+
+**What I concluded — a reading, not a measurement:** El tour de bienvenida del administrador (tour-welcome-admin, que invita solo la primera vez) aparece en cada test porque cada uno arranca un navegador limpio, y su capa tapa todos los clics. Probablemente también explica el timeout del recorrido T-16 que reabrió la tarea.
+
+**Server:** flexygo-mcp unknown
+
+## 2026-10-26 · catalogo-demo · modules · resolved
+
+**Trying to:** Cerrar el hallazgo de calidad list-no-empty-state de «Mis documentos» (mod-vta-pedido-documentos-cliente-sqllist).
+
+**Came back, word for word:**
+
+```
+Locator expected to contain text 'Aún no tienes documentos' But was: 'Mis documentosTodavía no tienes documentos: aparecerán aquí las facturas y albaranes de tus pedidos. Página 1 de 0  Total:  0'
+```
+
+**Said by:** test de interfaz MisDocumentos_MuestraSusDocumentosYSuTarifa_SinListarPedidos
+
+**What was done:** Restaurado el texto «Aún no tienes documentos» y corregido el hallazgo en quality.md.
+
+**What I concluded — a reading, not a measurement:** El agente pasó Empty con flexygo_update_sql_list_module sin leer antes el cuerpo con flexygo_get_module_body (flexygo_get_module_full_config no lo muestra) y sustituyó un estado vacío que ya existía.
+
+**Server:** flexygo-mcp unknown
+
+## 2026-10-26 · correcciones-rol-cliente · reseñas de producto · resolved
+
+**Trying to:** Mostrar la fecha relativa de cada reseña («hace 3 días») como en el original P-RESEÑAS
+
+**Came back, word for word:**
+
+```
+La vista COM_ComentarioList entrega Fecha como "/Date(1793039778662)/"; new Date() con ese texto da Invalid Date y la fecha salía vacía
+```
+
+**What was done:** fromNowEs, en flxcatalog-cat-reviews.js, ahora reconoce el formato /Date(ms)/. Verificado en pantalla: «hace 2 meses».
+
+**Server:** flexygo-mcp unknown
+
+## 2026-10-26 · correcciones-rol-cliente · ficha de pedido del cliente · resolved
+
+**Trying to:** Mostrar la «Entrega estimada» en el apartado Envío de la ficha de pedido del cliente
+
+**Came back, word for word:**
+
+```
+Entrega estimada /Date(1791225378381)/
+```
+
+**What was done:** The flx-vta-pedido-cliente-view template printed FechaEntregaEstimada with |isnull and no date formatter. Nobody saw it while the field was empty; it showed up after filling in the demo shipping data. Changed to |date:DD/MM/YYYY and verified on PED-1146: «05/10/2026»; an unshipped order leaves it blank.
+
+**Server:** flexygo-mcp unknown

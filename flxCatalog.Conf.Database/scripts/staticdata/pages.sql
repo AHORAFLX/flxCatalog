@@ -16,14 +16,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:57:00",
 	"flxUpdatedDate":"2026-10-02T19:57:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"CAT_Color_View",
 	"TypeId":"view",
@@ -37,14 +37,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T20:05:00",
 	"flxUpdatedDate":"2026-10-02T20:05:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"CAT_Familia_List",
 	"TypeId":"list",
@@ -58,14 +58,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:02:00",
 	"flxUpdatedDate":"2026-09-15T08:02:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"CAT_Familia_View",
 	"TypeId":"view",
@@ -79,14 +79,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:02:00",
 	"flxUpdatedDate":"2026-09-15T08:02:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"CAT_Favorito_Cliente_List",
 	"TypeId":"list",
@@ -101,14 +101,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T21:00:00",
 	"flxUpdatedDate":"2026-09-17T21:00:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"CAT_Marca_List",
 	"TypeId":"list",
@@ -122,14 +122,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:03:00",
 	"flxUpdatedDate":"2026-09-15T08:03:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"CAT_Marca_View",
 	"TypeId":"view",
@@ -143,14 +143,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:03:00",
 	"flxUpdatedDate":"2026-09-15T08:03:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"CAT_Producto_Cliente_List",
 	"TypeId":"list",
@@ -165,18 +165,17 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T09:44:00",
 	"flxUpdatedDate":"2026-09-17T09:44:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"CAT_Producto_Comparador_List",
-	"TypeId":"list",
-	"ObjectName":"CAT_Producto",
+	"TypeId":"generic",
 	"LayoutName":"default",
 	"Name":"Comparador de productos",
 	"IconName":"box",
@@ -186,14 +185,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T22:49:00",
 	"flxUpdatedDate":"2026-09-17T22:49:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"CAT_Producto_List",
 	"TypeId":"list",
@@ -208,14 +207,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:08:00",
 	"flxUpdatedDate":"2026-09-16T10:02:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"CAT_Producto_View",
 	"TypeId":"view",
@@ -229,14 +228,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":true,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"admin",
 	"flxInsertedDate":"2026-09-15T08:09:00",
 	"flxUpdatedDate":"2026-09-17T15:27:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":true,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"CAT_Talla_List",
 	"TypeId":"list",
@@ -250,14 +249,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:57:00",
 	"flxUpdatedDate":"2026-10-02T19:57:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"CAT_Talla_View",
 	"TypeId":"view",
@@ -271,14 +270,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T20:06:00",
 	"flxUpdatedDate":"2026-10-02T20:06:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"CLI_Cliente_List",
 	"TypeId":"list",
@@ -293,14 +292,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:30:00",
 	"flxUpdatedDate":"2026-09-15T08:30:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"CLI_Cliente_Mi_Ficha_List",
 	"TypeId":"list",
@@ -315,14 +314,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T09:44:00",
 	"flxUpdatedDate":"2026-09-17T09:44:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"CLI_Cliente_Mi_Ficha_View",
 	"TypeId":"view",
@@ -337,14 +336,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T09:44:00",
 	"flxUpdatedDate":"2026-09-17T09:44:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"CLI_Cliente_View",
 	"TypeId":"view",
@@ -359,14 +358,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":true,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:30:00",
 	"flxUpdatedDate":"2026-09-16T15:39:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":true,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"COM_MisNotificaciones_List",
 	"TypeId":"list",
@@ -380,14 +379,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-22T09:56:00",
 	"flxUpdatedDate":"2026-09-22T09:56:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"d2e00246-cc6a-4cdb-993d-6ec7bd7c8d86",
 	"TypeId":"generic",
@@ -400,34 +399,34 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"admin",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T10:18:00",
 	"flxUpdatedDate":"2026-09-17T10:18:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"HOME",
 	"TypeId":"generic",
 	"LayoutName":"syslayout-20",
-	"Name":"Panel de control",
+	"Name":"Resumen comercial",
 	"IconName":"flx-desktop",
-	"Descrip":"Panel de control",
+	"Descrip":"Resumen comercial (página de inicio de la interfaz webdefault)",
 	"ScriptActive":false,
 	"RefreshInterval":0,
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:37:00",
 	"flxUpdatedDate":"2026-09-15T08:37:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_Dashboard_Page",
 	"TypeId":"generic",
@@ -440,14 +439,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:51:00",
 	"flxUpdatedDate":"2026-10-02T19:51:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_Devolucion_List",
 	"TypeId":"list",
@@ -461,14 +460,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-21T11:52:00",
 	"flxUpdatedDate":"2026-09-21T11:52:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_Devolucion_View",
 	"TypeId":"view",
@@ -482,14 +481,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-21T11:52:00",
 	"flxUpdatedDate":"2026-09-21T11:52:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_EstadoDevolucion_List",
 	"TypeId":"list",
@@ -503,14 +502,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:57:00",
 	"flxUpdatedDate":"2026-10-02T19:57:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_EstadoDevolucion_View",
 	"TypeId":"view",
@@ -524,14 +523,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T20:06:00",
 	"flxUpdatedDate":"2026-10-02T20:06:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_EstadoIncidencia_List",
 	"TypeId":"list",
@@ -545,14 +544,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:57:00",
 	"flxUpdatedDate":"2026-10-02T19:57:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_EstadoIncidencia_View",
 	"TypeId":"view",
@@ -566,14 +565,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T20:06:00",
 	"flxUpdatedDate":"2026-10-02T20:06:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_EstadoPedido_List",
 	"TypeId":"list",
@@ -587,14 +586,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:57:00",
 	"flxUpdatedDate":"2026-10-02T19:57:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_EstadoPedido_View",
 	"TypeId":"view",
@@ -608,14 +607,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T20:06:00",
 	"flxUpdatedDate":"2026-10-02T20:06:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_Incidencia_List",
 	"TypeId":"list",
@@ -629,14 +628,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-21T12:41:00",
 	"flxUpdatedDate":"2026-09-21T12:41:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_Incidencia_View",
 	"TypeId":"view",
@@ -650,14 +649,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-21T12:41:00",
 	"flxUpdatedDate":"2026-09-21T12:41:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_MesaTrabajo_Page",
 	"TypeId":"generic",
@@ -670,14 +669,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:46:00",
 	"flxUpdatedDate":"2026-10-02T19:46:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_MisDocumentos_List",
 	"TypeId":"list",
@@ -691,14 +690,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-21T11:41:00",
 	"flxUpdatedDate":"2026-09-21T11:41:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_Pedido_Cliente_View",
 	"TypeId":"view",
@@ -713,14 +712,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T09:45:00",
 	"flxUpdatedDate":"2026-09-17T09:45:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_Pedido_List",
 	"TypeId":"list",
@@ -735,14 +734,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:31:00",
 	"flxUpdatedDate":"2026-09-15T08:31:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_Pedido_MiCarrito_View",
 	"TypeId":"view",
@@ -757,14 +756,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T22:31:00",
 	"flxUpdatedDate":"2026-09-17T22:31:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_Pedido_View",
 	"TypeId":"view",
@@ -779,14 +778,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-15T08:32:00",
 	"flxUpdatedDate":"2026-09-15T08:32:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_Tarifa_List",
 	"TypeId":"list",
@@ -800,14 +799,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T09:35:00",
 	"flxUpdatedDate":"2026-09-17T09:35:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_Tarifa_View",
 	"TypeId":"view",
@@ -821,14 +820,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-09-17T09:35:00",
 	"flxUpdatedDate":"2026-09-17T09:35:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_TipoIncidencia_List",
 	"TypeId":"list",
@@ -842,14 +841,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T19:57:00",
 	"flxUpdatedDate":"2026-10-02T19:57:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false
+	"OriginId":1
 },{
 	"PageName":"VTA_TipoIncidencia_View",
 	"TypeId":"view",
@@ -863,14 +862,14 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"Sytem":false,
 	"Generic":false,
 	"Offline":false,
+	"FreeLayout":false,
+	"UserOrder":false,
 	"flxInsertedBy":"flexygo-mcp",
 	"flxUpdatedBy":"flexygo-mcp",
 	"flxInsertedDate":"2026-10-02T20:06:00",
 	"flxUpdatedDate":"2026-10-02T20:06:00",
 	"OriginAddonId":"Main",
-	"OriginId":1,
-	"FreeLayout":false,
-	"UserOrder":false}]')
+	"OriginId":1}]')
 
 
 MERGE INTO [Pages] AS Target
@@ -893,16 +892,16 @@ SELECT * from OPENJSON(@DATA) WITH (
 ,[Generic] bit '$.Generic'
 ,[BodyCssClass] nvarchar(200) '$.BodyCssClass'
 ,[Offline] bit '$.Offline'
+,[FreeLayout] bit '$.FreeLayout'
+,[UserOrder] bit '$.UserOrder'
 ,[flxInsertedBy] nvarchar(256) '$.flxInsertedBy'
 ,[flxUpdatedBy] nvarchar(256) '$.flxUpdatedBy'
 ,[flxInsertedDate] smalldatetime '$.flxInsertedDate'
 ,[flxUpdatedDate] smalldatetime '$.flxUpdatedDate'
 ,[OriginAddonId] nvarchar(256) '$.OriginAddonId'
 ,[OriginId] int '$.OriginId'
-,[FreeLayout] bit '$.FreeLayout'
-,[UserOrder] bit '$.UserOrder'
 ) 
-) AS Source ([PageName],[TypeId],[ObjectName],[InterfaceName],[LayoutName],[Name],[IconName],[Descrip],[UrlRewrite],[Script],[ScriptActive],[Style],[RefreshInterval],[Sytem],[Generic],[BodyCssClass],[Offline],[flxInsertedBy],[flxUpdatedBy],[flxInsertedDate],[flxUpdatedDate],[OriginAddonId],[OriginId],[FreeLayout],[UserOrder])
+) AS Source ([PageName],[TypeId],[ObjectName],[InterfaceName],[LayoutName],[Name],[IconName],[Descrip],[UrlRewrite],[Script],[ScriptActive],[Style],[RefreshInterval],[Sytem],[Generic],[BodyCssClass],[Offline],[FreeLayout],[UserOrder],[flxInsertedBy],[flxUpdatedBy],[flxInsertedDate],[flxUpdatedDate],[OriginAddonId],[OriginId])
 ON (Target.[PageName] = Source.[PageName])
 WHEN MATCHED AND (
 	NULLIF(Source.[TypeId], Target.[TypeId]) IS NOT NULL OR NULLIF(Target.[TypeId], Source.[TypeId]) IS NOT NULL OR 
@@ -921,14 +920,14 @@ WHEN MATCHED AND (
 	NULLIF(Source.[Generic], Target.[Generic]) IS NOT NULL OR NULLIF(Target.[Generic], Source.[Generic]) IS NOT NULL OR 
 	NULLIF(Source.[BodyCssClass], Target.[BodyCssClass]) IS NOT NULL OR NULLIF(Target.[BodyCssClass], Source.[BodyCssClass]) IS NOT NULL OR 
 	NULLIF(Source.[Offline], Target.[Offline]) IS NOT NULL OR NULLIF(Target.[Offline], Source.[Offline]) IS NOT NULL OR 
+	NULLIF(Source.[FreeLayout], Target.[FreeLayout]) IS NOT NULL OR NULLIF(Target.[FreeLayout], Source.[FreeLayout]) IS NOT NULL OR 
+	NULLIF(Source.[UserOrder], Target.[UserOrder]) IS NOT NULL OR NULLIF(Target.[UserOrder], Source.[UserOrder]) IS NOT NULL OR 
 	NULLIF(Source.[flxInsertedBy], Target.[flxInsertedBy]) IS NOT NULL OR NULLIF(Target.[flxInsertedBy], Source.[flxInsertedBy]) IS NOT NULL OR 
 	NULLIF(Source.[flxUpdatedBy], Target.[flxUpdatedBy]) IS NOT NULL OR NULLIF(Target.[flxUpdatedBy], Source.[flxUpdatedBy]) IS NOT NULL OR 
 	NULLIF(Source.[flxInsertedDate], Target.[flxInsertedDate]) IS NOT NULL OR NULLIF(Target.[flxInsertedDate], Source.[flxInsertedDate]) IS NOT NULL OR 
 	NULLIF(Source.[flxUpdatedDate], Target.[flxUpdatedDate]) IS NOT NULL OR NULLIF(Target.[flxUpdatedDate], Source.[flxUpdatedDate]) IS NOT NULL OR 
 	NULLIF(Source.[OriginAddonId], Target.[OriginAddonId]) IS NOT NULL OR NULLIF(Target.[OriginAddonId], Source.[OriginAddonId]) IS NOT NULL OR 
-	NULLIF(Source.[OriginId], Target.[OriginId]) IS NOT NULL OR NULLIF(Target.[OriginId], Source.[OriginId]) IS NOT NULL OR 
-	NULLIF(Source.[FreeLayout], Target.[FreeLayout]) IS NOT NULL OR NULLIF(Target.[FreeLayout], Source.[FreeLayout]) IS NOT NULL OR 
-	NULLIF(Source.[UserOrder], Target.[UserOrder]) IS NOT NULL OR NULLIF(Target.[UserOrder], Source.[UserOrder]) IS NOT NULL) THEN
+	NULLIF(Source.[OriginId], Target.[OriginId]) IS NOT NULL OR NULLIF(Target.[OriginId], Source.[OriginId]) IS NOT NULL) THEN
  UPDATE SET
   [TypeId] = Source.[TypeId], 
   [ObjectName] = Source.[ObjectName], 
@@ -946,17 +945,17 @@ WHEN MATCHED AND (
   [Generic] = Source.[Generic], 
   [BodyCssClass] = Source.[BodyCssClass], 
   [Offline] = Source.[Offline], 
+  [FreeLayout] = Source.[FreeLayout], 
+  [UserOrder] = Source.[UserOrder], 
   [flxInsertedBy] = Source.[flxInsertedBy], 
   [flxUpdatedBy] = Source.[flxUpdatedBy], 
   [flxInsertedDate] = Source.[flxInsertedDate], 
   [flxUpdatedDate] = Source.[flxUpdatedDate], 
   [OriginAddonId] = Source.[OriginAddonId], 
-  [OriginId] = Source.[OriginId], 
-  [FreeLayout] = Source.[FreeLayout], 
-  [UserOrder] = Source.[UserOrder]
+  [OriginId] = Source.[OriginId]
 WHEN NOT MATCHED BY TARGET THEN
- INSERT([PageName],[TypeId],[ObjectName],[InterfaceName],[LayoutName],[Name],[IconName],[Descrip],[UrlRewrite],[Script],[ScriptActive],[Style],[RefreshInterval],[Sytem],[Generic],[BodyCssClass],[Offline],[flxInsertedBy],[flxUpdatedBy],[flxInsertedDate],[flxUpdatedDate],[OriginAddonId],[OriginId],[FreeLayout],[UserOrder])
- VALUES(Source.[PageName],Source.[TypeId],Source.[ObjectName],Source.[InterfaceName],Source.[LayoutName],Source.[Name],Source.[IconName],Source.[Descrip],Source.[UrlRewrite],Source.[Script],Source.[ScriptActive],Source.[Style],Source.[RefreshInterval],Source.[Sytem],Source.[Generic],Source.[BodyCssClass],Source.[Offline],Source.[flxInsertedBy],Source.[flxUpdatedBy],Source.[flxInsertedDate],Source.[flxUpdatedDate],Source.[OriginAddonId],Source.[OriginId],Source.[FreeLayout],Source.[UserOrder])
+ INSERT([PageName],[TypeId],[ObjectName],[InterfaceName],[LayoutName],[Name],[IconName],[Descrip],[UrlRewrite],[Script],[ScriptActive],[Style],[RefreshInterval],[Sytem],[Generic],[BodyCssClass],[Offline],[FreeLayout],[UserOrder],[flxInsertedBy],[flxUpdatedBy],[flxInsertedDate],[flxUpdatedDate],[OriginAddonId],[OriginId])
+ VALUES(Source.[PageName],Source.[TypeId],Source.[ObjectName],Source.[InterfaceName],Source.[LayoutName],Source.[Name],Source.[IconName],Source.[Descrip],Source.[UrlRewrite],Source.[Script],Source.[ScriptActive],Source.[Style],Source.[RefreshInterval],Source.[Sytem],Source.[Generic],Source.[BodyCssClass],Source.[Offline],Source.[FreeLayout],Source.[UserOrder],Source.[flxInsertedBy],Source.[flxUpdatedBy],Source.[flxInsertedDate],Source.[flxUpdatedDate],Source.[OriginAddonId],Source.[OriginId])
 WHEN NOT MATCHED BY SOURCE AND TARGET.OriginId = 1 THEN 
  DELETE
 ;

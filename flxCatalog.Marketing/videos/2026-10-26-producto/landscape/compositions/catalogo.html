@@ -1,0 +1,152 @@
+<template>
+  <style>
+#root { position: absolute; inset: 0; overflow: hidden; background: #eef1f4; font-family: Inter, sans-serif; color: #1c1b1d; }
+.fmt, .w { position: absolute; inset: 0; }
+.w * { box-sizing: border-box; }
+
+/* copy block: number, title, line */
+.copy { position: absolute; }
+.fmt-L .copy { left: 120px; top: 92px; width: 1100px; }
+.fmt-V .copy { left: 80px; top: 170px; width: 920px; }
+.fmt-S .copy { left: 64px; top: 60px; width: 952px; }
+.num { font-weight: 800; color: #148a84; letter-spacing: 0.06em; }
+.ttl { font-weight: 800; letter-spacing: -0.025em; line-height: 1.02; }
+.line { font-weight: 500; color: #5b5b63; line-height: 1.25; }
+.fmt-L .num { font-size: 30px; } .fmt-L .ttl { font-size: 84px; margin-top: 8px; } .fmt-L .line { font-size: 36px; margin-top: 14px; }
+.fmt-V .num { font-size: 36px; } .fmt-V .ttl { font-size: 100px; margin-top: 10px; } .fmt-V .line { font-size: 44px; margin-top: 20px; }
+.fmt-S .num { font-size: 28px; } .fmt-S .ttl { font-size: 68px; margin-top: 6px; } .fmt-S .line { font-size: 32px; margin-top: 12px; }
+
+/* stage: where the rebuilt UI lives */
+.stage { position: absolute; }
+.fmt-L .stage { left: 120px; right: 120px; top: 350px; bottom: 70px; }
+.fmt-V .stage { left: 64px; right: 64px; top: 560px; bottom: 140px; }
+.fmt-S .stage { left: 56px; right: 56px; top: 320px; bottom: 50px; }
+
+/* product UI primitives, drawn like the product (flexy2022 skin) */
+.card { position: absolute; background: #ffffff; border-radius: 18px; box-shadow: 0 18px 50px rgba(28, 27, 29, 0.10), 0 2px 6px rgba(28, 27, 29, 0.05); }
+.fmt-V .card { border-radius: 24px; }
+.mtitle { font-weight: 600; letter-spacing: -0.01em; }
+.muted { color: #71717a; }
+.btn { display: flex; align-items: center; justify-content: center; border-radius: 10px; font-weight: 600; white-space: nowrap; }
+.btn.teal { background: #2db7b0; color: #ffffff; }
+.btn.ghost { background: #ffffff; color: #1c1b1d; border: 2px solid #d4d4d8; }
+.btn.dark { background: #1c1b1d; color: #ffffff; }
+.pill { display: inline-flex; align-items: center; gap: 0.45em; border-radius: 999px; font-weight: 600; padding: 0.22em 0.75em; white-space: nowrap; }
+.pill::before { content: ""; width: 0.42em; height: 0.42em; border-radius: 50%; background: currentColor; }
+.pill.ok { background: #dcfce7; color: #166534; }
+.pill.warn { background: #fef3c7; color: #854d0e; }
+.pill.bad { background: #fee2e2; color: #991b1b; }
+.pill.info { background: #e0e7ff; color: #3730a3; }
+.pill.neu { background: #f4f4f5; color: #3f3f46; }
+.pill.new { background: #fde7ef; color: #9d174d; }
+.photo { background-size: cover; background-position: center; }
+.tab { font-variant-numeric: tabular-nums; }
+
+/* catalogue card, sized by its font-size (1em = 20px on the product's own card at 1x) */
+.pc { position: absolute; width: 13em; background: #ffffff; border-radius: 0.8em; overflow: hidden; box-shadow: 0 0.9em 2.4em rgba(28, 27, 29, 0.12); }
+.pc-ph { position: relative; height: 12.4em; }
+.pc-star { position: absolute; top: 0.55em; right: 0.55em; width: 1.7em; height: 1.7em; border-radius: 0.4em; background: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1em; color: #1c1b1d; }
+.pc-b { padding: 0.75em 0.85em 0.9em; }
+.pc-f { font-size: 0.6em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-n { font-size: 0.8em; font-weight: 600; margin-top: 0.3em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-p { font-size: 0.9em; font-weight: 700; margin-top: 0.4em; display: flex; align-items: center; justify-content: space-between; }
+.pc-p .pill { font-size: 0.62em; }
+.pc-btn { position: relative; margin-top: 0.75em; height: 2em; font-size: 0.72em; border-radius: 0.5em; }
+
+/* the one drawn object: a cursor */
+.cur { position: absolute; left: 0; top: 0; z-index: 50; }
+.fmt-L .cur { width: 46px; height: 62px; } .fmt-V .cur, .fmt-S .cur { width: 56px; height: 76px; }
+.press { position: absolute; inset: 0; border-radius: inherit; background: rgba(0, 0, 0, 0.18); opacity: 0; pointer-events: none; }
+.pc-star .s0, .pc-star .s1 { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.pc-star .s1 { color: #148a84; opacity: 0; font-size: 1.15em; }
+.cur svg { display: block; width: 100%; height: 100%; }
+
+
+#catalogo-w .grid { display: grid; justify-content: center; }
+#catalogo-w .grid .pc { position: relative; }
+.fmt-L #catalogo-w .grid { font-size: 30px; grid-template-columns: repeat(3, 13em); gap: 1.7em; }
+.fmt-V #catalogo-w .grid { font-size: 29px; grid-template-columns: repeat(2, 13em); gap: 1.4em; }
+.fmt-S #catalogo-w .grid { font-size: 23px; grid-template-columns: repeat(3, 13em); gap: 1.4em; }
+.fmt-L #catalogo-w #catalogo-pc-gorra, .fmt-S #catalogo-w #catalogo-pc-gorra { display: none; }
+
+  </style>
+  <div data-hf-id="hf-horz" id="root" data-composition-id="catalogo" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-7rsv" class="fmt fmt-L"><div data-hf-id="hf-20vh" class="w" id="catalogo-w">
+<div data-hf-id="hf-bdx3" class="copy"><div data-hf-id="hf-rokj" class="num">01</div><div data-hf-id="hf-4spn" class="ttl">Catálogo con fotos</div><div data-hf-id="hf-6yco" class="line">Familias, marcas, novedades y favoritos.</div></div>
+<div data-hf-id="hf-bl1t" class="stage" id="catalogo-stage"><div data-hf-id="hf-4yxn" class="grid" id="catalogo-grid">
+<div data-hf-id="hf-cuvh" class="pc" id="catalogo-pc-malla"><div data-hf-id="hf-iuyx" class="pc-ph photo" style="background-image:url('assets/photos/mallas-deportivas-1.jpg')"><div data-hf-id="hf-zz1f" class="pc-star" id="catalogo-star-malla"><span data-hf-id="hf-8z66" class="s0">&#9734;</span><span data-hf-id="hf-7gq6" class="s1" id="catalogo-on-malla">&#9733;</span></div></div><div data-hf-id="hf-6gjq" class="pc-b"><div data-hf-id="hf-9x4k" class="pc-f muted">Mallas Deportivas · Urbana Co.</div><div data-hf-id="hf-n4pu" class="pc-n">Malla Deportiva Prime</div><div data-hf-id="hf-wvc3" class="pc-p tab">34,90 €</div><div data-hf-id="hf-8zu9" class="btn teal pc-btn" id="catalogo-add-malla">A&ntilde;adir al carrito<span data-hf-id="hf-vdyi" class="press"></span></div></div></div>
+<div data-hf-id="hf-zz1y" class="pc" id="catalogo-pc-interior"><div data-hf-id="hf-qmru" class="pc-ph photo" style="background-image:url('assets/photos/ropa-interior-masculina-1.jpg')"><div data-hf-id="hf-fm8o" class="pc-star" id="catalogo-star-interior"><span data-hf-id="hf-eple" class="s0">&#9734;</span><span data-hf-id="hf-22w3" class="s1" id="catalogo-on-interior">&#9733;</span></div></div><div data-hf-id="hf-a79m" class="pc-b"><div data-hf-id="hf-u9nc" class="pc-f muted">Ropa Interior Masculina · Vestiga</div><div data-hf-id="hf-4mnp" class="pc-n">Pack Ropa Interior Basic</div><div data-hf-id="hf-895x" class="pc-p tab">43,90 € <span data-hf-id="hf-27rp" class="pill new">Novedad</span></div><div data-hf-id="hf-coby" class="btn teal pc-btn" id="catalogo-add-interior">A&ntilde;adir al carrito<span data-hf-id="hf-aa0e" class="press"></span></div></div></div>
+<div data-hf-id="hf-r8la" class="pc" id="catalogo-pc-falda"><div data-hf-id="hf-5rq8" class="pc-ph photo" style="background-image:url('assets/photos/faldas-1.jpg')"><div data-hf-id="hf-0qtk" class="pc-star" id="catalogo-star-falda"><span data-hf-id="hf-f3wf" class="s0">&#9734;</span><span data-hf-id="hf-lzub" class="s1" id="catalogo-on-falda">&#9733;</span></div></div><div data-hf-id="hf-alkn" class="pc-b"><div data-hf-id="hf-j1at" class="pc-f muted">Faldas · Cursa</div><div data-hf-id="hf-8t5g" class="pc-n">Falda Basic</div><div data-hf-id="hf-on5i" class="pc-p tab">40,90 € <span data-hf-id="hf-y6fd" class="pill new">Novedad</span></div><div data-hf-id="hf-azfs" class="btn teal pc-btn" id="catalogo-add-falda">A&ntilde;adir al carrito<span data-hf-id="hf-aobf" class="press"></span></div></div></div>
+<div data-hf-id="hf-w2z9" class="pc" id="catalogo-pc-gorra"><div data-hf-id="hf-8pg5" class="pc-ph photo" style="background-image:url('assets/photos/gorras-1.jpg')"><div data-hf-id="hf-pd6z" class="pc-star" id="catalogo-star-gorra"><span data-hf-id="hf-fi7g" class="s0">&#9734;</span><span data-hf-id="hf-omji" class="s1" id="catalogo-on-gorra">&#9733;</span></div></div><div data-hf-id="hf-azvo" class="pc-b"><div data-hf-id="hf-3ghd" class="pc-f muted">Gorras · Bruma</div><div data-hf-id="hf-50rx" class="pc-n">Gorra Wild</div><div data-hf-id="hf-yrdj" class="pc-p tab">49,90 €</div><div data-hf-id="hf-ekch" class="btn teal pc-btn" id="catalogo-add-gorra">A&ntilde;adir al carrito<span data-hf-id="hf-b2mg" class="press"></span></div></div></div>
+</div></div>
+<div data-hf-id="hf-kwlg" class="cur" id="catalogo-cur" data-layout-ignore><svg data-hf-id="hf-zit5" viewBox="0 0 22 30" aria-hidden="true"><path data-hf-id="hf-few4" d="M2 2 L2 24 L8 18.5 L12.5 28 L16.5 26.2 L12 17 L20 17 Z" fill="#1c1b1d" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+    </div></div>
+  </div>
+  <script>
+    document.fonts.ready.then(() => {
+  const ID = "catalogo";
+  const FMT = "L";
+  const W = document.getElementById(ID + "-w");
+  const $ = (s) => W.querySelector(s);
+  const $$ = (s) => Array.from(W.querySelectorAll(s));
+  // Offset of an element inside the scene, measured once before building tweens.
+  // A scene is display:none until its slot: measure with its hidden ancestors shown for the instant of the read.
+  const withLayout = (fn) => {
+    const hid = [];
+    for (let e = W; e && e !== document.documentElement; e = e.parentElement) {
+      if (getComputedStyle(e).display === "none") { hid.push([e, e.style.getPropertyValue("display"), e.style.getPropertyPriority("display")]); e.style.setProperty("display", "block", "important"); }
+    }
+    try { return fn(); } finally { hid.reverse().forEach(([e, v, p]) => (v ? e.style.setProperty("display", v, p) : e.style.removeProperty("display"))); }
+  };
+  const off = (el) => { let x = 0, y = 0; while (el && el !== W) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return { x, y }; };
+  const pt = (sel, fx = 0.5, fy = 0.5) => withLayout(() => { const el = typeof sel === "string" ? $(sel) : sel; const o = off(el); return { x: o.x + el.offsetWidth * fx, y: o.y + el.offsetHeight * fy }; });
+  const tl = gsap.timeline({ paused: true });
+  const pick = (L, V, S) => (FMT === "L" ? L : FMT === "V" ? V : S);
+  // Scene entry: copy slides in from the left, the stage rises.
+  const enter = (t = 0.05) => {
+    tl.fromTo($(".copy"), { x: -70, opacity: 0 }, { x: 0, opacity: 1, duration: 0.42, ease: "expo.out" }, t);
+    tl.fromTo($(".stage"), { y: 90, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "expo.out" }, t + 0.1);
+  };
+  const exit = (t) => {
+    tl.to($(".copy"), { x: -50, opacity: 0, duration: 0.24, ease: "power3.in" }, t);
+    tl.to($(".stage"), { y: -40, opacity: 0, duration: 0.26, ease: "power3.in" }, t);
+    if ($(".cur")) tl.to($(".cur"), { opacity: 0, duration: 0.15 }, t);
+  };
+  // Cursor: travel to a target, then click it (the press lands on the click frame).
+  const cur = () => $(".cur");
+  const curFrom = (x, y, t = 0) => tl.fromTo(cur(), { x, y, scale: 1, opacity: 1 }, { x, y, duration: 0.01 }, t);
+  const moveTo = (sel, t, d = 0.45, fx = 0.5, fy = 0.55) => { const p = pt(sel, fx, fy); tl.to(cur(), { x: p.x - 6, y: p.y - 4, duration: d, ease: "power2.inOut" }, t); };
+  const click = (sel, t) => {
+    tl.to(cur(), { scale: 0.84, duration: 0.06, ease: "power2.in", transformOrigin: "6px 4px" }, t);
+    tl.to(cur(), { scale: 1, duration: 0.1, ease: "power2.out", transformOrigin: "6px 4px" }, t + 0.06);
+    const pr = sel && $(sel + " .press");
+    if (pr) { tl.fromTo(pr, { opacity: 0 }, { opacity: 1, duration: 0.05 }, t); tl.to(pr, { opacity: 0, duration: 0.18 }, t + 0.1); }
+  };
+  // Count a number into an element (es-ES formatting), measured by the timeline, not the clock.
+  const nf = (dec) => new Intl.NumberFormat("es-ES", { minimumFractionDigits: dec, maximumFractionDigits: dec, useGrouping: "always" });
+  const count = (sel, from, to, t, d, dec = 0, suffix = "") => {
+    const el = typeof sel === "string" ? $(sel) : sel; const f = nf(dec); const o = { v: from };
+    el.textContent = f.format(from) + suffix;
+    tl.to(o, { v: to, duration: d, ease: "power2.out", onUpdate: () => { el.textContent = f.format(o.v) + suffix; } }, t);
+  };
+  // Items arriving one by one.
+  const seq = (els, t, gap, from = { y: 40, opacity: 0 }, d = 0.45) => els.forEach((el, i) => tl.fromTo(el, from, { x: 0, y: 0, opacity: 1, scale: 1, duration: d, ease: "power3.out" }, t + i * gap));
+
+
+  enter();
+  seq($$("#catalogo-grid .pc"), 0.25, 0.14, { y: 70, opacity: 0, scale: 0.94 }, 0.5);
+  // The buyer marks the first one as a favourite, then adds it to the cart.
+  const start = pick({ x: 1900, y: 1100 }, { x: 1100, y: 1950 }, { x: 1100, y: 1100 });
+  curFrom(start.x, start.y, 0);
+  moveTo("#catalogo-star-malla", 1.0, 0.5);
+  click(null, 1.55);
+  tl.fromTo("#catalogo-on-malla", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, 1.56);
+  tl.to("#catalogo-star-malla .s0", { opacity: 0, duration: 0.05 }, 1.56);
+  moveTo("#catalogo-add-malla", 1.8, 0.4);
+  click("#catalogo-add-malla", 2.3);
+  exit(2.74);
+
+      window.__timelines["catalogo"] = tl;
+    });
+  </script>
+</template>

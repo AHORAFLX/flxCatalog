@@ -1,0 +1,73 @@
+<style>
+#tallas-w .ph { position: absolute; overflow: hidden; }
+#tallas-w .ph .img { position: absolute; inset: 0; background-image: url('assets/photos/mallas-deportivas-1.jpg'); background-size: cover; background-position: center 40%; }
+#tallas-w .ph .lab { position: absolute; left: 0; right: 0; bottom: 0; background: #ffffff; padding: 0.7em 0.9em; }
+#tallas-w .ph .lab .f { font-size: 0.62em; }
+#tallas-w .ph .lab .n { font-weight: 700; margin-top: 0.15em; }
+#tallas-w .ph .lab .p { font-weight: 700; color: #1c1b1d; margin-top: 0.1em; }
+#tallas-w .dlg { position: absolute; padding: 1.1em 1.2em 1.2em; }
+#tallas-w .dlg .h { font-weight: 600; font-size: 1em; }
+#tallas-w .sel { position: relative; margin-top: 0.75em; height: 2.1em; border: 2px solid #a1a1aa; border-radius: 0.3em; display: flex; align-items: center; padding: 0 0.6em; justify-content: space-between; }
+#tallas-w .sel .chev { font-size: 0.7em; color: #3f3f46; }
+#tallas-w .list { position: absolute; left: 0; right: 0; top: 2.15em; background: #ffffff; border: 1px solid #d4d4d8; border-radius: 0.3em; box-shadow: 0 0.6em 1.6em rgba(28, 27, 29, 0.16); z-index: 5; overflow: hidden; transform-origin: 50% 0%; }
+#tallas-w .opt { height: 1.55em; display: flex; align-items: center; justify-content: space-between; padding: 0 0.6em; font-size: 0.92em; }
+#tallas-w .opt .st { font-size: 0.75em; }
+#tallas-w .opt.hi { background: #2db7b0; color: #ffffff; }
+#tallas-w .opt.hi .st { color: #ffffff; }
+#tallas-w .ql { margin-top: 0.8em; font-size: 0.85em; color: #3f3f46; }
+#tallas-w .qty { position: relative; margin-top: 0.35em; height: 2em; border: 2px solid #a1a1aa; border-radius: 0.3em; display: flex; align-items: center; justify-content: flex-end; padding: 0 0.6em; }
+#tallas-w .qty span { position: absolute; right: 0.6em; }
+#tallas-w .btns { display: flex; justify-content: flex-end; gap: 0.5em; margin-top: 0.9em; }
+#tallas-w .btns .btn { position: relative; height: 1.9em; padding: 0 1em; font-size: 0.9em; border-radius: 0.3em; }
+.fmt-L #tallas-w .ph { left: 60px; top: 0; width: 600px; height: 640px; font-size: 30px; }
+.fmt-L #tallas-w .dlg { left: 760px; top: 20px; width: 800px; font-size: 32px; }
+.fmt-V #tallas-w .ph { left: 0; top: 0; width: 952px; height: 470px; font-size: 32px; }
+.fmt-V #tallas-w .ph .img { background-position: center 62%; }
+.fmt-V #tallas-w .dlg { left: 0; top: 520px; width: 952px; font-size: 38px; }
+.fmt-S #tallas-w .ph { left: 0; top: 0; width: 400px; height: 700px; font-size: 22px; }
+.fmt-S #tallas-w .dlg { left: 440px; top: 20px; width: 528px; font-size: 25px; }
+</style>
+<div class="copy"><div class="num">02</div><div class="ttl">Tallas y colores</div><div class="line">624 variantes, cada una con su stock.</div></div>
+<div class="stage" id="tallas-stage">
+  <div class="card ph" id="tallas-ph"><div class="img"></div><div class="lab"><div class="f muted">Mallas Deportivas · Urbana Co.</div><div class="n">Malla Deportiva Prime</div><div class="p tab">34,90 €</div></div></div>
+  <div class="card dlg" id="tallas-dlg">
+    <div class="h">Elige color y talla</div>
+    <div class="sel" id="tallas-sel"><span id="tallas-selv">Rosa / XL</span><span class="chev">&#9660;</span>
+      <div class="list" id="tallas-list" style="opacity:0" data-layout-allow-occlusion data-layout-allow-overlap>
+        <div class="opt hi" id="tallas-o1"><span>Rosa / XL</span><span class="st">20</span></div>
+        <div class="opt" id="tallas-o2"><span>Blanco / XXL</span><span class="st muted">12</span></div>
+        <div class="opt" id="tallas-o3"><span>Marrón / XL</span><span class="st muted">9</span></div>
+        <div class="opt" id="tallas-o4"><span>Marrón / XXL</span><span class="st muted">14</span></div>
+        <div class="opt" id="tallas-o5"><span>Beige / S</span><span class="st muted">26</span></div>
+        <div class="opt" id="tallas-o6"><span>Blanco / S</span><span class="st muted">23</span></div>
+      </div>
+    </div>
+    <div class="ql">Cantidad</div>
+    <div class="qty" id="tallas-qty"><span id="tallas-q1">1</span><span id="tallas-q2" style="opacity:0">2</span></div>
+    <div class="btns"><div class="btn ghost">Cancelar</div><div class="btn teal" id="tallas-add">Añadir<span class="press"></span></div></div>
+  </div>
+</div>
+__CURSOR__
+<script>
+  enter();
+  tl.fromTo("#tallas-dlg", { scale: 0.92, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.6)" }, 0.3);
+  tl.fromTo("#tallas-list", { opacity: 0, scaleY: 0.6 }, { opacity: 0, scaleY: 0.6, duration: 0.01 }, 0);
+  const start = pick({ x: 1900, y: 1000 }, { x: 1100, y: 1900 }, { x: 1100, y: 1000 });
+  curFrom(start.x, start.y, 0);
+  // Open the select: the six real variants with their stock.
+  moveTo("#tallas-sel", 0.5, 0.4, 0.7, 0.5);
+  click(null, 0.92);
+  tl.to("#tallas-list", { opacity: 1, scaleY: 1, duration: 0.22, ease: "power3.out" }, 0.94);
+  seq($$("#tallas-list .opt"), 0.96, 0.05, { x: -14, opacity: 0 }, 0.25);
+  moveTo("#tallas-o1", 1.25, 0.3, 0.4, 0.5);
+  click(null, 1.6);
+  tl.to("#tallas-list", { opacity: 0, scaleY: 0.7, duration: 0.15, ease: "power2.in" }, 1.63);
+  // Quantity 1 -> 2, then "Añadir".
+  moveTo("#tallas-qty", 1.75, 0.3, 0.9, 0.5);
+  click(null, 2.05);
+  tl.to("#tallas-q1", { opacity: 0, y: -10, duration: 0.12 }, 2.07);
+  tl.fromTo("#tallas-q2", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.15 }, 2.08);
+  moveTo("#tallas-add", 2.12, 0.3);
+  click("#tallas-add", 2.46);
+  exit(2.74);
+</script>

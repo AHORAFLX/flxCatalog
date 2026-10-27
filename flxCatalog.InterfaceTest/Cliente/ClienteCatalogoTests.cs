@@ -142,9 +142,10 @@ public class ClienteCatalogoTests : ClienteTestBase
     [TestMethod]
     public async Task Reseña_ProductoComprado_SePublicaYApareceEnLaLista()
     {
-        // A product the client really bought: the first line of its first order.
+        // A product the client really bought: the first line of a delivered order (other tests leave
+        // drafts and cancelled orders at the top of the list, some of them with no lines at all).
         await App.OpenMenuAsync("Mis pedidos", "VTA_Pedido_List");
-        await App.OpenRowAsync(App.Module("mod-vta-pedido-list"));
+        await App.OpenRowByTextAsync(App.Module("mod-vta-pedido-list"), "Entregado");
         await App.WaitForPageAsync("VTA_Pedido_Cliente_View");
         var producto = (await App.Module("mod-vta-lineapedido-detalle-list").Locator(".crd-row .crd-name").First.InnerTextAsync()).Trim();
 

@@ -4,6 +4,20 @@ BEGIN TRY
 
 DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar(max),''),N'
 [{
+	"PluginId":"7E47590C-3B35-4C54-8E44-08639C77A6AB",
+	"Path":"~\/flxCatalog\/css\/flxcatalog-portal.css",
+	"Descrip":"Ajustes de las tarjetas del catálogo del portal de clientes",
+	"Order":212,
+	"typeId":1,
+	"Bundle":true,
+	"Enabled":true,
+	"flxInsertedBy":"flexygo-mcp",
+	"flxUpdatedBy":"flexygo-mcp",
+	"flxInsertedDate":"2026-10-13T17:14:00",
+	"flxUpdatedDate":"2026-10-13T17:14:00",
+	"OriginAddonId":"Main",
+	"OriginId":1
+},{
 	"PluginId":"459886C3-F657-46CA-B2C7-4122BCA58546",
 	"Path":"~\/flxCatalog\/css\/flxcatalog-cat-reviews.css",
 	"Descrip":"Estilos de la caja de reseñas de producto (CAT_Producto view): valoración media, lista y formulario",

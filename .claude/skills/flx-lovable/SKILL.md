@@ -232,14 +232,14 @@ It does not accept "it looks similar": every row is `same`, `similar`, `differen
 answer it. Pass the count `flexygo_compare_design_measurements` just printed for this screen as `deviations`,
 or this pass cannot be subtracted from the next one.
 
-⛔ **On this road all twelve rows aim at almost identical, `typography` and `spacing` included.**
+⛔ **On this road all thirteen rows aim at almost identical, `typography` and `spacing` included.**
 They aim lower only when the original is a PNG, which has no `font-family` and no comparable pixel
 scale; here the original's own source is on disk, so both sides can be measured and "it is a PNG" is
 not an available excuse. Over six comparison passes: five deviations, every one of
 them CSS of the project plugin and not one a platform ceiling, with `typography` reaching `same` on
 one of three screens. Read the Target column of the script; it already knows which road you are on.
 
-⚠️ **And the twelve rows are ALL visual, so they cannot catch invented logic.** A copy identical
+⚠️ **And the thirteen rows are ALL visual, so they cannot catch invented logic.** A copy identical
 to the pixel whose rules were made up scores 11 `same` / 1 `similar` / 0 `different`. That is why
 `flexygo_record_design_comparison` also requires `behaviours`: what this screen does that the screen
 itself cannot show you — a control whose effect is not visible, a value whose rule is off screen, a
@@ -250,7 +250,7 @@ of the two was chosen. `[]` is a valid answer and is recorded as the claim it is
 `needs-user`.** That is the fourth resolution, and it is the state half of a real bank is actually
 in — some of what a screen does cannot be worked out from any reference and only the user knows it.
 It is not the cheap exit: it takes the `question` you are going to put to them, written out, and a
-screen with one open is **not closed**, whatever the twelve rows said. The failure it
+screen with one open is **not closed**, whatever the thirteen rows said. The failure it
 exists against is seven findings deleted for want of a box to put them in, and one screen signing
 "None declared" over two its own report had left explicitly open.
 `flexygo_get_custom_screens_reference` §15 has the triggers and three worked examples.

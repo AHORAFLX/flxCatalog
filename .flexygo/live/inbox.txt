@@ -1,0 +1,4 @@
+Las barras de los charts son todas del mismo color, cada barra deberia ser de un color unico.
+Las barras de los charts son todas del mismo color, cada barra deberia ser de un color unico.
+Ejecutalo ya
+Cambia todas las chart por e chart en todo el proyecto.

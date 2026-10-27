@@ -320,7 +320,7 @@ DECLARE @DATA nvarchar(max)  = convert(nvarchar(max),'')+concat(convert(nvarchar
 	"TypeId":0,
 	"ClassId":"product",
 	"ConfirmText":"¿Cancelar este pedido? Esta acción no se puede deshacer.",
-	"ProcessDescrip":"Cancela el pedido",
+	"ProcessDescrip":"Cancela un pedido que todavía no se ha enviado: el pedido pasa al estado Cancelado.",
 	"StoredName":"pVTA_CancelarPedido",
 	"ObjectName":"VTA_Pedido",
 	"TimeOut":0,

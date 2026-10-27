@@ -53,3 +53,33 @@
 **Question:** El Catálogo público aprobado en Stitch tiene una cabecera pública propia (menú Catálogo/Marcas/Novedades/Ofertas/Ayuda/Contacto, carrito, Iniciar sesión, sin barra lateral oscura). Lo construido cuelga del mismo árbol de navegación y cabecera que el backoffice (barra lateral oscura con Seguridad/Centinela/Modo Desarrollo visibles) — esto ya estaba anotado como asunción S-4 ('el acceso anónimo real es una configuración de seguridad de un bloque posterior'), sin una decisión formal D-n asociada. Se decide de forma autónoma (sesión desatendida): ¿construir ya la cabecera pública con acceso anónimo real, o mantener S-4 tal cual?
 
 **User answer:** Mantener S-4 tal cual. Construir un acceso anónimo real (interfaz webguest, seguridad de objetos/páginas separada del backoffice, cabecera pública sin la barra lateral de administración) es un desarrollo de seguridad propio, no una tarea de plantilla o CSS — no se improvisa sin usuario presente. Queda como hallazgo abierto para un desarrollo posterior dedicado a la seguridad del catálogo público.
+
+## 2026-10-13 · affects T-25
+
+**Question:** La página HOME (panel de control antiguo) está sustituida por el dashboard y tiene defectos visibles. ¿Se retira o se arregla?
+
+**User answer:** Arréglalo. Hecho el 13/10 y verificado en pantalla.
+
+## 2026-10-26 · affects T-07, T-08, T-14, T-18, T-21, T-25, T-26
+
+**Question:** ¿Se aceptan las desviaciones abiertas de la revisión de catalogo-demo (T-07, T-08, T-14, T-18, T-21, T-25, T-26)?
+
+**User answer:** Sí, decidido por el agente con la delegación del usuario (D-16), viendo el estado de hoy (26-oct): T-07, T-08 y T-14 eran desviaciones ya justificadas en la construcción (píldoras de estado y foto; módulo genérico que exige el listado relacionado). T-18: el PDF básico del pedido funciona (test Pedido_GenerarPdfDescargaElDocumento en verde hoy). T-21: la paleta de skin2026 se aplicó después en correcciones-rol-cliente (T-01) con flexygo_set_skin_variable. T-26: el procedimiento se ha ejecutado hoy y regenera la demo. T-25: el menú de la interfaz clásica webdefault («Work Area») se conserva tal cual porque no la usa nadie (perfil 'default', 0 usuarios) y es la interfaz de respaldo de la plataforma; el administrador usa web2026.
+
+## 2026-10-26 · affects T-05, T-06, T-09, T-10, T-15, T-16, T-17, T-18, T-21, T-22, T-24
+
+**Question:** ¿Cómo quedan probadas las tareas de pantalla y proceso de catalogo-demo (T-05, T-06, T-09, T-10, T-15, T-16, T-17, T-18, T-21, T-22, T-24), si los tests de la batería no llevan su número de tarea?
+
+**User answer:** Decidido por el agente con la delegación del usuario (D-16): no se renombran los tests, porque los números de tarea se repiten entre los siete desarrollos y un test «T07_…» se atribuiría al desarrollo que estuviera activo. Quedan cubiertos por la batería flxCatalog.InterfaceTest, que pasó el 26-oct (110/118 en la pasada completa y los 8 restantes en verde tras corregir los datos y la vista de pedidos): T-05/T-06 maestros de estados y tarifas → AdminRecorridoPantallasTests.Lista_TieneFilas_YSuFilaAbreLaFicha (VTA_EstadoPedido, VTA_Tarifa) y AdminCircuitosTests.Tarifa_AltaModificacionYBorrado; T-09/T-10 productos → AdminCatalogoTests.Productos_ListadoYFichaConVariantesYAcciones y Producto_AltaArchivadoYBorrado; T-15/T-16 clientes → AdminClientesTests.Clientes_ListadoYFicha… y AdminCircuitosTests.Cliente_AltaModificacionYBorrado, más los recorridos T-15-cli-cliente-list y T-16-cli-cliente-view; T-17/T-18 pedidos → AdminVentasTests.Pedidos_…, Pedido_FichaConLineasInformacionFiscalYProcesos y Pedido_GenerarPdfDescargaElDocumento, más el recorrido T-17-vta-pedido-list; T-21 aspecto → todas las capturas de la batería sobre skin2026; T-22/T-24 panel y catálogo → AdminRecorridoPantallasTests.Pantalla_SeAbreConSusModulos(HOME) y ClienteCatalogoTests.Catalogo_MuestraProductosConFotoPrecioYPaginacion.
+
+## 2026-10-26 · affects T-05, T-21, T-22
+
+**Question:** ¿Llevan ayuda propia T-05 (maestro de estados de pedido), T-21 (paleta del skin) y T-22 (Panel de control HOME de la interfaz webdefault) de catalogo-demo?
+
+**User answer:** No, decidido por el agente con la delegación del usuario (D-16). T-05: los estados de pedido se explican en la guía «Hacer avanzar un pedido» y su pantalla de maestro es técnica. T-21: es la paleta de colores, no una pantalla. T-22: HOME es la portada de la interfaz clásica webdefault, que no usa nadie (perfil 'default', 0 usuarios); el administrador entra por el Dashboard, que tiene su recorrido y su guía «Empezar el día».
+
+## 2026-10-26 · affects development
+
+**Question:** /flx-api de catalogo-demo: ¿qué de lo construido sale por la WebAPI y para quién?
+
+**User answer:** Lo decidido por el usuario el 26-oct en pendientes-cliente-admin (D-15), que es global a la instalación: solo lectura (listado y ficha) de CAT_Producto, CAT_Familia, CAT_Marca, CAT_Color, CAT_Talla, CAT_Variante, VTA_Pedido, VTA_LineaPedido y VTA_EstadoPedido entre los objetos de este desarrollo; CLI_Cliente y VTA_Tarifa quedan fuera (datos personales y precios). Llama solo el rol admins, también por el asistente /mcp. Sin columnas ocultas.

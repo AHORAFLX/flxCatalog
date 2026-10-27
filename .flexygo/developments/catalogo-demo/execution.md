@@ -203,3 +203,13 @@ DESVIACIÓN: no existe ninguna herramienta MCP para ejecutar (EXEC) un stored pr
 **Tool:** `flexygo_update_view + flexygo_update_template`
 
 **Result:** Cierra del todo el defecto original de 'familia padre' (arrastrado desde el bloque B-1): el listado ya se había arreglado con una subconsulta, pero la FICHA seguía mostrando el GUID en crudo porque su plantilla (flx-cat-familia-view) imprimía {{IdFamiliaPadre}} directamente en vez de un nombre resuelto — el dbcombo en modo lectura no resuelve por sí solo si la plantilla no usa una columna ya resuelta. Añadida la misma subconsulta correlacionada a la vista CAT_FamiliaDefaultView (columna FamiliaPadreNombre) y la plantilla actualizada para usarla. Comprobado en pantalla sobre 'Camisetas': ahora muestra 'Ropa' en vez del GUID.
+
+## 2026-10-26 · T-16 · UNDONE
+
+**Reason:** It did not pass verification: Fails at step 2 (click): Timeout 30000ms exceeded..
+
+## 2026-10-26 · T-16 · OK
+
+**Tool:** `flexygo_update_template`
+
+**Result:** Corrección del 26-oct: el recorrido T-16-cli-cliente-view falló por contraste 2,47:1 en el botón «Nuevo comentario» de la ficha de cliente (texto con el color de acento #2db7b0 sobre blanco). La plantilla flx-cli-cliente-view pinta ahora ese texto con var(--txt-color) y conserva el contorno. Repetido el recorrido: abre la ficha desde el listado de Clientes con sus cinco módulos (volver, ficha, artículos más comprados, pedidos recientes, comentarios internos); captura aceptada como línea base. Queda sin tocar: la tarjeta de la ficha tiene scroll interno porque comparte fila con el gráfico.

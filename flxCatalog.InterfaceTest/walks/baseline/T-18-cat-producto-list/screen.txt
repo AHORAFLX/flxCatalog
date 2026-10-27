@@ -1,0 +1,375 @@
+# mod-cat-producto-list
+Listado de productos
+Nuevo
+Referencia
+Nombre
+Familia
+Marca
+Precio
+Stock
+Estado
+Acciones
+REF-2138
+Abrigo Niño Essential
+Abrigos Niño
+Duna Sport
+58,90 €
+118
+Activo
+REF-2140
+Abrigo Niño Move
+Abrigos Niño
+Nómada
+83,90 €
+0
+Sin stock
+REF-2139
+Abrigo Niño Premium
+Abrigos Niño
+Cursa
+23,90 €
+157
+Activo
+REF-2137
+Abrigo Niño Style
+Abrigos Niño
+Kalma
+79,90 €
+153
+Activo
+REF-2081
+Bolso Casual
+Bolsos
+Kalma
+13,90 €
+45
+Activo
+REF-2082
+Bolso Deluxe
+Bolsos
+Bruma
+48,90 €
+73
+Oferta
+REF-2083
+Bolso Style
+Bolsos
+Trailmark
+11,90 €
+15
+Activo
+REF-2084
+Bolso Ultra
+Bolsos
+Trailmark
+53,90 €
+111
+Activo
+REF-2063
+Bota Flex
+Botas
+Ferric
+88,90 €
+102
+Oferta
+REF-2061
+Bota Premium
+Botas
+Lienzo
+69,90 €
+91
+Activo
+REF-2062
+Bota Pro
+Botas
+Trailmark
+57,90 €
+147
+Activo
+REF-2064
+Bota Wild
+Botas
+Norden
+90,90 €
+156
+Activo
+REF-2066
+Botín Basic
+Botas
+Solvane
+41,90 €
+56
+Activo
+REF-2065
+Botín Sport
+Botas
+Cursa
+47,90 €
+133
+Activo
+REF-2068
+Botín Trail
+Botas
+Montis
+103,90 €
+54
+Novedad
+REF-2067
+Botín Ultra
+Botas
+Cursa
+64,90 €
+63
+Activo
+REF-2091
+Bufanda Move
+Bufandas
+Nortex
+20,90 €
+153
+Activo
+REF-2090
+Bufanda Nova
+Bufandas
+Nortex
+38,90 €
+33
+Activo
+REF-2089
+Bufanda Pro
+Bufandas
+Kalma
+49,90 €
+3
+Activo
+REF-2092
+Bufanda Urban
+Bufandas
+Montis
+9,90 €
+166
+Oferta
+REF-2043
+Camisa Flex
+Camisas
+Cursa
+47,90 €
+93
+Activo
+REF-2041
+Camisa Free
+Camisas
+Kalma
+33,90 €
+45
+Activo
+REF-2044
+Camisa Style
+Camisas
+Rivera
+62,90 €
+160
+Activo
+REF-2042
+Camisa Urban
+Camisas
+Cursa
+57,90 €
+105
+Activo
+REF-2003
+Camiseta Comfort
+Camisetas
+Montis
+35,90 €
+182
+Oferta
+REF-2004
+Camiseta Deluxe
+Camisetas
+Kalma
+29,90 €
+17
+Activo
+REF-2002
+Camiseta Essential
+Camisetas
+Lienzo
+29,90 €
+156
+Activo
+REF-2005
+Camiseta Manga Larga Move
+Camisetas
+Alara
+65,90 €
+136
+Activo
+REF-2008
+Camiseta Manga Larga Premium
+Camisetas
+Nortex
+60,90 €
+141
+Activo
+REF-2007
+Camiseta Manga Larga Style
+Camisetas
+Cursa
+19,90 €
+164
+Inactivo
+REF-2006
+Camiseta Manga Larga Ultra
+Camisetas
+Solvane
+22,90 €
+122
+Novedad
+REF-2128
+Camiseta Niño Active
+Camisetas Niño
+Nortex
+73,90 €
+162
+Activo
+REF-2125
+Camiseta Niño Flex
+Camisetas Niño
+Duna Sport
+40,90 €
+48
+Activo
+REF-2127
+Camiseta Niño Light
+Camisetas Niño
+Norden
+65,90 €
+138
+Activo
+REF-2126
+Camiseta Niño Prime
+Camisetas Niño
+Urbana Co.
+28,90 €
+24
+Activo
+REF-2001
+Camiseta Style
+Camisetas
+Alara
+54,90 €
+31
+Activo
+REF-2109
+Camiseta Técnica Comfort
+Camisetas Técnicas
+Lienzo
+34,90 €
+118
+Activo
+REF-2112
+Camiseta Técnica Light
+Camisetas Técnicas
+Duna Sport
+89,90 €
+40
+Activo
+REF-2111
+Camiseta Técnica Move
+Camisetas Técnicas
+Talvera
+65,90 €
+191
+Inactivo
+REF-2110
+Camiseta Técnica Prime
+Camisetas Técnicas
+Vestiga
+79,90 €
+71
+Activo
+REF-2118
+Chaleco Deportivo Elite
+Chalecos Deportivos
+Solvane
+58,90 €
+114
+Activo
+REF-2119
+Chaleco Deportivo Free
+Chalecos Deportivos
+Solvane
+35,90 €
+198
+Activo
+REF-2120
+Chaleco Deportivo Move
+Chalecos Deportivos
+Montis
+84,90 €
+168
+Activo
+REF-2117
+Chaleco Deportivo Urban
+Chalecos Deportivos
+Lienzo
+89,90 €
+51
+Activo
+REF-2028
+Chaqueta Casual
+Chaquetas
+Alara
+22,90 €
+76
+Activo
+REF-2026
+Chaqueta Comfort
+Chaquetas
+Rivera
+15,90 €
+136
+Activo
+REF-2029
+Chaqueta Cortavientos Active
+Chaquetas
+Lienzo
+31,90 €
+68
+Activo
+REF-2032
+Chaqueta Cortavientos Line
+Chaquetas
+Nortex
+59,90 €
+121
+Activo
+REF-2030
+Chaqueta Cortavientos Sport
+Chaquetas
+Ébano
+49,90 €
+108
+Activo
+REF-2031
+Chaqueta Cortavientos Trail
+Chaquetas
+Duna Sport
+25,90 €
+75
+Activo
+1
+2
+3
+Página
+1
+de
+3
+Total:
+140
+# mod-tour-tour-productos
+Cómo buscar un producto, abrir su ficha y dar de alta uno nuevo.
+
+Hacer el recorrido
+Editar pasos

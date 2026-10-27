@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dbo].[CLI_DashTopClientesCasos]
+﻿CREATE   VIEW [dbo].[CLI_DashTopClientesCasos]
 AS
 SELECT TOP (8)
     N'Incidencias y devoluciones' AS serie,

@@ -23,3 +23,21 @@
 **Question:** Revision of assumption S-2: ''Mis últimas compras' se resuelve con la propia página 'Mis pedidos' (mismo listado, sin un widget de resumen aparte) — no se construye un dashboard adicional para el cliente en este bloque.'
 
 **User answer:** Replaced by ''Mis últimas compras' se resuelve con la propia página 'Mis pedidos', PERO durante T-18 el usuario creó a mano una página de inicio en blanco ('Home Cliente') como StartupPageName del perfil 'Cliente', y pidió que se rellenara con un resumen básico (saludo, tarifa asignada, últimos 5 pedidos) — así que sí existe un pequeño dashboard para el cliente, añadido fuera del plan original a petición directa del usuario.'. Reason: El usuario creó la página 'Home Cliente' él mismo en la pantalla de Flexygo mientras se coordinaba T-18, y al preguntarle si la dejábamos vacía o le añadíamos contenido, pidió explícitamente un resumen básico. No es un hallazgo de ejecución que refute la asunción por error de planificación, sino una decisión del usuario tomada después de escribir el plan.
+
+## 2026-10-26 · affects T-08, T-09, T-10, T-15, T-16
+
+**Question:** ¿Cómo quedan probadas T-08, T-09, T-10, T-15 y T-16 de portal-clientes (catálogo, mis pedidos, mi ficha, seguridad de páginas y menú del cliente)?
+
+**User answer:** Decidido por el agente con la delegación del usuario (D-16 de pendientes-cliente-admin): las cubren los tests de interfaz de la batería, en verde el 26-oct, sin renombrarlos porque los números de tarea se repiten entre desarrollos: T-08 → ClienteCatalogoTests.Catalogo_MuestraProductosConFotoPrecioYPaginacion; T-09 → ClienteCarritoPedidosTests.MisPedidos_SoloMuestraLosPedidosDelClienteConectado y DetalleDePedido_MuestraSeguimientoLineasYSoloAccionesDeCliente; T-10 → ClienteCuentaTests.MiFicha_MuestraLosDatosDelClienteConectado; T-15 → ClienteCuentaTests.Seguridad_ElClienteNoAbrePantallasDeAdministracion y Seguridad_ElClienteNoVeElPanelDeControlDelNegocio; T-16 → ClienteNavegacionTests.MenuCliente_AbreSuPantalla y MenuCliente_NoOfreceOpcionesDeAdministracion.
+
+## 2026-10-26 · affects T-15, T-16
+
+**Question:** ¿Llevan ayuda propia T-15 (seguridad de páginas y módulos) y T-16 (menú del cliente) de portal-clientes?
+
+**User answer:** No como pantalla, decidido por el agente con la delegación del usuario (D-16 de pendientes-cliente-admin): la seguridad no se ve y el menú no es una pantalla. El menú del cliente ya lleva su entrada «Ayuda», que abre el índice «Ayuda del cliente», y la portada ofrece el recorrido de bienvenida tour-welcome-cliente, que enseña el menú.
+
+## 2026-10-26 · affects development
+
+**Question:** /flx-api de portal-clientes: ¿qué de lo construido sale por la WebAPI y para quién?
+
+**User answer:** Nada nuevo: la exposición global decidida por el usuario el 26-oct (D-15 de pendientes-cliente-admin) deja fuera las tarifas y sus precios (VTA_Tarifa, VTA_PrecioTarifa) y los clientes (CLI_Cliente), que son lo que construyó este desarrollo; el rol cliente no está autorizado en la WebAPI. Llama solo admins.

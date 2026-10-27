@@ -1,0 +1,30 @@
+# mod-dash-kpis-easyinfo
+Indicadores clave
+Ventas del año
+140.312,45€
+Ventas del mes
+36.781,71€
+Pedidos pendientes
+61
+Incidencias abiertas
+6
+Devoluciones solicitadas
+6
+# mod-tour-tour-dashboard
+Un minuto para saber qué dice cada cifra y cada gráfico.
+
+Hacer el recorrido
+Editar pasos
+# mod-tour-tour-welcome-admin
+Un recorrido rápido por lo que vas a usar cada día.
+
+Hacer el recorrido
+Editar pasos
+# mod-dash-top-vendidos-echart
+Artículos más vendidos
+# mod-dash-top-devueltos-echart
+Artículos más devueltos
+# mod-dash-top-clientes-echart
+Clientes que más compran
+# mod-dash-clientes-problemas-echart
+Clientes con más incidencias o devoluciones

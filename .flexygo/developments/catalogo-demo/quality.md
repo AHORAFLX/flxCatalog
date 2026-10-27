@@ -203,3 +203,14 @@
 | `list-no-searcher` | dismissed | Se había activado searcher:true y una regla CSS de plugin para hacerlo visible. | flexygo_update_object_list_module(searcher:false); regla CSS retirada de flx-dashboard.css. | El usuario no quiere el buscador de texto libre: 'No lo quiero, me vale con los filtros que ya hay configurado.' El botón Filtro de la barra ya cubre esa necesidad. |
 
 **CLOSED on the findings.** Every one is `fixed`, `dismissed` with the user's reason, or `raised` with its class of cause.
+
+## 2026-10-26 · page `VTA_MisDocumentos_List`
+
+| Entry | Status | What was seen | Mechanism | Reason or cause |
+|---|---|---|---|---|
+| `list-no-pager` | not-applicable | mod-vta-pedido-documentos-cliente-sqllist: syspager-listheader, 15 por página; mod-vta-tarifa-list-documentos: syspager-listheader. | — | Los dos módulos tienen paginador. |
+| `list-no-empty-state` | not-applicable | CORRECCIÓN del registro anterior de hoy: el sqllist de documentos SÍ tenía Empty propio («Aún no tienes documentos», lo comprueba el test MisDocumentos_MuestraSusDocumentosYSuTarifa_SinListarPedidos); el agente lo sobrescribió sin leer antes el cuerpo del módulo y lo ha restaurado con el mismo texto, centrado. La lista de tarifa tiene «Sin tarifa asignada». | — | Los dos módulos tienen su propio estado vacío. |
+| `list-no-column-sort` | not-applicable | Documentos: lista de filas con plantilla, ordenada en su SQL por fecha descendente. Tarifa: una sola fila (la del cliente). | — | Gate: el orden es el de su consulta (fecha descendente) y la tarifa es una sola fila acotada por el modelo. |
+| `list-no-searcher` | dismissed | Searcher = 0 en los dos. | flexygo_update_object_list_module(searcher: true) | Decisión anterior del usuario que sigue en pie (catalogo-demo, 16-sep): «No lo quiero, me vale con los filtros que ya hay configurado.» |
+
+**CLOSED on the findings.** Every one is `fixed`, `dismissed` with the user's reason, `not-applicable` with the gate that does not hold, or `raised` with its class of cause.

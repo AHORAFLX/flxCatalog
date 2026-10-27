@@ -1,0 +1,195 @@
+<template>
+  <style>
+#root { position: absolute; inset: 0; overflow: hidden; background: #eef1f4; font-family: Inter, sans-serif; color: #1c1b1d; }
+.fmt, .w { position: absolute; inset: 0; }
+.w * { box-sizing: border-box; }
+
+/* copy block: number, title, line */
+.copy { position: absolute; }
+.fmt-L .copy { left: 120px; top: 92px; width: 1100px; }
+.fmt-V .copy { left: 80px; top: 170px; width: 920px; }
+.fmt-S .copy { left: 64px; top: 60px; width: 952px; }
+.num { font-weight: 800; color: #148a84; letter-spacing: 0.06em; }
+.ttl { font-weight: 800; letter-spacing: -0.025em; line-height: 1.02; }
+.line { font-weight: 500; color: #5b5b63; line-height: 1.25; }
+.fmt-L .num { font-size: 30px; } .fmt-L .ttl { font-size: 84px; margin-top: 8px; } .fmt-L .line { font-size: 36px; margin-top: 14px; }
+.fmt-V .num { font-size: 36px; } .fmt-V .ttl { font-size: 100px; margin-top: 10px; } .fmt-V .line { font-size: 44px; margin-top: 20px; }
+.fmt-S .num { font-size: 28px; } .fmt-S .ttl { font-size: 68px; margin-top: 6px; } .fmt-S .line { font-size: 32px; margin-top: 12px; }
+
+/* stage: where the rebuilt UI lives */
+.stage { position: absolute; }
+.fmt-L .stage { left: 120px; right: 120px; top: 350px; bottom: 70px; }
+.fmt-V .stage { left: 64px; right: 64px; top: 560px; bottom: 140px; }
+.fmt-S .stage { left: 56px; right: 56px; top: 320px; bottom: 50px; }
+
+/* product UI primitives, drawn like the product (flexy2022 skin) */
+.card { position: absolute; background: #ffffff; border-radius: 18px; box-shadow: 0 18px 50px rgba(28, 27, 29, 0.10), 0 2px 6px rgba(28, 27, 29, 0.05); }
+.fmt-V .card { border-radius: 24px; }
+.mtitle { font-weight: 600; letter-spacing: -0.01em; }
+.muted { color: #71717a; }
+.btn { display: flex; align-items: center; justify-content: center; border-radius: 10px; font-weight: 600; white-space: nowrap; }
+.btn.teal { background: #2db7b0; color: #ffffff; }
+.btn.ghost { background: #ffffff; color: #1c1b1d; border: 2px solid #d4d4d8; }
+.btn.dark { background: #1c1b1d; color: #ffffff; }
+.pill { display: inline-flex; align-items: center; gap: 0.45em; border-radius: 999px; font-weight: 600; padding: 0.22em 0.75em; white-space: nowrap; }
+.pill::before { content: ""; width: 0.42em; height: 0.42em; border-radius: 50%; background: currentColor; }
+.pill.ok { background: #dcfce7; color: #166534; }
+.pill.warn { background: #fef3c7; color: #854d0e; }
+.pill.bad { background: #fee2e2; color: #991b1b; }
+.pill.info { background: #e0e7ff; color: #3730a3; }
+.pill.neu { background: #f4f4f5; color: #3f3f46; }
+.pill.new { background: #fde7ef; color: #9d174d; }
+.photo { background-size: cover; background-position: center; }
+.tab { font-variant-numeric: tabular-nums; }
+
+/* catalogue card, sized by its font-size (1em = 20px on the product's own card at 1x) */
+.pc { position: absolute; width: 13em; background: #ffffff; border-radius: 0.8em; overflow: hidden; box-shadow: 0 0.9em 2.4em rgba(28, 27, 29, 0.12); }
+.pc-ph { position: relative; height: 12.4em; }
+.pc-star { position: absolute; top: 0.55em; right: 0.55em; width: 1.7em; height: 1.7em; border-radius: 0.4em; background: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1em; color: #1c1b1d; }
+.pc-b { padding: 0.75em 0.85em 0.9em; }
+.pc-f { font-size: 0.6em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-n { font-size: 0.8em; font-weight: 600; margin-top: 0.3em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-p { font-size: 0.9em; font-weight: 700; margin-top: 0.4em; display: flex; align-items: center; justify-content: space-between; }
+.pc-p .pill { font-size: 0.62em; }
+.pc-btn { position: relative; margin-top: 0.75em; height: 2em; font-size: 0.72em; border-radius: 0.5em; }
+
+/* the one drawn object: a cursor */
+.cur { position: absolute; left: 0; top: 0; z-index: 50; }
+.fmt-L .cur { width: 46px; height: 62px; } .fmt-V .cur, .fmt-S .cur { width: 56px; height: 76px; }
+.press { position: absolute; inset: 0; border-radius: inherit; background: rgba(0, 0, 0, 0.18); opacity: 0; pointer-events: none; }
+.pc-star .s0, .pc-star .s1 { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.pc-star .s1 { color: #148a84; opacity: 0; font-size: 1.15em; }
+.cur svg { display: block; width: 100%; height: 100%; }
+
+
+#tallas-w .ph { position: absolute; overflow: hidden; }
+#tallas-w .ph .img { position: absolute; inset: 0; background-image: url('assets/photos/mallas-deportivas-1.jpg'); background-size: cover; background-position: center 40%; }
+#tallas-w .ph .lab { position: absolute; left: 0; right: 0; bottom: 0; background: #ffffff; padding: 0.7em 0.9em; }
+#tallas-w .ph .lab .f { font-size: 0.62em; }
+#tallas-w .ph .lab .n { font-weight: 700; margin-top: 0.15em; }
+#tallas-w .ph .lab .p { font-weight: 700; color: #1c1b1d; margin-top: 0.1em; }
+#tallas-w .dlg { position: absolute; padding: 1.1em 1.2em 1.2em; }
+#tallas-w .dlg .h { font-weight: 600; font-size: 1em; }
+#tallas-w .sel { position: relative; margin-top: 0.75em; height: 2.1em; border: 2px solid #a1a1aa; border-radius: 0.3em; display: flex; align-items: center; padding: 0 0.6em; justify-content: space-between; }
+#tallas-w .sel .chev { font-size: 0.7em; color: #3f3f46; }
+#tallas-w .list { position: absolute; left: 0; right: 0; top: 2.15em; background: #ffffff; border: 1px solid #d4d4d8; border-radius: 0.3em; box-shadow: 0 0.6em 1.6em rgba(28, 27, 29, 0.16); z-index: 5; overflow: hidden; transform-origin: 50% 0%; }
+#tallas-w .opt { height: 1.55em; display: flex; align-items: center; justify-content: space-between; padding: 0 0.6em; font-size: 0.92em; }
+#tallas-w .opt .st { font-size: 0.75em; }
+#tallas-w .opt.hi { background: #2db7b0; color: #ffffff; }
+#tallas-w .opt.hi .st { color: #ffffff; }
+#tallas-w .ql { margin-top: 0.8em; font-size: 0.85em; color: #3f3f46; }
+#tallas-w .qty { position: relative; margin-top: 0.35em; height: 2em; border: 2px solid #a1a1aa; border-radius: 0.3em; display: flex; align-items: center; justify-content: flex-end; padding: 0 0.6em; }
+#tallas-w .qty span { position: absolute; right: 0.6em; }
+#tallas-w .btns { display: flex; justify-content: flex-end; gap: 0.5em; margin-top: 0.9em; }
+#tallas-w .btns .btn { position: relative; height: 1.9em; padding: 0 1em; font-size: 0.9em; border-radius: 0.3em; }
+.fmt-L #tallas-w .ph { left: 60px; top: 0; width: 600px; height: 640px; font-size: 30px; }
+.fmt-L #tallas-w .dlg { left: 760px; top: 20px; width: 800px; font-size: 32px; }
+.fmt-V #tallas-w .ph { left: 0; top: 0; width: 952px; height: 470px; font-size: 32px; }
+.fmt-V #tallas-w .ph .img { background-position: center 62%; }
+.fmt-V #tallas-w .dlg { left: 0; top: 520px; width: 952px; font-size: 38px; }
+.fmt-S #tallas-w .ph { left: 0; top: 0; width: 400px; height: 700px; font-size: 22px; }
+.fmt-S #tallas-w .dlg { left: 440px; top: 20px; width: 528px; font-size: 25px; }
+
+  </style>
+  <div data-hf-id="hf-wyln" id="root" data-composition-id="tallas" data-width="1080" data-height="1080">
+    <div data-hf-id="hf-m0pk" class="fmt fmt-S"><div data-hf-id="hf-3d5w" class="w" id="tallas-w">
+<div data-hf-id="hf-bdx3" class="copy"><div data-hf-id="hf-ra9i" class="num">02</div><div data-hf-id="hf-s1rn" class="ttl">Tallas y colores</div><div data-hf-id="hf-q756" class="line">624 variantes, cada una con su stock.</div></div>
+<div data-hf-id="hf-k3ws" class="stage" id="tallas-stage">
+  <div data-hf-id="hf-t6ky" class="card ph" id="tallas-ph"><div data-hf-id="hf-xtxp" class="img"></div><div data-hf-id="hf-mnnx" class="lab"><div data-hf-id="hf-bd6g" class="f muted">Mallas Deportivas · Urbana Co.</div><div data-hf-id="hf-wn5q" class="n">Malla Deportiva Prime</div><div data-hf-id="hf-bf2v" class="p tab">34,90 €</div></div></div>
+  <div data-hf-id="hf-qr6y" class="card dlg" id="tallas-dlg">
+    <div data-hf-id="hf-0zce" class="h">Elige color y talla</div>
+    <div data-hf-id="hf-27v8" class="sel" id="tallas-sel"><span data-hf-id="hf-p8yw" id="tallas-selv">Rosa / XL</span><span data-hf-id="hf-kz6j" class="chev">&#9660;</span>
+      <div data-hf-id="hf-o2lf" class="list" id="tallas-list" style="opacity:0" data-layout-allow-occlusion data-layout-allow-overlap>
+        <div data-hf-id="hf-qb9s" class="opt hi" id="tallas-o1"><span data-hf-id="hf-1b35">Rosa / XL</span><span data-hf-id="hf-e0ru" class="st">20</span></div>
+        <div data-hf-id="hf-05ui" class="opt" id="tallas-o2"><span data-hf-id="hf-yqmb">Blanco / XXL</span><span data-hf-id="hf-s6jm" class="st muted">12</span></div>
+        <div data-hf-id="hf-43yj" class="opt" id="tallas-o3"><span data-hf-id="hf-02uh">Marrón / XL</span><span data-hf-id="hf-9i4s" class="st muted">9</span></div>
+        <div data-hf-id="hf-gmh0" class="opt" id="tallas-o4"><span data-hf-id="hf-388b">Marrón / XXL</span><span data-hf-id="hf-ukds" class="st muted">14</span></div>
+        <div data-hf-id="hf-he4t" class="opt" id="tallas-o5"><span data-hf-id="hf-sj4j">Beige / S</span><span data-hf-id="hf-h7jl" class="st muted">26</span></div>
+        <div data-hf-id="hf-lc8u" class="opt" id="tallas-o6"><span data-hf-id="hf-0j9u">Blanco / S</span><span data-hf-id="hf-g0mi" class="st muted">23</span></div>
+      </div>
+    </div>
+    <div data-hf-id="hf-el4d" class="ql">Cantidad</div>
+    <div data-hf-id="hf-g7es" class="qty" id="tallas-qty"><span data-hf-id="hf-4dg5" id="tallas-q1">1</span><span data-hf-id="hf-a2kq" id="tallas-q2" style="opacity:0">2</span></div>
+    <div data-hf-id="hf-5u2b" class="btns"><div data-hf-id="hf-jv4s" class="btn ghost">Cancelar</div><div data-hf-id="hf-2bgb" class="btn teal" id="tallas-add">Añadir<span data-hf-id="hf-vdyi" class="press"></span></div></div>
+  </div>
+</div>
+<div data-hf-id="hf-x76p" class="cur" id="tallas-cur" data-layout-ignore><svg data-hf-id="hf-zit5" viewBox="0 0 22 30" aria-hidden="true"><path data-hf-id="hf-few4" d="M2 2 L2 24 L8 18.5 L12.5 28 L16.5 26.2 L12 17 L20 17 Z" fill="#1c1b1d" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+    </div></div>
+  </div>
+  <script>
+    document.fonts.ready.then(() => {
+  const ID = "tallas";
+  const FMT = "S";
+  const W = document.getElementById(ID + "-w");
+  const $ = (s) => W.querySelector(s);
+  const $$ = (s) => Array.from(W.querySelectorAll(s));
+  // Offset of an element inside the scene, measured once before building tweens.
+  // A scene is display:none until its slot: measure with its hidden ancestors shown for the instant of the read.
+  const withLayout = (fn) => {
+    const hid = [];
+    for (let e = W; e && e !== document.documentElement; e = e.parentElement) {
+      if (getComputedStyle(e).display === "none") { hid.push([e, e.style.getPropertyValue("display"), e.style.getPropertyPriority("display")]); e.style.setProperty("display", "block", "important"); }
+    }
+    try { return fn(); } finally { hid.reverse().forEach(([e, v, p]) => (v ? e.style.setProperty("display", v, p) : e.style.removeProperty("display"))); }
+  };
+  const off = (el) => { let x = 0, y = 0; while (el && el !== W) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return { x, y }; };
+  const pt = (sel, fx = 0.5, fy = 0.5) => withLayout(() => { const el = typeof sel === "string" ? $(sel) : sel; const o = off(el); return { x: o.x + el.offsetWidth * fx, y: o.y + el.offsetHeight * fy }; });
+  const tl = gsap.timeline({ paused: true });
+  const pick = (L, V, S) => (FMT === "L" ? L : FMT === "V" ? V : S);
+  // Scene entry: copy slides in from the left, the stage rises.
+  const enter = (t = 0.05) => {
+    tl.fromTo($(".copy"), { x: -70, opacity: 0 }, { x: 0, opacity: 1, duration: 0.42, ease: "expo.out" }, t);
+    tl.fromTo($(".stage"), { y: 90, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "expo.out" }, t + 0.1);
+  };
+  const exit = (t) => {
+    tl.to($(".copy"), { x: -50, opacity: 0, duration: 0.24, ease: "power3.in" }, t);
+    tl.to($(".stage"), { y: -40, opacity: 0, duration: 0.26, ease: "power3.in" }, t);
+    if ($(".cur")) tl.to($(".cur"), { opacity: 0, duration: 0.15 }, t);
+  };
+  // Cursor: travel to a target, then click it (the press lands on the click frame).
+  const cur = () => $(".cur");
+  const curFrom = (x, y, t = 0) => tl.fromTo(cur(), { x, y, scale: 1, opacity: 1 }, { x, y, duration: 0.01 }, t);
+  const moveTo = (sel, t, d = 0.45, fx = 0.5, fy = 0.55) => { const p = pt(sel, fx, fy); tl.to(cur(), { x: p.x - 6, y: p.y - 4, duration: d, ease: "power2.inOut" }, t); };
+  const click = (sel, t) => {
+    tl.to(cur(), { scale: 0.84, duration: 0.06, ease: "power2.in", transformOrigin: "6px 4px" }, t);
+    tl.to(cur(), { scale: 1, duration: 0.1, ease: "power2.out", transformOrigin: "6px 4px" }, t + 0.06);
+    const pr = sel && $(sel + " .press");
+    if (pr) { tl.fromTo(pr, { opacity: 0 }, { opacity: 1, duration: 0.05 }, t); tl.to(pr, { opacity: 0, duration: 0.18 }, t + 0.1); }
+  };
+  // Count a number into an element (es-ES formatting), measured by the timeline, not the clock.
+  const nf = (dec) => new Intl.NumberFormat("es-ES", { minimumFractionDigits: dec, maximumFractionDigits: dec, useGrouping: "always" });
+  const count = (sel, from, to, t, d, dec = 0, suffix = "") => {
+    const el = typeof sel === "string" ? $(sel) : sel; const f = nf(dec); const o = { v: from };
+    el.textContent = f.format(from) + suffix;
+    tl.to(o, { v: to, duration: d, ease: "power2.out", onUpdate: () => { el.textContent = f.format(o.v) + suffix; } }, t);
+  };
+  // Items arriving one by one.
+  const seq = (els, t, gap, from = { y: 40, opacity: 0 }, d = 0.45) => els.forEach((el, i) => tl.fromTo(el, from, { x: 0, y: 0, opacity: 1, scale: 1, duration: d, ease: "power3.out" }, t + i * gap));
+
+
+  enter();
+  tl.fromTo("#tallas-dlg", { scale: 0.92, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.6)" }, 0.3);
+  tl.fromTo("#tallas-list", { opacity: 0, scaleY: 0.6 }, { opacity: 0, scaleY: 0.6, duration: 0.01 }, 0);
+  const start = pick({ x: 1900, y: 1000 }, { x: 1100, y: 1900 }, { x: 1100, y: 1000 });
+  curFrom(start.x, start.y, 0);
+  // Open the select: the six real variants with their stock.
+  moveTo("#tallas-sel", 0.5, 0.4, 0.7, 0.5);
+  click(null, 0.92);
+  tl.to("#tallas-list", { opacity: 1, scaleY: 1, duration: 0.22, ease: "power3.out" }, 0.94);
+  seq($$("#tallas-list .opt"), 0.96, 0.05, { x: -14, opacity: 0 }, 0.25);
+  moveTo("#tallas-o1", 1.25, 0.3, 0.4, 0.5);
+  click(null, 1.6);
+  tl.to("#tallas-list", { opacity: 0, scaleY: 0.7, duration: 0.15, ease: "power2.in" }, 1.63);
+  // Quantity 1 -> 2, then "Añadir".
+  moveTo("#tallas-qty", 1.75, 0.3, 0.9, 0.5);
+  click(null, 2.05);
+  tl.to("#tallas-q1", { opacity: 0, y: -10, duration: 0.12 }, 2.07);
+  tl.fromTo("#tallas-q2", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.15 }, 2.08);
+  moveTo("#tallas-add", 2.12, 0.3);
+  click("#tallas-add", 2.46);
+  exit(2.74);
+
+      window.__timelines["tallas"] = tl;
+    });
+  </script>
+</template>

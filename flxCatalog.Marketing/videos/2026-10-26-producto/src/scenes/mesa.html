@@ -1,0 +1,86 @@
+<style>
+#mesa-w .bd { position: absolute; left: 0; right: 0; top: 0; bottom: 0; padding: 0.7em 1em; overflow: hidden; }
+#mesa-w .tabs { display: flex; gap: 0.4em; background: #f4f4f5; border-radius: 0.4em; padding: 0.3em; font-size: 0.85em; }
+#mesa-w .tabs span { padding: 0.25em 0.8em; border-radius: 0.3em; color: #52525b; }
+#mesa-w .tabs span.on { background: #ffffff; color: #1c1b1d; font-weight: 600; box-shadow: 0 0 0 2px #1c1b1d; }
+#mesa-w .cols { display: grid; gap: 0.8em; margin-top: 0.8em; }
+#mesa-w .ch { display: flex; justify-content: space-between; font-size: 0.72em; font-weight: 700; color: #52525b; letter-spacing: 0.04em; border-bottom: 2px solid #e4e4e7; padding-bottom: 0.35em; margin-bottom: 0.45em; }
+#mesa-w .ch .n { position: relative; display: inline-block; min-width: 1.4em; text-align: right; }
+#mesa-w .ch .n i { font-style: normal; position: absolute; right: 0; top: 0; }
+#mesa-w .kc { height: 2.5em; background: #f4f4f5; border-radius: 0.4em; padding: 0.35em 0.6em; margin-bottom: 0.45em; }
+#mesa-w .kc .a { display: flex; justify-content: space-between; font-weight: 700; }
+#mesa-w .kc .a span { font-weight: 500; font-size: 0.85em; }
+#mesa-w .kc .c { font-size: 0.68em; color: #52525b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#mesa-w .slot { position: relative; height: 2.5em; margin-bottom: 0.45em; }
+#mesa-w .col { position: relative; }
+#mesa-w .mv { position: absolute; left: 0; right: 0; top: 0; z-index: 10; height: 2.5em; background: #ffffff; border-radius: 0.4em; padding: 0.35em 0.6em; box-shadow: 0 0.3em 1em rgba(28, 27, 29, 0.12); border: 2px solid #2db7b0; }
+.fmt-L #mesa-w .stage { font-size: 27px; }
+.fmt-L #mesa-w .bd, .fmt-S #mesa-w .bd { bottom: auto; }
+.fmt-L #mesa-w .cols { grid-template-columns: repeat(4, 1fr); }
+.fmt-V #mesa-w .stage { font-size: 34px; }
+.fmt-V #mesa-w .bd { bottom: auto; }
+.fmt-V #mesa-w .cols { grid-template-columns: repeat(2, 1fr); }
+.fmt-V #mesa-w .k1, .fmt-V #mesa-w .k4 { display: none; }
+.fmt-S #mesa-w .stage { font-size: 25px; }
+.fmt-S #mesa-w .cols { grid-template-columns: repeat(3, 1fr); }
+.fmt-S #mesa-w .k1 { display: none; }
+</style>
+<div class="copy"><div class="num">07</div><div class="ttl">Mesa de trabajo</div><div class="line">Pedidos, incidencias y devoluciones, en un tablero.</div></div>
+<div class="stage" id="mesa-stage">
+  <div class="card bd">
+    <div class="tabs"><span>Incidencias</span><span class="on">Pedidos</span><span>Devoluciones</span></div>
+    <div class="cols" id="mesa-cols">
+      <div class="col k1"><div class="ch"><span>BORRADOR</span><span class="n tab">15</span></div>
+        <div class="kc"><div class="a tab">PED-1079<span>530,20 €</span></div><div class="c">Global Distribución S.L.U.</div></div>
+        <div class="kc"><div class="a tab">PED-1109<span>598,18 €</span></div><div class="c">Levante Textil S.A.</div></div>
+        <div class="kc"><div class="a tab">PED-1039<span>1.404,50 €</span></div><div class="c">Pedro Díaz Navarro</div></div>
+        <div class="kc"><div class="a tab">PED-1049<span>1.219,20 €</span></div><div class="c">Sara Domínguez Ruiz</div></div>
+      </div>
+      <div class="col k2"><div class="ch"><span>CONFIRMADO</span><span class="n tab"><i id="mesa-c29">29</i><i id="mesa-c28" style="opacity:0">28</i></span></div>
+        <div class="slot" id="mesa-from"><div class="mv" id="mesa-mv" data-layout-allow-overlap><div class="a tab" style="display:flex;justify-content:space-between;font-weight:700">PED-1031<span style="font-weight:500;font-size:0.85em">607,16 €</span></div><div class="c" style="font-size:0.68em;color:#52525b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Alejandro Gutiérrez González</div></div></div>
+        <div class="kc fc"><div class="a tab">PED-1050<span>1.599,61 €</span></div><div class="c">Cantábrica Boutique S.A.</div></div>
+        <div class="kc fc"><div class="a tab">PED-1001<span>928,20 €</span></div><div class="c">Central Boutique S.L.</div></div>
+        <div class="kc fc"><div class="a tab">PED-1111<span>801,90 €</span></div><div class="c">Meridional Distribución S.L.U.</div></div>
+      </div>
+      <div class="col k3"><div class="ch"><span>EN PROCESO</span><span class="n tab"><i id="mesa-c30">30</i><i id="mesa-c31" style="opacity:0">31</i></span></div>
+        <div class="kc tc" id="mesa-to"><div class="a tab">PED-1133<span>1.786,60 €</span></div><div class="c">Urbana Distribución S.L.</div></div>
+        <div class="kc tc"><div class="a tab">PED-1022<span>1.894,59 €</span></div><div class="c">Marta Sánchez Álvarez</div></div>
+        <div class="kc tc"><div class="a tab">PED-1013<span>1.133,76 €</span></div><div class="c">Urbana Retail S.A.</div></div>
+        <div class="kc tc"><div class="a tab">PED-1062<span>1.356,35 €</span></div><div class="c">Atlántica Comercio S.L.U.</div></div>
+      </div>
+      <div class="col k4"><div class="ch"><span>ENVIADO</span><span class="n tab">30</span></div>
+        <div class="kc"><div class="a tab">PED-1124<span>1.026,50 €</span></div><div class="c">Laura Vázquez López</div></div>
+        <div class="kc"><div class="a tab">PED-1034<span>456,57 €</span></div><div class="c">Atlántica Importación S.L.</div></div>
+        <div class="kc"><div class="a tab">PED-1045<span>1.937,52 €</span></div><div class="c">Sur Boutique S.L.U.</div></div>
+        <div class="kc"><div class="a tab">PED-1105<span>1.407,80 €</span></div><div class="c">Isabel García Pérez</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+__CURSOR__
+<script>
+  enter();
+  // PED-1031 is dragged from Confirmado to the top of En proceso: one column to the right, same height.
+  const fs = pick(27, 34, 25);
+  const colStep = withLayout(() => $("#mesa-mv").offsetWidth) + 0.8 * fs;
+  const cardStep = 2.95 * fs;
+  seq($$("#mesa-cols .col"), 0.3, 0.08, { y: 30, opacity: 0 }, 0.4);
+  const start = pick({ x: 1900, y: 1050 }, { x: 1100, y: 1900 }, { x: 1100, y: 1050 });
+  curFrom(start.x, start.y, 0);
+  moveTo("#mesa-mv", 0.75, 0.4, 0.3, 0.5);
+  click(null, 1.15);
+  tl.fromTo("#mesa-mv", { scale: 1, rotation: 0 }, { scale: 1.05, rotation: 2, boxShadow: "0 1.2em 2.4em rgba(28,27,29,0.22)", duration: 0.15, ease: "power2.out" }, 1.18);
+  tl.fromTo("#mesa-mv", { x: 0 }, { x: colStep, duration: 0.55, ease: "power2.inOut", immediateRender: false }, 1.3);
+  tl.to(cur(), { x: "+=" + colStep, duration: 0.55, ease: "power2.inOut" }, 1.3);
+  tl.to($$("#mesa-cols .tc"), { y: cardStep, duration: 0.4, ease: "power2.inOut" }, 1.45);
+  const tcs = $$("#mesa-cols .tc");
+  tl.to(tcs[tcs.length - 1], { opacity: 0, duration: 0.3 }, 1.45);
+  tl.to($$("#mesa-cols .fc"), { y: -cardStep, duration: 0.4, ease: "power2.inOut" }, 1.55);
+  tl.to("#mesa-mv", { scale: 1, rotation: 0, boxShadow: "0 0.3em 1em rgba(28,27,29,0.12)", duration: 0.2, ease: "power2.out" }, 1.85);
+  // The column counts follow.
+  tl.to("#mesa-c29", { opacity: 0, y: -8, duration: 0.15 }, 1.9);
+  tl.fromTo("#mesa-c28", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.2 }, 1.92);
+  tl.to("#mesa-c30", { opacity: 0, y: -8, duration: 0.15 }, 1.9);
+  tl.fromTo("#mesa-c31", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.2 }, 1.92);
+  exit(2.74);
+</script>

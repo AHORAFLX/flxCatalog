@@ -48,3 +48,8 @@ Update [Jobs] set [Enabled]=1 where [JobName]=N'BuildMailsandnotifications'
 
 Update [Objects_Templates] set [IsDefault]=0 where [TemplateId]=N'flx-sysNoticeUsersList'
 Update [Objects_Views] set [IsDefault]=0 where [ObjectName]=N'sysNoticeUser' AND [ViewName]=N'sysNoticeUserDefaultList'
+
+--Ajustes de la API y del asistente: no viajan en ningún script de staticdata (decisión D-15 de pendientes-cliente-admin)
+Update Settings set SettingValue=N'flxCatalog es una aplicación de demostración de Flexygo: un catálogo B2B/B2C con portal de clientes y backoffice de administración. El catálogo organiza los productos por familia y marca, y cada producto tiene variantes de talla y color. Los clientes hacen pedidos (con sus líneas) a partir de su carrito y luego pueden abrir devoluciones e incidencias, que siguen su propio circuito de estados. El administrador gestiona el catálogo, los pedidos y la postventa desde su mesa de trabajo y su dashboard. Un «pedido» es la venta confirmada de un cliente; una «devolución» es la vuelta de líneas de un pedido; una «incidencia» es una reclamación o consulta sobre un pedido. Los datos son de demo y se reinician periódicamente.' where SettingName='ApplicationDescription'
+Update Settings set SettingValue='true' where SettingName='WebAPI_Enabled'
+Update Settings set SettingValue='true' where SettingName='MCP_Enabled'

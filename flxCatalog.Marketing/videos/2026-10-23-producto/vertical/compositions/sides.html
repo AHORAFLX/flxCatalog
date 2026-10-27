@@ -1,0 +1,143 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      background: #eef1f4;
+      font-family: Inter, sans-serif;
+      overflow: hidden;
+    }
+    .sides-label {
+      position: absolute;
+      left: 70px;
+      color: #1c1b1d;
+      font-size: 64px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+    .sides-label span {
+      display: inline-block;
+      margin-right: 0.26em;
+    }
+    #sides-label-top {
+      top: 190px;
+    }
+    #sides-label-bottom {
+      top: 836px;
+    }
+    #sides-divider {
+      position: absolute;
+      left: 70px;
+      top: 810px;
+      width: 940px;
+      height: 1px;
+      background: #d3d9df;
+      transform-origin: 0 50%;
+    }
+    .sides-crop {
+      position: absolute;
+      border-radius: 20px;
+      background-repeat: no-repeat;
+    }
+    /* The client's cart header, where the previous shot left it, at 0.66x. */
+    #sides-cart {
+      left: 183px;
+      top: 300px;
+      width: 714px;
+      height: 482px;
+      background-image: url("assets/screens/phone-03-carrito.png");
+      background-size: 714px 1585px;
+      background-position: 0px -112px;
+    }
+    /* The admin's orders board on the phone, Borrador column: PED-1019 and the client's cart, at 1.4x. */
+    #sides-column {
+      left: 113px;
+      top: 920px;
+      width: 854px;
+      height: 424px;
+      background-color: #ffffff;
+      background-image: url("assets/screens/phone-09-mesa-pedidos.png");
+      background-size: 1515px 3363px;
+      background-position: -140px -1691px;
+    }
+    #sides-ring {
+      position: absolute;
+      left: 140px;
+      top: 1126px;
+      width: 848px;
+      height: 212px;
+      border-radius: 24px;
+      border: 6px solid #2db7b0;
+      opacity: 0;
+    }
+    #sides-confirm {
+      position: absolute;
+      left: 26px;
+      top: 420px;
+      width: 1028px;
+      height: 352px;
+      border-radius: 22px;
+      border: 1px solid #dce1e6;
+      background-color: #ffffff;
+      background-image: url("assets/screens/phone-04-confirmar.png");
+      background-size: 1028px 2282px;
+      background-position: 0px -966px;
+      background-repeat: no-repeat;
+      opacity: 0;
+    }
+    #sides-press {
+      position: absolute;
+      left: 827px;
+      top: 660px;
+      width: 92px;
+      height: 78px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.18);
+      opacity: 0;
+    }
+    #sides-cursor {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 62px;
+      height: 84px;
+    }
+  </style>
+  <div id="root" data-composition-id="sides" data-width="1080" data-height="1920">
+    <div id="sides-stage">
+      <div id="sides-label-top" class="sides-label"><span>Tu</span><span>cliente</span><span>lo</span><span>pide</span></div>
+      <div id="sides-cart" class="sides-crop"></div>
+      <div id="sides-divider"></div>
+      <div id="sides-label-bottom" class="sides-label"><span>Tú</span><span>lo</span><span>ves</span><span>al</span><span>momento</span></div>
+      <div id="sides-column" class="sides-crop"></div>
+      <div id="sides-ring"></div>
+      <div id="sides-confirm"></div>
+      <div id="sides-press"></div>
+    </div>
+    <svg id="sides-cursor" viewBox="0 0 22 30" aria-hidden="true">
+      <path d="M2 2 L2 24 L8 18.5 L12.5 28 L16.5 26.2 L12 17 L20 17 Z" fill="#1c1b1d" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round" />
+    </svg>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#sides-divider", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "expo.out" }, 0);
+    tl.fromTo("#sides-column", { y: 300, opacity: 0, filter: "blur(16px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out" }, 0.05);
+    gsap.utils.toArray("#sides-label-top span").forEach((el, i) => {
+      tl.fromTo(el, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, ease: "power2.out" }, 0.2 + i * 0.067);
+    });
+    gsap.utils.toArray("#sides-label-bottom span").forEach((el, i) => {
+      tl.fromTo(el, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, ease: "power2.out" }, 0.55 + i * 0.067);
+    });
+    tl.fromTo("#sides-ring", { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.6)" }, 1.0);
+    tl.fromTo("#sides-confirm", { opacity: 0, y: -36 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 2.4);
+    tl.fromTo("#sides-cursor", { x: 300, y: 1700, scale: 1 }, { x: 873, y: 699, duration: 0.6, ease: "expo.out" }, 2.5);
+    tl.to("#sides-cursor", { scale: 0.86, duration: 0.06, ease: "power2.in", transformOrigin: "0px 0px" }, 3.18);
+    tl.to("#sides-cursor", { scale: 1, duration: 0.1, ease: "power2.out", transformOrigin: "0px 0px" }, 3.24);
+    tl.fromTo("#sides-press", { opacity: 0 }, { opacity: 1, duration: 0.05 }, 3.2);
+    tl.to("#sides-press", { opacity: 0, duration: 0.15 }, 3.3);
+    tl.to("#sides-confirm", { opacity: 0, scale: 0.96, duration: 0.2, ease: "power3.in" }, 3.45);
+    tl.to(["#sides-stage", "#sides-cursor"], { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power3.in" }, 3.78);
+    window.__timelines["sides"] = tl;
+  </script>
+</template>

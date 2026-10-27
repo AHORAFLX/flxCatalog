@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dbo].[CLI_DashTopClientesCompras]
+﻿CREATE   VIEW [dbo].[CLI_DashTopClientesCompras]
 AS
 SELECT TOP (8)
     N'Importe comprado' AS serie,

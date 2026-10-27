@@ -1,0 +1,480 @@
+# mod-tour-tour-mesa-trabajo
+Cómo leer los tableros y cambiar el estado de una tarjeta.
+
+Hacer el recorrido
+Editar pasos
+# mod-vta-mesa-trabajo-tabs
+Mesa de trabajo
+Nuevo
+Incidencias
+Pedidos
+Devoluciones
+Mesa de trabajo
+BORRADOR
+PED-1089
+1.597,20 €
+Levante Confección S.A.
+PED-1069
+409,56 €
+Urbana Retail S.L.
+PED-1079
+1.094,40 €
+Sur Moda S.L.
+PED-1139
+845,55 €
+Global Moda S.L.U.
+PED-1149
+2.235,68 €
+Marta Rodríguez Díaz
+PED-1129
+1.775,61 €
+Sara Alonso Álvarez
+PED-1009
+1.240,50 €
+Mediterránea Almacenes S.L.
+PED-1039
+501,52 €
+José Ruiz Torres
+PED-1059
+833,28 €
+David Gutiérrez García
+PED-1029
+1.446,60 €
+Litoral Textil S.A.
+PED-1019
+375,12 €
+José Vázquez Torres
+PED-1109
+731,10 €
+Norte Almacenes S.L.
+PED-1119
+1.857,85 €
+Laura Sánchez López
+PED-1049
+493,76 €
+Litoral Distribución S.A.
+Añadir nueva...
+CONFIRMADO
+PED-1020
+1.259,17 €
+Cantábrica Distribución S.L.U.
+PED-1041
+1.520,10 €
+Hispana Moda S.A.
+PED-1030
+771,39 €
+Ana Moreno López
+PED-1081
+1.839,92 €
+Atlántica Importación S.L.U.
+PED-1121
+1.086,08 €
+Sara Fernández Álvarez
+PED-1001
+1.161,60 €
+Ibérica Almacenes S.L.U.
+PED-1070
+126,18 €
+Nacional Comercio S.A.
+PED-1100
+1.806,46 €
+Nacional Textil S.L.U.
+PED-1071
+1.336,00 €
+Mediterránea Moda S.L.
+PED-1111
+1.817,55 €
+Javier López Domínguez
+PED-1011
+1.101,92 €
+Nacional Boutique S.L.
+PED-1061
+1.109,80 €
+Atlántica Distribución S.A.
+PED-1091
+551,60 €
+Atlántica Almacenes S.L.U.
+PED-1080
+1.131,12 €
+Sur Textil S.L.
+PED-1130
+1.095,30 €
+Ana Moreno López
+PED-1010
+380,97 €
+David Romero Moreno
+PED-1031
+1.616,40 €
+Carmen Ruiz González
+PED-1090
+1.198,96 €
+Peninsular Comercial S.L.
+PED-1131
+1.378,51 €
+Ana Díaz Díaz
+PED-1151
+1.138,80 €
+Marta Rodríguez Díaz
+PED-1040
+1.444,68 €
+Peninsular Distribución S.A.
+PED-1051
+1.368,24 €
+Sara Alonso Álvarez
+PED-1060
+1.256,77 €
+Peninsular Textil S.L.U.
+PED-1101
+1.548,80 €
+Atlántica Boutique S.A.
+PED-1110
+887,84 €
+Ibérica Importación S.A.
+PED-1021
+1.157,13 €
+María Martínez García
+PED-1120
+1.084,46 €
+Central Retail S.L.U.
+PED-1141
+719,36 €
+Sara Fernández Álvarez
+PED-1140
+1.296,64 €
+Urbana Retail S.L.
+PED-1050
+908,72 €
+Antonio Torres Ruiz
+Añadir nueva...
+EN PROCESO
+PED-1113
+1.771,92 €
+Alejandro Moreno García
+PED-1033
+562,36 €
+Carlos González Alonso
+PED-1083
+758,96 €
+Central Comercio S.L.U.
+PED-1133
+1.626,73 €
+Carlos Rodríguez Pérez
+PED-1002
+874,53 €
+Atlántica Comercial S.L.U.
+PED-1112
+2.194,56 €
+Peninsular Textil S.L.U.
+PED-1142
+936,24 €
+Atlántica Almacenes S.L.U.
+PED-1022
+1.638,54 €
+Mediterránea Comercio S.A.
+PED-1072
+1.197,63 €
+Urbana Boutique S.L.U.
+PED-1032
+668,88 €
+Mediterránea Almacenes S.A.
+PED-1062
+669,06 €
+Norte Importación S.L.
+PED-1082
+1.174,85 €
+Mediterránea Textil S.A.
+PED-1143
+987,16 €
+José Ruiz Torres
+PED-1132
+996,03 €
+Sur Moda S.L.
+PED-1052
+947,12 €
+Levante Distribución S.L.U.
+PED-1023
+1.252,90 €
+Isabel Torres Álvarez
+PED-1053
+1.104,40 €
+José Fernández Ruiz
+PED-1012
+377,76 €
+Miguel González Gutiérrez
+PED-1003
+582,80 €
+Sur Moda S.A.
+PED-1103
+1.567,31 €
+Lucía Navarro Gutiérrez
+PED-1152
+1.465,84 €
+Marta Rodríguez Díaz
+PED-1063
+597,33 €
+Nacional Textil S.L.
+PED-1092
+1.822,00 €
+Urbana Importación S.L.
+PED-1093
+1.210,72 €
+Ibérica Boutique S.L.U.
+PED-1013
+938,57 €
+Atlántica Comercio S.A.
+PED-1123
+1.015,60 €
+Carmen Ruiz González
+PED-1042
+349,69 €
+Norte Distribución S.A.
+PED-1043
+730,00 €
+Isabel Muñoz García
+PED-1102
+1.052,40 €
+Marta Muñoz Torres
+PED-1122
+1.339,60 €
+Peninsular Confección S.L.
+PED-1073
+1.007,55 €
+Cantábrica Moda S.L.
+Añadir nueva...
+ENVIADO
+PED-1025
+1.584,95 €
+Litoral Retail S.L.
+PED-1084
+1.660,34 €
+Meridional Distribución S.A.
+PED-1055
+843,91 €
+Levante Comercial S.L.
+PED-1104
+481,40 €
+David Rodríguez Navarro
+PED-1064
+1.650,80 €
+Antonio Sánchez Alonso
+PED-1035
+1.555,65 €
+Marta López González
+PED-1045
+1.070,09 €
+Sur Textil S.L.U.
+PED-1015
+793,90 €
+Sur Confección S.L.U.
+PED-1115
+789,30 €
+Global Moda S.L.U.
+PED-1094
+748,18 €
+Sur Distribución S.A.
+PED-1114
+985,92 €
+David Gutiérrez García
+PED-1134
+876,05 €
+Mediterránea Textil S.A.
+PED-1024
+1.123,20 €
+Marta Gutiérrez Álvarez
+PED-1065
+1.890,50 €
+Manuel López Álvarez
+PED-1044
+2.110,30 €
+Central Retail S.A.
+PED-1075
+904,18 €
+Pedro Pérez Martínez
+PED-1054
+1.829,11 €
+Manuel Pérez Navarro
+PED-1105
+1.541,82 €
+Laura Sánchez López
+PED-1074
+357,58 €
+Hispana Comercial S.L.U.
+PED-1014
+245,15 €
+Litoral Comercial S.L.U.
+PED-1125
+1.547,91 €
+Cantábrica Moda S.L.
+PED-1124
+1.399,04 €
+Central Confección S.A.
+PED-1034
+1.720,96 €
+Litoral Confección S.A.
+PED-1135
+617,60 €
+Ibérica Importación S.A.
+PED-1144
+1.179,70 €
+Atlántica Distribución S.A.
+PED-1004
+1.688,22 €
+Nacional Importación S.L.U.
+PED-1145
+521,78 €
+Central Boutique S.A.
+PED-1095
+1.047,00 €
+Marta Pérez González
+PED-1005
+679,68 €
+Global Moda S.L.U.
+PED-1085
+1.162,86 €
+Ana Díaz Díaz
+Añadir nueva...
+ENTREGADO
+PED-1150
+1.305,68 €
+Marta Rodríguez Díaz
+PED-1087
+1.749,10 €
+Hispana Boutique S.L.U.
+PED-1137
+1.535,65 €
+Central Retail S.L.U.
+PED-1067
+1.528,29 €
+Central Boutique S.A.
+PED-1036
+712,48 €
+María Vázquez Domínguez
+PED-1016
+1.576,48 €
+Peninsular Confección S.L.
+PED-1116
+1.757,87 €
+Ibérica Comercio S.L.
+PED-1026
+1.018,69 €
+Javier López Domínguez
+PED-1127
+1.437,05 €
+Sur Confección S.A.
+PED-1107
+2.092,23 €
+Alejandro Moreno García
+PED-1117
+904,09 €
+Norte Almacenes S.L.
+PED-1077
+700,48 €
+Central Moda S.L.
+PED-1146
+1.565,04 €
+Marta Rodríguez Díaz
+PED-1007
+501,92 €
+Global Comercio S.L.U.
+PED-1037
+1.124,94 €
+Ibérica Comercio S.L.
+PED-1066
+1.112,59 €
+Antonio Díaz Álvarez
+PED-1027
+1.360,71 €
+Sur Confección S.A.
+PED-1106
+1.496,15 €
+Central Retail S.L.U.
+PED-1126
+1.629,54 €
+Nacional Comercio S.A.
+PED-1136
+873,60 €
+Marta Gutiérrez Álvarez
+PED-1047
+2.120,49 €
+Carlos Díaz López
+PED-1147
+684,80 €
+Marta Rodríguez Díaz
+PED-1046
+847,41 €
+Pedro Navarro Ruiz
+PED-1086
+785,50 €
+Hispana Distribución S.L.
+PED-1096
+950,58 €
+Nacional Importación S.L.
+PED-1006
+604,30 €
+Cantábrica Almacenes S.L.
+PED-1057
+620,30 €
+Hispana Comercio S.A.
+PED-1056
+1.158,72 €
+Atlántica Boutique S.L.U.
+PED-1076
+977,31 €
+Nacional Textil S.A.
+PED-1017
+657,54 €
+Ibérica Comercio S.A.
+PED-1097
+1.796,33 €
+Mediterránea Comercial S.L.
+Añadir nueva...
+CANCELADO
+PED-1138
+1.542,42 €
+Atlántica Comercial S.L.U.
+PED-1078
+1.139,23 €
+Mediterránea Retail S.L.
+PED-1018
+1.247,04 €
+Nacional Boutique S.A.
+PED-1118
+652,32 €
+Norte Importación S.L.
+PED-1008
+1.329,03 €
+Global Confección S.L.
+PED-1068
+711,60 €
+Norte Comercio S.L.U.
+PED-1098
+1.292,80 €
+Sara Fernández Álvarez
+PED-1148
+1.149,28 €
+Marta Rodríguez Díaz
+PED-1048
+836,28 €
+Carlos Rodríguez Pérez
+PED-1108
+1.073,69 €
+Sur Importación S.L.U.
+PED-1038
+629,00 €
+Peninsular Comercial S.L.U.
+PED-1058
+1.325,20 €
+Ibérica Distribución S.L.U.
+PED-1028
+692,30 €
+Urbana Distribución S.L.
+PED-1088
+733,65 €
+Central Confección S.A.
+PED-1099
+994,32 €
+Marta Rodríguez Díaz
+PED-1128
+832,80 €
+Central Comercio S.L.U.
+Añadir nueva...

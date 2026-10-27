@@ -1,0 +1,70 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      background: #eef1f4;
+      font-family: Inter, sans-serif;
+      overflow: hidden;
+    }
+    #endcard-name {
+      position: absolute;
+      left: 0;
+      top: 640px;
+      width: 1080px;
+      text-align: center;
+      color: #1c1b1d;
+      font-size: 172px;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1;
+    }
+    #endcard-name span {
+      display: inline-block;
+    }
+    #endcard-claim {
+      position: absolute;
+      left: 0;
+      top: 880px;
+      width: 1080px;
+      text-align: center;
+      color: rgba(28, 27, 29, 0.66);
+      font-size: 54px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    #endcard-made {
+      position: absolute;
+      left: 0;
+      top: 1030px;
+      width: 1080px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      color: rgba(28, 27, 29, 0.66);
+      font-size: 42px;
+      font-weight: 500;
+    }
+    #endcard-logo {
+      height: 76px;
+      width: auto;
+    }
+  </style>
+  <div id="root" data-composition-id="endcard" data-width="1080" data-height="1920">
+    <div id="endcard-name"><span>f</span><span>l</span><span>x</span><span>C</span><span>a</span><span>t</span><span>a</span><span>l</span><span>o</span><span>g</span></div>
+    <div id="endcard-claim">Catálogo, pedidos y postventa</div>
+    <div id="endcard-made"><span>Hecho con</span><img id="endcard-logo" src="assets/brand/flexygo-logo.svg" alt="Flexygo" /></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // The name types itself in and lands on the strong beat at 20.0 s (local 1.0).
+    gsap.utils.toArray("#endcard-name span").forEach((el, i) => {
+      tl.fromTo(el, { opacity: 0.0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.12, ease: "power2.out" }, 0.5 + i * 0.05);
+    });
+    tl.fromTo("#endcard-name", { scale: 1.04 }, { scale: 1, duration: 0.35, ease: "expo.out", transformOrigin: "50% 50%" }, 1.0);
+    tl.fromTo("#endcard-claim", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power2.out" }, 1.2);
+    tl.fromTo("#endcard-made", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power2.out" }, 1.4);
+    window.__timelines["endcard"] = tl;
+  </script>
+</template>

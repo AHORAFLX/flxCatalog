@@ -1,0 +1,119 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      background: #eef1f4;
+      overflow: hidden;
+    }
+    #pick-stage {
+      position: absolute;
+      inset: 0;
+    }
+    /* Card 1 of the catalogue at 2x, exactly where the hook's zoom left it. */
+    #pick-card {
+      position: absolute;
+      left: 314px;
+      top: 144px;
+      width: 492px;
+      height: 792px;
+      border-radius: 24px;
+      background-image: url("assets/screens/land-01-catalogo.png");
+      background-size: 3840px 2160px;
+      background-position: -552px -250px;
+      background-repeat: no-repeat;
+    }
+    #pick-press {
+      position: absolute;
+      left: 348px;
+      top: 842px;
+      width: 424px;
+      height: 64px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.16);
+      opacity: 0;
+    }
+    #pick-morph {
+      position: absolute;
+      left: 1000px;
+      top: 300px;
+      width: 560px;
+      height: 460px;
+      border-radius: 20px;
+      background: #2db7b0;
+      opacity: 0;
+    }
+    /* "Elige color y talla", the real dialog, at 2x. */
+    #pick-dialog {
+      position: absolute;
+      left: 1000px;
+      top: 300px;
+      width: 560px;
+      height: 460px;
+      border-radius: 20px;
+      border: 1px solid #dce1e6;
+      background-image: url("assets/screens/land-02-variante.png");
+      background-size: 3840px 2160px;
+      background-position: -1640px -850px;
+      background-repeat: no-repeat;
+      opacity: 0;
+    }
+    #pick-press2 {
+      position: absolute;
+      left: 1388px;
+      top: 648px;
+      width: 132px;
+      height: 70px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.16);
+      opacity: 0;
+    }
+    #pick-cursor {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 44px;
+      height: 60px;
+    }
+  </style>
+  <div data-hf-id="hf-zzc2" id="root" data-composition-id="pick" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-8fof" id="pick-stage">
+      <div data-hf-id="hf-garx" id="pick-card"></div>
+      <div data-hf-id="hf-9rys" id="pick-press"></div>
+      <div data-hf-id="hf-icov" id="pick-morph"></div>
+      <div data-hf-id="hf-ulaz" id="pick-dialog"></div>
+      <div data-hf-id="hf-izha" id="pick-press2"></div>
+    </div>
+    <svg data-hf-id="hf-gtgn" id="pick-cursor" viewBox="0 0 22 30" aria-hidden="true">
+      <path data-hf-id="hf-few4" d="M2 2 L2 24 L8 18.5 L12.5 28 L16.5 26.2 L12 17 L20 17 Z" fill="#1c1b1d" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round" />
+    </svg>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // The cursor comes in from off-screen and lands on "Añadir al carrito".
+    tl.fromTo("#pick-cursor", { x: 1640, y: 1160, scale: 1 }, { x: 560, y: 874, duration: 0.6, ease: "expo.out" }, 0.25);
+    tl.to("#pick-cursor", { scale: 0.86, duration: 0.06, ease: "power2.in", transformOrigin: "0px 0px" }, 0.88);
+    tl.to("#pick-cursor", { scale: 1, duration: 0.1, ease: "power2.out", transformOrigin: "0px 0px" }, 0.94);
+    tl.fromTo("#pick-press", { opacity: 0 }, { opacity: 1, duration: 0.05 }, 0.9);
+    tl.to("#pick-press", { opacity: 0, duration: 0.15 }, 1.0);
+    tl.set("#pick-morph", { opacity: 0 }, 0);
+    // The button becomes the dialog: one teal shape grows from the button into the dialog's box.
+    tl.fromTo(
+      "#pick-morph",
+      { opacity: 1, x: -652, y: 542, scaleX: 424 / 560, scaleY: 64 / 460, backgroundColor: "#2db7b0", transformOrigin: "0px 0px", immediateRender: false },
+      { opacity: 1, x: 0, y: 0, scaleX: 1, scaleY: 1, backgroundColor: "#ffffff", duration: 0.28, ease: "power3.out", transformOrigin: "0px 0px" },
+      0.95,
+    );
+    tl.fromTo("#pick-dialog", { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power1.out" }, 1.15);
+    tl.to("#pick-morph", { opacity: 0, duration: 0.01 }, 1.27);
+    // Then "Añadir".
+    tl.to("#pick-cursor", { x: 1454, y: 683, duration: 0.6, ease: "power2.inOut" }, 1.4);
+    tl.to("#pick-cursor", { scale: 0.86, duration: 0.06, ease: "power2.in", transformOrigin: "0px 0px" }, 2.18);
+    tl.to("#pick-cursor", { scale: 1, duration: 0.1, ease: "power2.out", transformOrigin: "0px 0px" }, 2.24);
+    tl.fromTo("#pick-press2", { opacity: 0 }, { opacity: 1, duration: 0.05 }, 2.2);
+    tl.to("#pick-press2", { opacity: 0, duration: 0.15 }, 2.3);
+    // Whip: the camera pans right into the cart.
+    tl.to(["#pick-stage", "#pick-cursor"], { x: "-=520", opacity: 0, filter: "blur(18px)", duration: 0.28, ease: "power3.in" }, 2.72);
+    window.__timelines["pick"] = tl;
+  </script>
+</template>

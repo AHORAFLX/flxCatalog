@@ -1,0 +1,36 @@
+{
+  "title": "T-02: el cliente entra en su inicio y su menú ya no ofrece Contacto ni Demostración",
+  "page": "d2e00246-cc6a-4cdb-993d-6ec7bd7c8d86",
+  "data": "demo",
+  "steps": [
+    {
+      "wait": 2000
+    },
+    {
+      "module": "mod-home-cliente-saludo-html"
+    },
+    {
+      "module": "mod-vta-pedido-home-list"
+    },
+    {
+      "noText": "Solicita una demostración"
+    },
+    {
+      "noText": "Solicitudes de contacto"
+    },
+    {
+      "shot": {
+        "name": "screen",
+        "maxDiff": 0.02
+      }
+    }
+  ],
+  "expect": [
+    "mod-vta-pedido-home-list declares NO order (view VTA_PedidoHomeList): its rows come as the table stores them. Check they read in an order a user expects; if not, it fails"
+  ],
+  "as": "cliente",
+  "volatile": [
+    "^hace (un|una|unos|\\d+) (momento|segundos?|minutos?|horas?|días?|semanas?|mes|meses|años?)$",
+    "CARR-\\d{14}"
+  ]
+}

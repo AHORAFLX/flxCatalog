@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #eef1f4; }
+      #root { position: relative; width: 100%; height: 100%; background: #eef1f4; font-family: Inter, sans-serif; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-coex" id="root" data-composition-id="main" data-start="0" data-duration="30" data-width="1080" data-height="1920">
+      <div data-hf-id="hf-1raj" id="hook" data-composition-id="hook" data-composition-src="compositions/hook.html" data-start="0" data-duration="3" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-1hpz" id="catalogo" data-composition-id="catalogo" data-composition-src="compositions/catalogo.html" data-start="3" data-duration="3" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-knk5" id="tallas" data-composition-id="tallas" data-composition-src="compositions/tallas.html" data-start="6" data-duration="3" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-yd1v" id="carrito" data-composition-id="carrito" data-composition-src="compositions/carrito.html" data-start="9" data-duration="3" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-ntde" id="seguimiento" data-composition-id="seguimiento" data-composition-src="compositions/seguimiento.html" data-start="12" data-duration="3" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-607p" id="resenas" data-composition-id="resenas" data-composition-src="compositions/resenas.html" data-start="15" data-duration="3" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-yhdd" id="postventa" data-composition-id="postventa" data-composition-src="compositions/postventa.html" data-start="18" data-duration="3" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-jxnr" id="mesa" data-composition-id="mesa" data-composition-src="compositions/mesa.html" data-start="21" data-duration="3" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-i9gz" id="kpis" data-composition-id="kpis" data-composition-src="compositions/kpis.html" data-start="24" data-duration="3" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-qiph" id="cierre" data-composition-id="cierre" data-composition-src="compositions/cierre.html" data-start="27" data-duration="3" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <audio data-hf-id="hf-ig2h" id="bed" class="clip" src="assets/music/bed.mp3" data-start="0" data-duration="30" data-media-start="15" data-volume="0.5" data-fade-in="0.15" data-fade-out="1.4" data-track-index="2"></audio>
+      <audio data-hf-id="hf-au02" id="sfx-1" class="clip" src="assets/sfx/impactSoft_medium_001.ogg" data-start="0.03" data-duration="0.183" data-volume="0.55" data-track-index="3"></audio>
+      <audio data-hf-id="hf-my3t" id="sfx-2" class="clip" src="assets/sfx/card-slide-2.ogg" data-start="0.1" data-duration="0.584" data-volume="0.45" data-track-index="4"></audio>
+      <audio data-hf-id="hf-ufnx" id="sfx-3" class="clip" src="assets/sfx/drop_002.ogg" data-start="0.75" data-duration="0.191" data-volume="0.5" data-track-index="5"></audio>
+      <audio data-hf-id="hf-0pma" id="sfx-4" class="clip" src="assets/sfx/card-place-1.ogg" data-start="3.25" data-duration="0.689" data-volume="0.45" data-track-index="3"></audio>
+      <audio data-hf-id="hf-9peh" id="sfx-5" class="clip" src="assets/sfx/click_002.ogg" data-start="4.55" data-duration="0.01" data-volume="0.7" data-track-index="4"></audio>
+      <audio data-hf-id="hf-azen" id="sfx-6" class="clip" src="assets/sfx/mouseclick1.ogg" data-start="5.3" data-duration="0.059" data-volume="0.7" data-track-index="5"></audio>
+      <audio data-hf-id="hf-ivhr" id="sfx-7" class="clip" src="assets/sfx/click_002.ogg" data-start="6.92" data-duration="0.01" data-volume="0.7" data-track-index="3"></audio>
+      <audio data-hf-id="hf-ouse" id="sfx-8" class="clip" src="assets/sfx/click_002.ogg" data-start="7.6" data-duration="0.01" data-volume="0.6" data-track-index="4"></audio>
+      <audio data-hf-id="hf-3ekf" id="sfx-9" class="clip" src="assets/sfx/click_002.ogg" data-start="8.05" data-duration="0.01" data-volume="0.5" data-track-index="5"></audio>
+      <audio data-hf-id="hf-wn0u" id="sfx-10" class="clip" src="assets/sfx/mouseclick1.ogg" data-start="8.46" data-duration="0.059" data-volume="0.7" data-track-index="3"></audio>
+      <audio data-hf-id="hf-hdx6" id="sfx-11" class="clip" src="assets/sfx/card-slide-2.ogg" data-start="9.45" data-duration="0.584" data-volume="0.45" data-track-index="4"></audio>
+      <audio data-hf-id="hf-xrg2" id="sfx-12" class="clip" src="assets/sfx/chips-stack-2.ogg" data-start="9.6" data-duration="0.172" data-volume="0.45" data-track-index="5"></audio>
+      <audio data-hf-id="hf-ujvt" id="sfx-13" class="clip" src="assets/sfx/mouseclick1.ogg" data-start="10.25" data-duration="0.059" data-volume="0.7" data-track-index="3"></audio>
+      <audio data-hf-id="hf-ejug" id="sfx-14" class="clip" src="assets/sfx/mouseclick1.ogg" data-start="10.95" data-duration="0.059" data-volume="0.7" data-track-index="4"></audio>
+      <audio data-hf-id="hf-3jh6" id="sfx-15" class="clip" src="assets/sfx/drop_002.ogg" data-start="11.05" data-duration="0.191" data-volume="0.6" data-track-index="5"></audio>
+      <audio data-hf-id="hf-5rk5" id="sfx-16" class="clip" src="assets/sfx/rollover2.ogg" data-start="12.85" data-duration="0.057" data-volume="0.5" data-track-index="3"></audio>
+      <audio data-hf-id="hf-ft5j" id="sfx-17" class="clip" src="assets/sfx/rollover2.ogg" data-start="13.15" data-duration="0.057" data-volume="0.5" data-track-index="4"></audio>
+      <audio data-hf-id="hf-fv5a" id="sfx-18" class="clip" src="assets/sfx/rollover2.ogg" data-start="13.45" data-duration="0.057" data-volume="0.5" data-track-index="5"></audio>
+      <audio data-hf-id="hf-shbu" id="sfx-19" class="clip" src="assets/sfx/drop_002.ogg" data-start="13.75" data-duration="0.191" data-volume="0.65" data-track-index="3"></audio>
+      <audio data-hf-id="hf-ftna" id="sfx-20" class="clip" src="assets/sfx/mouseclick1.ogg" data-start="14.25" data-duration="0.059" data-volume="0.7" data-track-index="4"></audio>
+      <audio data-hf-id="hf-hdkx" id="sfx-21" class="clip" src="assets/sfx/chips-stack-2.ogg" data-start="15.45" data-duration="0.172" data-volume="0.4" data-track-index="5"></audio>
+      <audio data-hf-id="hf-0bhe" id="sfx-22" class="clip" src="assets/sfx/card-place-1.ogg" data-start="15.9" data-duration="0.689" data-volume="0.4" data-track-index="3"></audio>
+      <audio data-hf-id="hf-4bol" id="sfx-23" class="clip" src="assets/sfx/card-slide-2.ogg" data-start="18.35" data-duration="0.584" data-volume="0.4" data-track-index="4"></audio>
+      <audio data-hf-id="hf-yl87" id="sfx-24" class="clip" src="assets/sfx/drop_002.ogg" data-start="19.6" data-duration="0.191" data-volume="0.6" data-track-index="5"></audio>
+      <audio data-hf-id="hf-pobg" id="sfx-25" class="clip" src="assets/sfx/mouseclick1.ogg" data-start="22.15" data-duration="0.059" data-volume="0.65" data-track-index="3"></audio>
+      <audio data-hf-id="hf-fekn" id="sfx-26" class="clip" src="assets/sfx/card-slide-2.ogg" data-start="22.3" data-duration="0.584" data-volume="0.5" data-track-index="4"></audio>
+      <audio data-hf-id="hf-h11q" id="sfx-27" class="clip" src="assets/sfx/card-place-1.ogg" data-start="22.85" data-duration="0.689" data-volume="0.45" data-track-index="5"></audio>
+      <audio data-hf-id="hf-2lay" id="sfx-28" class="clip" src="assets/sfx/chips-stack-2.ogg" data-start="24.35" data-duration="0.172" data-volume="0.45" data-track-index="3"></audio>
+      <audio data-hf-id="hf-j2n2" id="sfx-29" class="clip" src="assets/sfx/card-slide-2.ogg" data-start="24.75" data-duration="0.584" data-volume="0.35" data-track-index="4"></audio>
+      <audio data-hf-id="hf-asqr" id="sfx-30" class="clip" src="assets/sfx/impactBell_heavy_000.ogg" data-start="27.45" data-duration="1.48" data-volume="0.65" data-track-index="5"></audio>
+    </div>
+    <script>
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

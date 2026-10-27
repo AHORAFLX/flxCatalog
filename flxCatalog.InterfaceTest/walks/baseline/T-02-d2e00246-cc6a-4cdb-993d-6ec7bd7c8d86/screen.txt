@@ -1,0 +1,42 @@
+# mod-home-cliente-saludo-html
+Bienvenido, Marta Rodríguez Díaz
+
+Tarifa asignada: VIP
+# mod-tour-tour-welcome-cliente
+Te enseñamos en un minuto dónde está cada cosa.
+
+Hacer el recorrido
+# mod-vta-pedido-home-list
+Número
+Fecha
+Estado
+Total
+Acciones
+PED-1150
+hace 2 días
+Entregado
+1.305,68 €
+PED-1149
+hace un mes
+Borrador
+2.235,68 €
+PED-1146
+hace un mes
+Entregado
+1.565,04 €
+PED-1148
+hace 2 meses
+Cancelado
+1.149,28 €
+PED-1152
+hace 2 meses
+En proceso
+1.465,84 €
+1
+2
+Página
+1
+de
+2
+Total:
+8

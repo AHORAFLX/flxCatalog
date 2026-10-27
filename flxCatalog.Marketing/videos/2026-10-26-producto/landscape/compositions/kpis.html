@@ -1,0 +1,181 @@
+<template>
+  <style>
+#root { position: absolute; inset: 0; overflow: hidden; background: #eef1f4; font-family: Inter, sans-serif; color: #1c1b1d; }
+.fmt, .w { position: absolute; inset: 0; }
+.w * { box-sizing: border-box; }
+
+/* copy block: number, title, line */
+.copy { position: absolute; }
+.fmt-L .copy { left: 120px; top: 92px; width: 1100px; }
+.fmt-V .copy { left: 80px; top: 170px; width: 920px; }
+.fmt-S .copy { left: 64px; top: 60px; width: 952px; }
+.num { font-weight: 800; color: #148a84; letter-spacing: 0.06em; }
+.ttl { font-weight: 800; letter-spacing: -0.025em; line-height: 1.02; }
+.line { font-weight: 500; color: #5b5b63; line-height: 1.25; }
+.fmt-L .num { font-size: 30px; } .fmt-L .ttl { font-size: 84px; margin-top: 8px; } .fmt-L .line { font-size: 36px; margin-top: 14px; }
+.fmt-V .num { font-size: 36px; } .fmt-V .ttl { font-size: 100px; margin-top: 10px; } .fmt-V .line { font-size: 44px; margin-top: 20px; }
+.fmt-S .num { font-size: 28px; } .fmt-S .ttl { font-size: 68px; margin-top: 6px; } .fmt-S .line { font-size: 32px; margin-top: 12px; }
+
+/* stage: where the rebuilt UI lives */
+.stage { position: absolute; }
+.fmt-L .stage { left: 120px; right: 120px; top: 350px; bottom: 70px; }
+.fmt-V .stage { left: 64px; right: 64px; top: 560px; bottom: 140px; }
+.fmt-S .stage { left: 56px; right: 56px; top: 320px; bottom: 50px; }
+
+/* product UI primitives, drawn like the product (flexy2022 skin) */
+.card { position: absolute; background: #ffffff; border-radius: 18px; box-shadow: 0 18px 50px rgba(28, 27, 29, 0.10), 0 2px 6px rgba(28, 27, 29, 0.05); }
+.fmt-V .card { border-radius: 24px; }
+.mtitle { font-weight: 600; letter-spacing: -0.01em; }
+.muted { color: #71717a; }
+.btn { display: flex; align-items: center; justify-content: center; border-radius: 10px; font-weight: 600; white-space: nowrap; }
+.btn.teal { background: #2db7b0; color: #ffffff; }
+.btn.ghost { background: #ffffff; color: #1c1b1d; border: 2px solid #d4d4d8; }
+.btn.dark { background: #1c1b1d; color: #ffffff; }
+.pill { display: inline-flex; align-items: center; gap: 0.45em; border-radius: 999px; font-weight: 600; padding: 0.22em 0.75em; white-space: nowrap; }
+.pill::before { content: ""; width: 0.42em; height: 0.42em; border-radius: 50%; background: currentColor; }
+.pill.ok { background: #dcfce7; color: #166534; }
+.pill.warn { background: #fef3c7; color: #854d0e; }
+.pill.bad { background: #fee2e2; color: #991b1b; }
+.pill.info { background: #e0e7ff; color: #3730a3; }
+.pill.neu { background: #f4f4f5; color: #3f3f46; }
+.pill.new { background: #fde7ef; color: #9d174d; }
+.photo { background-size: cover; background-position: center; }
+.tab { font-variant-numeric: tabular-nums; }
+
+/* catalogue card, sized by its font-size (1em = 20px on the product's own card at 1x) */
+.pc { position: absolute; width: 13em; background: #ffffff; border-radius: 0.8em; overflow: hidden; box-shadow: 0 0.9em 2.4em rgba(28, 27, 29, 0.12); }
+.pc-ph { position: relative; height: 12.4em; }
+.pc-star { position: absolute; top: 0.55em; right: 0.55em; width: 1.7em; height: 1.7em; border-radius: 0.4em; background: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1em; color: #1c1b1d; }
+.pc-b { padding: 0.75em 0.85em 0.9em; }
+.pc-f { font-size: 0.6em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-n { font-size: 0.8em; font-weight: 600; margin-top: 0.3em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-p { font-size: 0.9em; font-weight: 700; margin-top: 0.4em; display: flex; align-items: center; justify-content: space-between; }
+.pc-p .pill { font-size: 0.62em; }
+.pc-btn { position: relative; margin-top: 0.75em; height: 2em; font-size: 0.72em; border-radius: 0.5em; }
+
+/* the one drawn object: a cursor */
+.cur { position: absolute; left: 0; top: 0; z-index: 50; }
+.fmt-L .cur { width: 46px; height: 62px; } .fmt-V .cur, .fmt-S .cur { width: 56px; height: 76px; }
+.press { position: absolute; inset: 0; border-radius: inherit; background: rgba(0, 0, 0, 0.18); opacity: 0; pointer-events: none; }
+.pc-star .s0, .pc-star .s1 { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.pc-star .s1 { color: #148a84; opacity: 0; font-size: 1.15em; }
+.cur svg { display: block; width: 100%; height: 100%; }
+
+
+#kpis-w .kg { position: absolute; left: 0; right: 0; top: 0; display: grid; gap: 0.6em; }
+#kpis-w .kp { position: relative; padding: 0.55em 0.8em 0.6em; }
+#kpis-w .kp .l { font-size: 0.66em; color: #52525b; }
+#kpis-w .kp .v { font-size: 1.5em; font-weight: 700; letter-spacing: -0.01em; margin-top: 0.1em; white-space: nowrap; }
+#kpis-w .kp.big .v { font-size: 2.1em; font-weight: 800; }
+#kpis-w .bc { position: absolute; left: 0; right: 0; bottom: 0; padding: 0.7em 1em 0.8em; }
+#kpis-w .bc .mt { font-weight: 600; font-size: 1.05em; }
+#kpis-w .lg { display: flex; align-items: center; justify-content: center; gap: 0.4em; font-size: 0.62em; color: #52525b; margin: 0.2em 0 0.5em; }
+#kpis-w .lg i { width: 2.2em; height: 0.9em; background: #6366f1; display: inline-block; }
+#kpis-w .br { display: grid; grid-template-columns: 11em 1fr; align-items: center; column-gap: 0.6em; height: 1.55em; }
+#kpis-w .br .t { font-size: 0.68em; text-align: right; color: #3f3f46; white-space: nowrap; }
+#kpis-w .br .b { height: 1.15em; position: relative; }
+#kpis-w .br .b i { position: absolute; left: 0; top: 0; bottom: 0; background: #6366f1; transform-origin: 0% 50%; }
+.fmt-L #kpis-w .stage { font-size: 30px; }
+.fmt-L #kpis-w .kg { grid-template-columns: 1.6fr 1fr 1fr 1fr; }
+.fmt-L #kpis-w .bc { top: 200px; }
+.fmt-V #kpis-w .stage { font-size: 40px; }
+.fmt-V #kpis-w .kg { grid-template-columns: 1fr 1fr 1fr; }
+.fmt-V #kpis-w .kp.big { grid-column: span 3; }
+.fmt-V #kpis-w .kp.big .v { font-size: 2.8em; }
+.fmt-V #kpis-w .bc { top: 600px; bottom: auto; }
+.fmt-V #kpis-w .br { grid-template-columns: 9.5em 1fr; }
+.fmt-S #kpis-w .stage { font-size: 25px; }
+.fmt-S #kpis-w .kg { grid-template-columns: 1fr 1fr 1fr; }
+.fmt-S #kpis-w .kp.big { grid-column: span 3; }
+.fmt-S #kpis-w .kp.big .v { font-size: 2.4em; }
+.fmt-S #kpis-w .bc { top: 330px; }
+.fmt-S #kpis-w .r5 { display: none; }
+
+  </style>
+  <div data-hf-id="hf-t2zg" id="root" data-composition-id="kpis" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-7rsv" class="fmt fmt-L"><div data-hf-id="hf-v1wo" class="w" id="kpis-w">
+<div data-hf-id="hf-bdx3" class="copy"><div data-hf-id="hf-owfc" class="num">08</div><div data-hf-id="hf-9yaq" class="ttl">Indicadores clave</div><div data-hf-id="hf-chv9" class="line">Todo el negocio, de un vistazo.</div></div>
+<div data-hf-id="hf-6c2g" class="stage" id="kpis-stage">
+  <div data-hf-id="hf-6qng" class="kg" id="kpis-kg">
+    <div data-hf-id="hf-l8lt" class="card kp big"><div data-hf-id="hf-bqop" class="l">Ventas del año</div><div data-hf-id="hf-f6b5" class="v tab" id="kpis-v1">162.849,58 €</div></div>
+    <div data-hf-id="hf-mk7v" class="card kp"><div data-hf-id="hf-71p3" class="l">Pedidos pendientes</div><div data-hf-id="hf-f7zz" class="v tab" id="kpis-v2">59</div></div>
+    <div data-hf-id="hf-vimz" class="card kp"><div data-hf-id="hf-k9fx" class="l">Incidencias abiertas</div><div data-hf-id="hf-wsqy" class="v tab" id="kpis-v3">6</div></div>
+    <div data-hf-id="hf-v4by" class="card kp"><div data-hf-id="hf-xd3g" class="l">Devoluciones solicitadas</div><div data-hf-id="hf-q9r7" class="v tab" id="kpis-v4">6</div></div>
+  </div>
+  <div data-hf-id="hf-q2s0" class="card bc" id="kpis-bc">
+    <div data-hf-id="hf-sfis" class="mt">Artículos más vendidos</div>
+    <div data-hf-id="hf-aoie" class="lg"><i data-hf-id="hf-wt6k"></i>Unidades vendidas</div>
+    <div data-hf-id="hf-rows" class="br"><div data-hf-id="hf-i56r" class="t">Pack de Calcetines Essential</div><div data-hf-id="hf-goiq" class="b"><i data-hf-id="hf-qvqx" style="width:90%"></i></div></div>
+    <div data-hf-id="hf-rkyc" class="br"><div data-hf-id="hf-qbtd" class="t">Zapatilla Niño Essential</div><div data-hf-id="hf-ys5i" class="b"><i data-hf-id="hf-amtp" style="width:90%"></i></div></div>
+    <div data-hf-id="hf-qe19" class="br"><div data-hf-id="hf-xiyz" class="t">Bolso Nova</div><div data-hf-id="hf-z6gj" class="b"><i data-hf-id="hf-6f8m" style="width:86%"></i></div></div>
+    <div data-hf-id="hf-qsca" class="br"><div data-hf-id="hf-t120" class="t">Malla Deportiva Prime</div><div data-hf-id="hf-zkrk" class="b"><i data-hf-id="hf-z8xk" style="width:79%"></i></div></div>
+    <div data-hf-id="hf-sys7" class="br r5"><div data-hf-id="hf-9h8z" class="t">Pack Ropa Interior Basic</div><div data-hf-id="hf-wsmd" class="b"><i data-hf-id="hf-fjq6" style="width:77%"></i></div></div>
+  </div>
+</div>
+    </div></div>
+  </div>
+  <script>
+    document.fonts.ready.then(() => {
+  const ID = "kpis";
+  const FMT = "L";
+  const W = document.getElementById(ID + "-w");
+  const $ = (s) => W.querySelector(s);
+  const $$ = (s) => Array.from(W.querySelectorAll(s));
+  // Offset of an element inside the scene, measured once before building tweens.
+  // A scene is display:none until its slot: measure with its hidden ancestors shown for the instant of the read.
+  const withLayout = (fn) => {
+    const hid = [];
+    for (let e = W; e && e !== document.documentElement; e = e.parentElement) {
+      if (getComputedStyle(e).display === "none") { hid.push([e, e.style.getPropertyValue("display"), e.style.getPropertyPriority("display")]); e.style.setProperty("display", "block", "important"); }
+    }
+    try { return fn(); } finally { hid.reverse().forEach(([e, v, p]) => (v ? e.style.setProperty("display", v, p) : e.style.removeProperty("display"))); }
+  };
+  const off = (el) => { let x = 0, y = 0; while (el && el !== W) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return { x, y }; };
+  const pt = (sel, fx = 0.5, fy = 0.5) => withLayout(() => { const el = typeof sel === "string" ? $(sel) : sel; const o = off(el); return { x: o.x + el.offsetWidth * fx, y: o.y + el.offsetHeight * fy }; });
+  const tl = gsap.timeline({ paused: true });
+  const pick = (L, V, S) => (FMT === "L" ? L : FMT === "V" ? V : S);
+  // Scene entry: copy slides in from the left, the stage rises.
+  const enter = (t = 0.05) => {
+    tl.fromTo($(".copy"), { x: -70, opacity: 0 }, { x: 0, opacity: 1, duration: 0.42, ease: "expo.out" }, t);
+    tl.fromTo($(".stage"), { y: 90, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "expo.out" }, t + 0.1);
+  };
+  const exit = (t) => {
+    tl.to($(".copy"), { x: -50, opacity: 0, duration: 0.24, ease: "power3.in" }, t);
+    tl.to($(".stage"), { y: -40, opacity: 0, duration: 0.26, ease: "power3.in" }, t);
+    if ($(".cur")) tl.to($(".cur"), { opacity: 0, duration: 0.15 }, t);
+  };
+  // Cursor: travel to a target, then click it (the press lands on the click frame).
+  const cur = () => $(".cur");
+  const curFrom = (x, y, t = 0) => tl.fromTo(cur(), { x, y, scale: 1, opacity: 1 }, { x, y, duration: 0.01 }, t);
+  const moveTo = (sel, t, d = 0.45, fx = 0.5, fy = 0.55) => { const p = pt(sel, fx, fy); tl.to(cur(), { x: p.x - 6, y: p.y - 4, duration: d, ease: "power2.inOut" }, t); };
+  const click = (sel, t) => {
+    tl.to(cur(), { scale: 0.84, duration: 0.06, ease: "power2.in", transformOrigin: "6px 4px" }, t);
+    tl.to(cur(), { scale: 1, duration: 0.1, ease: "power2.out", transformOrigin: "6px 4px" }, t + 0.06);
+    const pr = sel && $(sel + " .press");
+    if (pr) { tl.fromTo(pr, { opacity: 0 }, { opacity: 1, duration: 0.05 }, t); tl.to(pr, { opacity: 0, duration: 0.18 }, t + 0.1); }
+  };
+  // Count a number into an element (es-ES formatting), measured by the timeline, not the clock.
+  const nf = (dec) => new Intl.NumberFormat("es-ES", { minimumFractionDigits: dec, maximumFractionDigits: dec, useGrouping: "always" });
+  const count = (sel, from, to, t, d, dec = 0, suffix = "") => {
+    const el = typeof sel === "string" ? $(sel) : sel; const f = nf(dec); const o = { v: from };
+    el.textContent = f.format(from) + suffix;
+    tl.to(o, { v: to, duration: d, ease: "power2.out", onUpdate: () => { el.textContent = f.format(o.v) + suffix; } }, t);
+  };
+  // Items arriving one by one.
+  const seq = (els, t, gap, from = { y: 40, opacity: 0 }, d = 0.45) => els.forEach((el, i) => tl.fromTo(el, from, { x: 0, y: 0, opacity: 1, scale: 1, duration: d, ease: "power3.out" }, t + i * gap));
+
+
+  enter();
+  seq($$("#kpis-kg .kp"), 0.25, 0.1, { y: 40, opacity: 0 }, 0.4);
+  count("#kpis-v1", 0, 162849.58, 0.35, 1.5, 2, " €");
+  count("#kpis-v2", 0, 59, 0.45, 1.0);
+  count("#kpis-v3", 0, 6, 0.55, 0.8);
+  count("#kpis-v4", 0, 6, 0.65, 0.8);
+  // Bars grow in the dashboard's own order.
+  $$("#kpis-bc .b i").forEach((el, i) => tl.fromTo(el, { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power3.out" }, 0.75 + i * 0.12));
+  exit(2.74);
+
+      window.__timelines["kpis"] = tl;
+    });
+  </script>
+</template>

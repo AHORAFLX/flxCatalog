@@ -47,3 +47,63 @@
 **Question:** Las herramientas de nodos no permiten un contador dinámico como el del badge de noticias. ¿Cómo se entrega el icono del carrito en la barra superior?
 
 **User answer:** Decisión tomada por Claude, no por el usuario, porque el usuario pidió seguir sin preguntar: opción a. Se crea un nodo de proceso con icono de carrito en la barra superior, que abre el carrito del cliente (pVTA_AbrirMiCarrito) y solo es visible para el rol cliente. El contador queda sin entregar, porque exigiría escribir directamente en Navigation_Nodes o en el script global de la interfaz, y eso es un parche que no se hace. La carencia ya está registrada como falta de capacidad del servidor. Es una entrega parcial del punto del pending.md y el usuario tiene que decidir si acepta el carrito sin contador o si pide el parche.
+
+## 2026-10-13 · affects T-08, T-09, T-10, T-11
+
+**Question:** Con Flexygo beta.137 el kanban de la mesa de trabajo responde 500 porque ya no admite la relación constante «1=1» entre el tablero y las tarjetas. ¿Se añade una columna Activo (por defecto 1) a MesasTrabajo y a Pedidos y se relaciona Activo=Activo?
+
+**User answer:** «Haz lo que consideres»: autorizado el cambio de esquema propuesto.
+
+## 2026-10-13 · affects B-3
+
+**Question:** El indicador «Pedidos pendientes» del dashboard cuenta los pedidos en estado Confirmado y En proceso. ¿Vale ese criterio?
+
+**User answer:** Me vale.
+
+## 2026-10-13 · affects development
+
+**Question:** Quedan datos de prueba de los tests de interfaz (una devolución, una incidencia y un producto «ZZ…» del 03/10, y carritos CARR-… cancelados por el test de confirmar pedido) visibles en las listas y en el portal del cliente. ¿Se borran?
+
+**User answer:** «Lo que veas»: autorizado borrar los restos de test.
+
+## 2026-10-13 · affects development
+
+**Question:** La página HOME (panel de control antiguo) está sustituida por el dashboard y tiene defectos visibles (leyenda encima del donut, títulos técnicos, gráficos en gris). ¿Se retira o se arregla?
+
+**User answer:** Arréglalo.
+
+## 2026-10-26 · affects development
+
+**Question:** Con T-16 reabierta (por un fallo del recorrido, no de la tarea), sin /flx-test ni /flx-quality hechos, ¿se adelanta la ayuda (/flx-help)?
+
+**User answer:** Sí: ejecutar /flx-help ya, aunque existan cosas por terminar.
+
+## 2026-10-26 · affects T-11, T-15, T-17, T-21
+
+**Question:** ¿Se da por buena la ayuda aunque los pasos que requieren actuar (arrastrar, confirmar, abrir paneles, añadir al carrito) vayan sin captura y el Dashboard no tenga botón de ayuda (sus módulos no tienen barra)? El menú lateral (T-17) y el carrito de la barra superior (T-21) no tienen pantalla propia: ¿basta con los recorridos de bienvenida y la entrada «Ayuda»?
+
+**User answer:** Sí, registrar así. El Dashboard llega a su guía por el menú «Ayuda» y por sus recorridos; T-17 y T-21 quedan cubiertos por las bienvenidas de cada rol y la entrada «Ayuda».
+
+## 2026-10-26 · affects development
+
+**Question:** /flx-api: ¿qué se abre por la WebAPI, para qué roles, quién usa el asistente propio (/mcp), qué columnas no viajan y qué descripción lleva la aplicación?
+
+**User answer:** Solo lectura (listado y ficha, sin alta, edición, borrado ni procesos) de CAT_Producto, CAT_Familia, CAT_Marca, CAT_Color, CAT_Talla, CAT_Variante, VTA_Pedido, VTA_LineaPedido, VTA_EstadoPedido, VTA_Devolucion, VTA_EstadoDevolucion, VTA_Incidencia, VTA_EstadoIncidencia y VTA_TipoIncidencia. Quedan fuera CLI_Cliente, VTA_Tarifa y VTA_PrecioTarifa. Llama solo el rol admins, que también usa el asistente /mcp. No se oculta ninguna columna. Se guarda la descripción de la aplicación propuesta. Se ejecuta con el bloque B-4 aún pendiente porque el usuario así lo pidió.
+
+## 2026-10-26 · affects development
+
+**Question:** ¿Quién decide lo que surja en las fases pendientes (test, calidad, ayuda, verificación) de todos los desarrollos mientras el usuario no está?
+
+**User answer:** El usuario, al irse el 26-oct-2026: «mira todas las fases de flexygo que tienes pendientes en todos los desarrollos y ejecútalos todos y cada uno hasta que tengas todo terminado, si hay que tomar alguna decisión la tomas tú, pero deja el proyecto de demo perfecto. Dado que es una demo, puedes hacer lo que quieras que estará bien.» Las decisiones de estas fases las toma el agente con ese criterio (demo perfecta), y cada una se registra citando esta delegación.
+
+## 2026-10-26 · affects development
+
+**Question:** ¿Se mejoran y regeneran los datos de demostración para que la demo enseñe datos vivos (ventas del mes a 0 €, cliente demo con 2 pedidos, sin favoritos y llamado «Cliente Cliente»)?
+
+**User answer:** Sí, decidido por el agente con la delegación del usuario (D-16). pSeed_ResetDemoData (fichero del proyecto Data y la base flxCatalog con CREATE OR ALTER) da al cliente demo E391566D… siete pedidos más y seis favoritos fijos. Se ejecutó el 26-oct-2026: 152 pedidos con fechas relativas a hoy, 37 de ellos este mes (51.796,21 €), el cliente demo con 8 pedidos (Entregado, Borrador, Confirmado, En proceso, Cancelado…), 7 favoritos y 2 devoluciones. El usuario 'cliente' pasa a llamarse Marta Rodríguez Díaz, como su ficha CLI-2101. Las notificaciones antiguas que apuntaban a pedidos borrados se quedan (hueco ya registrado en 'notificaciones').
+
+## 2026-10-26 · affects T-01, T-03, T-06
+
+**Question:** ¿Llevan ayuda de pantalla las tareas T-01, T-03 y T-06 (inventario, borrado y auditoría de Contacto y Demostración)?
+
+**User answer:** No. Decidido por el agente con la delegación del usuario (D-16): esas tareas no construyen ninguna pantalla, sino que la quitan; no hay nada que explicar a nadie. La Mesa de trabajo y el Dashboard (T-11, T-15) ya tienen su tour y su página de ayuda.

@@ -5,13 +5,24 @@ description: Checks what was agreed against what was actually built and points o
 
 # Review what was built against what was agreed
 
+**Resuming in a new chat?** Start with `flexygo_get_project_status`: its checkpoint gives the phase,
+the block, the open decisions, the last verify results and what comes next. Take your bearings from
+it rather than by re-reading `plan.md`, `execution.md` or the catalogue, and read those only for
+what this phase works on.
+
 1. Call `flexygo_development_status` to get your bearings.
-2. Read `.flexygo/developments/<slug>/plan.md` and `decisions.md`: that is what was agreed.
+2. Read `.flexygo/developments/<slug>/plan.md` and `decisions.md`: that is what was agreed. Read
+   `.flexygo/memory/quick-changes.md` too, if it exists: the minor changes built through `/flx-fast`
+   outside any plan. One under this development's slug was asked for on its own — compare it with
+   what it says was asked, never with the plan, and do not record it as a deviation.
 3. Call `flexygo_audit_origin`. Look for what a build report cannot see: two objects on the same
    table, an object with no properties, a page that cannot be opened. All three break the
    application without raising an error, and all three pass with every MCP call green.
    **A defect is a deviation**, even when it contradicts nothing in the plan: put it in the table
-   of step 6.
+   of step 6. Its warnings also cover what an AI assistant reads of the whole application — the
+   application description, process descriptions in jargon or too long, visible process
+   parameters with no description, views described by their own name: put them to the user as
+   findings, with the tool each warning names.
 4. **Read each audit finding whole, and never write one down as "undetermined" without trying.**
    A broken reference says which catalogue the missing name was looked for in and whose the rows
    are: origin 0 came with the platform's own install and is not your work, your own origin means

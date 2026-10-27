@@ -1,0 +1,77 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      background: #eef1f4;
+      font-family: Inter, sans-serif;
+      overflow: hidden;
+    }
+    #hook-title {
+      position: absolute;
+      left: 110px;
+      top: 444px;
+      width: 640px;
+      white-space: nowrap;
+      color: #1c1b1d;
+      font-size: 92px;
+      font-weight: 700;
+      line-height: 1.04;
+      letter-spacing: -0.025em;
+    }
+    #hook-title span {
+      display: block;
+    }
+    #hook-grid {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+    }
+    #hook-cam {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+    }
+    .hook-card {
+      position: absolute;
+      width: 246px;
+      height: 396px;
+      border-radius: 12px;
+      background-image: url("assets/screens/land-01-catalogo.png");
+      background-size: 1920px 1080px;
+      background-repeat: no-repeat;
+    }
+  </style>
+  <div data-hf-id="hf-ktv8" id="root" data-composition-id="hook" data-width="1920" data-height="1080">
+    <h1 data-hf-id="hf-4qbz" id="hook-title"><span data-hf-id="hf-btg4">Tu catálogo.</span><span data-hf-id="hf-uhcm">Sus pedidos.</span></h1>
+    <div data-hf-id="hf-z741" id="hook-grid">
+      <div data-hf-id="hf-7xtu" id="hook-cam">
+      <div data-hf-id="hf-m6bg" id="hook-c1" class="hook-card" style="left: 780px; top: 134px; background-position: -276px -125px"></div>
+      <div data-hf-id="hf-fp1z" id="hook-c2" class="hook-card" style="left: 1046px; top: 134px; background-position: -542px -125px"></div>
+      <div data-hf-id="hf-d4lc" id="hook-c3" class="hook-card" style="left: 1312px; top: 134px; background-position: -807px -125px"></div>
+      <div data-hf-id="hf-oxu7" id="hook-c4" class="hook-card" style="left: 1578px; top: 134px; background-position: -1073px -125px"></div>
+      <div data-hf-id="hf-auo3" id="hook-c5" class="hook-card" style="left: 780px; top: 550px; background-position: -276px -542px"></div>
+      <div data-hf-id="hf-9hes" id="hook-c6" class="hook-card" style="left: 1046px; top: 550px; background-position: -542px -542px"></div>
+      <div data-hf-id="hf-xksr" id="hook-c7" class="hook-card" style="left: 1312px; top: 550px; background-position: -807px -542px"></div>
+      <div data-hf-id="hf-nu5w" id="hook-c8" class="hook-card" style="left: 1578px; top: 550px; background-position: -1073px -542px"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // Cards settle along the diagonal; the title is already on screen at frame 0 (the thumbnail).
+    const order = ["#hook-c1", "#hook-c2", "#hook-c5", "#hook-c3", "#hook-c6", "#hook-c4", "#hook-c7", "#hook-c8"];
+    order.forEach((id, i) => {
+      tl.fromTo(id, { opacity: 0, scale: 0.92, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0.05 + i * 0.045);
+    });
+    // Zoom through card 1: it lands at 2x, centred on (560, 540), where the next scene picks it up.
+    tl.to("#hook-title", { opacity: 0, filter: "blur(8px)", duration: 0.22, ease: "power3.in" }, 2.4);
+    tl.to(order.slice(1), { opacity: 0, filter: "blur(14px)", duration: 0.35, ease: "power3.in" }, 2.45);
+    tl.fromTo("#hook-cam", { x: 0, y: 0, scale: 1, transformOrigin: "0px 0px" }, { x: -1246, y: -124, scale: 2, transformOrigin: "0px 0px", duration: 0.6, ease: "power2.inOut" }, 2.4);
+    window.__timelines["hook"] = tl;
+  </script>
+</template>

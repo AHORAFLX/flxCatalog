@@ -1,0 +1,32 @@
+{
+  "spent": {
+    "pendientes-cliente-admin": {
+      "usd": 3.5437612,
+      "ms": 445874,
+      "tokens": 6645764
+    },
+    "pendientes-cliente-admin|phase:verify": {
+      "usd": 3.5437612,
+      "ms": 445874,
+      "tokens": 6645764
+    }
+  },
+  "commands": [
+    {
+      "at": "2026-10-26T13:14:12.863Z",
+      "command": "/flx-help",
+      "slug": "pendientes-cliente-admin",
+      "phase": "verify",
+      "usd": 0.46723500000000007,
+      "ms": 22193
+    },
+    {
+      "at": "2026-10-26T14:46:49.725Z",
+      "command": "/flx-verify",
+      "slug": "pendientes-cliente-admin",
+      "phase": "verify",
+      "usd": 3.0765262,
+      "ms": 423681
+    }
+  ]
+}

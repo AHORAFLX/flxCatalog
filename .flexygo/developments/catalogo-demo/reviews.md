@@ -71,3 +71,13 @@
 **Found:** Referencia rota: Tours_Steps.ObjectName='Account' no corresponde a ningún objeto. 1 fila, origen 0 (la instalación estándar de la plantilla).
 
 **Deviation:** Ninguna — no es de esta construcción, vino con la plantilla del proyecto antes de empezar.
+
+## 2026-10-13 · affects T-25
+
+**Agreed:** Árbol de navegación propio, en el orden aprobado, con los objetos ya creados en showInMenu=false.
+
+**Found:** Revisado de nuevo el 13/10. La decisión D-10 de esta fecha («arreglar HOME») se vinculó a T-25 por error: se refiere a la página HOME, no a esta desviación. Las páginas de negocio siguen colgando también de la raíz «Work Area» (interfaz webdefault) además de «Barra lateral 2026». Con webdefault no entra ningún usuario.
+
+**Deviation:** Sigue abierta: el menú duplicado bajo «Work Area» (webdefault), que nadie usa. Falta que el usuario decida si se retiran esos nodos.
+
+**Decisions on record:** D-10

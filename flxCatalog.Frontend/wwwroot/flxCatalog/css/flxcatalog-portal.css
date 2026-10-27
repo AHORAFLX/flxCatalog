@@ -1,0 +1,4 @@
+/* flxcatalog-portal.css — ajustes del catálogo del portal de clientes (plantilla flx-cat-producto-cliente-list). */
+
+/* El precio y su "€" no se separan cuando la tarjeta lleva distintivo (Novedad, Oferta, Sin stock). */
+.cli-card .cli-price { white-space: nowrap; }

@@ -1,0 +1,55 @@
+<style>
+#resenas-w .ph { position: absolute; overflow: hidden; }
+#resenas-w .ph .img { position: absolute; inset: 0; background-image: url('assets/photos/mallas-deportivas-1.jpg'); background-size: cover; background-position: center 45%; }
+#resenas-w .ph .lab { position: absolute; left: 0; right: 0; bottom: 0; background: #ffffff; padding: 0.6em 0.9em; }
+#resenas-w .ph .lab .n { font-weight: 700; }
+#resenas-w .ph .lab .r { font-size: 0.7em; }
+#resenas-w .rv { position: absolute; display: flex; flex-direction: column; gap: 0.6em; }
+#resenas-w .sum { display: flex; align-items: center; gap: 0.6em; padding: 0.8em 1em; }
+#resenas-w .sum .avg { font-size: 2.2em; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+#resenas-w .sum .h { font-weight: 600; }
+#resenas-w .stars { position: relative; display: inline-block; letter-spacing: 0.08em; color: #d4d4d8; white-space: nowrap; line-height: 1; }
+#resenas-w .stars .on { position: absolute; left: 0; top: 0; color: #f59e0b; white-space: nowrap; }
+#resenas-w .sum .cnt { font-size: 0.75em; }
+#resenas-w .it { position: relative; padding: 0.7em 1em; display: grid; grid-template-columns: 2em 1fr; column-gap: 0.7em; }
+#resenas-w .av { width: 2em; height: 2em; border-radius: 50%; background: #e4e4e7; color: #3f3f46; font-weight: 700; font-size: 0.8em; display: flex; align-items: center; justify-content: center; grid-row: span 2; }
+#resenas-w .it .nm { font-weight: 600; display: flex; align-items: center; gap: 0.6em; flex-wrap: wrap; }
+#resenas-w .it .nm .stars { font-size: 0.8em; }
+#resenas-w .it .tx { font-size: 0.82em; color: #3f3f46; margin-top: 0.2em; }
+#resenas-w .note { padding-left: 0.2em; font-size: 0.7em; }
+.fmt-S #resenas-w #resenas-i3 { display: none; }
+#resenas-w .sum, #resenas-w .it { position: relative; }
+.fmt-L #resenas-w .stage { font-size: 28px; }
+.fmt-L #resenas-w .ph { left: 0; top: 0; width: 520px; height: 650px; }
+.fmt-L #resenas-w .rv { left: 580px; right: 0; top: 0; bottom: 0; }
+.fmt-V #resenas-w .stage { font-size: 32px; }
+.fmt-V #resenas-w .ph { left: 0; top: 0; width: 952px; height: 380px; }
+.fmt-V #resenas-w .ph .img { background-position: center 62%; }
+.fmt-V #resenas-w .rv { left: 0; right: 0; top: 420px; bottom: 0; }
+.fmt-S #resenas-w .stage { font-size: 23px; }
+.fmt-S #resenas-w .ph { left: 0; top: 0; width: 330px; height: 690px; }
+.fmt-S #resenas-w .rv { left: 360px; right: 0; top: 0; bottom: 0; }
+</style>
+<div class="copy"><div class="num">05</div><div class="ttl">Reseñas de clientes</div><div class="line">Solo de quien lo ha comprado.</div></div>
+<div class="stage" id="resenas-stage">
+  <div class="card ph"><div class="img"></div><div class="lab"><div class="n">Malla Deportiva Prime</div><div class="r muted tab">REF-2115 · 34,90 €</div></div></div>
+  <div class="rv" id="resenas-rv">
+    <div class="card sum" id="resenas-sum">
+      <div class="avg tab" id="resenas-avg">4,3</div>
+      <div><div class="h">Reseñas de clientes</div><div><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;<span class="on" id="resenas-on">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span> <span class="cnt muted">(3 reseñas)</span></div></div>
+    </div>
+    <div class="card it" id="resenas-i1"><div class="av">NS</div><div class="nm">Nacional Almacenes S.L.U. <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;<span class="on" style="clip-path: inset(0 20% 0 0)">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span></div><div class="tx">Correcto por el precio, sin ser excepcional. Cumple su función.</div></div>
+    <div class="card it" id="resenas-i2"><div class="av">LS</div><div class="nm">Litoral Confección S.L.U. <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;<span class="on" >&#9733;&#9733;&#9733;&#9733;&#9733;</span></span></div><div class="tx">Perfecto para regalo, la presentación y la calidad están a la altura.</div></div>
+    <div class="card it" id="resenas-i3"><div class="av">NS</div><div class="nm">Norte Distribución S.L. <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;<span class="on" style="clip-path: inset(0 20% 0 0)">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span></div><div class="tx">Correcto por el precio, sin ser excepcional. Cumple su función.</div></div>
+    <div class="note muted" id="resenas-note">Solo puedes escribir una reseña de un producto que hayas comprado.</div>
+  </div>
+</div>
+<script>
+  enter();
+  const items = ["#resenas-i1", "#resenas-i2", "#resenas-i3"].map($).filter((el) => getComputedStyle(el).display !== "none");
+  tl.fromTo("#resenas-on", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 14% 0 0)", duration: 0.8, ease: "power2.out" }, 0.45);
+  count("#resenas-avg", 0, 4.3, 0.45, 0.8, 1);
+  seq(items, 0.9, 0.3, { x: 70, opacity: 0 }, 0.45);
+  tl.fromTo("#resenas-note", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.9);
+  exit(2.74);
+</script>

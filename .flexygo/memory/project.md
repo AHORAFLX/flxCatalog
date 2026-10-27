@@ -192,3 +192,14 @@ Skin `flexy2022` — the palette the application already wears:
 This palette is installation-wide — one set of rows per skin, never one per origin — so changing it REPAINTS EVERY PAGE ALREADY BUILT, not only the new work.
 
 ⚠️ THE PROJECT'S OWN CONVENTIONS CONTRADICT EACH OTHER: 4 different prefixes are in use (`VTA_`, `CAT_`, `COM_`, `CLI_`). This project cannot say by itself how a new entity should be named. ASK THE USER which one to follow BEFORE proposing a model, and record the answer with flexygo_record_decision — choosing in silence is the failure this measurement exists to prevent.
+
+## 2026-10-26
+
+**Data model:** own — the project's own: tables are created with flexygo_execute_ddl against DataConnectionString.
+**Offline app:** planned — foreseen, NOT built yet: its own development opens later, and today nothing of it exists.
+**Roles:** several — Cliente: entra en su portal, ve el catálogo con su precio de tarifa, gestiona su carrito, sus pedidos, favoritos, documentos, devoluciones, incidencias y notificaciones.; Administrador: lleva el backoffice: dashboard, mesa de trabajo con los tableros de incidencias, pedidos y devoluciones, catálogo, clientes, tarifas y maestros.
+**Public screens:** no.
+**External access:** yes — an AI assistant or another system uses it from outside, through the platform's WebAPI.
+**Language:** es
+
+flxCatalog es una aplicación pública de demostración de Flexygo: catálogo B2B/B2C con portal privado de clientes y backoffice de administración (catálogo con familias, marcas, variantes de talla y color, tarifas por cliente, carrito y pedidos, devoluciones e incidencias, documentos, notificaciones, dashboard y mesa de trabajo). Uso: demostraciones comerciales, formaciones y pruebas, con datos de demo que se regeneran con pSeed_ResetDemoData.

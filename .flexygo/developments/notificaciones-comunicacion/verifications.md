@@ -79,3 +79,83 @@
 **Verdict:** passes
 
 **Result:** PASS con limitación conocida y esperada: el encolado funciona correctamente; el envío real requiere que el usuario configure MailSettings, fuera del alcance de este desarrollo.
+
+## 2026-10-13 · affects B-1
+
+**Checked:** COM_MisNotificaciones_List: avisos del cliente, marca de no leído y navegación a lo que avisa.
+
+**Against what data:** Usuario Cliente, con 2 avisos de pedido generados el 13/10; test MisNotificaciones_ListaLosAvisosYAbreUno.
+
+**Verdict:** passes
+
+**Result:** OK: lista los avisos y pulsar uno lleva al pedido. Corregido hoy el indicador de no leído, que pintaba «• ?» (ahora ●). Detalle menor: la cabecera «Fecha» no queda alineada con sus valores.
+
+**Screenshot:** `screenshots/verify/2026-10-13-b-1-12-verify-cliente-misnotificaciones.png`
+
+## 2026-10-26 · affects T-01
+
+**Checked:** Las columnas de seguimiento UltimoEstadoNotificado y UltimoEstadoEmailEnviado existen y las rellenan las reglas de aviso al cambiar de estado
+
+**Against what data:** flxCatalog el 26-oct tras el reinicio de la demo y la batería de tests: sys.columns y los pedidos con seguimiento relleno
+
+**Verdict:** passes
+
+**Result:** OK: las dos columnas están en Pedidos, Devoluciones e Incidencias (nvarchar). Nueve pedidos de la clienta demo las tienen rellenas con el IdEstado de su estado actual (Confirmado, En proceso, Entregado, Cancelado, Borrador), lo que confirma que la regla avisó y envió el correo una vez por estado; el test MisNotificaciones_ListaLosAvisosYAbreUno, en verde hoy, abre uno de esos avisos desde «Mis notificaciones».
+
+## 2026-10-26 · affects T-09
+
+**Checked:** Los comentarios internos (COM_Comentario) se pintan en las fichas del administrador y se pueden añadir
+
+**Against what data:** flxCatalog el 26-oct: 150 comentarios (reseñas de producto) del reinicio de demo; recorrido T-16-cli-cliente-view (ficha de cliente como admin) y ficha de producto vista en las capturas de ayuda
+
+**Verdict:** passes
+
+**Result:** OK: la ficha de cliente pinta «Comentarios internos» (vacío, con su texto «Sin comentarios todavía») y el botón «Nuevo comentario» con contraste ya corregido; la ficha de producto pinta sus comentarios. El objeto pasa verify_object; el cliente no los ve (seguridad de los módulos de comentario solo para administración).
+
+**Screenshot:** `screenshots/verify/2026-10-26-t-09-13-screen.png`
+
+## 2026-10-26 · affects T-05
+
+**Checked:** COM_SolicitudContacto y sus maestros
+
+**Against what data:** none
+
+**Verdict:** not verified — waived by D-7
+
+**Result:** Sin verificación por D-7: borrados a petición del usuario en pendientes-cliente-admin B-1.
+
+## 2026-10-26 · affects T-03, T-05, T-06, T-08
+
+**Kind:** tests
+
+**Checked:** Tests de la batería que cubren Mis notificaciones; contacto y demostración borrados
+
+**Against what data:** flxCatalog.InterfaceTest, pasada del 26-oct
+
+**Verdict:** not verified — waived by D-8
+
+**Result:** Cubiertas según D-8.
+
+## 2026-10-26 · affects T-03
+
+**Kind:** help
+
+**Checked:** tour: tour-mis-notificaciones · page: COM_MisNotificaciones_List · help: Help_Flujo_MiCuenta
+
+**Against what data:** Recorrido hecho como cliente (Marta Rodríguez Díaz) el 26-oct, 2 pasos sin saltos
+
+**Verdict:** passes
+
+**Result:** OK: «Mis notificaciones» ofrece su recorrido y el botón Ayuda abre «Mi cuenta: ficha, favoritos, documentos y notificaciones».
+
+## 2026-10-26 · affects T-06, T-08
+
+**Kind:** help
+
+**Checked:** tour: — · page: — · help: — (pantallas borradas)
+
+**Against what data:** none
+
+**Verdict:** not verified — waived by D-9
+
+**Result:** Sin ayuda por D-9.

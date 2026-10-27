@@ -1,0 +1,73 @@
+<style>
+#seguimiento-w .dt { position: absolute; left: 0; right: 0; top: 0; padding: 0.9em 1.1em 1em; }
+#seguimiento-w .top { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.8em; }
+#seguimiento-w .mh { display: flex; align-items: center; gap: 0.45em; font-weight: 700; font-size: 1.1em; }
+#seguimiento-w .acts { display: flex; gap: 0.4em; flex-wrap: wrap; justify-content: flex-end; }
+#seguimiento-w .acts .btn { position: relative; height: 1.8em; padding: 0 0.7em; gap: 0.45em; font-size: 0.8em; border-radius: 0.35em; }
+#seguimiento-w .ref { font-size: 0.72em; margin-top: 0.7em; }
+#seguimiento-w .pdf { font-size: 0.6em; font-weight: 800; border: 0.14em solid #1c1b1d; border-radius: 0.2em; padding: 0.05em 0.25em; }
+#seguimiento-w .pn { font-weight: 600; margin-top: 0.1em; }
+#seguimiento-w .pills { position: relative; height: 1.5em; margin-top: 0.35em; }
+#seguimiento-w .pills .pill { position: absolute; left: 0; top: 0; font-size: 0.8em; }
+#seguimiento-w .sh { font-weight: 600; margin-top: 1em; }
+#seguimiento-w .steps { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 0.8em; }
+#seguimiento-w .track { position: absolute; left: 10%; right: 10%; top: 0.55em; height: 0.16em; background: #e4e4e7; border-radius: 1em; }
+#seguimiento-w .fill { position: absolute; inset: 0; background: #2db7b0; border-radius: 1em; transform-origin: 0% 50%; }
+#seguimiento-w .st { display: flex; flex-direction: column; align-items: center; position: relative; }
+#seguimiento-w .dot { position: relative; width: 1.25em; height: 1.25em; border-radius: 50%; background: #ffffff; border: 0.14em solid #d4d4d8; }
+#seguimiento-w .dot .on { position: absolute; inset: -0.14em; border-radius: 50%; background: #2db7b0; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 0.75em; font-weight: 800; }
+#seguimiento-w .lb { margin-top: 0.45em; font-size: 0.78em; color: #3f3f46; white-space: nowrap; }
+#seguimiento-w .lb.last { font-weight: 700; color: #1c1b1d; }
+#seguimiento-w .foot { display: flex; gap: 2.2em; margin-top: 1.2em; border-top: 1px solid #e4e4e7; padding-top: 0.8em; }
+#seguimiento-w .k { font-size: 0.72em; }
+#seguimiento-w .v { font-weight: 700; margin-top: 0.1em; }
+.fmt-L #seguimiento-w .stage { font-size: 31px; }
+.fmt-V #seguimiento-w .stage { font-size: 44px; }
+.fmt-V #seguimiento-w .top { flex-direction: column; }
+.fmt-V #seguimiento-w .acts { justify-content: flex-start; }
+.fmt-V #seguimiento-w .lb { font-size: 0.66em; }
+.fmt-S #seguimiento-w .stage { font-size: 25px; }
+.fmt-S #seguimiento-w .lb { font-size: 0.72em; }
+</style>
+<div class="copy"><div class="num">04</div><div class="ttl">Seguimiento del pedido</div><div class="line">Paso a paso, con su recibo en PDF.</div></div>
+<div class="stage" id="seguimiento-stage">
+  <div class="card dt" id="seguimiento-dt">
+    <div class="top">
+      <div class="mh"><span>Detalle de mi pedido</span></div>
+      <div class="acts"><div class="btn ghost" id="seguimiento-pdf"><span class="pdf">PDF</span> Imprimir Recibo<span class="press"></span></div><div class="btn ghost"><span>&#9888;</span> Abrir incidencia</div></div>
+    </div>
+    <div class="ref muted tab">PED-1097</div>
+    <div class="pn">Pedido PED-1097</div>
+    <div class="pills"><span class="pill info" id="seguimiento-p1">Enviado</span><span class="pill ok" id="seguimiento-p2" style="opacity:0">Entregado</span></div>
+    <div class="sh">Seguimiento del pedido</div>
+    <div class="steps" id="seguimiento-steps">
+      <div class="track" id="seguimiento-track" data-layout-ignore><div class="fill" id="seguimiento-fill"></div></div>
+      <div class="st"><div class="dot"><div class="on">&#10003;</div></div><div class="lb">Borrador</div></div>
+      <div class="st"><div class="dot"><div class="on">&#10003;</div></div><div class="lb">Confirmado</div></div>
+      <div class="st"><div class="dot"><div class="on">&#10003;</div></div><div class="lb">En proceso</div></div>
+      <div class="st"><div class="dot"><div class="on">&#10003;</div></div><div class="lb">Enviado</div></div>
+      <div class="st"><div class="dot"><div class="on">&#10003;</div></div><div class="lb last">Entregado</div></div>
+    </div>
+    <div class="foot"><div><div class="k muted">Forma de pago</div><div class="v">Transferencia</div></div><div><div class="k muted">Total pedido</div><div class="v tab">943,30 €</div></div></div>
+  </div>
+</div>
+__CURSOR__
+<script>
+  enter();
+  const ons = $$("#seguimiento-steps .on");
+  tl.fromTo("#seguimiento-fill", { scaleX: 0 }, { scaleX: 0, duration: 0.01 }, 0);
+  ons.forEach((el, i) => {
+    const t = 0.55 + i * 0.3;
+    tl.fromTo(el, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.26, ease: "back.out(3)" }, t);
+    if (i > 0) tl.to("#seguimiento-fill", { scaleX: i / 4, duration: 0.3, ease: "power2.inOut" }, t - 0.3);
+  });
+  // Delivered: the status pill changes with the last step.
+  tl.to("#seguimiento-p1", { opacity: 0, duration: 0.1 }, 1.75);
+  tl.fromTo("#seguimiento-p2", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.5)", transformOrigin: "0% 50%" }, 1.75);
+  // And the receipt, one click away.
+  const start = pick({ x: 1900, y: 1000 }, { x: 1100, y: 1900 }, { x: 1100, y: 1000 });
+  curFrom(start.x, start.y, 0);
+  moveTo("#seguimiento-pdf", 1.75, 0.4);
+  click("#seguimiento-pdf", 2.25);
+  exit(2.74);
+</script>
