@@ -16,7 +16,7 @@
 		<!-- SOLO dependencia al Frontend del padre directo (pinned). Las terceras
 		     llegan transitivamente desde la cadena. NO redeclarar. -->
 		<dependencies>
-			<dependency id="Flexygo.Frontend" version="[10.0.0-beta.137]" />
+			<dependency id="Flexygo.Frontend" version="[10.0.0-beta.202]" />
 		</dependencies>
 		<contentFiles>
 			<files include="**\*.*" buildAction="None" copyToOutput="true" flatten="false" />

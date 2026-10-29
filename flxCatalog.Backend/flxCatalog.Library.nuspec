@@ -17,7 +17,7 @@
 		     Las terceras llegan transitivamente desde el padre. Si este nivel aÃ±ade
 		     alguna tercera NUEVA propia, declararla aquÃ­. -->
 		<dependencies>
-			<dependency id="Flexygo.Library" version="[10.0.0-beta.137]" />
+			<dependency id="Flexygo.Library" version="[10.0.0-beta.202]" />
 		</dependencies>
 		<contentFiles>
 			<files include="**\*.*" buildAction="None" copyToOutput="true" flatten="false" />
