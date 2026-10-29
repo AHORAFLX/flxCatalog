@@ -1,16 +1,16 @@
 {
   "connection": {
-    "baseUrl": "http://cloud.localhost:8880/api",
-    "domain": "localhost",
-    "registry": "localhost:5000"
+    "baseUrl": "https://cloud.cloud.flexygo.com/api",
+    "domain": "cloud.flexygo.com",
+    "registry": "registry.cloud.flexygo.com"
   },
   "product": {
     "name": "Catálogo",
-    "description": "Este es mi catalogo",
+    "description": "Catálogo realizado con flexygo,",
     "imageUrl": "",
     "websiteUrl": "",
     "isActive": true,
-    "version": "1.0.6-beta.1",
+    "version": "1.0.7-beta.1",
     "envVarsSchema": [
       {
         "key": "SQL_PASSWORD",
@@ -19,38 +19,15 @@
         "mode": "Secret"
       }
     ],
-    "composeTemplate": "services:\n  flxcatalog-frontend:\n    image: localhost:5000/flxcatalog-frontend:1.0.6-beta.1\n    restart: unless-stopped\n    environment:\n      ASPNETCORE_ENVIRONMENT: Development\n      BackendEndpoint: http://flxcatalog-backend:8080/api/backend/\n    volumes:\n      - flxcatalog-front-conf:/app/conf\n      - flxcatalog-front-custom:/app/custom\n    networks:\n      - proxy\n      - default\n    depends_on:\n      - flxcatalog-backend\n    labels:\n      - traefik.enable=true\n      - traefik.docker.network=proxy\n      - traefik.http.routers.${APP_SUBDOMAIN}.rule=Host(`${APP_SUBDOMAIN}.${BASE_DOMAIN}`)\n      - traefik.http.services.${APP_SUBDOMAIN}.loadbalancer.server.port=8080\n  flxcatalog-backend:\n    image: localhost:5000/flxcatalog-backend:1.0.6-beta.1\n    restart: unless-stopped\n    environment:\n      ASPNETCORE_ENVIRONMENT: Development\n      MSSQL_SA_PASSWORD: ${SQL_PASSWORD}\n      FrontendEndpoint: http://flxcatalog-frontend:8080\n      ConnectionStrings__ConfConnectionString: Server=flxcatalog-db;Integrated Security=false;Initial Catalog=flxCatalog_IC;User ID=sa;Password=${SQL_PASSWORD};Encrypt=False;TrustServerCertificate=True\n      ConnectionStrings__DataConnectionString: Server=flxcatalog-db;Integrated Security=false;Initial Catalog=flxCatalog_I;User ID=sa;Password=${SQL_PASSWORD};Encrypt=False;TrustServerCertificate=True\n      DatabaseNuget__PackageId: flxCatalog.Conf.Database\n      DatabaseNuget__NugetUrl: http://localhost:5100/v3/index.json\n      DatabaseNuget__PreReleaseVersions: \"true\"\n    volumes:\n      - flxcatalog-back-conf:/app/conf\n      - flxcatalog-back-custom:/app/custom\n    depends_on:\n      flxcatalog-db:\n        condition: service_healthy\n  flxcatalog-db:\n    image: localhost:5000/flxcatalog-db:1.0.6-beta.1\n    restart: unless-stopped\n    environment:\n      ACCEPT_EULA: Y\n      MSSQL_SA_PASSWORD: ${SQL_PASSWORD}\n      MSSQL_PID: Express\n    volumes:\n      - flxcatalog-db-data:/var/opt/mssql/data/\n      - flxcatalog-db-log:/var/opt/mssql/log/\n      - flxcatalog-db-secrets:/var/opt/mssql/secrets/\nvolumes:\n  flxcatalog-front-conf:\n  flxcatalog-front-custom:\n  flxcatalog-back-conf:\n  flxcatalog-back-custom:\n  flxcatalog-db-data:\n  flxcatalog-db-log:\n  flxcatalog-db-secrets:\nnetworks:\n  proxy:\n    external: true\n",
-    "id": "36cb615b-517b-4834-b592-adb53d06bb87"
+    "composeTemplate": "services:\n  flxcatalog-frontend:\n    image: registry.cloud.flexygo.com/flxcatalog-frontend:1.0.7-beta.1\n    restart: unless-stopped\n    environment:\n      ASPNETCORE_ENVIRONMENT: Development\n      BackendEndpoint: http://flxcatalog-backend:8080/api/backend/\n    volumes:\n      - flxcatalog-front-conf:/app/conf\n      - flxcatalog-front-custom:/app/custom\n    networks:\n      - proxy\n      - default\n    depends_on:\n      - flxcatalog-backend\n    labels:\n      - traefik.enable=true\n      - traefik.docker.network=proxy\n      - traefik.http.routers.${APP_SUBDOMAIN}.rule=Host(`${APP_SUBDOMAIN}.${BASE_DOMAIN}`)\n      - traefik.http.services.${APP_SUBDOMAIN}.loadbalancer.server.port=8080\n  flxcatalog-backend:\n    image: registry.cloud.flexygo.com/flxcatalog-backend:1.0.7-beta.1\n    restart: unless-stopped\n    environment:\n      ASPNETCORE_ENVIRONMENT: Development\n      MSSQL_SA_PASSWORD: ${SQL_PASSWORD}\n      FrontendEndpoint: http://flxcatalog-frontend:8080\n      ConnectionStrings__ConfConnectionString: Server=flxcatalog-db;Integrated Security=false;Initial Catalog=flxCatalog_IC;User ID=sa;Password=${SQL_PASSWORD};Encrypt=False;TrustServerCertificate=True\n      ConnectionStrings__DataConnectionString: Server=flxcatalog-db;Integrated Security=false;Initial Catalog=flxCatalog_I;User ID=sa;Password=${SQL_PASSWORD};Encrypt=False;TrustServerCertificate=True\n      DatabaseNuget__PackageId: flxCatalog.Conf.Database\n      DatabaseNuget__NugetUrl: https://nuget.cloud.flexygo.com/v3/index.json\n      DatabaseNuget__PreReleaseVersions: \"true\"\n    volumes:\n      - flxcatalog-back-conf:/app/conf\n      - flxcatalog-back-custom:/app/custom\n    depends_on:\n      flxcatalog-db:\n        condition: service_healthy\n  flxcatalog-db:\n    image: registry.cloud.flexygo.com/flxcatalog-db:1.0.7-beta.1\n    restart: unless-stopped\n    environment:\n      ACCEPT_EULA: Y\n      MSSQL_SA_PASSWORD: ${SQL_PASSWORD}\n      MSSQL_PID: Express\n    volumes:\n      - flxcatalog-db-data:/var/opt/mssql/data/\n      - flxcatalog-db-log:/var/opt/mssql/log/\n      - flxcatalog-db-secrets:/var/opt/mssql/secrets/\nvolumes:\n  flxcatalog-front-conf:\n  flxcatalog-front-custom:\n  flxcatalog-back-conf:\n  flxcatalog-back-custom:\n  flxcatalog-db-data:\n  flxcatalog-db-log:\n  flxcatalog-db-secrets:\nnetworks:\n  proxy:\n    external: true\n"
   },
   "lastRun": {
-    "date": "2026-10-14T11:09:29.426Z",
-    "success": true,
-    "stage": "verification",
-    "message": "Test deployment OK — pending cleanup.",
-    "requestBody": {
-      "name": "Catálogo",
-      "description": "Este es mi catalogo",
-      "envVarsSchema": [
-        {
-          "key": "SQL_PASSWORD",
-          "label": "Contraseña de la base de datos (sa)",
-          "defaultValue": "-CHANGE_me1234",
-          "mode": "Secret"
-        }
-      ],
-      "composeTemplate": "services:\n  flxcatalog-frontend:\n    image: localhost:5000/flxcatalog-frontend:1.0.6-beta.1\n    restart: unless-stopped\n    environment:\n      ASPNETCORE_ENVIRONMENT: Development\n      BackendEndpoint: http://flxcatalog-backend:8080/api/backend/\n    volumes:\n      - flxcatalog-front-conf:/app/conf\n      - flxcatalog-front-custom:/app/custom\n    networks:\n      - proxy\n      - default\n    depends_on:\n      - flxcatalog-backend\n    labels:\n      - traefik.enable=true\n      - traefik.docker.network=proxy\n      - traefik.http.routers.${APP_SUBDOMAIN}.rule=Host(`${APP_SUBDOMAIN}.${BASE_DOMAIN}`)\n      - traefik.http.services.${APP_SUBDOMAIN}.loadbalancer.server.port=8080\n  flxcatalog-backend:\n    image: localhost:5000/flxcatalog-backend:1.0.6-beta.1\n    restart: unless-stopped\n    environment:\n      ASPNETCORE_ENVIRONMENT: Development\n      MSSQL_SA_PASSWORD: ${SQL_PASSWORD}\n      FrontendEndpoint: http://flxcatalog-frontend:8080\n      ConnectionStrings__ConfConnectionString: Server=flxcatalog-db;Integrated Security=false;Initial Catalog=flxCatalog_IC;User ID=sa;Password=${SQL_PASSWORD};Encrypt=False;TrustServerCertificate=True\n      ConnectionStrings__DataConnectionString: Server=flxcatalog-db;Integrated Security=false;Initial Catalog=flxCatalog_I;User ID=sa;Password=${SQL_PASSWORD};Encrypt=False;TrustServerCertificate=True\n      DatabaseNuget__PackageId: flxCatalog.Conf.Database\n      DatabaseNuget__NugetUrl: http://localhost:5100/v3/index.json\n      DatabaseNuget__PreReleaseVersions: \"true\"\n    volumes:\n      - flxcatalog-back-conf:/app/conf\n      - flxcatalog-back-custom:/app/custom\n    depends_on:\n      flxcatalog-db:\n        condition: service_healthy\n  flxcatalog-db:\n    image: localhost:5000/flxcatalog-db:1.0.6-beta.1\n    restart: unless-stopped\n    environment:\n      ACCEPT_EULA: Y\n      MSSQL_SA_PASSWORD: ${SQL_PASSWORD}\n      MSSQL_PID: Express\n    volumes:\n      - flxcatalog-db-data:/var/opt/mssql/data/\n      - flxcatalog-db-log:/var/opt/mssql/log/\n      - flxcatalog-db-secrets:/var/opt/mssql/secrets/\nvolumes:\n  flxcatalog-front-conf:\n  flxcatalog-front-custom:\n  flxcatalog-back-conf:\n  flxcatalog-back-custom:\n  flxcatalog-db-data:\n  flxcatalog-db-log:\n  flxcatalog-db-secrets:\nnetworks:\n  proxy:\n    external: true\n"
-    },
+    "date": "2026-10-28T07:47:08.541Z",
+    "success": false,
+    "stage": "images",
+    "message": "Failed to publish registry.cloud.flexygo.com/flxcatalog-backend:1.0.7-beta.1 (Exit code: 1)\nunknown: failed commit on ref \"layer-sha256:f6bb666d6a56b0718e9a7449b1b6000ad8479dff8b72b56d34a580b1140d795d\": unexpected status from PUT request to https://registry.cloud.flexygo.com/v2/flxcatalog-backend/blobs/uploads/01a18179-3c15-741e-9399-45660857853d?_state=RwzDuAjJJrZGvYAIPCIkfXNxGtBhvLfRy7_2dGrF00Z7Ik5hbWUiOiJmbHhjYXRhbG9nLWJhY2tlbmQiLCJVVUlEIjoiMDFhMTgxNzktM2MxNS03NDFlLTkzOTktNDU2NjA4NTc4NTNkIiwiT2Zmc2V0IjowLCJTdGFydGVkQXQiOiIyMDI2LTEwLTI4VDA3OjQ2OjA4LjUzMzI3MDM1OVoifQ%3D%3D&digest=sha256%3Af6bb666d6a56b0718e9a7449b1b6000ad8479dff8b72b56d34a580b1140d795d: 499 status code 499\n",
     "verification": [
-      "Cliente de prueba f2b60a58-8fbc-48d9-9ce3-229423ef0155 creado",
-      "Aplicación 2f4c3512-6aab-412d-bc41-58bea271d103 desplegada en http://prueba-eee678.localhost:8880",
-      "Contraseña del administrador de la instancia de prueba (si el portal usa el motor SQL común): ***",
-      "Estado tras desplegar: Running",
-      "http://prueba-eee678.localhost:8880 responde HTTP 302",
-      "deployment-status OK: Frontend 1.0.6-beta.1 · Backend 1.0.6-beta.1 · BBDD 1.0.6-beta.1",
-      "Log de instalación: Unattended setup completed in 120 s. Project 'prueba-eee678'. Configuration database: prueba_eee678_flxCatalog_IC Created | Main data Configuration String: prueba_eee678_flxCatalog_I Created | Mail: not configured",
-      "Parar: Stopped",
-      "Arrancar: Running",
-      "deployment-status OK: Frontend 1.0.6-beta.1 · Backend 1.0.6-beta.1 · BBDD 1.0.6-beta.1"
+      "Error en images: Failed to publish registry.cloud.flexygo.com/flxcatalog-backend:1.0.7-beta.1 (Exit code: 1)\nunknown: failed commit on ref \"layer-sha256:f6bb666d6a56b0718e9a7449b1b6000ad8479dff8b72b56d34a580b1140d795d\": unexpected status from PUT request to https://registry.cloud.flexygo.com/v2/flxcatalog-backend/blobs/uploads/01a18179-3c15-741e-9399-45660857853d?_state=RwzDuAjJJrZGvYAIPCIkfXNxGtBhvLfRy7_2dGrF00Z7Ik5hbWUiOiJmbHhjYXRhbG9nLWJhY2tlbmQiLCJVVUlEIjoiMDFhMTgxNzktM2MxNS03NDFlLTkzOTktNDU2NjA4NTc4NTNkIiwiT2Zmc2V0IjowLCJTdGFydGVkQXQiOiIyMDI2LTEwLTI4VDA3OjQ2OjA4LjUzMzI3MDM1OVoifQ%3D%3D&digest=sha256%3Af6bb666d6a56b0718e9a7449b1b6000ad8479dff8b72b56d34a580b1140d795d: 499 status code 499\n"
     ]
   }
 }

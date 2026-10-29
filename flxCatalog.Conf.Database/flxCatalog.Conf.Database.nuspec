@@ -15,7 +15,7 @@
 		<releaseNotes />
 		<dependencies>
 			<dependency id="Microsoft.SqlServer.Dacpacs.Master" version="160.2.1" />
-			<dependency id="Flexygo.Conf.Database" version="[10.0.0-beta.137]" />
+			<dependency id="Flexygo.Conf.Database" version="[10.0.0-beta.202]" />
 		</dependencies>
 	</metadata>
 	<files>

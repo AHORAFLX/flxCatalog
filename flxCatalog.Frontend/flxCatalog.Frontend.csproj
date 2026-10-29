@@ -41,7 +41,7 @@
     <Content Include="Dockerfile" CopyToPublishDirectory="PreserveNewest" />
     <Content Include=".dockerignore" CopyToPublishDirectory="PreserveNewest" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.9.2" />
-    <PackageReference Include="Flexygo.Frontend" Version="10.0.0-beta.137">
+    <PackageReference Include="Flexygo.Frontend" Version="10.0.0-beta.202">
       <ExcludeAssets>contentFiles</ExcludeAssets>
     </PackageReference>
   </ItemGroup>

@@ -53,6 +53,6 @@
     <Folder Include="scripts\staticdata\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Flexygo.Conf.Database" Version="10.0.0-beta.137" />
+    <PackageReference Include="Flexygo.Conf.Database" Version="10.0.0-beta.202" />
   </ItemGroup>
 </Project>
