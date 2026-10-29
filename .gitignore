@@ -298,3 +298,6 @@ flxCatalog.Frontend/wwwroot/**/*.d.ts
 # flexygo_script_changes exporta AspNetUsers con PasswordHash/SecurityStamp en claro.
 # Nunca se versiona: son credenciales reales de las cuentas del entorno local.
 flxCatalog.Conf.Database/scripts/staticdata/aspnetusers.sql
+
+# Estado local del editor de vídeo HyperFrames (rutas de la máquina, se regenera solo)
+**/.hyperframes/
